@@ -1,3 +1,5 @@
-# LeanKey Keyboard sources
+# LeanKey Keyboard
 
-Original app can be found on the [Google Play](https://play.google.com/store/apps/details?id=org.liskovsoft.androidtv.rukeyboard)
+## Keyboard for Android-based set-top boxes and TVs
+
+This is sources for the famous app from the [Google Play](https://play.google.com/store/apps/details?id=org.liskovsoft.androidtv.rukeyboard)
