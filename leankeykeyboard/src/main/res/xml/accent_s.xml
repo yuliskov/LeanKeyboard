@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard android:keyWidth="@dimen/key_width" android:keyHeight="@dimen/key_height" android:horizontalGap="@dimen/keyboard_horizontal_gap" android:verticalGap="@dimen/keyboard_vertical_gap"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <Row>
+        <Key android:codes="115" android:keyLabel="s" />
+        <Key android:codes="223" android:keyLabel="ß" />
+        <Key android:codes="347" android:keyLabel="ś" />
+        <Key android:codes="351" android:keyLabel="ş" />
+        <Key android:codes="353" android:keyLabel="š" />
+    </Row>
+</Keyboard>

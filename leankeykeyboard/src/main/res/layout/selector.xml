@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@+id/selector" android:clipChildren="false" android:layout_width="@dimen/selector_size" android:layout_height="@dimen/selector_size"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@+id/key_selector" android:background="@drawable/key_selector" android:clipChildren="false" android:layout_width="fill_parent" android:layout_height="fill_parent" android:scaleType="centerInside" />
+</FrameLayout>

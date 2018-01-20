@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="key_height">28.0dip</dimen>
+    <dimen name="key_width">28.0dip</dimen>
+    <dimen name="space_key_width">268.0dip</dimen>
+    <dimen name="keyboard_horizontal_gap">12.0dip</dimen>
+    <dimen name="keyboard_vertical_gap">8.0dip</dimen>
+    <dimen name="recognizer_size">96.0dip</dimen>
+    <dimen name="selector_size">24.0dip</dimen>
+    <dimen name="keyboard_top_spacing">6.0dip</dimen>
+    <dimen name="keyboard_bottom_spacing">28.0dip</dimen>
+    <dimen name="action_button_size">64.0dip</dimen>
+    <dimen name="enter_key_height">32.0dip</dimen>
+    <dimen name="enter_key_font_size">18.0sp</dimen>
+    <dimen name="enter_key_padding_horizontal">16.0dip</dimen>
+    <dimen name="mode_change_key_font_size">7.0sp</dimen>
+    <dimen name="candidate_font_size">18.0sp</dimen>
+    <dimen name="candidate_padding_horizontal">16.0dip</dimen>
+    <dimen name="candidate_margin_horizontal">4.0dip</dimen>
+    <dimen name="candidate_height">28.0dip</dimen>
+    <dimen name="candidate_scroll_view_horz_spacing">56.0dip</dimen>
+    <dimen name="key_font_size">18.0sp</dimen>
+    <dimen name="function_key_mode_change_font_size">16.0sp</dimen>
+    <dimen name="resize_move_distance">12.0dip</dimen>
+</resources>

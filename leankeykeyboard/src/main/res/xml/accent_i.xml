@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard android:keyWidth="@dimen/key_width" android:keyHeight="@dimen/key_height" android:horizontalGap="@dimen/keyboard_horizontal_gap" android:verticalGap="@dimen/keyboard_vertical_gap"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <Row>
+        <Key android:codes="105" android:keyLabel="i" />
+        <Key android:codes="236" android:keyLabel="ì" />
+        <Key android:codes="237" android:keyLabel="í" />
+        <Key android:codes="238" android:keyLabel="î" />
+        <Key android:codes="239" android:keyLabel="ï" />
+        <Key android:codes="299" android:keyLabel="ī" />
+        <Key android:codes="303" android:keyLabel="į" />
+    </Row>
+</Keyboard>

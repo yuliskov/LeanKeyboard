@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BitmapSoundLevelView">
+        <attr name="enabledBackgroundColor" format="reference|color" />
+        <attr name="disabledBackgroundColor" format="reference|color" />
+        <attr name="primaryLevels" format="reference" />
+        <attr name="trailLevels" format="reference" />
+        <attr name="minLevelRadius" format="reference|dimension" />
+        <attr name="levelsCenterX" format="reference|dimension" />
+        <attr name="levelsCenterY" format="reference|dimension" />
+
+        <attr name="headerAlpha" format="dimension" />
+        <attr name="soundTrailLevel" format="reference" />
+        <attr name="soundPrimaryLevel" format="reference" />
+    </declare-styleable>
+</resources>

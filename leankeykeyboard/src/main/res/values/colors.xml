@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="search_mic_levels_guideline">#ffcccccc</color>
+    <color name="search_mic_background">#ffffffff</color>
+    <color name="keyboard_background">#ff384248</color>
+    <color name="key_text_default">#ffeeeeee</color>
+    <color name="ime_selector_focus_color">#66eeeeee</color>
+    <color name="ime_selector_color">#26eeeeee</color>
+    <color name="candidate_background">#ff263238</color>
+    <color name="candidate_font_color">#ff30c6b4</color>
+    <color name="enter_key_font_color">#ff30c6b4</color>
+</resources>

@@ -1,0 +1,40 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.0'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+    // WARNING: don't use 'project.ext' because IDE 'Cannot infer argument type'
+    // https://stackoverflow.com/questions/20404476/how-to-define-common-android-properties-for-all-modules-using-gradle
+    // Gradle constants example: https://github.com/google/ExoPlayer
+    ext {
+        compileSdkVersion = 27
+        buildToolsVersion = "27.0.3"
+        minSdkVersion = 14
+        targetSdkVersion = 27
+        appCompatVersion = 'com.android.support:appcompat-v7:27.+'
+        espressoCoreVersion = 'com.android.support.test.espresso:espresso-core:2.2.2'
+        junitVersion = 'junit:junit:4.12'
+        supportVersion = 'com.android.support:support-v4:27.+'
+        robolectricVersion = 'org.robolectric:robolectric:3.5.1'
+        crashlyticsVersion = 'com.crashlytics.sdk.android:crashlytics:2.8.0@aar'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        // com.android.support libs
+        maven { url 'https://maven.google.com' }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="clicked_anim_duration">100</integer>
+    <integer name="unfocused_anim_delay">30</integer>
+    <integer name="voice_anim_duration">300</integer>
+    <integer name="inactive_mini_kb_alpha">40</integer>
+</resources>

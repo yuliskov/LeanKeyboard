@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="common_domains">
+        <item>\@gmail.com</item>
+        <item>\@yahoo.com</item>
+        <item>\@hotmail.com</item>
+    </string-array>
+    <string-array name="movement_sensitivity_values">
+        <item>0.6</item>
+        <item>0.8</item>
+        <item>1.0</item>
+        <item>1.2</item>
+        <item>1.4</item>
+    </string-array>
+</resources>

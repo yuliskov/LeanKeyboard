@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LeanbackKeyboardView">
+        <attr name="rowCount" format="integer" />
+        <attr name="columnCount" format="integer" />
+    </declare-styleable>
+</resources>

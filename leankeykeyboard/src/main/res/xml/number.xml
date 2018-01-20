@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard android:keyWidth="@dimen/key_width" android:keyHeight="@dimen/key_height" android:horizontalGap="@dimen/keyboard_horizontal_gap" android:verticalGap="@dimen/keyboard_vertical_gap"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <Row>
+        <Key android:codes="49" android:keyEdgeFlags="left" android:keyLabel="1" />
+        <Key android:codes="50" android:keyLabel="2" />
+        <Key android:codes="51" android:keyLabel="3" />
+        <Key android:codes="95" android:keyEdgeFlags="right" android:keyLabel="_" />
+    </Row>
+    <Row>
+        <Key android:codes="52" android:keyEdgeFlags="left" android:keyLabel="4" />
+        <Key android:codes="53" android:keyLabel="5" />
+        <Key android:codes="54" android:keyLabel="6" />
+        <Key android:codes="46" android:keyEdgeFlags="right" android:keyLabel="." />
+    </Row>
+    <Row>
+        <Key android:codes="55" android:keyEdgeFlags="left" android:keyLabel="7" />
+        <Key android:codes="56" android:keyLabel="8" />
+        <Key android:codes="57" android:keyLabel="9" />
+        <Key android:codes="-5" android:keyEdgeFlags="right" android:keyLabel="@string/keyboardview_keycode_delete" android:keyIcon="@drawable/ic_ime_delete" />
+    </Row>
+    <Row android:rowEdgeFlags="bottom">
+        <Key android:codes="42" android:keyEdgeFlags="left" android:keyLabel="*" />
+        <Key android:codes="48" android:keyLabel="0" />
+        <Key android:codes="35" android:keyLabel="\#" />
+        <Key android:codes="63" android:keyEdgeFlags="right" android:keyLabel="\?" />
+    </Row>
+</Keyboard>

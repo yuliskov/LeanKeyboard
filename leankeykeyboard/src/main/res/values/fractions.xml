@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <fraction name="clicked_scale">88.0%</fraction>
+    <fraction name="focused_scale">119.99817%</fraction>
+    <fraction name="alpha_in">100.0%</fraction>
+    <fraction name="alpha_out">0.0%</fraction>
+</resources>
