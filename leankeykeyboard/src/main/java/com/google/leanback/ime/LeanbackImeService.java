@@ -6,6 +6,7 @@ import android.inputmethodservice.InputMethodService;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,6 +14,8 @@ import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import com.google.android.leanback.ime.LeanbackKeyboardController;
+import com.google.android.leanback.ime.LeanbackKeyboardController.InputListener;
+import com.google.android.leanback.ime.LeanbackKeyboardView;
 import com.google.android.leanback.ime.LeanbackSuggestionsFactory;
 import com.google.android.leanback.ime.LeanbackUtils;
 
@@ -38,8 +41,9 @@ public class LeanbackImeService extends InputMethodService {
         }
     };
     private LeanbackKeyboardController.InputListener mInputListener = new LeanbackKeyboardController.InputListener() {
-        public void onEntry(int var1, int var2, CharSequence var3) {
-            LeanbackImeService.this.handleTextEntry(var1, var2, var3);
+        @Override
+        public void onEntry(int type, int keyCode, CharSequence text) {
+            LeanbackImeService.this.handleTextEntry(type, keyCode, text);
         }
     };
     private View mInputView;
@@ -56,160 +60,156 @@ public class LeanbackImeService extends InputMethodService {
     }
 
     private void clearSuggestionsDelayed() {
-        if (!this.mSuggestionsFactory.shouldSuggestionsAmend()) {
-            this.mHandler.removeMessages(123);
-            this.mShouldClearSuggestions = true;
-            this.mHandler.sendEmptyMessageDelayed(123, 1000L);
+        if (!mSuggestionsFactory.shouldSuggestionsAmend()) {
+            mHandler.removeMessages(MSG_SUGGESTIONS_CLEAR);
+            mShouldClearSuggestions = true;
+            mHandler.sendEmptyMessageDelayed(MSG_SUGGESTIONS_CLEAR, SUGGESTIONS_CLEAR_DELAY);
         }
 
     }
 
-    private int getAmpersandLocation(InputConnection var1) {
-        String var4 = this.getEditorText(var1);
-        int var3 = var4.indexOf(64);
-        int var2 = var3;
-        if (var3 < 0) {
-            var2 = var4.length();
+    private int getAmpersandLocation(InputConnection connection) {
+        String text = getEditorText(connection);
+        int pos = text.indexOf(64);
+        if (pos < 0) { // not found
+            pos = text.length();
         }
 
-        return var2;
+        return pos;
     }
 
-    private int getCharLengthAfterCursor(InputConnection var1) {
-        int var2 = 0;
-        CharSequence var3 = var1.getTextAfterCursor(1000, 0);
-        if (var3 != null) {
-            var2 = var3.length();
+    private int getCharLengthAfterCursor(InputConnection connection) {
+        int len = 0;
+        CharSequence after = connection.getTextAfterCursor(1000, 0);
+        if (after != null) {
+            len = after.length();
         }
 
-        return var2;
+        return len;
     }
 
-    private int getCharLengthBeforeCursor(InputConnection var1) {
-        int var2 = 0;
-        CharSequence var3 = var1.getTextBeforeCursor(1000, 0);
-        if (var3 != null) {
-            var2 = var3.length();
+    private int getCharLengthBeforeCursor(InputConnection connection) {
+        int len = 0;
+        CharSequence before = connection.getTextBeforeCursor(1000, 0);
+        if (before != null) {
+            len = before.length();
         }
 
-        return var2;
+        return len;
     }
 
-    private String getEditorText(InputConnection var1) {
-        StringBuilder var2 = new StringBuilder();
-        CharSequence var3 = var1.getTextBeforeCursor(1000, 0);
-        CharSequence var4 = var1.getTextAfterCursor(1000, 0);
-        if (var3 != null) {
-            var2.append(var3);
+    private String getEditorText(InputConnection connection) {
+        StringBuilder result = new StringBuilder();
+        CharSequence before = connection.getTextBeforeCursor(1000, 0);
+        CharSequence after = connection.getTextAfterCursor(1000, 0);
+        if (before != null) {
+            result.append(before);
         }
 
-        if (var4 != null) {
-            var2.append(var4);
+        if (after != null) {
+            result.append(after);
         }
 
-        return var2.toString();
+        return result.toString();
     }
 
-    private void handleTextEntry(int var1, int var2, CharSequence var3) {
-        InputConnection var5 = this.getCurrentInputConnection();
-        boolean var4 = true;
-        if (var5 != null) {
-            boolean var6;
-            switch (var1) {
-                case 0:
-                    this.clearSuggestionsDelayed();
-                    if (this.mEnterSpaceBeforeCommitting && this.mKeyboardController.enableAutoEnterSpace()) {
-                        if (LeanbackUtils.isAlphabet(var2)) {
-                            var5.commitText(" ", 1);
+    private void handleTextEntry(final int type, final int keyCode, final CharSequence text) {
+        final InputConnection connection = getCurrentInputConnection();
+        if (connection != null) {
+            boolean updateSuggestions;
+            switch (type) {
+                case InputListener.ENTRY_TYPE_STRING:
+                    clearSuggestionsDelayed();
+                    if (mEnterSpaceBeforeCommitting && mKeyboardController.enableAutoEnterSpace()) {
+                        if (LeanbackUtils.isAlphabet(keyCode)) {
+                            connection.commitText(" ", 1);
                         }
 
-                        this.mEnterSpaceBeforeCommitting = false;
+                        mEnterSpaceBeforeCommitting = false;
                     }
 
-                    var5.commitText(var3, 1);
-                    var6 = var4;
-                    if (var2 == 46) {
-                        this.mEnterSpaceBeforeCommitting = true;
-                        var6 = var4;
+                    connection.commitText(text, 1);
+                    updateSuggestions = true;
+                    if (keyCode == LeanbackKeyboardView.ASCII_PERIOD) {
+                        mEnterSpaceBeforeCommitting = true;
                     }
                     break;
-                case 1:
-                    this.clearSuggestionsDelayed();
-                    var5.deleteSurroundingText(1, 0);
-                    this.mEnterSpaceBeforeCommitting = false;
-                    var6 = var4;
+                case InputListener.ENTRY_TYPE_BACKSPACE:
+                    clearSuggestionsDelayed();
+                    connection.deleteSurroundingText(1, 0);
+                    mEnterSpaceBeforeCommitting = false;
+                    updateSuggestions = true;
                     break;
-                case 2:
-                case 6:
-                    this.clearSuggestionsDelayed();
-                    if (!this.mSuggestionsFactory.shouldSuggestionsAmend()) {
-                        var5.deleteSurroundingText(this.getCharLengthBeforeCursor(var5), this.getCharLengthAfterCursor(var5));
+                case InputListener.ENTRY_TYPE_SUGGESTION:
+                case InputListener.ENTRY_TYPE_VOICE:
+                    clearSuggestionsDelayed();
+                    if (!mSuggestionsFactory.shouldSuggestionsAmend()) {
+                        connection.deleteSurroundingText(this.getCharLengthBeforeCursor(connection), this.getCharLengthAfterCursor(connection));
                     } else {
-                        var1 = this.getAmpersandLocation(var5);
-                        var5.setSelection(var1, var1);
-                        var5.deleteSurroundingText(0, this.getCharLengthAfterCursor(var5));
+                        int location = this.getAmpersandLocation(connection);
+                        connection.setSelection(location, location);
+                        connection.deleteSurroundingText(0, this.getCharLengthAfterCursor(connection));
                     }
 
-                    var5.commitText(var3, 1);
-                    this.mEnterSpaceBeforeCommitting = true;
-                case 5:
-                    this.sendDefaultEditorAction(false);
-                    var6 = false;
+                    connection.commitText(text, 1);
+                    mEnterSpaceBeforeCommitting = true;
+                case InputListener.ENTRY_TYPE_ACTION:
+                    sendDefaultEditorAction(false);
+                    updateSuggestions = false;
                     break;
-                case 3:
-                case 4:
-                    var3 = var5.getTextBeforeCursor(1000, 0);
-                    if (var3 == null) {
-                        var2 = 0;
+                case InputListener.ENTRY_TYPE_LEFT:
+                case InputListener.ENTRY_TYPE_RIGHT:
+                    CharSequence textBeforeCursor = connection.getTextBeforeCursor(1000, 0);
+                    int len;
+                    if (textBeforeCursor == null) {
+                        len = 0;
                     } else {
-                        var2 = var3.length();
+                        len = textBeforeCursor.length();
                     }
 
-                    if (var1 == 3) {
-                        var1 = var2;
-                        if (var2 > 0) {
-                            var1 = var2 - 1;
+                    int index;
+                    if (type == InputListener.ENTRY_TYPE_LEFT) {
+                        index = len;
+                        if (len > 0) {
+                            index = len - 1;
                         }
                     } else {
-                        var3 = var5.getTextAfterCursor(1000, 0);
-                        var1 = var2;
-                        if (var3 != null) {
-                            var1 = var2;
-                            if (var3.length() > 0) {
-                                var1 = var2 + 1;
-                            }
+                        textBeforeCursor = connection.getTextAfterCursor(1000, 0);
+                        index = len;
+                        if (textBeforeCursor != null && textBeforeCursor.length() > 0) {
+                            index = len + 1;
                         }
                     }
 
-                    var5.setSelection(var1, var1);
-                    var6 = var4;
+                    connection.setSelection(index, index);
+                    updateSuggestions = true;
                     break;
-                case 7:
-                    var5.performEditorAction(1);
-                    var6 = false;
+                case InputListener.ENTRY_TYPE_DISMISS:
+                    connection.performEditorAction(EditorInfo.IME_ACTION_NONE);
+                    updateSuggestions = false;
                     break;
-                case 8:
-                    var5.performEditorAction(2);
-                    var6 = false;
+                case InputListener.ENTRY_TYPE_VOICE_DISMISS:
+                    connection.performEditorAction(EditorInfo.IME_ACTION_GO);
+                    updateSuggestions = false;
                     break;
                 default:
-                    var6 = var4;
+                    updateSuggestions = true;
             }
 
-            if (this.mKeyboardController.areSuggestionsEnabled() && var6) {
-                this.mKeyboardController.updateSuggestions(this.mSuggestionsFactory.getSuggestions());
-                return;
+            if (mKeyboardController.areSuggestionsEnabled() && updateSuggestions) {
+                mKeyboardController.updateSuggestions(mSuggestionsFactory.getSuggestions());
             }
         }
-
     }
 
+    @Override
     public View onCreateInputView() {
         this.mInputView = this.mKeyboardController.getView();
         this.mInputView.requestFocus();
         return this.mInputView;
     }
 
+    @Override
     public void onDisplayCompletions(CompletionInfo[] var1) {
         if (this.mKeyboardController.areSuggestionsEnabled()) {
             this.mShouldClearSuggestions = false;
@@ -231,47 +231,56 @@ public class LeanbackImeService extends InputMethodService {
         return true;
     }
 
+    @Override
     public void onFinishInputView(boolean var1) {
         super.onFinishInputView(var1);
-        this.sendBroadcast(new Intent("com.google.android.athome.action.IME_CLOSE"));
+        this.sendBroadcast(new Intent(IME_CLOSE));
         this.mSuggestionsFactory.clearSuggestions();
     }
 
-    public boolean onGenericMotionEvent(MotionEvent var1) {
-        return this.isInputViewShown() && (var1.getSource() & 2097152) == 2097152 && this.mKeyboardController.onGenericMotionEvent(var1) ? true :
-                super.onGenericMotionEvent(var1);
+    @SuppressLint("NewApi")
+    @Override
+    public boolean onGenericMotionEvent(MotionEvent event) {
+        return isInputViewShown() &&
+                (event.getSource() & InputDevice.SOURCE_TOUCH_NAVIGATION) == InputDevice.SOURCE_TOUCH_NAVIGATION &&
+                mKeyboardController.onGenericMotionEvent(event) || super.onGenericMotionEvent(event);
     }
 
     public void onHideIme() {
         this.requestHideSelf(0);
     }
 
+    @Override
     public void onInitializeInterface() {
-        this.mKeyboardController = new LeanbackKeyboardController(this, this.mInputListener);
-        this.mEnterSpaceBeforeCommitting = false;
-        this.mSuggestionsFactory = new LeanbackSuggestionsFactory(this, 10);
+        mKeyboardController = new LeanbackKeyboardController(this, mInputListener);
+        mEnterSpaceBeforeCommitting = false;
+        mSuggestionsFactory = new LeanbackSuggestionsFactory(this, MAX_SUGGESTIONS);
     }
 
-    public boolean onKeyDown(int var1, KeyEvent var2) {
-        return this.isInputViewShown() && this.mKeyboardController.onKeyDown(var1, var2) ? true : super.onKeyDown(var1, var2);
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return isInputViewShown() && mKeyboardController.onKeyDown(keyCode, event) || super.onKeyDown(keyCode, event);
     }
 
-    public boolean onKeyUp(int var1, KeyEvent var2) {
-        return this.isInputViewShown() && this.mKeyboardController.onKeyUp(var1, var2) ? true : super.onKeyUp(var1, var2);
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        return isInputViewShown() && mKeyboardController.onKeyUp(keyCode, event) || super.onKeyUp(keyCode, event);
     }
 
-    public boolean onShowInputRequested(int var1, boolean var2) {
+    @Override
+    public boolean onShowInputRequested(int flags, boolean configChange) {
         return true;
     }
 
-    public int onStartCommand(Intent var1, int var2, int var3) {
-        if (var1 != null) {
-            super.onStartCommand(var1, var2, var3);
-            if (var1.getBooleanExtra("restart", false)) {
+    @Override
+    public int onStartCommand(final Intent intent, final int flags, final int startId) {
+        if (intent != null) {
+            super.onStartCommand(intent, flags, startId);
+            if (intent.getBooleanExtra("restart", false)) {
                 Log.e("LeanbackImeService", "Service->onStartCommand: trying to restart service");
-                LeanbackKeyboardController var4 = this.mKeyboardController;
-                if (var4 != null) {
-                    var4.updateAddonKeyboard();
+                LeanbackKeyboardController controller = mKeyboardController;
+                if (controller != null) {
+                    controller.updateAddonKeyboard();
                 }
             }
         }
@@ -279,25 +288,27 @@ public class LeanbackImeService extends InputMethodService {
         return 1;
     }
 
-    public void onStartInput(EditorInfo var1, boolean var2) {
-        super.onStartInput(var1, var2);
-        this.mEnterSpaceBeforeCommitting = false;
-        this.mSuggestionsFactory.onStartInput(var1);
-        this.mKeyboardController.onStartInput(var1);
+    @Override
+    public void onStartInput(EditorInfo info, boolean restarting) {
+        super.onStartInput(info, restarting);
+        mEnterSpaceBeforeCommitting = false;
+        mSuggestionsFactory.onStartInput(info);
+        mKeyboardController.onStartInput(info);
     }
 
-    public void onStartInputView(EditorInfo var1, boolean var2) {
-        super.onStartInputView(var1, var2);
-        this.mKeyboardController.onStartInputView();
-        this.sendBroadcast(new Intent("com.google.android.athome.action.IME_OPEN"));
-        if (this.mKeyboardController.areSuggestionsEnabled()) {
-            this.mSuggestionsFactory.createSuggestions();
-            this.mKeyboardController.updateSuggestions(this.mSuggestionsFactory.getSuggestions());
-            InputConnection var4 = this.getCurrentInputConnection();
-            if (var4 != null) {
-                String var3 = this.getEditorText(var4);
-                var4.deleteSurroundingText(this.getCharLengthBeforeCursor(var4), this.getCharLengthAfterCursor(var4));
-                var4.commitText(var3, 1);
+    @Override
+    public void onStartInputView(EditorInfo info, boolean restarting) {
+        super.onStartInputView(info, restarting);
+        mKeyboardController.onStartInputView();
+        sendBroadcast(new Intent(IME_OPEN));
+        if (mKeyboardController.areSuggestionsEnabled()) {
+            mSuggestionsFactory.createSuggestions();
+            mKeyboardController.updateSuggestions(mSuggestionsFactory.getSuggestions());
+            InputConnection connection = getCurrentInputConnection();
+            if (connection != null) {
+                String text = getEditorText(connection);
+                connection.deleteSurroundingText(getCharLengthBeforeCursor(connection), getCharLengthAfterCursor(connection));
+                connection.commitText(text, 1);
             }
         }
 

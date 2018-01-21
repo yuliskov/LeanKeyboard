@@ -127,13 +127,13 @@ public class TouchNavSpaceTracker {
       return var3;
    }
 
-   private void checkForLongClick(int var1, KeyEvent var2) {
+   private void checkForLongClick(int var1, KeyEvent event) {
       if (var1 == 23) {
-         Message var3 = this.mHandler.obtainMessage(0);
-         var3.arg1 = var1;
-         var3.obj = var2;
+         Message msg = this.mHandler.obtainMessage(0);
+         msg.arg1 = var1;
+         msg.obj = event;
          if (!this.mHandler.hasMessages(0)) {
-            this.mHandler.sendMessageDelayed(var3, (long)ViewConfiguration.getLongPressTimeout());
+            this.mHandler.sendMessageDelayed(msg, (long)ViewConfiguration.getLongPressTimeout());
             return;
          }
       }
@@ -253,16 +253,16 @@ public class TouchNavSpaceTracker {
       return new PointF(this.getPixelX(this.mPhysicalPosition.x), this.getPixelY(this.mPhysicalPosition.y));
    }
 
-   public boolean onGenericMotionEvent(MotionEvent var1) {
-      if (var1 != null && (var1.getSource() & 2097152) == 2097152) {
-         InputDevice var13 = var1.getDevice();
+   public boolean onGenericMotionEvent(MotionEvent event) {
+      if (event != null && (event.getSource() & InputDevice.SOURCE_TOUCH_NAVIGATION) == InputDevice.SOURCE_TOUCH_NAVIGATION) {
+         InputDevice var13 = event.getDevice();
          if (var13 == null) {
             return false;
          }
 
          TouchNavMotionTracker var19 = this.getTrackerForDevice(var13);
-         int var10 = var1.getActionMasked();
-         var19.addMovement(var1);
+         int var10 = event.getActionMasked();
+         var19.addMovement(event);
          boolean var6;
          if ((var10 & 255) == 6) {
             var6 = true;
@@ -272,19 +272,19 @@ public class TouchNavSpaceTracker {
 
          int var7;
          if (var6) {
-            var7 = var1.getActionIndex();
+            var7 = event.getActionIndex();
          } else {
             var7 = -1;
          }
 
          float var3 = 0.0F;
          float var2 = 0.0F;
-         int var9 = var1.getPointerCount();
+         int var9 = event.getPointerCount();
 
          for(int var8 = 0; var8 < var9; ++var8) {
             if (var7 != var8) {
-               var3 += var1.getX(var8);
-               var2 += var1.getY(var8);
+               var3 += event.getX(var8);
+               var2 += event.getY(var8);
             }
          }
 
@@ -297,7 +297,7 @@ public class TouchNavSpaceTracker {
 
          float var4 = var3 / (float)var17;
          float var5 = var2 / (float)var17;
-         TouchNavSpaceTracker.PhysicalMotionEvent var14 = new TouchNavSpaceTracker.PhysicalMotionEvent(var1.getDeviceId(), var19.getPhysicalX(var4), var19.getPhysicalX(var5), var1.getEventTime());
+         TouchNavSpaceTracker.PhysicalMotionEvent var14 = new TouchNavSpaceTracker.PhysicalMotionEvent(event.getDeviceId(), var19.getPhysicalX(var4), var19.getPhysicalX(var5), event.getEventTime());
          boolean var18 = false;
          boolean var12 = false;
          boolean var11;
@@ -312,7 +312,7 @@ public class TouchNavSpaceTracker {
 
             var19.setNewValues(var4, var5);
             var19.updatePrevValues();
-            var19.setDownEvent(MotionEvent.obtain(var1));
+            var19.setDownEvent(MotionEvent.obtain(event));
             if (this.mPixelListener != null) {
                return false | this.mPixelListener.onDown(var14);
             }
@@ -324,7 +324,7 @@ public class TouchNavSpaceTracker {
                return false | this.mPixelListener.onUp(var14, this.getPixelX(this.mPhysicalPosition.x), this.getPixelY(this.mPhysicalPosition.y));
             }
 
-            var16 = new TouchNavSpaceTracker.PhysicalMotionEvent(var1.getDeviceId(), var19.getPhysicalX(var15.getX()), var19.getPhysicalY(var15.getY()), var15.getEventTime());
+            var16 = new TouchNavSpaceTracker.PhysicalMotionEvent(event.getDeviceId(), var19.getPhysicalX(var15.getX()), var19.getPhysicalY(var15.getY()), var15.getEventTime());
             var6 = var18;
             if (var19.computeVelocity()) {
                var6 = var18;
@@ -356,7 +356,7 @@ public class TouchNavSpaceTracker {
             return var6 | var11;
          case 2:
             if (var19.getDownEvent() == null) {
-               var19.setDownEvent(MotionEvent.obtain(var1));
+               var19.setDownEvent(MotionEvent.obtain(event));
                if (this.mLPFEnabled) {
                   this.mLPFCurrX = var4;
                   this.mLPFCurrY = var5;
@@ -375,7 +375,7 @@ public class TouchNavSpaceTracker {
             if (var19.setNewValues(var3, var2)) {
                var2 = var19.getPhysicalX(var19.getScrollX());
                var3 = var19.getPhysicalY(var19.getScrollY());
-               var4 = this.calculateSensitivity(var1, var19.getDownEvent());
+               var4 = this.calculateSensitivity(event, var19.getDownEvent());
                this.mPhysicalPosition.x = this.mPrevPhysPosition.x + this.getScaledValue(var2, var4);
                this.mPhysicalPosition.y = this.mPrevPhysPosition.y + this.getScaledValue(var3, var4);
                this.clampPosition();
@@ -387,7 +387,7 @@ public class TouchNavSpaceTracker {
                         var11 = var12;
                         if (this.mPixelWidth > 0.0F) {
                            var15 = var19.getDownEvent();
-                           var16 = new TouchNavSpaceTracker.PhysicalMotionEvent(var1.getDeviceId(), var19.getPhysicalX(var15.getX()), var19.getPhysicalY(var15.getY()), var15.getEventTime());
+                           var16 = new TouchNavSpaceTracker.PhysicalMotionEvent(event.getDeviceId(), var19.getPhysicalX(var15.getX()), var19.getPhysicalY(var15.getY()), var15.getEventTime());
                            var2 = this.getPixelX(this.mPhysicalPosition.x);
                            var3 = this.getPixelY(this.mPhysicalPosition.y);
                            var11 = false | this.mPixelListener.onMove(var16, var14, var2, var3);
@@ -416,28 +416,28 @@ public class TouchNavSpaceTracker {
       return false;
    }
 
-   public boolean onKeyDown(int var1, KeyEvent var2) {
-      if (var2 != null && var2.getDevice() != null && (var2.getDevice().getSources() & 2097152) == 2097152) {
-         if (var2.getRepeatCount() == 0) {
-            this.checkForLongClick(var1, var2);
+   public boolean onKeyDown(int keyCode, KeyEvent event) {
+      if (event != null && event.getDevice() != null && (event.getDevice().getSources() & InputDevice.SOURCE_TOUCH_NAVIGATION) == InputDevice.SOURCE_TOUCH_NAVIGATION) {
+         if (event.getRepeatCount() == 0) {
+            checkForLongClick(keyCode, event);
          }
 
-         if (this.mKeyEventListener != null) {
-            return this.mKeyEventListener.onKeyDown(var1, var2);
+         if (mKeyEventListener != null) {
+            return mKeyEventListener.onKeyDown(keyCode, event);
          }
       }
 
       return false;
    }
 
-   public boolean onKeyUp(int var1, KeyEvent var2) {
-      if (var2 != null && var2.getDevice() != null && (var2.getDevice().getSources() & 2097152) == 2097152) {
-         if (var1 == 23) {
-            this.mHandler.removeMessages(0);
+   public boolean onKeyUp(int keyCode, KeyEvent event) {
+      if (event != null && event.getDevice() != null && (event.getDevice().getSources() & InputDevice.SOURCE_TOUCH_NAVIGATION) == InputDevice.SOURCE_TOUCH_NAVIGATION) {
+         if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
+            mHandler.removeMessages(0);
          }
 
-         if (this.mKeyEventListener != null) {
-            return this.mKeyEventListener.onKeyUp(var1, var2);
+         if (mKeyEventListener != null) {
+            return mKeyEventListener.onKeyUp(keyCode, event);
          }
       }
 
@@ -445,56 +445,56 @@ public class TouchNavSpaceTracker {
    }
 
    public void onPause() {
-      this.mHandler.removeMessages(0);
+      mHandler.removeMessages(0);
    }
 
-   public void setKeyEventListener(TouchNavSpaceTracker.KeyEventListener var1) {
-      this.mKeyEventListener = var1;
+   public void setKeyEventListener(TouchNavSpaceTracker.KeyEventListener listener) {
+      mKeyEventListener = listener;
    }
 
-   public void setLPFEnabled(boolean var1) {
-      this.mLPFEnabled = var1;
+   public void setLPFEnabled(boolean enabled) {
+      mLPFEnabled = enabled;
    }
 
-   public void setPhysicalDensity(float var1) {
-      this.mPixelsPerMm = var1;
-      if (var1 > 0.0F) {
-         this.updatePhysicalSize();
+   public void setPhysicalDensity(float density) {
+      mPixelsPerMm = density;
+      if (density > 0.0F) {
+         updatePhysicalSize();
       }
 
    }
 
-   public void setPhysicalPosition(float var1, float var2) {
-      this.mPhysicalPosition.x = var1;
-      this.mPhysicalPosition.y = var2;
-      this.mPrevPhysPosition.x = var1;
-      this.mPrevPhysPosition.y = var2;
-      this.clampPosition();
+   public void setPhysicalPosition(float x, float y) {
+      mPhysicalPosition.x = x;
+      mPhysicalPosition.y = y;
+      mPrevPhysPosition.x = x;
+      mPrevPhysPosition.y = y;
+      clampPosition();
    }
 
-   public void setPhysicalSize(float var1, float var2) {
-      if (this.mPixelsPerMm <= 0.0F) {
-         this.setPhysicalSizeInternal(var1, var2);
+   public void setPhysicalSize(float widthMm, float heightMm) {
+      if (mPixelsPerMm <= 0.0F) {
+         setPhysicalSizeInternal(widthMm, heightMm);
       }
    }
 
-   public void setPixelPosition(float var1, float var2) {
-      this.setPhysicalPosition(this.getPhysicalX(var1), this.getPhysicalY(var2));
+   public void setPixelPosition(float x, float y) {
+      setPhysicalPosition(getPhysicalX(x), getPhysicalY(y));
    }
 
-   public void setPixelSize(float var1, float var2) {
-      this.mPixelHeight = var2;
-      this.mPixelWidth = var1;
-      this.updatePhysicalSize();
+   public void setPixelSize(float width, float height) {
+      mPixelHeight = height;
+      mPixelWidth = width;
+      updatePhysicalSize();
    }
 
-   public void setSensitivity(float var1) {
-      this.mSensitivity = var1;
-      this.configureFlicks(this.mUnscaledFlickMinDistance, this.mUnscaledFlickMaxDistance, this.mFlickMaxDuration);
+   public void setSensitivity(float sensitivity) {
+      mSensitivity = sensitivity;
+      configureFlicks(mUnscaledFlickMinDistance, mUnscaledFlickMaxDistance, mFlickMaxDuration);
    }
 
-   public void setTouchEventListener(TouchNavSpaceTracker.TouchEventListener var1) {
-      this.mPixelListener = var1;
+   public void setTouchEventListener(TouchNavSpaceTracker.TouchEventListener listener) {
+      mPixelListener = listener;
    }
 
    public void unblockMovement() {
@@ -502,11 +502,11 @@ public class TouchNavSpaceTracker {
    }
 
    public interface KeyEventListener {
-      boolean onKeyDown(int var1, KeyEvent var2);
+      boolean onKeyDown(int keyCode, KeyEvent event);
 
-      boolean onKeyLongPress(int var1, KeyEvent var2);
+      boolean onKeyLongPress(int keyCode, KeyEvent event);
 
-      boolean onKeyUp(int var1, KeyEvent var2);
+      boolean onKeyUp(int keyCode, KeyEvent event);
    }
 
    public static class PhysicalMotionEvent {
@@ -558,15 +558,15 @@ public class TouchNavSpaceTracker {
          return false;
       }
 
-      public boolean onKeyDown(int var1, KeyEvent var2) {
+      public boolean onKeyDown(int keyCode, KeyEvent event) {
          return false;
       }
 
-      public boolean onKeyLongPress(int var1, KeyEvent var2) {
+      public boolean onKeyLongPress(int keyCode, KeyEvent event) {
          return false;
       }
 
-      public boolean onKeyUp(int var1, KeyEvent var2) {
+      public boolean onKeyUp(int keyCode, KeyEvent event) {
          return false;
       }
 

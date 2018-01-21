@@ -258,8 +258,8 @@ public class LeanbackKeyboardView extends FrameLayout {
         return this.mKeyboard;
     }
 
-    public int getNearestIndex(float x, float y) {
-        int var7;
+    public int getNearestIndex(final float x, final float y) {
+        int result;
         if (this.mKeys != null && this.mKeys.length != 0) {
             float var3 = (float) this.getPaddingLeft();
             float var4 = (float) this.getPaddingTop();
@@ -269,11 +269,11 @@ public class LeanbackKeyboardView extends FrameLayout {
             int var10 = this.getColCount();
             int var8 = (int) ((y - var4) / var5 * (float) var9);
             if (var8 < 0) {
-                var7 = 0;
+                result = 0;
             } else {
-                var7 = var8;
+                result = var8;
                 if (var8 >= var9) {
-                    var7 = var9 - 1;
+                    result = var9 - 1;
                 }
             }
 
@@ -287,33 +287,33 @@ public class LeanbackKeyboardView extends FrameLayout {
                 }
             }
 
-            var8 += this.mColCount * var7;
-            var7 = var8;
-            if (var8 > 46) {
-                var7 = var8;
+            var8 += this.mColCount * result;
+            result = var8;
+            if (var8 > ASCII_PERIOD) {
+                result = var8;
                 if (var8 < 53) {
-                    var7 = 46;
+                    result = ASCII_PERIOD;
                 }
             }
 
-            var8 = var7;
-            if (var7 >= 53) {
-                var8 = var7 - 6;
+            var8 = result;
+            if (result >= 53) {
+                var8 = result - 6;
             }
 
             if (var8 < 0) {
                 return 0;
             }
 
-            var7 = var8;
+            result = var8;
             if (var8 >= this.mKeys.length) {
                 return this.mKeys.length - 1;
             }
         } else {
-            var7 = 0;
+            result = 0;
         }
 
-        return var7;
+        return result;
     }
 
     public int getRowCount() {

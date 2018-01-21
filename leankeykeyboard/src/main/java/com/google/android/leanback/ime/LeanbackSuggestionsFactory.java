@@ -20,9 +20,9 @@ public class LeanbackSuggestionsFactory {
    private int mNumSuggestions;
    private final ArrayList<String> mSuggestions = new ArrayList();
 
-   public LeanbackSuggestionsFactory(InputMethodService var1, int var2) {
-      this.mContext = var1;
-      this.mNumSuggestions = var2;
+   public LeanbackSuggestionsFactory(InputMethodService context, int numSuggestions) {
+      this.mContext = context;
+      this.mNumSuggestions = numSuggestions;
    }
 
    public void clearSuggestions() {
