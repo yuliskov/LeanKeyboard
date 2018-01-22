@@ -11,7 +11,7 @@
         <LinearLayout android:gravity="center" android:orientation="horizontal" android:id="@+id/suggestions" android:clipChildren="false"
                       android:layout_width="wrap_content" android:layout_height="wrap_content" android:divider="@null" android:showDividers="middle"/>
     </HorizontalScrollView>
-    <!-- TODO: original position - on top of the HorizontalScrollView -->
+    <!-- NOTE: moved below HorizontalScrollView because some ids not generated yet -->
     <View android:id="@+id/candidate_background" android:background="@color/candidate_background" android:layout_width="wrap_content"
           android:layout_height="wrap_content" android:layout_alignBottom="@id/suggestions_container" android:layout_alignParentLeft="true"
           android:layout_alignParentTop="true" android:layout_alignParentRight="true"/>

@@ -31,8 +31,8 @@ public class LeanbackImeService extends InputMethodService {
     private static final String TAG = "LbImeService";
     private boolean mEnterSpaceBeforeCommitting;
     private final Handler mHandler = new Handler() {
-        public void handleMessage(Message var1) {
-            if (var1.what == 123 && LeanbackImeService.this.mShouldClearSuggestions) {
+        public void handleMessage(Message msg) {
+            if (msg.what == MSG_SUGGESTIONS_CLEAR && LeanbackImeService.this.mShouldClearSuggestions) {
                 LeanbackImeService.this.mSuggestionsFactory.clearSuggestions();
                 LeanbackImeService.this.mKeyboardController.updateSuggestions(LeanbackImeService.this.mSuggestionsFactory.getSuggestions());
                 LeanbackImeService.this.mShouldClearSuggestions = false;

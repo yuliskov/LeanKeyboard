@@ -1,10 +1,10 @@
 package com.google.android.leanback.ime;
 
 import android.animation.Animator;
-import android.animation.ValueAnimator;
 import android.animation.Animator.AnimatorListener;
+import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
-import android.annotation.TargetApi;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -108,32 +109,40 @@ public class LeanbackKeyboardContainer {
     private RecognizerView mVoiceButtonView;
     private boolean mVoiceEnabled;
     private AnimatorListener mVoiceEnterListener = new AnimatorListener() {
-        public void onAnimationCancel(Animator var1) {
+        @Override
+        public void onAnimationCancel(Animator animation) {
         }
 
-        public void onAnimationEnd(Animator var1) {
+        @Override
+        public void onAnimationEnd(Animator animation) {
         }
 
-        public void onAnimationRepeat(Animator var1) {
+        @Override
+        public void onAnimationRepeat(Animator animation) {
         }
 
-        public void onAnimationStart(Animator var1) {
+        @Override
+        public void onAnimationStart(Animator animation) {
             LeanbackKeyboardContainer.this.mSelector.setVisibility(View.INVISIBLE);
             LeanbackKeyboardContainer.this.startRecognition(LeanbackKeyboardContainer.this.mContext);
         }
     };
     private AnimatorListener mVoiceExitListener = new AnimatorListener() {
-        public void onAnimationCancel(Animator var1) {
+        @Override
+        public void onAnimationCancel(Animator animation) {
         }
 
-        public void onAnimationEnd(Animator var1) {
+        @Override
+        public void onAnimationEnd(Animator animation) {
             LeanbackKeyboardContainer.this.mSelector.setVisibility(View.VISIBLE);
         }
 
-        public void onAnimationRepeat(Animator var1) {
+        @Override
+        public void onAnimationRepeat(Animator animation) {
         }
 
-        public void onAnimationStart(Animator var1) {
+        @Override
+        public void onAnimationStart(Animator animation) {
             LeanbackKeyboardContainer.this.mVoiceButtonView.showNotListening();
             LeanbackKeyboardContainer.this.mSpeechRecognizer.cancel();
             LeanbackKeyboardContainer.this.mSpeechRecognizer.setRecognitionListener((RecognitionListener) null);
@@ -147,47 +156,50 @@ public class LeanbackKeyboardContainer {
     private Float mY;
 
     public LeanbackKeyboardContainer(Context context) {
-        this.mContext = (LeanbackImeService) context;
-        final Resources res = this.mContext.getResources();
-        this.mVoiceAnimDur = res.getInteger(R.integer.voice_anim_duration);
-        this.mAlphaIn = res.getFraction(R.fraction.alpha_in, 1, 1);
-        this.mAlphaOut = res.getFraction(R.fraction.alpha_out, 1, 1);
-        this.mVoiceAnimator = new LeanbackKeyboardContainer.VoiceIntroAnimator(this.mVoiceEnterListener, this.mVoiceExitListener);
-        this.initKeyboards();
-        this.mRootView = (RelativeLayout) this.mContext.getLayoutInflater().inflate(R.layout.root_leanback, null);
-        this.mKeyboardsContainer = this.mRootView.findViewById(R.id.keyboard);
-        this.mSuggestionsBg = this.mRootView.findViewById(R.id.candidate_background);
-        this.mSuggestionsContainer = (HorizontalScrollView) this.mRootView.findViewById(R.id.suggestions_container);
-        this.mSuggestions = (LinearLayout) this.mSuggestionsContainer.findViewById(R.id.suggestions);
-        this.mMainKeyboardView = (LeanbackKeyboardView) this.mRootView.findViewById(R.id.main_keyboard);
-        this.mVoiceButtonView = (RecognizerView) this.mRootView.findViewById(R.id.voice);
-        this.mActionButtonView = (Button) this.mRootView.findViewById(R.id.enter);
-        this.mSelector = this.mRootView.findViewById(R.id.selector);
-        this.mSelectorAnimation = new LeanbackKeyboardContainer.ScaleAnimation((FrameLayout) this.mSelector);
-        this.mOverestimate = this.mContext.getResources().getFraction(R.fraction.focused_scale, 1, 1);
+        mContext = (LeanbackImeService) context;
+        final Resources res = mContext.getResources();
+        mVoiceAnimDur = res.getInteger(R.integer.voice_anim_duration);
+        mAlphaIn = res.getFraction(R.fraction.alpha_in, 1, 1);
+        mAlphaOut = res.getFraction(R.fraction.alpha_out, 1, 1);
+        mVoiceAnimator = new LeanbackKeyboardContainer.VoiceIntroAnimator(mVoiceEnterListener, mVoiceExitListener);
+        initKeyboards();
+        mRootView = (RelativeLayout) mContext.getLayoutInflater().inflate(R.layout.root_leanback, null);
+        mKeyboardsContainer = mRootView.findViewById(R.id.keyboard);
+        mSuggestionsBg = mRootView.findViewById(R.id.candidate_background);
+        mSuggestionsContainer = (HorizontalScrollView) mRootView.findViewById(R.id.suggestions_container);
+        mSuggestions = (LinearLayout) mSuggestionsContainer.findViewById(R.id.suggestions);
+        mMainKeyboardView = (LeanbackKeyboardView) mRootView.findViewById(R.id.main_keyboard);
+        mVoiceButtonView = (RecognizerView) mRootView.findViewById(R.id.voice);
+        mActionButtonView = (Button) mRootView.findViewById(R.id.enter);
+        mSelector = mRootView.findViewById(R.id.selector);
+        mSelectorAnimation = new LeanbackKeyboardContainer.ScaleAnimation((FrameLayout) mSelector);
+        mOverestimate = mContext.getResources().getFraction(R.fraction.focused_scale, 1, 1);
         final float scale = context.getResources().getFraction(R.fraction.clicked_scale, 1, 1);
-        this.mClickAnimDur = context.getResources().getInteger(R.integer.clicked_anim_duration);
-        this.mSelectorAnimator = ValueAnimator.ofFloat(new float[]{1.0F, scale});
-        this.mSelectorAnimator.setDuration((long) this.mClickAnimDur);
-        this.mSelectorAnimator.addUpdateListener(new AnimatorUpdateListener() {
+        mClickAnimDur = context.getResources().getInteger(R.integer.clicked_anim_duration);
+        mSelectorAnimator = ValueAnimator.ofFloat(new float[]{1.0F, scale});
+        mSelectorAnimator.setDuration((long) mClickAnimDur);
+        mSelectorAnimator.addUpdateListener(new AnimatorUpdateListener() {
             public void onAnimationUpdate(ValueAnimator animation) {
                 final float value = (Float) animation.getAnimatedValue();
                 LeanbackKeyboardContainer.this.mSelector.setScaleX(value);
                 LeanbackKeyboardContainer.this.mSelector.setScaleY(value);
             }
         });
-        this.mSpeechLevelSource = new SpeechLevelSource();
-        this.mVoiceButtonView.setSpeechLevelSource(this.mSpeechLevelSource);
-        this.mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this.mContext);
-        this.mVoiceButtonView.setCallback(new RecognizerView.Callback() {
+        mSpeechLevelSource = new SpeechLevelSource();
+        mVoiceButtonView.setSpeechLevelSource(mSpeechLevelSource);
+        mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(mContext);
+        mVoiceButtonView.setCallback(new RecognizerView.Callback() {
+            @Override
             public void onCancelRecordingClicked() {
                 LeanbackKeyboardContainer.this.cancelVoiceRecording();
             }
 
+            @Override
             public void onStartRecordingClicked() {
                 LeanbackKeyboardContainer.this.startVoiceRecording();
             }
 
+            @Override
             public void onStopRecordingClicked() {
                 LeanbackKeyboardContainer.this.cancelVoiceRecording();
             }
@@ -200,6 +212,14 @@ public class LeanbackKeyboardContainer {
         focus.rect.set(rect);
     }
 
+    /**
+     * Initialize {@link KeyFocus} with values
+     * @param focus {@link KeyFocus} to configure
+     * @param rect {@link Rect}
+     * @param index key index
+     * @param key {@link Key}
+     * @param type {@link KeyFocus#type} constant
+     */
     private void configureFocus(LeanbackKeyboardContainer.KeyFocus focus, Rect rect, int index, Key key, int type) {
         focus.type = type;
         if (key != null) {
@@ -268,120 +288,125 @@ public class LeanbackKeyboardContainer {
         return false;
     }
 
-    private void moveFocusToIndex(int var1, int var2) {
-        Key var3 = this.mMainKeyboardView.getKey(var1);
-        this.configureFocus(this.mTempKeyInfo, this.mRect, var1, var3, var2);
-        this.setTouchState(0);
-        this.setKbFocus(this.mTempKeyInfo, true, true);
+    /**
+     * Move focus to specified key
+     * @param index key index
+     * @param type {@link KeyFocus#type} constant
+     */
+    private void moveFocusToIndex(int index, int type) {
+        Key key = this.mMainKeyboardView.getKey(index);
+        configureFocus(mTempKeyInfo, mRect, index, key, type);
+        setTouchState(TOUCH_STATE_NO_TOUCH);
+        setKbFocus(mTempKeyInfo, true, true);
     }
 
-    private void offsetRect(Rect var1, View var2) {
-        var1.left = 0;
-        var1.top = 0;
-        var1.right = var2.getWidth();
-        var1.bottom = var2.getHeight();
-        this.mRootView.offsetDescendantRectToMyCoords(var2, var1);
+    private void offsetRect(Rect rect, View view) {
+        rect.left = 0;
+        rect.top = 0;
+        rect.right = view.getWidth();
+        rect.bottom = view.getHeight();
+        mRootView.offsetDescendantRectToMyCoords(view, rect);
     }
 
     private void onToggleCapsLock() {
-        this.onShiftDoubleClick(this.isCapsLockOn());
+        onShiftDoubleClick(isCapsLockOn());
     }
 
-    private void setImeOptions(Resources var1, EditorInfo var2) {
-        if (this.mInitialMainKeyboard == null) {
-            this.mInitialMainKeyboard = this.mAbcKeyboard;
+    private void setImeOptions(Resources res, EditorInfo info) {
+        if (mInitialMainKeyboard == null) {
+            mInitialMainKeyboard = mAbcKeyboard;
         }
 
-        this.mSuggestionsEnabled = false;
-        this.mAutoEnterSpaceEnabled = false;
-        this.mVoiceEnabled = false;
-        this.mEscapeNorthEnabled = false;
-        this.mVoiceKeyDismissesEnabled = false;
-        label67:
-        switch (LeanbackUtils.getInputTypeClass(var2)) {
-            case 1:
-                switch (LeanbackUtils.getInputTypeVariation(var2)) {
-                    case 16:
-                    case 32:
-                    case 160:
-                    case 208:
-                        this.mSuggestionsEnabled = false;
-                        this.mAutoEnterSpaceEnabled = false;
-                        this.mVoiceEnabled = false;
-                        this.mInitialMainKeyboard = this.mAbcKeyboard;
-                        break label67;
-                    case 96:
-                    case 128:
-                    case 144:
-                    case 224:
-                        this.mSuggestionsEnabled = false;
-                        this.mVoiceEnabled = false;
-                        this.mInitialMainKeyboard = this.mAbcKeyboard;
-                    default:
-                        break label67;
+        mSuggestionsEnabled = false;
+        mAutoEnterSpaceEnabled = false;
+        mVoiceEnabled = false;
+        mEscapeNorthEnabled = false;
+        mVoiceKeyDismissesEnabled = false;
+
+        switch (LeanbackUtils.getInputTypeClass(info)) {
+            case InputType.TYPE_CLASS_TEXT:
+                switch (LeanbackUtils.getInputTypeVariation(info)) {
+                    case InputType.TYPE_DATETIME_VARIATION_DATE:
+                    case InputType.TYPE_DATETIME_VARIATION_TIME:
+                    case InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT:
+                    case InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
+                        mSuggestionsEnabled = false;
+                        mAutoEnterSpaceEnabled = false;
+                        mVoiceEnabled = false;
+                        mInitialMainKeyboard = mAbcKeyboard;
+                        break;
+                    case InputType.TYPE_TEXT_VARIATION_PERSON_NAME:
+                    case InputType.TYPE_TEXT_VARIATION_PASSWORD:
+                    case InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD:
+                    case InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD:
+                        mSuggestionsEnabled = false;
+                        mVoiceEnabled = false;
+                        mInitialMainKeyboard = mAbcKeyboard;
                 }
-            case 2:
-            case 3:
-            case 4:
-                this.mSuggestionsEnabled = false;
-                this.mVoiceEnabled = false;
-                this.mInitialMainKeyboard = this.mAbcKeyboard;
+                break;
+            case InputType.TYPE_CLASS_NUMBER:
+            case InputType.TYPE_CLASS_PHONE:
+            case InputType.TYPE_CLASS_DATETIME:
+                mSuggestionsEnabled = false;
+                mVoiceEnabled = false;
+                mInitialMainKeyboard = this.mAbcKeyboard;
         }
 
-        if (this.mSuggestionsEnabled) {
-            if ((var2.inputType & 524288) == 0) {
+        if (mSuggestionsEnabled) {
+            if ((info.inputType & InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS) == 0) {
                 ;
             }
 
-            this.mSuggestionsEnabled = false;
+            mSuggestionsEnabled = false;
         }
 
-        if (this.mAutoEnterSpaceEnabled) {
-            if (this.mSuggestionsEnabled && this.mAutoEnterSpaceEnabled) {
+        if (mAutoEnterSpaceEnabled) {
+            if (mSuggestionsEnabled && mAutoEnterSpaceEnabled) {
                 ;
             }
 
-            this.mAutoEnterSpaceEnabled = false;
+            mAutoEnterSpaceEnabled = false;
         }
 
-        if ((var2.inputType & 16384) != 0) {
+        if ((info.inputType & InputType.TYPE_TEXT_FLAG_CAP_SENTENCES) != 0) {
             ;
         }
 
-        this.mCapSentences = false;
-        if ((var2.inputType & 8192) == 0 && LeanbackUtils.getInputTypeVariation(var2) == 96) {
+        mCapSentences = false;
+        if ((info.inputType & InputType.TYPE_TEXT_FLAG_CAP_WORDS) == 0 &&
+                LeanbackUtils.getInputTypeVariation(info) == InputType.TYPE_TEXT_VARIATION_PERSON_NAME) {
             ;
         }
 
-        this.mCapWords = false;
-        if ((var2.inputType & 4096) != 0) {
+        mCapWords = false;
+        if ((info.inputType & InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS) != 0) {
             ;
         }
 
-        this.mCapCharacters = false;
-        if (var2.privateImeOptions != null) {
-            if (var2.privateImeOptions.contains(IME_PRIVATE_OPTIONS_ESCAPE_NORTH)) {
-                this.mEscapeNorthEnabled = false;
+        mCapCharacters = false;
+        if (info.privateImeOptions != null) {
+            if (info.privateImeOptions.contains(IME_PRIVATE_OPTIONS_ESCAPE_NORTH)) {
+                mEscapeNorthEnabled = false;
             }
 
-            if (var2.privateImeOptions.contains(IME_PRIVATE_OPTIONS_VOICE_DISMISS)) {
-                this.mVoiceKeyDismissesEnabled = false;
+            if (info.privateImeOptions.contains(IME_PRIVATE_OPTIONS_VOICE_DISMISS)) {
+                mVoiceKeyDismissesEnabled = false;
             }
         }
 
-        this.mEnterKeyText = var2.actionLabel;
-        if (TextUtils.isEmpty(this.mEnterKeyText)) {
-            switch (LeanbackUtils.getImeAction(var2)) {
-                case 2:
+        mEnterKeyText = info.actionLabel;
+        if (TextUtils.isEmpty(mEnterKeyText)) {
+            switch (LeanbackUtils.getImeAction(info)) {
+                case EditorInfo.IME_ACTION_GO:
                     this.mEnterKeyTextResId = R.string.label_go_key;
                     return;
-                case 3:
+                case EditorInfo.IME_ACTION_SEARCH:
                     this.mEnterKeyTextResId = R.string.label_search_key;
                     return;
-                case 4:
+                case EditorInfo.IME_ACTION_SEND:
                     this.mEnterKeyTextResId = R.string.label_send_key;
                     return;
-                case 5:
+                case EditorInfo.IME_ACTION_NEXT:
                     this.mEnterKeyTextResId = R.string.label_next_key;
                     return;
                 default:
@@ -391,6 +416,12 @@ public class LeanbackKeyboardContainer {
 
     }
 
+    /**
+     * Move focus to specified key
+     * @param focus key that will be focused
+     * @param forceFocusChange force focus
+     * @param animate animate transition
+     */
     private void setKbFocus(final LeanbackKeyboardContainer.KeyFocus focus, final boolean forceFocusChange, final boolean animate) {
         boolean clicked = true;
         if (!focus.equals(this.mCurrKeyInfo) || forceFocusChange) {
@@ -846,129 +877,126 @@ public class LeanbackKeyboardContainer {
     }
 
     public void onShiftClick() {
-        byte var1;
-        if (this.mMainKeyboardView.isShifted()) {
-            var1 = 0;
+        byte state;
+        if (mMainKeyboardView.isShifted()) {
+            state = LeanbackKeyboardView.SHIFT_OFF;
         } else {
-            var1 = 1;
+            state = LeanbackKeyboardView.SHIFT_ON;
         }
 
-        this.setShiftState(var1);
+        setShiftState(state);
     }
 
-    // TODO: state constants
     public void onShiftDoubleClick(boolean wasCapsLockOn) {
         byte state;
         if (wasCapsLockOn) {
-            state = 0;
+            state = LeanbackKeyboardView.SHIFT_OFF;
         } else {
-            state = 2;
+            state = LeanbackKeyboardView.SHIFT_LOCKED;
         }
 
-        this.setShiftState(state);
+        setShiftState(state);
     }
 
     public void onSpaceEntry() {
-        if (this.mMainKeyboardView.isShifted()) {
-            if (!this.isCapsLockOn() && !this.mCapCharacters && !this.mCapWords) {
-                this.setShiftState(0);
+        if (mMainKeyboardView.isShifted()) {
+            if (!isCapsLockOn() && !mCapCharacters && !mCapWords) {
+                setShiftState(LeanbackKeyboardView.SHIFT_OFF);
             }
-        } else if (this.isCapsLockOn() || this.mCapCharacters || this.mCapWords) {
-            this.setShiftState(1);
-            return;
+        } else if (isCapsLockOn() || mCapCharacters || mCapWords) {
+            setShiftState(LeanbackKeyboardView.SHIFT_ON);
         }
-
     }
 
     public void onStartInput(EditorInfo info) {
-        this.setImeOptions(this.mContext.getResources(), info);
-        this.mVoiceOn = false;
+        setImeOptions(mContext.getResources(), info);
+        mVoiceOn = false;
     }
 
-    @TargetApi(17)
+    @SuppressLint("NewApi")
     public void onStartInputView() {
-        this.clearSuggestions();
-        LayoutParams params = (LayoutParams) this.mKeyboardsContainer.getLayoutParams();
-        if (this.mSuggestionsEnabled) {
+        clearSuggestions();
+        LayoutParams params = (LayoutParams) mKeyboardsContainer.getLayoutParams();
+        if (mSuggestionsEnabled) {
             params.removeRule(10);
-            this.mSuggestionsContainer.setVisibility(View.VISIBLE);
-            this.mSuggestionsBg.setVisibility(View.VISIBLE);
+            mSuggestionsContainer.setVisibility(View.VISIBLE);
+            mSuggestionsBg.setVisibility(View.VISIBLE);
         } else {
             params.addRule(10);
-            this.mSuggestionsContainer.setVisibility(View.GONE);
-            this.mSuggestionsBg.setVisibility(View.GONE);
+            mSuggestionsContainer.setVisibility(View.GONE);
+            mSuggestionsBg.setVisibility(View.GONE);
         }
 
-        this.mKeyboardsContainer.setLayoutParams(params);
-        this.mMainKeyboardView.setKeyboard(this.mInitialMainKeyboard);
-        this.mVoiceButtonView.setMicEnabled(this.mVoiceEnabled);
-        this.resetVoice();
-        this.dismissMiniKeyboard();
-        if (!TextUtils.isEmpty(this.mEnterKeyText)) {
-            this.mActionButtonView.setText(this.mEnterKeyText);
-            this.mActionButtonView.setContentDescription(this.mEnterKeyText);
+        mKeyboardsContainer.setLayoutParams(params);
+        mMainKeyboardView.setKeyboard(mInitialMainKeyboard);
+        mVoiceButtonView.setMicEnabled(mVoiceEnabled);
+        resetVoice();
+        dismissMiniKeyboard();
+        if (!TextUtils.isEmpty(mEnterKeyText)) {
+            mActionButtonView.setText(mEnterKeyText);
+            mActionButtonView.setContentDescription(mEnterKeyText);
         } else {
-            this.mActionButtonView.setText(this.mEnterKeyTextResId);
-            this.mActionButtonView.setContentDescription(this.mContext.getString(this.mEnterKeyTextResId));
+            mActionButtonView.setText(mEnterKeyTextResId);
+            mActionButtonView.setContentDescription(mContext.getString(mEnterKeyTextResId));
         }
 
-        if (this.mCapCharacters) {
-            this.setShiftState(2);
-        } else if (!this.mCapSentences && !this.mCapWords) {
-            this.setShiftState(0);
+        if (mCapCharacters) {
+            setShiftState(LeanbackKeyboardView.SHIFT_LOCKED);
+        } else if (!mCapSentences && !mCapWords) {
+            setShiftState(LeanbackKeyboardView.SHIFT_OFF);
         } else {
-            this.setShiftState(1);
+            setShiftState(LeanbackKeyboardView.SHIFT_ON);
         }
     }
 
     public void onTextEntry() {
-        if (this.mMainKeyboardView.isShifted()) {
-            if (!this.isCapsLockOn() && !this.mCapCharacters) {
-                this.setShiftState(0);
+        if (mMainKeyboardView.isShifted()) {
+            if (!isCapsLockOn() && !mCapCharacters) {
+                setShiftState(LeanbackKeyboardView.SHIFT_OFF);
             }
-        } else if (this.isCapsLockOn() || this.mCapCharacters) {
-            this.setShiftState(2);
+        } else if (isCapsLockOn() || mCapCharacters) {
+            setShiftState(LeanbackKeyboardView.SHIFT_LOCKED);
         }
 
-        if (this.dismissMiniKeyboard()) {
-            this.moveFocusToIndex(this.mMiniKbKeyIndex, 0);
+        if (dismissMiniKeyboard()) {
+            moveFocusToIndex(mMiniKbKeyIndex, KeyFocus.TYPE_MAIN);
         }
 
     }
 
     public void onVoiceClick() {
-        if (this.mVoiceButtonView != null) {
-            this.mVoiceButtonView.onClick();
+        if (mVoiceButtonView != null) {
+            mVoiceButtonView.onClick();
         }
 
     }
 
     public void resetFocusCursor() {
-        this.offsetRect(this.mRect, this.mMainKeyboardView);
-        this.mX = (float) ((double) this.mRect.left + (double) this.mRect.width() * 0.45D);
-        this.mY = (float) ((double) this.mRect.top + (double) this.mRect.height() * 0.375D);
-        this.getBestFocus(this.mX, this.mY, this.mTempKeyInfo);
-        this.setKbFocus(this.mTempKeyInfo, true, false);
-        this.setTouchStateInternal(0);
-        this.mSelectorAnimator.reverse();
-        this.mSelectorAnimator.end();
+        offsetRect(mRect, mMainKeyboardView);
+        mX = (float) ((double) mRect.left + (double) mRect.width() * 0.45D);
+        mY = (float) ((double) mRect.top + (double) mRect.height() * 0.375D);
+        getBestFocus(mX, mY, mTempKeyInfo);
+        setKbFocus(mTempKeyInfo, true, false);
+        setTouchStateInternal(0);
+        mSelectorAnimator.reverse();
+        mSelectorAnimator.end();
     }
 
     public void resetVoice() {
-        this.mMainKeyboardView.setAlpha(this.mAlphaIn);
-        this.mActionButtonView.setAlpha(this.mAlphaIn);
-        this.mVoiceButtonView.setAlpha(this.mAlphaOut);
-        this.mMainKeyboardView.setVisibility(View.VISIBLE);
-        this.mActionButtonView.setVisibility(View.VISIBLE);
-        this.mVoiceButtonView.setVisibility(View.INVISIBLE);
+        mMainKeyboardView.setAlpha(mAlphaIn);
+        mActionButtonView.setAlpha(mAlphaIn);
+        mVoiceButtonView.setAlpha(mAlphaOut);
+        mMainKeyboardView.setVisibility(View.VISIBLE);
+        mActionButtonView.setVisibility(View.VISIBLE);
+        mVoiceButtonView.setVisibility(View.INVISIBLE);
     }
 
     public void setDismissListener(LeanbackKeyboardContainer.DismissListener listener) {
-        this.mDismissListener = listener;
+        mDismissListener = listener;
     }
 
     public void setFocus(LeanbackKeyboardContainer.KeyFocus focus) {
-        this.setKbFocus(focus, false, true);
+        setKbFocus(focus, false, true);
     }
 
     public void setSelectorToFocus(Rect rect, boolean overestimateWidth, boolean overestimateHeight, boolean animate) {
@@ -1124,17 +1152,12 @@ public class LeanbackKeyboardContainer {
                     return false;
                 }
 
-                // TODO: label
-                label31:
-                {
-                    if (this.label != null) {
-                        if (this.label.equals(focus.label)) {
-                            break label31;
-                        }
-                    } else if (focus.label == null) {
-                        break label31;
-                    }
+                // equality must be commutative
+                if (this.label == null && focus.label != null) {
+                    return false;
+                }
 
+                if (this.label != null && !this.label.equals(focus.label)) {
                     return false;
                 }
 
