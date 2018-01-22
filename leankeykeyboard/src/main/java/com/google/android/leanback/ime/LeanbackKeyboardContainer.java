@@ -312,12 +312,15 @@ public class LeanbackKeyboardContainer {
         onShiftDoubleClick(isCapsLockOn());
     }
 
-    private void setImeOptions(Resources res, EditorInfo info) {
+    // NOTE: suggestions settings applied here
+    private void setImeOptions(Resources resources, EditorInfo info) {
+        // do not erase last keyboard
         if (mInitialMainKeyboard == null) {
             mInitialMainKeyboard = mAbcKeyboard;
         }
 
         mSuggestionsEnabled = false;
+        // fix auto space after period
         mAutoEnterSpaceEnabled = false;
         mVoiceEnabled = false;
         mEscapeNorthEnabled = false;
@@ -398,19 +401,19 @@ public class LeanbackKeyboardContainer {
         if (TextUtils.isEmpty(mEnterKeyText)) {
             switch (LeanbackUtils.getImeAction(info)) {
                 case EditorInfo.IME_ACTION_GO:
-                    this.mEnterKeyTextResId = R.string.label_go_key;
+                    mEnterKeyTextResId = R.string.label_go_key;
                     return;
                 case EditorInfo.IME_ACTION_SEARCH:
-                    this.mEnterKeyTextResId = R.string.label_search_key;
+                    mEnterKeyTextResId = R.string.label_search_key;
                     return;
                 case EditorInfo.IME_ACTION_SEND:
-                    this.mEnterKeyTextResId = R.string.label_send_key;
+                    mEnterKeyTextResId = R.string.label_send_key;
                     return;
                 case EditorInfo.IME_ACTION_NEXT:
-                    this.mEnterKeyTextResId = R.string.label_next_key;
+                    mEnterKeyTextResId = R.string.label_next_key;
                     return;
                 default:
-                    this.mEnterKeyTextResId = R.string.label_done_key;
+                    mEnterKeyTextResId = R.string.label_done_key;
             }
         }
 

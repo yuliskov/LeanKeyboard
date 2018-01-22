@@ -33,18 +33,18 @@ public class TouchNavMotionTracker {
             resolutionX = 6.3F;
         }
 
-        this.mResolutionX = resolutionX;
+        mResolutionX = resolutionX;
         if (resolutionY <= 0.0F) {
             resolutionY = 6.3F;
         }
 
-        this.mResolutionY = resolutionY;
-        this.mMaxFlingVelocityX = this.mResolutionX * 1270.0F;
-        this.mMaxFlingVelocityY = this.mResolutionY * 1270.0F;
-        this.mMinFlingVelocityX = this.mResolutionX * 200.0F;
-        this.mMinFlingVelocityY = this.mResolutionY * 200.0F;
-        this.mMinScrollX = this.mResolutionX * minScrollDist;
-        this.mMinScrollY = this.mResolutionY * minScrollDist;
+        mResolutionY = resolutionY;
+        mMaxFlingVelocityX = mResolutionX * MAXIMUM_FLING_VELOCITY;
+        mMaxFlingVelocityY = mResolutionY * MAXIMUM_FLING_VELOCITY;
+        mMinFlingVelocityX = mResolutionX * MINIMUM_FLING_VELOCITY;
+        mMinFlingVelocityY = mResolutionY * MINIMUM_FLING_VELOCITY;
+        mMinScrollX = mResolutionX * minScrollDist;
+        mMinScrollY = mResolutionY * minScrollDist;
     }
 
     @SuppressLint("NewApi")
@@ -77,88 +77,88 @@ public class TouchNavMotionTracker {
         return new TouchNavMotionTracker(resolutionX, resolutionY, minScrollDist);
     }
 
-    public void addMovement(MotionEvent var1) {
-        if (this.mVelocityTracker == null) {
-            this.mVelocityTracker = VelocityTracker.obtain();
+    public void addMovement(MotionEvent event) {
+        if (mVelocityTracker == null) {
+            mVelocityTracker = VelocityTracker.obtain();
         }
 
-        this.mVelocityTracker.addMovement(var1);
+        mVelocityTracker.addMovement(event);
     }
 
     public void clear() {
-        if (this.mDownEvent != null) {
-            this.mDownEvent.recycle();
-            this.mDownEvent = null;
+        if (mDownEvent != null) {
+            mDownEvent.recycle();
+            mDownEvent = null;
         }
 
-        if (this.mVelocityTracker != null) {
-            this.mVelocityTracker.recycle();
-            this.mVelocityTracker = null;
+        if (mVelocityTracker != null) {
+            mVelocityTracker.recycle();
+            mVelocityTracker = null;
         }
 
     }
 
     public boolean computeVelocity() {
-        this.mVelocityTracker.computeCurrentVelocity(1000);
-        this.mVelX = Math.min(this.mMaxFlingVelocityX, this.mVelocityTracker.getXVelocity());
-        this.mVelY = Math.min(this.mMaxFlingVelocityY, this.mVelocityTracker.getYVelocity());
-        return Math.abs(this.mVelX) > this.mMinFlingVelocityX || Math.abs(this.mVelY) > this.mMinFlingVelocityY;
+        mVelocityTracker.computeCurrentVelocity(1000);
+        mVelX = Math.min(mMaxFlingVelocityX, mVelocityTracker.getXVelocity());
+        mVelY = Math.min(mMaxFlingVelocityY, mVelocityTracker.getYVelocity());
+        return Math.abs(mVelX) > mMinFlingVelocityX || Math.abs(mVelY) > mMinFlingVelocityY;
     }
 
     public MotionEvent getDownEvent() {
-        return this.mDownEvent;
+        return mDownEvent;
     }
 
-    public float getPhysicalX(float var1) {
-        return var1 / this.mResolutionX;
+    public float getPhysicalX(float x) {
+        return x / mResolutionX;
     }
 
-    public float getPhysicalY(float var1) {
-        return var1 / this.mResolutionY;
+    public float getPhysicalY(float y) {
+        return y / mResolutionY;
     }
 
     public float getScrollX() {
-        return this.mScrollX;
+        return mScrollX;
     }
 
     public float getScrollY() {
-        return this.mScrollY;
+        return mScrollY;
     }
 
     public float getXResolution() {
-        return this.mResolutionX;
+        return mResolutionX;
     }
 
     public float getXVel() {
-        return this.mVelX;
+        return mVelX;
     }
 
     public float getYResolution() {
-        return this.mResolutionY;
+        return mResolutionY;
     }
 
     public float getYVel() {
-        return this.mVelY;
+        return mVelY;
     }
 
-    public void setDownEvent(MotionEvent var1) {
-        if (this.mDownEvent != null && var1 != this.mDownEvent) {
-            this.mDownEvent.recycle();
+    public void setDownEvent(MotionEvent event) {
+        if (mDownEvent != null && event != mDownEvent) {
+            mDownEvent.recycle();
         }
 
-        this.mDownEvent = var1;
+        mDownEvent = event;
     }
 
-    public boolean setNewValues(float var1, float var2) {
-        this.mCurrX = var1;
-        this.mCurrY = var2;
-        this.mScrollX = this.mCurrX - this.mPrevX;
-        this.mScrollY = this.mCurrY - this.mPrevY;
-        return Math.abs(this.mScrollX) > this.mMinScrollX || Math.abs(this.mScrollY) > this.mMinScrollY;
+    public boolean setNewValues(float currX, float currY) {
+        mCurrX = currX;
+        mCurrY = currY;
+        mScrollX = mCurrX - mPrevX;
+        mScrollY = mCurrY - mPrevY;
+        return Math.abs(mScrollX) > mMinScrollX || Math.abs(mScrollY) > mMinScrollY;
     }
 
     public void updatePrevValues() {
-        this.mPrevX = this.mCurrX;
-        this.mPrevY = this.mCurrY;
+        mPrevX = mCurrX;
+        mPrevY = mCurrY;
     }
 }
