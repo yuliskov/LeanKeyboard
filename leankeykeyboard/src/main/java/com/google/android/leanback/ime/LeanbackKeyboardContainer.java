@@ -20,7 +20,6 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
@@ -312,7 +311,11 @@ public class LeanbackKeyboardContainer {
         onShiftDoubleClick(isCapsLockOn());
     }
 
-    // NOTE: suggestions settings applied here
+    /**
+     * All keyboard settings applied here
+     * @param resources resources (not used)
+     * @param info current ime attributes
+     */
     private void setImeOptions(Resources resources, EditorInfo info) {
         // do not erase last keyboard
         if (mInitialMainKeyboard == null) {
@@ -354,6 +357,8 @@ public class LeanbackKeyboardContainer {
                 mVoiceEnabled = false;
                 mInitialMainKeyboard = this.mAbcKeyboard;
         }
+
+        // TODO: many empty ifs
 
         if (mSuggestionsEnabled) {
             if ((info.inputType & InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS) == 0) {
@@ -478,18 +483,22 @@ public class LeanbackKeyboardContainer {
     }
 
     private void setShiftState(int state) {
-        this.mMainKeyboardView.setShiftState(state);
+        mMainKeyboardView.setShiftState(state);
     }
 
     private void setTouchStateInternal(int state) {
-        this.mTouchState = state;
+        mTouchState = state;
     }
 
+    /**
+     * Speech recognizer routine
+     * @param context context
+     */
     private void startRecognition(Context context) {
-        this.mRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        this.mRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "free_form");
-        this.mRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
-        this.mSpeechRecognizer.setRecognitionListener(new RecognitionListener() {
+        mRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        mRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "free_form");
+        mRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
+        mSpeechRecognizer.setRecognitionListener(new RecognitionListener() {
             float peakRmsLevel = 0.0F;
             int rmsCounter = 0;
 
@@ -546,9 +555,9 @@ public class LeanbackKeyboardContainer {
 
             @Override
             public void onResults(Bundle bundle) {
-                ArrayList var2 = bundle.getStringArrayList("results_recognition");
-                if (var2 != null && LeanbackKeyboardContainer.this.mVoiceListener != null) {
-                    LeanbackKeyboardContainer.this.mVoiceListener.onVoiceResult((String) var2.get(0));
+                ArrayList results = bundle.getStringArrayList("results_recognition");
+                if (results != null && LeanbackKeyboardContainer.this.mVoiceListener != null) {
+                    LeanbackKeyboardContainer.this.mVoiceListener.onVoiceResult((String) results.get(0));
                 }
 
                 LeanbackKeyboardContainer.this.cancelVoiceRecording();
@@ -560,7 +569,7 @@ public class LeanbackKeyboardContainer {
                 throw new IllegalStateException("method not implemented");
             }
         });
-        this.mSpeechRecognizer.startListening(this.mRecognizerIntent);
+        mSpeechRecognizer.startListening(this.mRecognizerIntent);
     }
 
     public void alignSelector(final float x, final float y, final boolean playAnimation) {
@@ -648,21 +657,21 @@ public class LeanbackKeyboardContainer {
     }
 
     public LeanbackKeyboardContainer.KeyFocus getCurrFocus() {
-        return this.mCurrKeyInfo;
+        return mCurrKeyInfo;
     }
 
     public int getCurrKeyCode() {
-        int var1 = 0;
-        Key var2 = this.getKey(this.mCurrKeyInfo.type, this.mCurrKeyInfo.index);
-        if (var2 != null) {
-            var1 = var2.codes[0];
+        int keyCode = 0;
+        Key key = getKey(mCurrKeyInfo.type, mCurrKeyInfo.index);
+        if (key != null) {
+            keyCode = key.codes[0];
         }
 
-        return var1;
+        return keyCode;
     }
 
     public Button getGoButton() {
-        return this.mActionButtonView;
+        return mActionButtonView;
     }
 
     public Key getKey(int type, int index) {
@@ -1036,6 +1045,10 @@ public class LeanbackKeyboardContainer {
         }
     }
 
+    /**
+     * Set touch state
+     * @param state {@link LeanbackKeyboardContainer LeanbackKeyboardContainer} constant
+     */
     public void setTouchState(final int state) {
         switch (state) {
             case TOUCH_STATE_NO_TOUCH:
@@ -1065,58 +1078,60 @@ public class LeanbackKeyboardContainer {
         setKbFocus(mCurrKeyInfo, true, true);
     }
 
-    public void setVoiceListener(LeanbackKeyboardContainer.VoiceListener var1) {
-        this.mVoiceListener = var1;
+    public void setVoiceListener(LeanbackKeyboardContainer.VoiceListener listener) {
+        mVoiceListener = listener;
     }
 
     public void startVoiceRecording() {
-        if (this.mVoiceEnabled) {
-            if (!this.mVoiceKeyDismissesEnabled) {
-                this.mVoiceAnimator.startEnterAnimation();
+        if (mVoiceEnabled) {
+            if (!mVoiceKeyDismissesEnabled) {
+                mVoiceAnimator.startEnterAnimation();
                 return;
             }
 
-            this.mDismissListener.onDismiss(true);
+            mDismissListener.onDismiss(true);
         }
-
     }
 
+    /**
+     * Switch to next keyboard (looped).
+     * {@link KeyboardManager KeyboardManager} is the source behind all keyboard implementations
+     */
     public void switchToNextKeyboard() {
-        LeanbackKeyboardView var1 = this.mMainKeyboardView;
-        Keyboard var2 = this.mKeyboardManager.getNextKeyboard();
-        this.mInitialMainKeyboard = var2;
-        var1.setKeyboard(var2);
+        LeanbackKeyboardView keyboardView = mMainKeyboardView;
+        Keyboard keyboard = mKeyboardManager.getNextKeyboard();
+        mInitialMainKeyboard = keyboard;
+        keyboardView.setKeyboard(keyboard);
     }
 
     public void updateAddonKeyboard() {
-        KeyboardManager var1 = new KeyboardManager(this.mContext, this.mAbcKeyboard);
-        this.mKeyboardManager = var1;
-        this.mInitialMainKeyboard = var1.getNextKeyboard();
+        KeyboardManager manager = new KeyboardManager(mContext, mAbcKeyboard);
+        mKeyboardManager = manager;
+        mInitialMainKeyboard = manager.getNextKeyboard();
     }
 
-    public void updateSuggestions(ArrayList<String> var1) {
-        int var2 = this.mSuggestions.getChildCount();
-        int var3 = var1.size();
-        if (var3 < var2) {
-            this.mSuggestions.removeViews(var3, var2 - var3);
-        } else if (var3 > var2) {
-            while (var2 < var3) {
-                View var4 = this.mContext.getLayoutInflater().inflate(R.layout.candidate, (ViewGroup) null);
-                this.mSuggestions.addView(var4);
-                ++var2;
+    public void updateSuggestions(ArrayList<String> suggestions) {
+        int oldCount = mSuggestions.getChildCount();
+        int newCount = suggestions.size();
+        if (newCount < oldCount) {
+            mSuggestions.removeViews(newCount, oldCount - newCount);
+        } else if (newCount > oldCount) {
+            while (oldCount < newCount) {
+                View suggestion = mContext.getLayoutInflater().inflate(R.layout.candidate, null);
+                mSuggestions.addView(suggestion);
+                ++oldCount;
             }
         }
 
-        for (var2 = 0; var2 < var3; ++var2) {
-            Button var5 = (Button) this.mSuggestions.getChildAt(var2).findViewById(R.id.text);
-            var5.setText((CharSequence) var1.get(var2));
-            var5.setContentDescription((CharSequence) var1.get(var2));
+        for (oldCount = 0; oldCount < newCount; ++oldCount) {
+            Button suggestion = mSuggestions.getChildAt(oldCount).findViewById(R.id.text);
+            suggestion.setText(suggestions.get(oldCount));
+            suggestion.setContentDescription(suggestions.get(oldCount));
         }
 
-        if (this.getCurrFocus().type == 3) {
-            this.resetFocusCursor();
+        if (getCurrFocus().type == KeyFocus.TYPE_SUGGESTION) {
+            resetFocusCursor();
         }
-
     }
 
     public interface DismissListener {

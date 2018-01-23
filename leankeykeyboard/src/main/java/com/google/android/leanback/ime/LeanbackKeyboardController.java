@@ -185,6 +185,11 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
         handleCommitKeyboardKey(keyCode, null);
     }
 
+    /**
+     * Fake key index
+     * @param index key index
+     * @param type {@link KeyFocus KeyFocus} constant
+     */
     private void fakeKeyIndex(final int index, final int type) {
         LeanbackKeyboardContainer.KeyFocus focus = mContainer.getCurrFocus();
         focus.index = index;
@@ -669,29 +674,29 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
         this.mDoubleClickDetector.reset();
     }
 
-    public boolean onTouch(View var1, MotionEvent var2) {
-        Object var3 = var1.getTag();
-        if (var3 != null && "Go".equals(var3)) {
-            this.fakeKeyIndex(0, 2);
+    public boolean onTouch(View view, MotionEvent event) {
+        Object tag = view.getTag();
+        if (tag != null && "Go".equals(tag)) {
+            fakeKeyIndex(0, KeyFocus.TYPE_ACTION);
         } else {
-            switch (var2.getAction()) {
-                case 0:
-                    this.moveSelectorToPoint(var2.getX(), var2.getY());
-                    this.fakeClickDown();
-                    this.beginLongClickCountdown();
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    moveSelectorToPoint(event.getX(), event.getY());
+                    fakeClickDown();
+                    beginLongClickCountdown();
                     break;
-                case 1:
-                    if (!this.clickConsumed) {
-                        this.clickConsumed = true;
-                        if (this.isDoubleClick()) {
-                            this.mContainer.onKeyLongPress();
+                case MotionEvent.ACTION_UP:
+                    if (!clickConsumed) {
+                        clickConsumed = true;
+                        if (isDoubleClick()) {
+                            mContainer.onKeyLongPress();
                             break;
                         }
 
-                        this.fakeClickUp();
+                        fakeClickUp();
                     }
 
-                    this.fakeLongClickUp();
+                    fakeLongClickUp();
                     break;
                 default:
                     return false;
@@ -701,35 +706,35 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
         return true;
     }
 
-    public void onVoiceResult(String var1) {
-        this.mInputListener.onEntry(6, 0, var1);
+    public void onVoiceResult(String result) {
+        mInputListener.onEntry(InputListener.ENTRY_TYPE_VOICE, 0, result);
     }
 
     public void run() {
-        if (!this.clickConsumed) {
-            this.clickConsumed = true;
-            this.fakeLongClickDown();
+        if (!clickConsumed) {
+            clickConsumed = true;
+            fakeLongClickDown();
         }
     }
 
-    public void setKeyboardContainer(LeanbackKeyboardContainer var1) {
-        this.mContainer = var1;
-        var1.getView().addOnLayoutChangeListener(this.mOnLayoutChangeListener);
+    public void setKeyboardContainer(LeanbackKeyboardContainer container) {
+        mContainer = container;
+        container.getView().addOnLayoutChangeListener(mOnLayoutChangeListener);
     }
 
-    public void setSpaceTracker(TouchNavSpaceTracker var1) {
-        this.mSpaceTracker = var1;
-        var1.setLPFEnabled(true);
-        var1.setKeyEventListener(this.mTouchEventListener);
+    public void setSpaceTracker(TouchNavSpaceTracker tracker) {
+        mSpaceTracker = tracker;
+        tracker.setLPFEnabled(true);
+        tracker.setKeyEventListener(mTouchEventListener);
     }
 
     public void updateAddonKeyboard() {
-        this.mContainer.updateAddonKeyboard();
+        mContainer.updateAddonKeyboard();
     }
 
-    public void updateSuggestions(ArrayList<String> var1) {
-        if (this.mContainer != null) {
-            this.mContainer.updateSuggestions(var1);
+    public void updateSuggestions(ArrayList<String> suggestions) {
+        if (mContainer != null) {
+            mContainer.updateSuggestions(suggestions);
         }
 
     }
@@ -740,23 +745,23 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
         long mFirstClickTime;
 
         private DoubleClickDetector() {
-            this.DOUBLE_CLICK_TIMEOUT_MS = 200L;
-            this.mFirstClickTime = 0L;
+            DOUBLE_CLICK_TIMEOUT_MS = 200L;
+            mFirstClickTime = 0L;
         }
 
-        public void addEvent(long var1) {
-            if (var1 - this.mFirstClickTime > 200L) {
-                this.mFirstClickTime = var1;
-                this.mFirstClickShiftLocked = LeanbackKeyboardController.this.mContainer.isCapsLockOn();
+        public void addEvent(long currTime) {
+            if (currTime - mFirstClickTime > DOUBLE_CLICK_TIMEOUT_MS) {
+                mFirstClickTime = currTime;
+                mFirstClickShiftLocked = LeanbackKeyboardController.this.mContainer.isCapsLockOn();
                 LeanbackKeyboardController.this.commitKey();
             } else {
-                LeanbackKeyboardController.this.mContainer.onShiftDoubleClick(this.mFirstClickShiftLocked);
-                this.reset();
+                LeanbackKeyboardController.this.mContainer.onShiftDoubleClick(mFirstClickShiftLocked);
+                reset();
             }
         }
 
         public void reset() {
-            this.mFirstClickTime = 0L;
+            mFirstClickTime = 0L;
         }
     }
 

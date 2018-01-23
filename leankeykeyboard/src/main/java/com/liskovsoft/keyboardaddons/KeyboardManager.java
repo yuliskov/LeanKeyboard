@@ -16,8 +16,8 @@ public class KeyboardManager {
     private final KeyboardFactory mKeyboardFactory;
     private int mKeyboardIndex = 0;
 
-    public KeyboardManager(Context ctx, int defaultKeyboard1) {
-        this(ctx, new Keyboard(ctx, defaultKeyboard1));
+    public KeyboardManager(Context ctx, int keyboardResId) {
+        this(ctx, new Keyboard(ctx, keyboardResId));
     }
 
     public KeyboardManager(Context ctx, Keyboard englishKeyboard) {
@@ -40,15 +40,18 @@ public class KeyboardManager {
         return keyboards;
     }
 
+    /**
+     * Get next keyboard from internal source (looped)
+     * @return keyboard
+     */
     public Keyboard getNextKeyboard() {
         ++mKeyboardIndex;
         mKeyboardIndex = mKeyboardIndex < mAllKeyboards.size() ? mKeyboardIndex : 0;
 
         Keyboard kbd = mAllKeyboards.get(mKeyboardIndex);
         if (kbd == null) {
-            throw new UnsupportedOperationException(String.format("Keyboard %s not initialized", mKeyboardIndex));
+            throw new IllegalStateException(String.format("Keyboard %s not initialized", mKeyboardIndex));
         }
-
 
         return kbd;
     }
