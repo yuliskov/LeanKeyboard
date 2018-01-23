@@ -214,7 +214,8 @@ public class LeanbackKeyboardView extends FrameLayout {
     }
 
     private void removeMessages() {
-        throw new IllegalStateException("method not implemented");
+        // TODO: not implemented
+        Log.w(TAG, "method 'removeMessages()' not implemented");
     }
 
     private void setKeys(List<Key> keys) {
@@ -477,14 +478,14 @@ public class LeanbackKeyboardView extends FrameLayout {
     }
 
     public void setKeyboard(Keyboard keyboard) {
-        this.removeMessages();
-        this.mKeyboard = keyboard;
-        this.setKeys(this.mKeyboard.getKeys());
-        int var2 = this.mShiftState;
-        this.mShiftState = -1;
-        this.setShiftState(var2);
-        this.requestLayout();
-        this.invalidateAllKeys();
+        removeMessages();
+        mKeyboard = keyboard;
+        setKeys(mKeyboard.getKeys());
+        int state = mShiftState;
+        mShiftState = -1;
+        setShiftState(state);
+        requestLayout();
+        invalidateAllKeys();
     }
 
     /**
