@@ -432,56 +432,64 @@ public class LeanbackKeyboardContainer {
      */
     private void setKbFocus(final LeanbackKeyboardContainer.KeyFocus focus, final boolean forceFocusChange, final boolean animate) {
         boolean clicked = true;
-        if (!focus.equals(this.mCurrKeyInfo) || forceFocusChange) {
-            LeanbackKeyboardView prevView = this.mPrevView;
-            this.mPrevView = null;
+        if (!focus.equals(mCurrKeyInfo) || forceFocusChange) {
+            LeanbackKeyboardView prevView = mPrevView;
+            mPrevView = null;
             boolean overestimateWidth = false;
             boolean overestimateHeight = false;
             switch (focus.type) {
                 case KeyFocus.TYPE_MAIN:
-                    if (focus.code != 32) {
+                    if (focus.code != LeanbackKeyboardView.ASCII_SPACE) {
                         overestimateWidth = true;
                     } else {
                         overestimateWidth = false;
                     }
 
-                    LeanbackKeyboardView mainView = this.mMainKeyboardView;
+                    LeanbackKeyboardView mainView = mMainKeyboardView;
                     int index = focus.index;
-                    if (this.mTouchState == 3) {
+                    if (mTouchState == TOUCH_STATE_CLICK) {
                         overestimateHeight = true;
                     } else {
                         overestimateHeight = false;
                     }
 
                     mainView.setFocus(index, overestimateHeight, overestimateWidth);
-                    this.mPrevView = this.mMainKeyboardView;
+                    mPrevView = mMainKeyboardView;
                     overestimateHeight = true;
                     break;
                 case KeyFocus.TYPE_VOICE:
-                    this.mVoiceButtonView.setMicFocused(true);
-                    this.dismissMiniKeyboard();
+                    mVoiceButtonView.setMicFocused(true);
+                    dismissMiniKeyboard();
                     break;
                 case KeyFocus.TYPE_ACTION:
-                    LeanbackUtils.sendAccessibilityEvent(this.mActionButtonView, true);
-                    this.dismissMiniKeyboard();
+                    LeanbackUtils.sendAccessibilityEvent(mActionButtonView, true);
+                    dismissMiniKeyboard();
                     break;
                 case KeyFocus.TYPE_SUGGESTION:
-                    this.dismissMiniKeyboard();
+                    dismissMiniKeyboard();
             }
 
-            if (prevView != null && prevView != this.mPrevView) {
-                if (this.mTouchState != 3) {
+            if (prevView != null && prevView != mPrevView) {
+                if (mTouchState != TOUCH_STATE_CLICK) {
                     clicked = false;
                 }
 
                 prevView.setFocus(-1, clicked);
             }
 
-            this.setSelectorToFocus(focus.rect, overestimateWidth, overestimateHeight, animate);
-            this.mCurrKeyInfo.set(focus);
+            setSelectorToFocus(focus.rect, overestimateWidth, overestimateHeight, animate);
+            mCurrKeyInfo.set(focus);
         }
     }
 
+    /**
+     * Set keyboard shift sate
+     * @param state one of the
+     * {@link LeanbackKeyboardView#SHIFT_ON SHIFT_ON},
+     * {@link LeanbackKeyboardView#SHIFT_OFF SHIFT_OFF},
+     * {@link LeanbackKeyboardView#SHIFT_LOCKED SHIFT_LOCKED}
+     * constants
+     */
     private void setShiftState(int state) {
         mMainKeyboardView.setShiftState(state);
     }
@@ -573,38 +581,37 @@ public class LeanbackKeyboardContainer {
     }
 
     public void alignSelector(final float x, final float y, final boolean playAnimation) {
-        final float translatedX = x - (float) (this.mSelector.getWidth() / 2);
-        final float translatedY = y - (float) (this.mSelector.getHeight() / 2);
+        final float translatedX = x - (float) (mSelector.getWidth() / 2);
+        final float translatedY = y - (float) (mSelector.getHeight() / 2);
         if (!playAnimation) {
-            this.mSelector.setX(translatedX);
-            this.mSelector.setY(translatedY);
+            mSelector.setX(translatedX);
+            mSelector.setY(translatedY);
         } else {
-            this.mSelector.animate().x(translatedX).y(translatedY).setInterpolator(sMovementInterpolator).setDuration(MOVEMENT_ANIMATION_DURATION).start();
+            mSelector.animate().x(translatedX).y(translatedY).setInterpolator(sMovementInterpolator).setDuration(MOVEMENT_ANIMATION_DURATION).start();
         }
     }
 
     public boolean areSuggestionsEnabled() {
-        return this.mSuggestionsEnabled;
+        return mSuggestionsEnabled;
     }
 
     public void cancelVoiceRecording() {
-        this.mVoiceAnimator.startExitAnimation();
+        mVoiceAnimator.startExitAnimation();
     }
 
     public void clearSuggestions() {
-        this.mSuggestions.removeAllViews();
-        if (this.getCurrFocus().type == 3) {
-            this.resetFocusCursor();
+        mSuggestions.removeAllViews();
+        if (getCurrFocus().type == KeyFocus.TYPE_SUGGESTION) {
+            resetFocusCursor();
         }
-
     }
 
     public boolean dismissMiniKeyboard() {
-        return this.mMainKeyboardView.dismissMiniKeyboard();
+        return mMainKeyboardView.dismissMiniKeyboard();
     }
 
     public boolean enableAutoEnterSpace() {
-        return this.mAutoEnterSpaceEnabled;
+        return mAutoEnterSpaceEnabled;
     }
 
     public boolean getBestFocus(final Float x, final Float y, final LeanbackKeyboardContainer.KeyFocus focus) {
@@ -868,24 +875,22 @@ public class LeanbackKeyboardContainer {
     }
 
     public void onModeChangeClick() {
-        this.dismissMiniKeyboard();
-        if (this.mMainKeyboardView.getKeyboard().equals(this.mSymKeyboard)) {
-            this.mMainKeyboardView.setKeyboard(this.mInitialMainKeyboard);
+        dismissMiniKeyboard();
+        if (mMainKeyboardView.getKeyboard().equals(mSymKeyboard)) {
+            mMainKeyboardView.setKeyboard(mInitialMainKeyboard);
         } else {
-            this.mMainKeyboardView.setKeyboard(this.mSymKeyboard);
+            mMainKeyboardView.setKeyboard(mSymKeyboard);
         }
     }
 
     public void onPeriodEntry() {
-        if (this.mMainKeyboardView.isShifted()) {
-            if (!this.isCapsLockOn() && !this.mCapCharacters && !this.mCapWords && !this.mCapSentences) {
-                this.setShiftState(0);
+        if (mMainKeyboardView.isShifted()) {
+            if (!isCapsLockOn() && !mCapCharacters && !mCapWords && !mCapSentences) {
+                setShiftState(LeanbackKeyboardView.SHIFT_OFF);
             }
-        } else if (this.isCapsLockOn() || this.mCapCharacters || this.mCapWords || this.mCapSentences) {
-            this.setShiftState(1);
-            return;
+        } else if (isCapsLockOn() || mCapCharacters || mCapWords || mCapSentences) {
+            setShiftState(LeanbackKeyboardView.SHIFT_ON);
         }
-
     }
 
     public void onShiftClick() {
@@ -1230,38 +1235,40 @@ public class LeanbackKeyboardContainer {
         private float mStartY;
         private final View mView;
 
-        public ScaleAnimation(FrameLayout var2) {
-            this.mView = var2;
-            this.mParams = var2.getLayoutParams();
-            this.setDuration(MOVEMENT_ANIMATION_DURATION);
-            this.setInterpolator(LeanbackKeyboardContainer.sMovementInterpolator);
+        public ScaleAnimation(FrameLayout view) {
+            mView = view;
+            mParams = view.getLayoutParams();
+            setDuration(MOVEMENT_ANIMATION_DURATION);
+            setInterpolator(LeanbackKeyboardContainer.sMovementInterpolator);
         }
 
-        protected void applyTransformation(float var1, Transformation var2) {
-            if (var1 == 0.0F) {
-                this.mStartX = this.mView.getX();
-                this.mStartY = this.mView.getY();
-                this.mStartWidth = (float) this.mParams.width;
-                this.mStartHeight = (float) this.mParams.height;
+        @Override
+        protected void applyTransformation(float interpolatedTime, Transformation transformation) {
+            if (interpolatedTime == 0.0F) {
+                mStartX = mView.getX();
+                mStartY = mView.getY();
+                mStartWidth = (float) mParams.width;
+                mStartHeight = (float) mParams.height;
             } else {
-                this.setValues((this.mEndX - this.mStartX) * var1 + this.mStartX, (this.mEndY - this.mStartY) * var1 + this.mStartY, (float) ((int)
-                        ((this.mEndWidth - this.mStartWidth) * var1 + this.mStartWidth)), (float) ((int) ((this.mEndHeight - this.mStartHeight) *
-                        var1 + this.mStartHeight)));
+                setValues((mEndX - mStartX) * interpolatedTime + mStartX,
+                            (mEndY - mStartY) * interpolatedTime + mStartY,
+                            (float) ((int) ((mEndWidth - mStartWidth) * interpolatedTime + mStartWidth)),
+                            (float) ((int) ((mEndHeight - mStartHeight) * interpolatedTime + mStartHeight)));
             }
         }
 
-        public void setAnimationBounds(float var1, float var2, float var3, float var4) {
-            this.mEndX = var1;
-            this.mEndY = var2;
-            this.mEndWidth = var3;
-            this.mEndHeight = var4;
+        public void setAnimationBounds(float x, float y, float width, float height) {
+            this.mEndX = x;
+            this.mEndY = y;
+            this.mEndWidth = width;
+            this.mEndHeight = height;
         }
 
-        public void setValues(float var1, float var2, float var3, float var4) {
-            this.mView.setX(var1);
-            this.mView.setY(var2);
-            this.mParams.width = (int) var3;
-            this.mParams.height = (int) var4;
+        public void setValues(float x, float y, float width, float height) {
+            this.mView.setX(x);
+            this.mView.setY(y);
+            this.mParams.width = (int) width;
+            this.mParams.height = (int) height;
             this.mView.setLayoutParams(this.mParams);
             this.mView.requestLayout();
         }
@@ -1272,67 +1279,66 @@ public class LeanbackKeyboardContainer {
         private AnimatorListener mExitListener;
         private ValueAnimator mValueAnimator;
 
-        public VoiceIntroAnimator(AnimatorListener var2, AnimatorListener var3) {
-            this.mEnterListener = var2;
-            this.mExitListener = var3;
-            this.mValueAnimator = ValueAnimator.ofFloat(new float[]{LeanbackKeyboardContainer.this.mAlphaOut, LeanbackKeyboardContainer.this.mAlphaIn});
-            this.mValueAnimator.setDuration((long) LeanbackKeyboardContainer.this.mVoiceAnimDur);
-            this.mValueAnimator.setInterpolator(new AccelerateInterpolator());
+        public VoiceIntroAnimator(AnimatorListener enterListener, AnimatorListener exitListener) {
+            mEnterListener = enterListener;
+            mExitListener = exitListener;
+            mValueAnimator = ValueAnimator.ofFloat(LeanbackKeyboardContainer.this.mAlphaOut, LeanbackKeyboardContainer.this.mAlphaIn);
+            mValueAnimator.setDuration((long) LeanbackKeyboardContainer.this.mVoiceAnimDur);
+            mValueAnimator.setInterpolator(new AccelerateInterpolator());
         }
 
-        private void start(final boolean var1) {
-            this.mValueAnimator.cancel();
-            this.mValueAnimator.removeAllListeners();
-            ValueAnimator var3 = this.mValueAnimator;
-            AnimatorListener var2;
-            if (var1) {
-                var2 = this.mEnterListener;
+        private void start(final boolean enterVoice) {
+            mValueAnimator.cancel();
+            mValueAnimator.removeAllListeners();
+            ValueAnimator animation = mValueAnimator;
+            AnimatorListener listener;
+            if (enterVoice) {
+                listener = mEnterListener;
             } else {
-                var2 = this.mExitListener;
+                listener = mExitListener;
             }
 
-            var3.addListener(var2);
-            this.mValueAnimator.removeAllUpdateListeners();
-            this.mValueAnimator.addUpdateListener(new AnimatorUpdateListener() {
-                public void onAnimationUpdate(ValueAnimator var1x) {
-                    float var2 = (Float) VoiceIntroAnimator.this.mValueAnimator.getAnimatedValue();
-                    float var4 = LeanbackKeyboardContainer.this.mAlphaIn + LeanbackKeyboardContainer.this.mAlphaOut - var2;
-                    float var3;
-                    if (var1) {
-                        var3 = var4;
+            animation.addListener(listener);
+            mValueAnimator.removeAllUpdateListeners();
+            mValueAnimator.addUpdateListener(new AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(final ValueAnimator animation) {
+                    float scale = (Float) VoiceIntroAnimator.this.mValueAnimator.getAnimatedValue();
+                    float calcOpacity = LeanbackKeyboardContainer.this.mAlphaIn + LeanbackKeyboardContainer.this.mAlphaOut - scale;
+                    float opacity;
+                    if (enterVoice) {
+                        opacity = calcOpacity;
                     } else {
-                        var3 = var2;
+                        opacity = scale;
                     }
 
-                    if (var1) {
-                        var4 = var2;
+                    if (enterVoice) {
+                        calcOpacity = scale;
                     }
 
-                    LeanbackKeyboardContainer.this.mMainKeyboardView.setAlpha(var3);
-                    LeanbackKeyboardContainer.this.mActionButtonView.setAlpha(var3);
-                    LeanbackKeyboardContainer.this.mVoiceButtonView.setAlpha(var4);
-                    if (var2 == LeanbackKeyboardContainer.this.mAlphaOut) {
-                        if (!var1) {
+                    LeanbackKeyboardContainer.this.mMainKeyboardView.setAlpha(opacity);
+                    LeanbackKeyboardContainer.this.mActionButtonView.setAlpha(opacity);
+                    LeanbackKeyboardContainer.this.mVoiceButtonView.setAlpha(calcOpacity);
+                    if (scale == LeanbackKeyboardContainer.this.mAlphaOut) {
+                        if (!enterVoice) {
                             LeanbackKeyboardContainer.this.mMainKeyboardView.setVisibility(View.VISIBLE);
                             LeanbackKeyboardContainer.this.mActionButtonView.setVisibility(View.VISIBLE);
                             return;
                         }
 
                         LeanbackKeyboardContainer.this.mVoiceButtonView.setVisibility(View.VISIBLE);
-                    } else if (var2 == LeanbackKeyboardContainer.this.mAlphaIn) {
-                        if (var1) {
+                    } else if (scale == LeanbackKeyboardContainer.this.mAlphaIn) {
+                        if (enterVoice) {
                             LeanbackKeyboardContainer.this.mMainKeyboardView.setVisibility(View.INVISIBLE);
                             LeanbackKeyboardContainer.this.mActionButtonView.setVisibility(View.INVISIBLE);
                             return;
                         }
 
                         LeanbackKeyboardContainer.this.mVoiceButtonView.setVisibility(View.INVISIBLE);
-                        return;
                     }
-
                 }
             });
-            this.mValueAnimator.start();
+            mValueAnimator.start();
         }
 
         void startEnterAnimation() {
@@ -1351,6 +1357,6 @@ public class LeanbackKeyboardContainer {
     }
 
     public interface VoiceListener {
-        void onVoiceResult(String var1);
+        void onVoiceResult(String result);
     }
 }

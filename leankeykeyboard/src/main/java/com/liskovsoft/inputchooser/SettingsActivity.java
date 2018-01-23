@@ -15,7 +15,7 @@ import android.content.pm.ActivityInfo;
 import android.content.Intent;
 import android.app.Activity;
 
-public class LaunchAppActivity extends Activity
+public class SettingsActivity extends Activity
 {
     @SuppressLint("WrongConstant")
     private void addIntentFlags(final Intent intent) {

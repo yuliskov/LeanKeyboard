@@ -706,10 +706,12 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
         return true;
     }
 
+    @Override
     public void onVoiceResult(String result) {
         mInputListener.onEntry(InputListener.ENTRY_TYPE_VOICE, 0, result);
     }
 
+    @Override
     public void run() {
         if (!clickConsumed) {
             clickConsumed = true;

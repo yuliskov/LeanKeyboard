@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder> {
+public class ApkResourceKeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder> {
     private static final String TAG = "ASK_KF";
 
     private static final String XML_LAYOUT_RES_ID_ATTRIBUTE = "layoutResId";
@@ -44,7 +44,7 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder> {
     private static final String XML_PHYSICAL_TRANSLATION_RES_ID_ATTRIBUTE = "physicalKeyboardMappingResId";
     private static final String XML_DEFAULT_ATTRIBUTE = "defaultEnabled";
 
-    public KeyboardFactory() {
+    public ApkResourceKeyboardFactory() {
         super(TAG, "com.liskovsoft.leankey.langpack.KEYBOARD", "com.liskovsoft.leankey.langpack.keyboards",
                 "Keyboards", "Keyboard",
                 0, true);

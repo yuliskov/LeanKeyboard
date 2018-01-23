@@ -1,5 +1,6 @@
 package com.google.android.leanback.ime;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
@@ -68,24 +69,24 @@ public class LeanbackKeyboardView extends FrameLayout {
         super(context, attrs);
         Resources res = context.getResources();
         TypedArray styledAttrs = context.getTheme().obtainStyledAttributes(attrs, R.styleable.LeanbackKeyboardView, 0, 0);
-        this.mRowCount = styledAttrs.getInteger(R.styleable.LeanbackKeyboardView_rowCount, -1);
-        this.mColCount = styledAttrs.getInteger(R.styleable.LeanbackKeyboardView_columnCount, -1);
-        this.mKeyTextSize = (int) res.getDimension(R.dimen.key_font_size);
-        this.mPaint = new Paint();
-        this.mPaint.setAntiAlias(true);
-        this.mPaint.setTextSize((float) this.mKeyTextSize);
-        this.mPaint.setTextAlign(Align.CENTER);
-        this.mPaint.setAlpha(255);
-        this.mPadding = new Rect(0, 0, 0, 0);
-        this.mModeChangeTextSize = (int) res.getDimension(R.dimen.function_key_mode_change_font_size);
-        this.mKeyTextColor = res.getColor(R.color.key_text_default);
-        this.mFocusIndex = -1;
-        this.mShiftState = 0;
-        this.mFocusedScale = res.getFraction(R.fraction.focused_scale, 1, 1);
-        this.mClickedScale = res.getFraction(R.fraction.clicked_scale, 1, 1);
-        this.mClickAnimDur = res.getInteger(R.integer.clicked_anim_duration);
-        this.mUnfocusStartDelay = res.getInteger(R.integer.unfocused_anim_delay);
-        this.mInactiveMiniKbAlpha = res.getInteger(R.integer.inactive_mini_kb_alpha);
+        mRowCount = styledAttrs.getInteger(R.styleable.LeanbackKeyboardView_rowCount, -1);
+        mColCount = styledAttrs.getInteger(R.styleable.LeanbackKeyboardView_columnCount, -1);
+        mKeyTextSize = (int) res.getDimension(R.dimen.key_font_size);
+        mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+        mPaint.setTextSize((float) mKeyTextSize);
+        mPaint.setTextAlign(Align.CENTER);
+        mPaint.setAlpha(255);
+        mPadding = new Rect(0, 0, 0, 0);
+        mModeChangeTextSize = (int) res.getDimension(R.dimen.function_key_mode_change_font_size);
+        mKeyTextColor = res.getColor(R.color.key_text_default);
+        mFocusIndex = -1;
+        mShiftState = 0;
+        mFocusedScale = res.getFraction(R.fraction.focused_scale, 1, 1);
+        mClickedScale = res.getFraction(R.fraction.clicked_scale, 1, 1);
+        mClickAnimDur = res.getInteger(R.integer.clicked_anim_duration);
+        mUnfocusStartDelay = res.getInteger(R.integer.unfocused_anim_delay);
+        mInactiveMiniKbAlpha = res.getInteger(R.integer.inactive_mini_kb_alpha);
     }
 
     private CharSequence adjustCase(LeanbackKeyboardView.KeyHolder keyHolder) {
@@ -111,131 +112,132 @@ public class LeanbackKeyboardView extends FrameLayout {
         return result;
     }
 
-    @TargetApi(16)
-    private ImageView createKeyImageView(int keyIndex) {
-        Rect var8 = this.mPadding;
-        int var2 = this.getPaddingLeft();
-        int var3 = this.getPaddingTop();
-        LeanbackKeyboardView.KeyHolder var6 = this.mKeys[keyIndex];
-        Key var7 = var6.key;
-        this.adjustCase(var6);
-        String var5;
-        if (var7.label == null) {
-            var5 = null;
+    @SuppressLint("NewApi")
+    private ImageView createKeyImageView(final int keyIndex) {
+        Rect padding = mPadding;
+        int kbdPaddingLeft = getPaddingLeft();
+        int kbdPaddingTop = getPaddingTop();
+        LeanbackKeyboardView.KeyHolder keyHolder = mKeys[keyIndex];
+        Key key = keyHolder.key;
+        adjustCase(keyHolder);
+        String label;
+        if (key.label == null) {
+            label = null;
         } else {
-            var5 = var7.label.toString();
+            label = key.label.toString();
         }
 
         if (Log.isLoggable("LbKbView", Log.DEBUG)) {
-            Log.d("LbKbView", "LABEL: " + var7.label + "->" + var5);
+            Log.d("LbKbView", "LABEL: " + key.label + "->" + label);
         }
 
-        Bitmap var9 = Bitmap.createBitmap(var7.width, var7.height, Config.ARGB_8888);
-        Canvas var10 = new Canvas(var9);
-        Paint var11 = this.mPaint;
-        var11.setColor(this.mKeyTextColor);
-        var10.drawARGB(0, 0, 0, 0);
-        if (var7.icon != null) {
-            if (var7.codes[0] == -1) {
-                switch (this.mShiftState) {
+        Bitmap bitmap = Bitmap.createBitmap(key.width, key.height, Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        Paint paint = mPaint;
+        paint.setColor(mKeyTextColor);
+        canvas.drawARGB(0, 0, 0, 0);
+        if (key.icon != null) {
+            if (key.codes[0] == -1) {
+                switch (mShiftState) {
                     case 0:
-                        var7.icon = this.getContext().getResources().getDrawable(R.drawable.ic_ime_shift_off);
+                        key.icon = getContext().getResources().getDrawable(R.drawable.ic_ime_shift_off);
                         break;
                     case 1:
-                        var7.icon = this.getContext().getResources().getDrawable(R.drawable.ic_ime_shift_on);
+                        key.icon = getContext().getResources().getDrawable(R.drawable.ic_ime_shift_on);
                         break;
                     case 2:
-                        var7.icon = this.getContext().getResources().getDrawable(R.drawable.ic_ime_shift_lock_on);
+                        key.icon = getContext().getResources().getDrawable(R.drawable.ic_ime_shift_lock_on);
                 }
             }
 
-            keyIndex = (var7.width - var8.left - var8.right - var7.icon.getIntrinsicWidth()) / 2 + var8.left;
-            int var4 = (var7.height - var8.top - var8.bottom - var7.icon.getIntrinsicHeight()) / 2 + var8.top;
-            var10.translate((float) keyIndex, (float) var4);
-            var7.icon.setBounds(0, 0, var7.icon.getIntrinsicWidth(), var7.icon.getIntrinsicHeight());
-            var7.icon.draw(var10);
-            var10.translate((float) (-keyIndex), (float) (-var4));
-        } else if (var5 != null) {
-            if (var5.length() > 1) {
-                var11.setTextSize((float) this.mModeChangeTextSize);
-                var11.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
+            int dx = (key.width - padding.left - padding.right - key.icon.getIntrinsicWidth()) / 2 + padding.left;
+            int dy = (key.height - padding.top - padding.bottom - key.icon.getIntrinsicHeight()) / 2 + padding.top;
+            canvas.translate((float) dx, (float) dy);
+            key.icon.setBounds(0, 0, key.icon.getIntrinsicWidth(), key.icon.getIntrinsicHeight());
+            key.icon.draw(canvas);
+            canvas.translate((float) (-dx), (float) (-dy));
+        } else if (label != null) {
+            if (label.length() > 1) {
+                paint.setTextSize((float) mModeChangeTextSize);
+                paint.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
             } else {
-                var11.setTextSize((float) this.mKeyTextSize);
-                var11.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
+                paint.setTextSize((float) mKeyTextSize);
+                paint.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
             }
 
-            var10.drawText(var5, (float) ((var7.width - var8.left - var8.right) / 2 + var8.left), (float) ((var7.height - var8.top - var8.bottom) /
-                    2) + (var11.getTextSize() - var11.descent()) / 2.0F + (float) var8.top, var11);
-            var11.setShadowLayer(0.0F, 0.0F, 0.0F, 0);
+            canvas.drawText(label, (float) ((key.width - padding.left - padding.right) / 2 + padding.left), (float) ((key.height - padding.top - padding.bottom) /
+                    2) + (paint.getTextSize() - paint.descent()) / 2.0F + (float) padding.top, paint);
+            paint.setShadowLayer(0.0F, 0.0F, 0.0F, 0);
         }
 
-        ImageView var12 = new ImageView(this.getContext());
-        var12.setImageBitmap(var9);
-        var12.setContentDescription(var5);
-        this.addView(var12, new LayoutParams(-2, -2));
-        var12.setX((float) (var7.x + var2));
-        var12.setY((float) (var7.y + var3));
-        if (this.mMiniKeyboardOnScreen && !var6.isInMiniKb) {
-            keyIndex = this.mInactiveMiniKbAlpha;
+        ImageView image = new ImageView(getContext());
+        image.setImageBitmap(bitmap);
+        image.setContentDescription(label);
+        addView(image, new LayoutParams(-2, -2));
+        image.setX((float) (key.x + kbdPaddingLeft));
+        image.setY((float) (key.y + kbdPaddingTop));
+        int opacity;
+        if (mMiniKeyboardOnScreen && !keyHolder.isInMiniKb) {
+            opacity = mInactiveMiniKbAlpha;
         } else {
-            keyIndex = 255;
+            opacity = 255;
         }
 
-        var12.setImageAlpha(keyIndex);
-        var12.setVisibility(View.VISIBLE);
-        return var12;
+        image.setImageAlpha(opacity);
+        image.setVisibility(View.VISIBLE);
+        return image;
     }
 
     private void createKeyImageViews(LeanbackKeyboardView.KeyHolder[] keys) {
-        int var3 = keys.length;
-        int var2;
-        if (this.mKeyImageViews != null) {
-            ImageView[] var5 = this.mKeyImageViews;
-            int var4 = var5.length;
+        if (mKeyImageViews != null) {
+            ImageView[] images = mKeyImageViews;
+            int totalImages = images.length;
 
-            for (var2 = 0; var2 < var4; ++var2) {
-                this.removeView(var5[var2]);
+            for (int i = 0; i < totalImages; ++i) {
+                removeView(images[i]);
             }
 
-            this.mKeyImageViews = null;
+            mKeyImageViews = null;
         }
 
-        for (var2 = 0; var2 < var3; ++var2) {
-            if (this.mKeyImageViews == null) {
-                this.mKeyImageViews = new ImageView[var3];
-            } else if (this.mKeyImageViews[var2] != null) {
-                this.removeView(this.mKeyImageViews[var2]);
+        int totalKeys = keys.length;
+        for (int i = 0; i < totalKeys; ++i) {
+            if (mKeyImageViews == null) {
+                mKeyImageViews = new ImageView[totalKeys];
+            } else if (mKeyImageViews[i] != null) {
+                removeView(mKeyImageViews[i]);
             }
 
-            this.mKeyImageViews[var2] = this.createKeyImageView(var2);
+            mKeyImageViews[i] = createKeyImageView(i);
         }
 
     }
 
     private void removeMessages() {
+        throw new IllegalStateException("method not implemented");
     }
 
     private void setKeys(List<Key> keys) {
-        this.mKeys = new LeanbackKeyboardView.KeyHolder[keys.size()];
-        Iterator var4 = keys.iterator();
+        mKeys = new LeanbackKeyboardView.KeyHolder[keys.size()];
+        Iterator iterator = keys.iterator();
 
-        for (int var2 = 0; var2 < this.mKeys.length && var4.hasNext(); ++var2) {
-            Key var3 = (Key) var4.next();
-            this.mKeys[var2] = new LeanbackKeyboardView.KeyHolder(var3);
+        for (int i = 0; i < mKeys.length && iterator.hasNext(); ++i) {
+            Key key = (Key) iterator.next();
+            mKeys[i] = new LeanbackKeyboardView.KeyHolder(key);
         }
 
     }
 
     public boolean dismissMiniKeyboard() {
-        boolean var1 = false;
-        if (this.mMiniKeyboardOnScreen) {
-            this.mMiniKeyboardOnScreen = false;
-            this.setKeys(this.mKeyboard.getKeys());
-            this.invalidateAllKeys();
-            var1 = true;
+        boolean dismiss = false;
+        if (mMiniKeyboardOnScreen) {
+            mMiniKeyboardOnScreen = false;
+            setKeys(mKeyboard.getKeys());
+            invalidateAllKeys();
+            dismiss = true;
         }
 
-        return var1;
+        return dismiss;
     }
 
     public int getBaseMiniKbIndex() {
@@ -260,54 +262,54 @@ public class LeanbackKeyboardView extends FrameLayout {
 
     public int getNearestIndex(final float x, final float y) {
         int result;
-        if (this.mKeys != null && this.mKeys.length != 0) {
-            float var3 = (float) this.getPaddingLeft();
-            float var4 = (float) this.getPaddingTop();
-            float var5 = (float) (this.getMeasuredHeight() - this.getPaddingTop() - this.getPaddingBottom());
-            float var6 = (float) (this.getMeasuredWidth() - this.getPaddingLeft() - this.getPaddingRight());
-            int var9 = this.getRowCount();
-            int var10 = this.getColCount();
-            int var8 = (int) ((y - var4) / var5 * (float) var9);
-            if (var8 < 0) {
+        if (mKeys != null && mKeys.length != 0) {
+            float paddingLeft = (float) getPaddingLeft();
+            float paddingTop = (float) getPaddingTop();
+            float height = (float) (getMeasuredHeight() - getPaddingTop() - getPaddingBottom());
+            float width = (float) (getMeasuredWidth() - getPaddingLeft() - getPaddingRight());
+            int rows = getRowCount();
+            int cols = getColCount();
+            int index = (int) ((y - paddingTop) / height * (float) rows);
+            if (index < 0) {
                 result = 0;
             } else {
-                result = var8;
-                if (var8 >= var9) {
-                    result = var9 - 1;
+                result = index;
+                if (index >= rows) {
+                    result = rows - 1;
                 }
             }
 
-            var9 = (int) ((x - var3) / var6 * (float) var10);
-            if (var9 < 0) {
-                var8 = 0;
+            rows = (int) ((x - paddingLeft) / width * (float) cols);
+            if (rows < 0) {
+                index = 0;
             } else {
-                var8 = var9;
-                if (var9 >= var10) {
-                    var8 = var10 - 1;
+                index = rows;
+                if (rows >= cols) {
+                    index = cols - 1;
                 }
             }
 
-            var8 += this.mColCount * result;
-            result = var8;
-            if (var8 > ASCII_PERIOD) {
-                result = var8;
-                if (var8 < 53) {
+            index += mColCount * result;
+            result = index;
+            if (index > ASCII_PERIOD) {
+                result = index;
+                if (index < 53) {
                     result = ASCII_PERIOD;
                 }
             }
 
-            var8 = result;
+            index = result;
             if (result >= 53) {
-                var8 = result - 6;
+                index = result - 6;
             }
 
-            if (var8 < 0) {
+            if (index < 0) {
                 return 0;
             }
 
-            result = var8;
-            if (var8 >= this.mKeys.length) {
-                return this.mKeys.length - 1;
+            result = index;
+            if (index >= mKeys.length) {
+                return mKeys.length - 1;
             }
         } else {
             result = 0;
@@ -329,21 +331,21 @@ public class LeanbackKeyboardView extends FrameLayout {
     }
 
     public void invalidateKey(int keyIndex) {
-        if (this.mKeys != null && keyIndex >= 0 && keyIndex < this.mKeys.length) {
-            if (this.mKeyImageViews[keyIndex] != null) {
-                this.removeView(this.mKeyImageViews[keyIndex]);
+        if (mKeys != null && keyIndex >= 0 && keyIndex < mKeys.length) {
+            if (mKeyImageViews[keyIndex] != null) {
+                removeView(mKeyImageViews[keyIndex]);
             }
 
-            this.mKeyImageViews[keyIndex] = this.createKeyImageView(keyIndex);
+            mKeyImageViews[keyIndex] = createKeyImageView(keyIndex);
         }
     }
 
     public boolean isMiniKeyboardOnScreen() {
-        return this.mMiniKeyboardOnScreen;
+        return mMiniKeyboardOnScreen;
     }
 
     public boolean isShifted() {
-        return this.mShiftState == 1 || this.mShiftState == 2;
+        return mShiftState == 1 || mShiftState == 2;
     }
 
     public void onDraw(Canvas canvas) {
@@ -351,118 +353,123 @@ public class LeanbackKeyboardView extends FrameLayout {
     }
 
     public void onKeyLongPress() {
-        int var1 = this.mKeys[this.mFocusIndex].key.popupResId;
-        if (var1 != 0) {
-            this.dismissMiniKeyboard();
-            this.mMiniKeyboardOnScreen = true;
-            List var6 = (new Keyboard(this.getContext(), var1)).getKeys();
-            int var3 = var6.size();
-            var1 = this.mFocusIndex;
-            int var2 = this.mFocusIndex / this.mColCount;
-            int var4 = (this.mFocusIndex + var3) / this.mColCount;
-            if (var2 != var4) {
-                var1 = this.mColCount * var4 - var3;
+        int popupResId = mKeys[mFocusIndex].key.popupResId;
+        if (popupResId != 0) {
+            dismissMiniKeyboard();
+            mMiniKeyboardOnScreen = true;
+            List<Key> accentKeys = (new Keyboard(getContext(), popupResId)).getKeys();
+            int totalAccentKeys = accentKeys.size();
+            int baseIndex = mFocusIndex;
+            int currentRow = mFocusIndex / mColCount;
+            int nextRow = (mFocusIndex + totalAccentKeys) / mColCount;
+            if (currentRow != nextRow) {
+                baseIndex = mColCount * nextRow - totalAccentKeys;
             }
 
-            this.mBaseMiniKbIndex = var1;
+            mBaseMiniKbIndex = baseIndex;
 
-            for (var2 = 0; var2 < var3; ++var2) {
-                Key var7 = (Key) var6.get(var2);
-                var7.x = this.mKeys[var1 + var2].key.x;
-                var7.y = this.mKeys[var1 + var2].key.y;
-                var7.edgeFlags = this.mKeys[var1 + var2].key.edgeFlags;
-                this.mKeys[var1 + var2].key = var7;
-                this.mKeys[var1 + var2].isInMiniKb = true;
-                LeanbackKeyboardView.KeyHolder var8 = this.mKeys[var1 + var2];
-                boolean var5;
-                if (var2 == 0) {
-                    var5 = true;
+            for (int i = 0; i < totalAccentKeys; ++i) {
+                Key accentKey = accentKeys.get(i);
+                accentKey.x = mKeys[baseIndex + i].key.x;
+                accentKey.y = mKeys[baseIndex + i].key.y;
+                accentKey.edgeFlags = mKeys[baseIndex + i].key.edgeFlags;
+                mKeys[baseIndex + i].key = accentKey;
+                mKeys[baseIndex + i].isInMiniKb = true;
+                LeanbackKeyboardView.KeyHolder holder = mKeys[baseIndex + i];
+                boolean invertible;
+                if (i == 0) {
+                    invertible = true;
                 } else {
-                    var5 = false;
+                    invertible = false;
                 }
 
-                var8.isInvertible = var5;
+                holder.isInvertible = invertible;
             }
 
-            this.invalidateAllKeys();
+            invalidateAllKeys();
         }
 
     }
 
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        if (this.mKeyboard == null) {
-            this.setMeasuredDimension(this.getPaddingLeft() + this.getPaddingRight(), this.getPaddingTop() + this.getPaddingBottom());
+        if (mKeyboard == null) {
+            setMeasuredDimension(getPaddingLeft() + getPaddingRight(), getPaddingTop() + getPaddingBottom());
         } else {
-            int var3 = this.mKeyboard.getMinWidth() + this.getPaddingLeft() + this.getPaddingRight();
-            heightMeasureSpec = var3;
-            if (MeasureSpec.getSize(widthMeasureSpec) < var3 + 10) {
+            int calcHeight = mKeyboard.getMinWidth() + getPaddingLeft() + getPaddingRight();
+            heightMeasureSpec = calcHeight;
+            if (MeasureSpec.getSize(widthMeasureSpec) < calcHeight + 10) {
                 heightMeasureSpec = MeasureSpec.getSize(widthMeasureSpec);
             }
 
-            this.setMeasuredDimension(heightMeasureSpec, this.mKeyboard.getHeight() + this.getPaddingTop() + this.getPaddingBottom());
+            setMeasuredDimension(heightMeasureSpec, mKeyboard.getHeight() + getPaddingTop() + getPaddingBottom());
         }
     }
 
     public void setFocus(int row, int col, boolean clicked) {
-        this.setFocus(this.mColCount * row + col, clicked);
+        setFocus(mColCount * row + col, clicked);
     }
 
     public void setFocus(int index, boolean clicked) {
-        this.setFocus(index, clicked, true);
+        setFocus(index, clicked, true);
     }
 
-    public void setFocus(int index, boolean clicked, boolean showFocusScale) {
-        float var4 = 1.0F;
-        if (this.mKeyImageViews != null && this.mKeyImageViews.length != 0) {
-            int var5;
-            label49:
-            {
-                if (index >= 0) {
-                    var5 = index;
-                    if (index < this.mKeyImageViews.length) {
-                        break label49;
-                    }
-                }
+    /**
+     * Move focus to the key specified by index
+     * @param index index of the key
+     * @param clicked key state
+     * @param showFocusScale increase size
+     */
+    public void setFocus(final int index, final boolean clicked, final boolean showFocusScale) {
+        float scale = 1.0F;
+        if (mKeyImageViews != null && mKeyImageViews.length != 0) {
+            int calcIndex;
 
-                var5 = -1;
+            if (index >= 0 && index < mKeyImageViews.length) {
+                calcIndex = index;
+            } else {
+                calcIndex = -1;
             }
 
-            if (var5 != this.mFocusIndex || clicked != this.mFocusClicked) {
-                if (var5 != this.mFocusIndex) {
-                    if (this.mFocusIndex != -1) {
-                        LeanbackUtils.sendAccessibilityEvent(this.mKeyImageViews[this.mFocusIndex], false);
+            if (calcIndex != mFocusIndex || clicked != mFocusClicked) {
+                if (calcIndex != mFocusIndex) {
+                    if (mFocusIndex != -1) {
+                        LeanbackUtils.sendAccessibilityEvent(mKeyImageViews[mFocusIndex], false);
                     }
 
-                    if (var5 != -1) {
-                        LeanbackUtils.sendAccessibilityEvent(this.mKeyImageViews[var5], true);
+                    if (calcIndex != -1) {
+                        LeanbackUtils.sendAccessibilityEvent(mKeyImageViews[calcIndex], true);
                     }
                 }
 
-                if (this.mCurrentFocusView != null) {
-                    this.mCurrentFocusView.animate().scaleX(1.0F).scaleY(1.0F).setInterpolator(LeanbackKeyboardContainer.sMovementInterpolator)
-                            .setStartDelay((long) this.mUnfocusStartDelay);
-                    this.mCurrentFocusView.animate().setDuration((long) this.mClickAnimDur).setInterpolator(LeanbackKeyboardContainer
-                            .sMovementInterpolator).setStartDelay((long) this.mUnfocusStartDelay);
+                if (mCurrentFocusView != null) {
+                    mCurrentFocusView.animate()
+                                    .scaleX(1.0F)
+                                    .scaleY(1.0F)
+                                    .setInterpolator(LeanbackKeyboardContainer.sMovementInterpolator)
+                                    .setStartDelay((long) mUnfocusStartDelay);
+                    mCurrentFocusView.animate()
+                                .setDuration((long) mClickAnimDur)
+                                .setInterpolator(LeanbackKeyboardContainer.sMovementInterpolator)
+                                .setStartDelay((long) mUnfocusStartDelay);
                 }
 
-                if (var5 != -1) {
+                if (calcIndex != -1) {
                     if (clicked) {
-                        var4 = this.mClickedScale;
+                        scale = mClickedScale;
                     } else if (showFocusScale) {
-                        var4 = this.mFocusedScale;
+                        scale = mFocusedScale;
                     }
 
-                    this.mCurrentFocusView = this.mKeyImageViews[var5];
-                    this.mCurrentFocusView.animate().scaleX(var4).scaleY(var4).setInterpolator(LeanbackKeyboardContainer.sMovementInterpolator)
-                            .setDuration((long) this.mClickAnimDur).start();
+                    mCurrentFocusView = mKeyImageViews[calcIndex];
+                    mCurrentFocusView.animate().scaleX(scale).scaleY(scale).setInterpolator(LeanbackKeyboardContainer.sMovementInterpolator)
+                            .setDuration((long) mClickAnimDur).start();
                 }
 
-                this.mFocusIndex = var5;
-                this.mFocusClicked = clicked;
-                if (-1 != var5 && !this.mKeys[var5].isInMiniKb) {
-                    this.dismissMiniKeyboard();
-                    return;
+                mFocusIndex = calcIndex;
+                mFocusClicked = clicked;
+                if (-1 != calcIndex && !mKeys[calcIndex].isInMiniKb) {
+                    dismissMiniKeyboard();
                 }
             }
         }
@@ -480,19 +487,27 @@ public class LeanbackKeyboardView extends FrameLayout {
         this.invalidateAllKeys();
     }
 
+    /**
+     * Set keyboard shift sate
+     * @param state one of the
+     * {@link LeanbackKeyboardView#SHIFT_ON SHIFT_ON},
+     * {@link LeanbackKeyboardView#SHIFT_OFF SHIFT_OFF},
+     * {@link LeanbackKeyboardView#SHIFT_LOCKED SHIFT_LOCKED}
+     * constants
+     */
     public void setShiftState(int state) {
-        if (this.mShiftState != state) {
+        if (mShiftState != state) {
             switch (state) {
-                case 0:
-                    this.mKeyboard.setShifted(false);
+                case SHIFT_OFF:
+                    mKeyboard.setShifted(false);
                     break;
-                case 1:
-                case 2:
-                    this.mKeyboard.setShifted(true);
+                case SHIFT_ON:
+                case SHIFT_LOCKED:
+                    mKeyboard.setShifted(true);
             }
 
-            this.mShiftState = state;
-            this.invalidateAllKeys();
+            mShiftState = state;
+            invalidateAllKeys();
         }
     }
 
@@ -501,8 +516,8 @@ public class LeanbackKeyboardView extends FrameLayout {
         public boolean isInvertible = false;
         public Key key;
 
-        public KeyHolder(Key var2) {
-            this.key = var2;
+        public KeyHolder(Key key) {
+            this.key = key;
         }
     }
 }
