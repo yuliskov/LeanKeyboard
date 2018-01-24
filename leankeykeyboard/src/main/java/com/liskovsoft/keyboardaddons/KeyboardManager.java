@@ -2,8 +2,8 @@ package com.liskovsoft.keyboardaddons;
 
 import android.content.Context;
 import android.inputmethodservice.Keyboard;
-import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
-import com.anysoftkeyboard.keyboards.ApkResourceKeyboardFactory;
+import com.liskovsoft.keyboardaddons.apklangfactory.keyboards.KeyboardAddOnAndBuilder;
+import com.liskovsoft.keyboardaddons.apklangfactory.keyboards.ApkLangKeyboardFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ public class KeyboardManager {
     private final Context mContext;
     private final List<KeyboardAddOnAndBuilder> mKeyboardBuilders;
     private final List<Keyboard> mAllKeyboards;
-    private final ApkResourceKeyboardFactory mKeyboardFactory;
+    private final ApkLangKeyboardFactory mKeyboardFactory;
     private int mKeyboardIndex = 0;
 
     public KeyboardManager(Context ctx, int keyboardResId) {
@@ -23,7 +23,7 @@ public class KeyboardManager {
     public KeyboardManager(Context ctx, Keyboard englishKeyboard) {
         mContext = ctx;
         mEnglishKeyboard = englishKeyboard;
-        mKeyboardFactory = new ApkResourceKeyboardFactory();
+        mKeyboardFactory = new ApkLangKeyboardFactory();
 
         mKeyboardBuilders = mKeyboardFactory.getAllAvailableKeyboards(mContext);
         mAllKeyboards = buildAllKeyboards();

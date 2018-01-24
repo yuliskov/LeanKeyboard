@@ -1052,7 +1052,7 @@ public class LeanbackKeyboardContainer {
 
     /**
      * Set touch state
-     * @param state {@link LeanbackKeyboardContainer LeanbackKeyboardContainer} constant
+     * @param state state e.g. {@link LeanbackKeyboardContainer#TOUCH_STATE_CLICK LeanbackKeyboardContainer.TOUCH_STATE_CLICK}
      */
     public void setTouchState(final int state) {
         switch (state) {

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard.keyboards;
+package com.liskovsoft.keyboardaddons.apklangfactory.keyboards;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
 
-import com.anysoftkeyboard.addons.AddOn;
-import com.anysoftkeyboard.addons.AddOnImpl;
+import com.liskovsoft.keyboardaddons.apklangfactory.addons.AddOn;
+import com.liskovsoft.keyboardaddons.apklangfactory.addons.AddOnImpl;
 
 public class KeyboardAddOnAndBuilder extends AddOnImpl {
 

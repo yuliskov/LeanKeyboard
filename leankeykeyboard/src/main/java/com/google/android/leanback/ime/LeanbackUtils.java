@@ -15,10 +15,20 @@ public class LeanbackUtils {
         return info.imeOptions & (EditorInfo.IME_FLAG_NO_ENTER_ACTION | EditorInfo.IME_MASK_ACTION);
     }
 
+    /**
+     * Get class of the input
+     * @param info attrs
+     * @return constant e.g. {@link InputType#TYPE_CLASS_TEXT InputType.TYPE_CLASS_TEXT}
+     */
     public static int getInputTypeClass(EditorInfo info) {
         return info.inputType & InputType.TYPE_MASK_CLASS;
     }
 
+    /**
+     * Get variation of the input
+     * @param info attrs
+     * @return constant e.g. {@link InputType#TYPE_DATETIME_VARIATION_DATE InputType.TYPE_DATETIME_VARIATION_DATE}
+     */
     public static int getInputTypeVariation(EditorInfo info) {
         return info.inputType & InputType.TYPE_MASK_VARIATION;
     }

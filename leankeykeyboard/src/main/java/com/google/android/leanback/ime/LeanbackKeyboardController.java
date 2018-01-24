@@ -21,8 +21,9 @@ import com.liskovsoft.leankeykeyboard.R;
 
 import java.util.ArrayList;
 
-public class LeanbackKeyboardController implements LeanbackKeyboardContainer.VoiceListener, LeanbackKeyboardContainer.DismissListener,
-        OnTouchListener, OnHoverListener, Runnable {
+public class LeanbackKeyboardController implements LeanbackKeyboardContainer.VoiceListener,
+                                                   LeanbackKeyboardContainer.DismissListener,
+                                                   OnTouchListener, OnHoverListener, Runnable {
     public static final int CLICK_MOVEMENT_BLOCK_DURATION_MS = 500;
     private static final boolean DEBUG = false;
     private static final int KEY_CHANGE_HISTORY_SIZE = 10;
@@ -207,75 +208,79 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
         this.mContainer.setTouchState(0);
     }
 
-    private PointF getBestSnapPosition(PointF var1, long var2) {
-        if (this.mKeyChangeHistory.size() <= 1) {
-            return var1;
+    private PointF getBestSnapPosition(final PointF currPoint, final long currTime) {
+        if (mKeyChangeHistory.size() <= 1) {
+            return currPoint;
         } else {
-            int var4 = 0;
+            int count = 0;
 
-            PointF var5;
+            PointF pos;
             while (true) {
-                var5 = var1;
-                if (var4 >= this.mKeyChangeHistory.size() - 1) {
+                pos = currPoint;
+                if (count >= mKeyChangeHistory.size() - 1) {
                     break;
                 }
 
-                LeanbackKeyboardController.KeyChange var6 = (LeanbackKeyboardController.KeyChange) this.mKeyChangeHistory.get(var4);
-                if (var2 - ((LeanbackKeyboardController.KeyChange) this.mKeyChangeHistory.get(var4 + 1)).time < 100L) {
-                    var5 = var6.position;
-                    this.mKeyChangeHistory.clear();
-                    this.mKeyChangeHistory.add(new LeanbackKeyboardController.KeyChange(var2, var5));
+                LeanbackKeyboardController.KeyChange change = mKeyChangeHistory.get(count);
+                if (currTime - mKeyChangeHistory.get(count + 1).time < 100L) {
+                    pos = change.position;
+                    mKeyChangeHistory.clear();
+                    mKeyChangeHistory.add(new LeanbackKeyboardController.KeyChange(currTime, pos));
                     break;
                 }
 
-                ++var4;
+                ++count;
             }
 
-            return var5;
+            return pos;
         }
     }
 
     private PointF getCurrentKeyPosition() {
-        if (this.mContainer != null) {
-            LeanbackKeyboardContainer.KeyFocus var1 = this.mContainer.getCurrFocus();
-            return new PointF((float) var1.rect.centerX(), (float) var1.rect.centerY());
+        if (mContainer != null) {
+            LeanbackKeyboardContainer.KeyFocus focus = mContainer.getCurrFocus();
+            return new PointF((float) focus.rect.centerX(), (float) focus.rect.centerY());
         } else {
             return null;
         }
     }
 
-    private PointF getRelativePosition(View var1, MotionEvent var2) {
-        int[] var5 = new int[2];
-        var1.getLocationOnScreen(var5);
-        float var3 = var2.getRawX();
-        float var4 = var2.getRawY();
-        return new PointF(var3 - (float) var5[0], var4 - (float) var5[1]);
+    private PointF getRelativePosition(View view, MotionEvent event) {
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        float x = event.getRawX();
+        float y = event.getRawY();
+        return new PointF(x - (float) location[0], y - (float) location[1]);
     }
 
-    private int getSimplifiedKey(int var1) {
-        int var2 = 23;
-        if (var1 != 23) {
-            byte var3 = 66;
-            var2 = var3;
-            if (var1 != 66) {
-                var2 = var3;
-                if (var1 != 160) {
-                    var2 = var1;
-                    if (var1 == 96) {
-                        var2 = var3;
+    private int getSimplifiedKey(final int keyCode) {
+        int defaultCode = KeyEvent.KEYCODE_DPAD_CENTER;
+        if (keyCode != KeyEvent.KEYCODE_DPAD_CENTER) {
+            final byte enter = KeyEvent.KEYCODE_ENTER;
+            defaultCode = enter;
+            if (keyCode != KeyEvent.KEYCODE_ENTER) {
+                defaultCode = enter;
+                if (keyCode != KeyEvent.KEYCODE_NUMPAD_ENTER) {
+                    defaultCode = keyCode;
+                    if (keyCode == KeyEvent.KEYCODE_BUTTON_A) {
+                        defaultCode = enter;
                     }
                 }
             }
         }
-
-        var1 = var2;
-        if (var2 == 97) {
-            var1 = 4;
+        
+        if (defaultCode == KeyEvent.KEYCODE_BUTTON_B) {
+            defaultCode = KeyEvent.KEYCODE_BACK;
         }
 
-        return var1;
+        return defaultCode;
     }
 
+    /**
+     * Handle keyboard key
+     * @param keyCode key code e.g {@link LeanbackKeyboardView#KEYCODE_SHIFT LeanbackKeyboardView.KEYCODE_SHIFT}
+     * @param text typed content
+     */
     private void handleCommitKeyboardKey(int keyCode, CharSequence text) {
         switch (keyCode) {
             case LeanbackKeyboardView.KEYCODE_DISMISS_MINI_KEYBOARD:
@@ -328,206 +333,205 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
         }
     }
 
-    private boolean handleKeyDownEvent(int var1, int var2) {
-        var1 = this.getSimplifiedKey(var1);
-        boolean var3;
-        boolean var4;
-        if (var1 == 4) {
-            this.mContainer.cancelVoiceRecording();
-            var3 = false;
-        } else if (this.mContainer.isVoiceVisible()) {
-            if (var1 == 22 || var1 == 23 || var1 == 66) {
-                this.mContainer.cancelVoiceRecording();
+    private boolean handleKeyDownEvent(int keyCode, int eventRepeatCount) {
+        keyCode = getSimplifiedKey(keyCode);
+        boolean handled;
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            mContainer.cancelVoiceRecording();
+            handled = false;
+        } else if (mContainer.isVoiceVisible()) {
+            if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT || keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER) {
+                mContainer.cancelVoiceRecording();
             }
 
-            var3 = true;
+            handled = true;
         } else {
-            var4 = true;
-            var3 = var4;
-            switch (var1) {
-                case 19:
-                    var3 = this.onDirectionalMove(8);
+            handled = true;
+            switch (keyCode) {
+                case KeyEvent.KEYCODE_DPAD_UP:
+                    handled = onDirectionalMove(8);
                     break;
-                case 20:
-                    var3 = this.onDirectionalMove(2);
+                case KeyEvent.KEYCODE_DPAD_DOWN:
+                    handled = onDirectionalMove(2);
                     break;
-                case 21:
-                    var3 = this.onDirectionalMove(1);
+                case KeyEvent.KEYCODE_DPAD_LEFT:
+                    handled = onDirectionalMove(1);
                     break;
-                case 22:
-                    var3 = this.onDirectionalMove(4);
+                case KeyEvent.KEYCODE_DPAD_RIGHT:
+                    handled = onDirectionalMove(4);
                     break;
-                case 23:
-                case 66:
-                    if (var2 == 0) {
-                        this.mMoveCount = 0;
-                        this.mKeyDownKeyFocus = new LeanbackKeyboardContainer.KeyFocus();
-                        this.mKeyDownKeyFocus.set(this.mContainer.getCurrFocus());
-                    } else if (var2 == 1 && this.handleKeyLongPress(var1)) {
-                        this.mKeyDownKeyFocus = null;
+                case KeyEvent.KEYCODE_DPAD_CENTER:
+                case KeyEvent.KEYCODE_ENTER:
+                    if (eventRepeatCount == 0) {
+                        mMoveCount = 0;
+                        mKeyDownKeyFocus = new LeanbackKeyboardContainer.KeyFocus();
+                        mKeyDownKeyFocus.set(mContainer.getCurrFocus());
+                    } else if (eventRepeatCount == 1 && handleKeyLongPress(keyCode)) {
+                        mKeyDownKeyFocus = null;
                     }
 
-                    var3 = var4;
-                    if (this.isKeyHandledOnKeyDown(this.mContainer.getCurrKeyCode())) {
-                        this.commitKey();
-                        var3 = var4;
+                    handled = true;
+                    if (isKeyHandledOnKeyDown(mContainer.getCurrKeyCode())) {
+                        commitKey();
+                        handled = true;
                     }
                     break;
-                case 99:
-                    this.handleCommitKeyboardKey(-5, (CharSequence) null);
-                    var3 = var4;
+                case KeyEvent.KEYCODE_BUTTON_X:
+                    handleCommitKeyboardKey(LeanbackKeyboardView.KEYCODE_DELETE, null);
+                    handled = true;
                     break;
-                case 100:
-                    this.handleCommitKeyboardKey(32, (CharSequence) null);
-                    var3 = var4;
+                case KeyEvent.KEYCODE_BUTTON_Y:
+                    handleCommitKeyboardKey(LeanbackKeyboardView.ASCII_SPACE, null);
+                    handled = true;
                     break;
-                case 102:
-                    this.handleCommitKeyboardKey(-3, (CharSequence) null);
-                    var3 = var4;
+                case KeyEvent.KEYCODE_BUTTON_L1:
+                    handleCommitKeyboardKey(LeanbackKeyboardView.KEYCODE_LEFT, null);
+                    handled = true;
                     break;
-                case 103:
-                    this.handleCommitKeyboardKey(-4, (CharSequence) null);
-                    var3 = var4;
-                case 106:
-                case 107:
+                case KeyEvent.KEYCODE_BUTTON_R1:
+                    handleCommitKeyboardKey(LeanbackKeyboardView.KEYCODE_RIGHT, null);
+                    handled = true;
+                case KeyEvent.KEYCODE_BUTTON_THUMBL:
+                case KeyEvent.KEYCODE_BUTTON_THUMBR:
                     break;
                 default:
-                    var3 = false;
+                    handled = false;
             }
         }
 
-        var4 = var3;
-        if (!var3) {
-            var4 = this.applyLETVFixesDown(var1);
+        if (!handled) {
+            handled = applyLETVFixesDown(keyCode);
         }
 
-        return var4;
+        return handled;
     }
 
-    private boolean handleKeyLongPress(int var1) {
-        boolean var2;
-        if (this.isEnterKey(var1) && this.mContainer.onKeyLongPress()) {
-            var2 = true;
+    private boolean handleKeyLongPress(int keyCode) {
+        boolean isHandled;
+        if (isEnterKey(keyCode) && mContainer.onKeyLongPress()) {
+            isHandled = true;
         } else {
-            var2 = false;
+            isHandled = false;
         }
 
-        this.mLongPressHandled = var2;
-        if (this.mContainer.isMiniKeyboardOnScreen()) {
+        mLongPressHandled = isHandled;
+        if (mContainer.isMiniKeyboardOnScreen()) {
             Log.d("LbKbController", "mini keyboard shown after long press");
         }
 
-        return this.mLongPressHandled;
+        return mLongPressHandled;
     }
 
-    private boolean handleKeyUpEvent(int var1, long var2) {
-        var1 = this.getSimplifiedKey(var1);
-        boolean var4;
-        boolean var5;
-        if (var1 == 4) {
-            var4 = false;
-        } else if (this.mContainer.isVoiceVisible()) {
-            var4 = true;
+    private boolean handleKeyUpEvent(int keyCode, long currTime) {
+        keyCode = getSimplifiedKey(keyCode);
+        boolean handled;
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            handled = false;
+        } else if (mContainer.isVoiceVisible()) {
+            handled = true;
         } else {
-            var5 = true;
-            var4 = var5;
-            switch (var1) {
-                case 19:
-                case 20:
-                case 21:
-                case 22:
-                    this.clearKeyIfNecessary();
-                    var4 = var5;
+            handled = true;
+            switch (keyCode) {
+                case KeyEvent.KEYCODE_DPAD_UP:
+                case KeyEvent.KEYCODE_DPAD_DOWN:
+                case KeyEvent.KEYCODE_DPAD_LEFT:
+                case KeyEvent.KEYCODE_DPAD_RIGHT:
+                    clearKeyIfNecessary();
+                    handled = true;
                     break;
-                case 23:
-                case 66:
-                    if (this.mContainer.getCurrKeyCode() == -1) {
-                        this.mDoubleClickDetector.addEvent(var2);
-                        var4 = var5;
+                case KeyEvent.KEYCODE_DPAD_CENTER:
+                case KeyEvent.KEYCODE_ENTER:
+                    if (mContainer.getCurrKeyCode() == LeanbackKeyboardView.KEYCODE_SHIFT) {
+                        mDoubleClickDetector.addEvent(currTime);
+                        handled = true;
                     } else {
-                        var4 = var5;
-                        if (!this.isKeyHandledOnKeyDown(this.mContainer.getCurrKeyCode())) {
-                            this.commitKey(this.mKeyDownKeyFocus);
-                            var4 = var5;
+                        handled = true;
+                        if (!isKeyHandledOnKeyDown(mContainer.getCurrKeyCode())) {
+                            commitKey(mKeyDownKeyFocus);
+                            handled = true;
                         }
                     }
-                case 99:
-                case 100:
-                case 102:
-                case 103:
+                case KeyEvent.KEYCODE_BUTTON_X:
+                case KeyEvent.KEYCODE_BUTTON_Y:
+                case KeyEvent.KEYCODE_BUTTON_L1:
+                case KeyEvent.KEYCODE_BUTTON_R1:
                     break;
-                case 106:
-                    this.handleCommitKeyboardKey(-2, (CharSequence) null);
-                    var4 = var5;
+                case KeyEvent.KEYCODE_BUTTON_THUMBL:
+                    handleCommitKeyboardKey(LeanbackKeyboardView.KEYCODE_SYM_TOGGLE, null);
+                    handled = true;
                     break;
-                case 107:
-                    this.handleCommitKeyboardKey(-6, (CharSequence) null);
-                    var4 = var5;
+                case KeyEvent.KEYCODE_BUTTON_THUMBR:
+                    handleCommitKeyboardKey(LeanbackKeyboardView.KEYCODE_CAPS_LOCK, null);
+                    handled = true;
                     break;
                 default:
-                    var4 = false;
+                    handled = false;
             }
         }
 
-        var5 = var4;
-        if (!var4) {
-            var5 = this.applyLETVFixesUp(var1);
+        if (!handled) {
+            handled = applyLETVFixesUp(keyCode);
         }
 
-        return var5;
+        return handled;
     }
 
     private void initInputView() {
-        this.mContainer.onInitInputView();
-        this.updatePositionToCurrentFocus();
+        mContainer.onInitInputView();
+        updatePositionToCurrentFocus();
     }
 
-    private boolean isCallAllowed(int var1) {
-        long var2 = System.currentTimeMillis();
-        if (this.prevTime != 0L && var2 - this.prevTime <= (long) (var1 * 3)) {
-            if (var2 - this.prevTime > (long) var1) {
+    private boolean isCallAllowed(int periodMillis) {
+        long currTimeMS = System.currentTimeMillis();
+        if (this.prevTime != 0L && currTimeMS - this.prevTime <= (long) (periodMillis * 3)) {
+            if (currTimeMS - this.prevTime > (long) periodMillis) {
                 this.prevTime = 0L;
                 return true;
             }
         } else {
-            this.prevTime = var2;
+            this.prevTime = currTimeMS;
         }
 
         return false;
     }
 
     private boolean isDoubleClick() {
-        long var1 = System.currentTimeMillis();
-        long var3 = this.lastClickTime;
-        if (this.lastClickTime != 0L && var1 - var3 <= (long) 300) {
+        long currTimeMS = System.currentTimeMillis();
+        long lastTime = this.lastClickTime;
+        if (this.lastClickTime != 0L && currTimeMS - lastTime <= (long) 300) {
             return true;
         } else {
-            this.lastClickTime = var1;
+            this.lastClickTime = currTimeMS;
             return false;
         }
     }
 
-    private boolean isEnterKey(int var1) {
-        var1 = this.getSimplifiedKey(var1);
-        return var1 == 23 || var1 == 66;
+    private boolean isEnterKey(int keyCode) {
+        keyCode = this.getSimplifiedKey(keyCode);
+        return keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER;
     }
 
-    private boolean isKeyHandledOnKeyDown(int var1) {
-        return var1 == -5 || var1 == -3 || var1 == -4;
+    /**
+     * Whether key down is handled
+     * @param currKeyCode key code e.g. {@link LeanbackKeyboardView#KEYCODE_DELETE LeanbackKeyboardView.KEYCODE_DELETE}
+     * @return key down is handled
+     */
+    private boolean isKeyHandledOnKeyDown(int currKeyCode) {
+        return currKeyCode == LeanbackKeyboardView.KEYCODE_DELETE || currKeyCode == LeanbackKeyboardView.KEYCODE_LEFT || currKeyCode == LeanbackKeyboardView.KEYCODE_RIGHT;
     }
 
-    private void moveSelectorToPoint(float var1, float var2) {
-        LeanbackKeyboardContainer var3 = this.mContainer;
-        LeanbackKeyboardContainer.KeyFocus var4 = this.mTempFocus;
-        var3.getBestFocus(new Float(var1), new Float(var2), var4);
+    private void moveSelectorToPoint(float x, float y) {
+        LeanbackKeyboardContainer container = this.mContainer;
+        LeanbackKeyboardContainer.KeyFocus focus = this.mTempFocus;
+        container.getBestFocus(new Float(x), new Float(y), focus);
         this.mContainer.setFocus(this.mTempFocus);
-        var3 = this.mContainer;
-        Rect var5 = this.mTempFocus.rect;
-        var3.alignSelector((float) var5.centerX(), (float) var5.centerY(), false);
+        container = this.mContainer;
+        Rect rect = this.mTempFocus.rect;
+        container.alignSelector((float) rect.centerX(), (float) rect.centerY(), false);
     }
 
-    private boolean onDirectionalMove(int var1) {
-        if (this.mContainer.getNextFocusInDirection(var1, this.mDownFocus, this.mTempFocus)) {
+    private boolean onDirectionalMove(int dir) {
+        if (this.mContainer.getNextFocusInDirection(dir, this.mDownFocus, this.mTempFocus)) {
             this.mContainer.setFocus(this.mTempFocus);
             this.mDownFocus.set(this.mTempFocus);
             this.clearKeyIfNecessary();
@@ -536,104 +540,117 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
         return true;
     }
 
-    private void performBestSnap(long var1) {
-        LeanbackKeyboardContainer.KeyFocus var3 = this.mContainer.getCurrFocus();
-        this.mTempPoint.x = (float) var3.rect.centerX();
-        this.mTempPoint.y = (float) var3.rect.centerY();
-        PointF var4 = this.getBestSnapPosition(this.mTempPoint, var1);
-        this.mContainer.getBestFocus(var4.x, var4.y, this.mTempFocus);
+    private void performBestSnap(long time) {
+        LeanbackKeyboardContainer.KeyFocus focus = this.mContainer.getCurrFocus();
+        this.mTempPoint.x = (float) focus.rect.centerX();
+        this.mTempPoint.y = (float) focus.rect.centerY();
+        PointF pos = this.getBestSnapPosition(this.mTempPoint, time);
+        this.mContainer.getBestFocus(pos.x, pos.y, this.mTempFocus);
         this.mContainer.setFocus(this.mTempFocus);
         this.updatePositionToCurrentFocus();
     }
 
-    private void setKeyState(int var1, boolean var2) {
-        LeanbackKeyboardContainer var3 = this.mContainer;
-        LeanbackKeyboardContainer.KeyFocus var4 = var3.getCurrFocus();
-        var4.index = var1;
-        var4.type = 0;
-        byte var5;
-        if (var2) {
-            var5 = 3;
+    /**
+     * Set key state
+     * @param keyIndex key index
+     * @param keyState constant e.g. {@link LeanbackKeyboardContainer#TOUCH_STATE_CLICK LeanbackKeyboardContainer.TOUCH_STATE_CLICK}
+     */
+    private void setKeyState(int keyIndex, boolean keyState) {
+        LeanbackKeyboardContainer container = this.mContainer;
+        LeanbackKeyboardContainer.KeyFocus focus = container.getCurrFocus();
+        focus.index = keyIndex;
+        focus.type = KeyFocus.TYPE_MAIN;
+        byte state;
+        if (keyState) {
+            state = LeanbackKeyboardContainer.TOUCH_STATE_CLICK;
         } else {
-            var5 = 0;
+            state = LeanbackKeyboardContainer.TOUCH_STATE_NO_TOUCH;
         }
 
-        var3.setTouchState(var5);
+        container.setTouchState(state);
     }
 
     private void updatePositionToCurrentFocus() {
-        PointF var1 = this.getCurrentKeyPosition();
-        if (var1 != null && this.mSpaceTracker != null) {
-            this.mSpaceTracker.setPixelPosition(var1.x, var1.y);
+        PointF pos = this.getCurrentKeyPosition();
+        if (pos != null && this.mSpaceTracker != null) {
+            this.mSpaceTracker.setPixelPosition(pos.x, pos.y);
         }
 
     }
 
     public boolean areSuggestionsEnabled() {
-        return this.mContainer != null ? this.mContainer.areSuggestionsEnabled() : false;
+        return mContainer != null ? mContainer.areSuggestionsEnabled() : false;
     }
 
     public boolean enableAutoEnterSpace() {
-        return this.mContainer != null ? this.mContainer.enableAutoEnterSpace() : false;
+        return mContainer != null ? mContainer.enableAutoEnterSpace() : false;
     }
 
     public View getView() {
-        if (this.mContainer != null) {
-            RelativeLayout var1 = this.mContainer.getView();
-            var1.setClickable(true);
-            var1.setOnTouchListener(this);
-            var1.setOnHoverListener(this);
-            Button var2 = this.mContainer.getGoButton();
-            var2.setOnTouchListener(this);
-            var2.setOnHoverListener(this);
-            var2.setTag("Go");
-            return var1;
+        if (mContainer != null) {
+            RelativeLayout view = mContainer.getView();
+            view.setClickable(true);
+            view.setOnTouchListener(this);
+            view.setOnHoverListener(this);
+            Button button = mContainer.getGoButton();
+            button.setOnTouchListener(this);
+            button.setOnHoverListener(this);
+            button.setTag("Go");
+            return view;
         } else {
             return null;
         }
     }
 
-    public void onDismiss(boolean var1) {
-        if (var1) {
-            this.mInputListener.onEntry(8, 0, (CharSequence) null);
+    public void onDismiss(boolean fromVoice) {
+        if (fromVoice) {
+            mInputListener.onEntry(InputListener.ENTRY_TYPE_VOICE_DISMISS, LeanbackKeyboardView.SHIFT_OFF, null);
         } else {
-            this.mInputListener.onEntry(7, 0, (CharSequence) null);
+            mInputListener.onEntry(InputListener.ENTRY_TYPE_DISMISS, LeanbackKeyboardView.SHIFT_OFF, null);
         }
     }
 
-    public boolean onGenericMotionEvent(MotionEvent var1) {
-        return this.mSpaceTracker != null && this.mContext != null && this.mContext.isInputViewShown() && this.mSpaceTracker.onGenericMotionEvent
-                (var1);
+    public boolean onGenericMotionEvent(MotionEvent event) {
+        return mSpaceTracker != null && mContext != null && mContext.isInputViewShown() && mSpaceTracker.onGenericMotionEvent(event);
     }
 
-    public boolean onHover(View var1, MotionEvent var2) {
-        boolean var4 = this.isCallAllowed(300);
-        boolean var3 = var4;
-        if (var4) {
-            if (var2.getAction() == 7) {
-                PointF var5 = this.getRelativePosition(this.mContainer.getView(), var2);
-                this.moveSelectorToPoint(var5.x, var5.y);
+    /**
+     * Try to handle on hover event
+     * @param view active view
+     * @param event event object
+     * @return is hover handled
+     */
+    public boolean onHover(View view, MotionEvent event) {
+        boolean allowed = isCallAllowed(300);
+        if (allowed) {
+            if (event.getAction() == MotionEvent.ACTION_HOVER_MOVE) {
+                PointF pos = getRelativePosition(mContainer.getView(), event);
+                moveSelectorToPoint(pos.x, pos.y);
             }
-
-            var3 = true;
         }
 
-        return var3;
+        return allowed;
     }
 
-    public boolean onKeyDown(int var1, KeyEvent event) {
+    /**
+     * Try to handle key down event
+     * @param keyCode key code e.g. {@link KeyEvent#KEYCODE_ENTER KeyEvent.KEYCODE_ENTER}
+     * @param event {@link KeyEvent KeyEvent}
+     * @return is event handled
+     */
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         this.mDownFocus.set(this.mContainer.getCurrFocus());
-        if (this.mSpaceTracker != null && this.mSpaceTracker.onKeyDown(var1, event)) {
+        if (this.mSpaceTracker != null && this.mSpaceTracker.onKeyDown(keyCode, event)) {
             return true;
         } else {
-            if (this.isEnterKey(var1)) {
+            if (this.isEnterKey(keyCode)) {
                 this.mKeyDownReceived = true;
                 if (event.getRepeatCount() == 0) {
-                    this.mContainer.setTouchState(3);
+                    this.mContainer.setTouchState(LeanbackKeyboardContainer.TOUCH_STATE_CLICK);
                 }
             }
 
-            return this.handleKeyDownEvent(var1, event.getRepeatCount());
+            return this.handleKeyDownEvent(keyCode, event.getRepeatCount());
         }
     }
 
@@ -778,6 +795,12 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
         int ENTRY_TYPE_VOICE = 6;
         int ENTRY_TYPE_VOICE_DISMISS = 8;
 
+        /**
+         * User has typed something
+         * @param type type e.g. {@link InputListener#ENTRY_TYPE_ACTION InputListener.ENTRY_TYPE_ACTION}
+         * @param keyCode key code e.g. {@link LeanbackKeyboardView#SHIFT_ON LeanbackKeyboardView.SHIFT_ON}
+         * @param text text
+         */
         void onEntry(int type, int keyCode, CharSequence text);
     }
 
@@ -785,9 +808,9 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
         public PointF position;
         public long time;
 
-        public KeyChange(long var1, PointF var3) {
-            this.time = var1;
-            this.position = var3;
+        public KeyChange(long time, PointF position) {
+            this.time = time;
+            this.position = position;
         }
     }
 
@@ -800,7 +823,7 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
                 LeanbackKeyboardController.this.mKeyDownReceived = true;
                 if (event.getRepeatCount() == 0) {
                     LeanbackKeyboardController.this.mContainer.setTouchState(3);
-                    LeanbackKeyboardController.this.mSpaceTracker.blockMovementUntil(event.getEventTime() + 500L);
+                    LeanbackKeyboardController.this.mSpaceTracker.blockMovementUntil(event.getEventTime() + CLICK_MOVEMENT_BLOCK_DURATION_MS);
                     LeanbackKeyboardController.this.performBestSnap(event.getEventTime());
                 }
             }

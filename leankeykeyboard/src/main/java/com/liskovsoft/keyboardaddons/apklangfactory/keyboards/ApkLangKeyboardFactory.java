@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard.keyboards;
+package com.liskovsoft.keyboardaddons.apklangfactory.keyboards;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -23,15 +23,15 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
-import com.anysoftkeyboard.addons.AddOn;
-import com.anysoftkeyboard.addons.AddOnsFactory;
-import com.anysoftkeyboard.utils.Logger;
+import com.liskovsoft.keyboardaddons.apklangfactory.addons.AddOn;
+import com.liskovsoft.keyboardaddons.apklangfactory.addons.AddOnsFactory;
+import com.liskovsoft.keyboardaddons.apklangfactory.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class ApkResourceKeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder> {
+public class ApkLangKeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder> {
     private static final String TAG = "ASK_KF";
 
     private static final String XML_LAYOUT_RES_ID_ATTRIBUTE = "layoutResId";
@@ -44,7 +44,7 @@ public class ApkResourceKeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBu
     private static final String XML_PHYSICAL_TRANSLATION_RES_ID_ATTRIBUTE = "physicalKeyboardMappingResId";
     private static final String XML_DEFAULT_ATTRIBUTE = "defaultEnabled";
 
-    public ApkResourceKeyboardFactory() {
+    public ApkLangKeyboardFactory() {
         super(TAG, "com.liskovsoft.leankey.langpack.KEYBOARD", "com.liskovsoft.leankey.langpack.keyboards",
                 "Keyboards", "Keyboard",
                 0, true);

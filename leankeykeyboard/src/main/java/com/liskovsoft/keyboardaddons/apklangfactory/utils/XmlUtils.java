@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard.utils;
+package com.liskovsoft.keyboardaddons.apklangfactory.utils;
 
 import android.util.Xml;
 

@@ -1,4 +1,4 @@
-package com.anysoftkeyboard.utils;
+package com.liskovsoft.keyboardaddons.apklangfactory.utils;
 
 /**
  * Doesn't do anything. For release.

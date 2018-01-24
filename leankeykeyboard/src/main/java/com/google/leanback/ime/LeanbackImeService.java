@@ -204,18 +204,18 @@ public class LeanbackImeService extends InputMethodService {
 
     @Override
     public View onCreateInputView() {
-        this.mInputView = this.mKeyboardController.getView();
-        this.mInputView.requestFocus();
-        return this.mInputView;
+        mInputView = mKeyboardController.getView();
+        mInputView.requestFocus();
+        return mInputView;
     }
 
     @Override
-    public void onDisplayCompletions(CompletionInfo[] var1) {
-        if (this.mKeyboardController.areSuggestionsEnabled()) {
-            this.mShouldClearSuggestions = false;
-            this.mHandler.removeMessages(123);
-            this.mSuggestionsFactory.onDisplayCompletions(var1);
-            this.mKeyboardController.updateSuggestions(this.mSuggestionsFactory.getSuggestions());
+    public void onDisplayCompletions(CompletionInfo[] infos) {
+        if (mKeyboardController.areSuggestionsEnabled()) {
+            mShouldClearSuggestions = false;
+            mHandler.removeMessages(123);
+            mSuggestionsFactory.onDisplayCompletions(infos);
+            mKeyboardController.updateSuggestions(this.mSuggestionsFactory.getSuggestions());
         }
 
     }

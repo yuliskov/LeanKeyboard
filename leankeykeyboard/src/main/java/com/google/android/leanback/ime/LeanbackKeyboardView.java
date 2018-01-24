@@ -1,24 +1,21 @@
 package com.google.android.leanback.ime;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Paint.Align;
 import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.graphics.Bitmap.Config;
-import android.graphics.Paint.Align;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.Keyboard.Key;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.view.View.MeasureSpec;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import com.liskovsoft.leankeykeyboard.R;
@@ -137,15 +134,15 @@ public class LeanbackKeyboardView extends FrameLayout {
         paint.setColor(mKeyTextColor);
         canvas.drawARGB(0, 0, 0, 0);
         if (key.icon != null) {
-            if (key.codes[0] == -1) {
+            if (key.codes[0] == NOT_A_KEY) {
                 switch (mShiftState) {
-                    case 0:
+                    case SHIFT_OFF:
                         key.icon = getContext().getResources().getDrawable(R.drawable.ic_ime_shift_off);
                         break;
-                    case 1:
+                    case SHIFT_ON:
                         key.icon = getContext().getResources().getDrawable(R.drawable.ic_ime_shift_on);
                         break;
-                    case 2:
+                    case SHIFT_LOCKED:
                         key.icon = getContext().getResources().getDrawable(R.drawable.ic_ime_shift_lock_on);
                 }
             }
@@ -242,74 +239,81 @@ public class LeanbackKeyboardView extends FrameLayout {
     }
 
     public int getBaseMiniKbIndex() {
-        return this.mBaseMiniKbIndex;
+        return mBaseMiniKbIndex;
     }
 
     public int getColCount() {
-        return this.mColCount;
+        return mColCount;
     }
 
     public Key getFocusedKey() {
-        return this.mFocusIndex == -1 ? null : this.mKeys[this.mFocusIndex].key;
+        return mFocusIndex == -1 ? null : mKeys[mFocusIndex].key;
     }
 
     public Key getKey(int index) {
-        return this.mKeys != null && this.mKeys.length != 0 && index >= 0 && index <= this.mKeys.length ? this.mKeys[index].key : null;
+        return mKeys != null && mKeys.length != 0 && index >= 0 && index <= mKeys.length ? mKeys[index].key : null;
     }
 
     public Keyboard getKeyboard() {
-        return this.mKeyboard;
+        return mKeyboard;
     }
 
+    /**
+     * Get index of the key under cursor
+     * @param x x position
+     * @param y y position
+     * @return index of the key
+     */
     public int getNearestIndex(final float x, final float y) {
         int result;
         if (mKeys != null && mKeys.length != 0) {
             float paddingLeft = (float) getPaddingLeft();
             float paddingTop = (float) getPaddingTop();
-            float height = (float) (getMeasuredHeight() - getPaddingTop() - getPaddingBottom());
-            float width = (float) (getMeasuredWidth() - getPaddingLeft() - getPaddingRight());
-            int rows = getRowCount();
-            int cols = getColCount();
-            int index = (int) ((y - paddingTop) / height * (float) rows);
-            if (index < 0) {
+            float kbHeight = (float) (getMeasuredHeight() - getPaddingTop() - getPaddingBottom());
+            float kbWidth = (float) (getMeasuredWidth() - getPaddingLeft() - getPaddingRight());
+            final int rows = getRowCount();
+            final int cols = getColCount();
+            final int indexVert = (int) ((y - paddingTop) / kbHeight * (float) rows);
+            if (indexVert < 0) {
                 result = 0;
             } else {
-                result = index;
-                if (index >= rows) {
+                result = indexVert;
+                if (indexVert >= rows) {
                     result = rows - 1;
                 }
             }
 
-            rows = (int) ((x - paddingLeft) / width * (float) cols);
-            if (rows < 0) {
-                index = 0;
+            final int indexHoriz = (int) ((x - paddingLeft) / kbWidth * (float) cols);
+            int indexFull;
+            if (indexHoriz < 0) {
+                indexFull = 0;
             } else {
-                index = rows;
-                if (rows >= cols) {
-                    index = cols - 1;
+                indexFull = indexHoriz;
+                if (indexHoriz >= cols) {
+                    indexFull = cols - 1;
                 }
             }
 
-            index += mColCount * result;
-            result = index;
-            if (index > ASCII_PERIOD) {
-                result = index;
-                if (index < 53) {
+            indexFull += mColCount * result;
+            result = indexFull;
+            if (indexFull > ASCII_PERIOD) {
+                result = indexFull;
+                if (indexFull < 53) {
                     result = ASCII_PERIOD;
                 }
             }
 
-            index = result;
+            indexFull = result;
             if (result >= 53) {
-                index = result - 6;
+                indexFull = result - 6;
             }
 
-            if (index < 0) {
+            if (indexFull < 0) {
                 return 0;
             }
 
-            result = index;
-            if (index >= mKeys.length) {
+            result = indexFull;
+            if (indexFull >= mKeys.length) {
                 return mKeys.length - 1;
             }
         } else {
@@ -320,15 +324,15 @@ public class LeanbackKeyboardView extends FrameLayout {
     }
 
     public int getRowCount() {
-        return this.mRowCount;
+        return mRowCount;
     }
 
     public int getShiftState() {
-        return this.mShiftState;
+        return mShiftState;
     }
 
     public void invalidateAllKeys() {
-        this.createKeyImageViews(this.mKeys);
+        createKeyImageViews(mKeys);
     }
 
     public void invalidateKey(int keyIndex) {
@@ -397,9 +401,9 @@ public class LeanbackKeyboardView extends FrameLayout {
         if (mKeyboard == null) {
             setMeasuredDimension(getPaddingLeft() + getPaddingRight(), getPaddingTop() + getPaddingBottom());
         } else {
-            int calcHeight = mKeyboard.getMinWidth() + getPaddingLeft() + getPaddingRight();
-            heightMeasureSpec = calcHeight;
-            if (MeasureSpec.getSize(widthMeasureSpec) < calcHeight + 10) {
+            int heightFull = mKeyboard.getMinWidth() + getPaddingLeft() + getPaddingRight();
+            heightMeasureSpec = heightFull;
+            if (MeasureSpec.getSize(widthMeasureSpec) < heightFull + 10) {
                 heightMeasureSpec = MeasureSpec.getSize(widthMeasureSpec);
             }
 
@@ -424,52 +428,53 @@ public class LeanbackKeyboardView extends FrameLayout {
     public void setFocus(final int index, final boolean clicked, final boolean showFocusScale) {
         float scale = 1.0F;
         if (mKeyImageViews != null && mKeyImageViews.length != 0) {
-            int calcIndex;
+            int indexFull;
 
             if (index >= 0 && index < mKeyImageViews.length) {
-                calcIndex = index;
+                indexFull = index;
             } else {
-                calcIndex = -1;
+                indexFull = -1;
             }
 
-            if (calcIndex != mFocusIndex || clicked != mFocusClicked) {
-                if (calcIndex != mFocusIndex) {
+            if (indexFull != mFocusIndex || clicked != mFocusClicked) {
+                if (indexFull != mFocusIndex) {
                     if (mFocusIndex != -1) {
                         LeanbackUtils.sendAccessibilityEvent(mKeyImageViews[mFocusIndex], false);
                     }
 
-                    if (calcIndex != -1) {
-                        LeanbackUtils.sendAccessibilityEvent(mKeyImageViews[calcIndex], true);
+                    if (indexFull != -1) {
+                        LeanbackUtils.sendAccessibilityEvent(mKeyImageViews[indexFull], true);
                     }
                 }
 
                 if (mCurrentFocusView != null) {
                     mCurrentFocusView.animate()
-                                    .scaleX(1.0F)
-                                    .scaleY(1.0F)
-                                    .setInterpolator(LeanbackKeyboardContainer.sMovementInterpolator)
-                                    .setStartDelay((long) mUnfocusStartDelay);
+                                     .scaleX(1.0F)
+                                     .scaleY(1.0F)
+                                     .setInterpolator(LeanbackKeyboardContainer.sMovementInterpolator)
+                                     .setStartDelay((long) mUnfocusStartDelay);
+
                     mCurrentFocusView.animate()
-                                .setDuration((long) mClickAnimDur)
-                                .setInterpolator(LeanbackKeyboardContainer.sMovementInterpolator)
-                                .setStartDelay((long) mUnfocusStartDelay);
+                                     .setDuration((long) mClickAnimDur)
+                                     .setInterpolator(LeanbackKeyboardContainer.sMovementInterpolator)
+                                     .setStartDelay((long) mUnfocusStartDelay);
                 }
 
-                if (calcIndex != -1) {
+                if (indexFull != -1) {
                     if (clicked) {
                         scale = mClickedScale;
                     } else if (showFocusScale) {
                         scale = mFocusedScale;
                     }
 
-                    mCurrentFocusView = mKeyImageViews[calcIndex];
+                    mCurrentFocusView = mKeyImageViews[indexFull];
                     mCurrentFocusView.animate().scaleX(scale).scaleY(scale).setInterpolator(LeanbackKeyboardContainer.sMovementInterpolator)
                             .setDuration((long) mClickAnimDur).start();
                 }
 
-                mFocusIndex = calcIndex;
+                mFocusIndex = indexFull;
                 mFocusClicked = clicked;
-                if (-1 != calcIndex && !mKeys[calcIndex].isInMiniKb) {
+                if (-1 != indexFull && !mKeys[indexFull].isInMiniKb) {
                     dismissMiniKeyboard();
                 }
             }
