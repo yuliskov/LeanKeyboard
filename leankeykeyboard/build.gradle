@@ -5,11 +5,11 @@ android {
     buildToolsVersion project.properties.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.liskovsoft.leankeykeyboard"
+        applicationId "org.liskovsoft.androidtv.rukeyboard"
         minSdkVersion project.properties.minSdkVersion
         targetSdkVersion project.properties.targetSdkVersion
-        versionCode 51
-        versionName "3.1.0"
+        versionCode 52
+        versionName "3.2.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 

@@ -5,7 +5,7 @@
 
 __LeanKeyKeyboard: An Keyboard for Android-based set-top boxes and TVs:__
 
-Visit Google Play official page: 
+Visit Google Play page: 
  * <a href="https://play.google.com/store/apps/details?id=org.liskovsoft.androidtv.rukeyboard" target="_blank">[APP] LeanKeyKeyboard</a>
 
 ### Features:
@@ -26,7 +26,7 @@ __Easy installation in less than 5 minutes with only the FireTV__
 __Standard installation via ADB__
  * If you don't know how to sideload/install apps via ADB, read a tutorial (e.g. <a href="http://kodi.wiki/view/HOW-TO:Install_Kodi_on_Fire_TV" target="_blank">this one</a>)
  * <a href="https://github.com/yuliskov/LeanKeyKeyboard/releases" target="_blank">Download latest LeanKeyKeyboard APK</a> and sideload/install with adb: 
- * *adb install -r SmartYouTubeTV_Orig.apk*
+ * *adb install -r LeanKeyKeyboard.apk*
  * Enjoy :)
  
 ### Reviews / Articles:
