@@ -12,4 +12,18 @@
         <item>1.2</item>
         <item>1.4</item>
     </string-array>
+    <string-array name="additional_languages">
+        <item>Russian|ru</item>
+        <item>Ukrainian|uk</item>
+        <item>Hebrew|he</item>
+        <item>Arabic|ar</item>
+        <item>Bulgarian|bg</item>
+        <item>Dutch|nl</item>
+        <item>French|fr</item>
+        <item>German|de</item>
+        <item>Greek|el</item>
+        <item>Italian|it</item>
+        <item>Persian|fa</item>
+        <item>Turkish|tr</item>
+    </string-array>
 </resources>

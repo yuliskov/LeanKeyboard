@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard android:keyWidth="@dimen/key_width" android:keyHeight="@dimen/key_height" android:horizontalGap="@dimen/keyboard_horizontal_gap" android:verticalGap="@dimen/keyboard_vertical_gap"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <Row android:rowEdgeFlags="top">
+        <Key android:codes="49" android:popupKeyboard="@xml/shift_1" android:keyEdgeFlags="left" android:keyLabel="1" />
+        <Key android:codes="50" android:popupKeyboard="@xml/shift_2" android:keyLabel="2" />
+        <Key android:codes="51" android:popupKeyboard="@xml/shift_3" android:keyLabel="3" />
+        <Key android:codes="52" android:popupKeyboard="@xml/shift_4" android:keyLabel="4" />
+        <Key android:codes="53" android:popupKeyboard="@xml/shift_5" android:keyLabel="5" />
+        <Key android:codes="54" android:popupKeyboard="@xml/shift_6" android:keyLabel="6" />
+        <Key android:codes="55" android:popupKeyboard="@xml/shift_7" android:keyLabel="7" />
+        <Key android:codes="56" android:popupKeyboard="@xml/shift_8" android:keyLabel="8" />
+        <Key android:codes="57" android:popupKeyboard="@xml/shift_9" android:keyLabel="9" />
+        <Key android:codes="48" android:popupKeyboard="@xml/shift_0" android:keyLabel="0" />
+        <Key android:codes="-5" android:keyEdgeFlags="right" android:keyLabel="@string/keyboardview_keycode_delete" android:keyIcon="@drawable/ic_ime_delete" />
+    </Row>
+    <Row>
+        <Key android:keyEdgeFlags="left" android:keyLabel="й" />
+        <Key android:keyLabel="ц" />
+        <Key android:keyLabel="у" />
+        <Key android:keyLabel="к" />
+        <Key android:keyLabel="е" />
+        <Key android:keyLabel="н" />
+        <Key android:keyLabel="г" />
+        <Key android:keyLabel="ш" />
+        <Key android:keyLabel="щ" />
+        <Key android:keyLabel="з" />
+        <Key android:keyEdgeFlags="right" android:keyLabel="х" />
+    </Row>
+    <Row>
+        <Key android:popupKeyboard="@xml/accent_a" android:keyEdgeFlags="left" android:keyLabel="ф" />
+        <Key android:keyLabel="і" />
+        <Key android:keyLabel="в" />
+        <Key android:keyLabel="а" />
+        <Key android:keyLabel="п" />
+        <Key android:keyLabel="р" />
+        <Key android:keyLabel="о" />
+        <Key android:keyLabel="л" />
+        <Key android:keyLabel="д" />
+        <Key android:keyLabel="ж" />
+        <Key android:keyEdgeFlags="right" android:keyLabel="є" />
+    </Row>
+    <Row>
+        <Key android:keyEdgeFlags="left" android:keyLabel="я" />
+        <Key android:keyLabel="ч" />
+        <Key android:keyLabel="с" />
+        <Key android:keyLabel="м" />
+        <Key android:keyLabel="и" />
+        <Key android:keyLabel="т" />
+        <Key android:keyLabel="ь" />
+        <Key android:keyLabel="б" />
+        <Key android:keyLabel="ю" />
+        <Key android:keyLabel="ї" />
+        <Key android:keyEdgeFlags="right" android:keyLabel="`" />
+    </Row>
+    <Row android:rowEdgeFlags="bottom">
+        <Key android:codes="-2" android:keyEdgeFlags="left" android:keyLabel="@string/keyboardview_keycode_mode_change" android:keyIcon="@drawable/ic_ime_symbols" />
+        <Key android:codes="-1" android:keyLabel="@string/keyboardview_keycode_shift" android:keyIcon="@drawable/ic_ime_shift_off" />
+        <Key android:codes="-9" android:keyLabel="@string/keyboardview_keycode_lang" android:keyIcon="@drawable/ic_ime_world" />
+        <Key android:keyWidth="@dimen/space_key_width" android:codes="32" android:keyLabel="@string/keyboardview_keycode_space" android:keyIcon="@drawable/ic_ime_space_uk" />
+        <Key android:codes="-3" android:keyLabel="@string/keyboardview_keycode_left" android:keyIcon="@drawable/ic_ime_left_arrow" />
+        <Key android:codes="-4" android:keyEdgeFlags="right" android:keyLabel="@string/keyboardview_keycode_right" android:keyIcon="@drawable/ic_ime_right_arrow" />
+    </Row>
+</Keyboard>

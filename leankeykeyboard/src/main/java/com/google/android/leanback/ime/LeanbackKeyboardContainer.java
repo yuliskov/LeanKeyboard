@@ -826,54 +826,54 @@ public class LeanbackKeyboardContainer {
     }
 
     public int getTouchState() {
-        return this.mTouchState;
+        return mTouchState;
     }
 
     public RelativeLayout getView() {
-        return this.mRootView;
+        return mRootView;
     }
 
     public boolean isCapsLockOn() {
-        return this.mMainKeyboardView.getShiftState() == 2;
+        return mMainKeyboardView.getShiftState() == 2;
     }
 
     public boolean isCurrKeyShifted() {
-        return this.mMainKeyboardView.isShifted();
+        return mMainKeyboardView.isShifted();
     }
 
     public boolean isMiniKeyboardOnScreen() {
-        return this.mMainKeyboardView.isMiniKeyboardOnScreen();
+        return mMainKeyboardView.isMiniKeyboardOnScreen();
     }
 
     public boolean isVoiceEnabled() {
-        return this.mVoiceEnabled;
+        return mVoiceEnabled;
     }
 
     public boolean isVoiceVisible() {
-        return this.mVoiceButtonView.getVisibility() == 0;
+        return mVoiceButtonView.getVisibility() == 0;
     }
 
     public void onInitInputView() {
-        this.resetFocusCursor();
-        this.mSelector.setVisibility(View.VISIBLE);
+        resetFocusCursor();
+        mSelector.setVisibility(View.VISIBLE);
     }
 
     public boolean onKeyLongPress() {
-        int var1 = this.mCurrKeyInfo.code;
-        if (var1 == -1) {
-            this.onToggleCapsLock();
-            this.setTouchState(0);
+        int keyCode = mCurrKeyInfo.code;
+        if (keyCode == LeanbackKeyboardView.KEYCODE_SHIFT) {
+            onToggleCapsLock();
+            setTouchState(LeanbackKeyboardContainer.TOUCH_STATE_NO_TOUCH);
             return true;
-        } else if (var1 == 32) {
-            this.switchToNextKeyboard();
-            this.setTouchState(0);
+        } else if (keyCode == LeanbackKeyboardView.ASCII_SPACE) {
+            switchToNextKeyboard();
+            setTouchState(LeanbackKeyboardContainer.TOUCH_STATE_NO_TOUCH);
             return true;
         } else {
-            if (this.mCurrKeyInfo.type == 0) {
-                this.mMainKeyboardView.onKeyLongPress();
-                if (this.mMainKeyboardView.isMiniKeyboardOnScreen()) {
-                    this.mMiniKbKeyIndex = this.mCurrKeyInfo.index;
-                    this.moveFocusToIndex(this.mMainKeyboardView.getBaseMiniKbIndex(), 0);
+            if (mCurrKeyInfo.type == KeyFocus.TYPE_MAIN) {
+                mMainKeyboardView.onKeyLongPress();
+                if (mMainKeyboardView.isMiniKeyboardOnScreen()) {
+                    mMiniKbKeyIndex = mCurrKeyInfo.index;
+                    moveFocusToIndex(mMainKeyboardView.getBaseMiniKbIndex(), KeyFocus.TYPE_MAIN);
                     return true;
                 }
             }
@@ -1145,6 +1145,11 @@ public class LeanbackKeyboardContainer {
         if (getCurrFocus().type == KeyFocus.TYPE_SUGGESTION) {
             resetFocusCursor();
         }
+    }
+
+    public void onLangKeyClick() {
+        switchToNextKeyboard();
+        setTouchState(LeanbackKeyboardContainer.TOUCH_STATE_NO_TOUCH);
     }
 
     public interface DismissListener {

@@ -284,50 +284,57 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     private void handleCommitKeyboardKey(int keyCode, CharSequence text) {
         switch (keyCode) {
             case LeanbackKeyboardView.KEYCODE_DISMISS_MINI_KEYBOARD:
-                this.mContainer.dismissMiniKeyboard();
+                mContainer.dismissMiniKeyboard();
                 return;
             case LeanbackKeyboardView.KEYCODE_VOICE:
-                this.mContainer.startVoiceRecording();
+                mContainer.startVoiceRecording();
                 return;
             case LeanbackKeyboardView.KEYCODE_CAPS_LOCK:
-                this.mContainer.onShiftDoubleClick(this.mContainer.isCapsLockOn());
+                mContainer.onShiftDoubleClick(mContainer.isCapsLockOn());
                 return;
             case LeanbackKeyboardView.KEYCODE_DELETE:
-                this.mInputListener.onEntry(InputListener.ENTRY_TYPE_BACKSPACE, LeanbackKeyboardView.SHIFT_OFF, null);
+                mInputListener.onEntry(InputListener.ENTRY_TYPE_BACKSPACE, LeanbackKeyboardView.SHIFT_OFF, null);
                 return;
             case LeanbackKeyboardView.KEYCODE_RIGHT:
-                this.mInputListener.onEntry(InputListener.ENTRY_TYPE_RIGHT, LeanbackKeyboardView.SHIFT_OFF, null);
+                mInputListener.onEntry(InputListener.ENTRY_TYPE_RIGHT, LeanbackKeyboardView.SHIFT_OFF, null);
                 return;
             case LeanbackKeyboardView.KEYCODE_LEFT:
-                this.mInputListener.onEntry(InputListener.ENTRY_TYPE_LEFT, LeanbackKeyboardView.SHIFT_OFF, null);
+                mInputListener.onEntry(InputListener.ENTRY_TYPE_LEFT, LeanbackKeyboardView.SHIFT_OFF, null);
                 return;
             case LeanbackKeyboardView.KEYCODE_SYM_TOGGLE:
                 if (Log.isLoggable("LbKbController", Log.DEBUG)) {
                     Log.d("LbKbController", "mode change");
                 }
 
-                this.mContainer.onModeChangeClick();
+                mContainer.onModeChangeClick();
                 return;
             case LeanbackKeyboardView.KEYCODE_SHIFT:
                 if (Log.isLoggable("LbKbController", Log.DEBUG)) {
                     Log.d("LbKbController", "shift");
                 }
 
-                this.mContainer.onShiftClick();
+                mContainer.onShiftClick();
                 return;
             case LeanbackKeyboardView.ASCII_SPACE:
-                this.mInputListener.onEntry(InputListener.ENTRY_TYPE_STRING, keyCode, " ");
-                this.mContainer.onSpaceEntry();
+                mInputListener.onEntry(InputListener.ENTRY_TYPE_STRING, keyCode, " ");
+                mContainer.onSpaceEntry();
                 return;
             case LeanbackKeyboardView.ASCII_PERIOD:
-                this.mInputListener.onEntry(InputListener.ENTRY_TYPE_STRING, keyCode, text);
-                this.mContainer.onPeriodEntry();
+                mInputListener.onEntry(InputListener.ENTRY_TYPE_STRING, keyCode, text);
+                mContainer.onPeriodEntry();
+                return;
+            case LeanbackKeyboardView.KEYCODE_LANG_TOGGLE:
+                if (Log.isLoggable("LbKbController", Log.DEBUG)) {
+                    Log.d("LbKbController", "language change");
+                }
+
+                mContainer.onLangKeyClick();
                 return;
             default:
-                this.mInputListener.onEntry(InputListener.ENTRY_TYPE_STRING, keyCode, text);
-                this.mContainer.onTextEntry();
-                if (this.mContainer.isMiniKeyboardOnScreen()) {
-                    this.mContainer.dismissMiniKeyboard();
+                mInputListener.onEntry(InputListener.ENTRY_TYPE_STRING, keyCode, text);
+                mContainer.onTextEntry();
+                if (mContainer.isMiniKeyboardOnScreen()) {
+                    mContainer.dismissMiniKeyboard();
                 }
 
         }
@@ -366,7 +373,7 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
                         mMoveCount = 0;
                         mKeyDownKeyFocus = new LeanbackKeyboardContainer.KeyFocus();
                         mKeyDownKeyFocus.set(mContainer.getCurrFocus());
-                    } else if (eventRepeatCount == 1 && handleKeyLongPress(keyCode)) {
+                    } else if (eventRepeatCount == 1 && handleKeyLongPress(keyCode)) { // space long press handler and others
                         mKeyDownKeyFocus = null;
                     }
 
@@ -654,23 +661,23 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
         }
     }
 
-    public boolean onKeyUp(int var1, KeyEvent var2) {
-        if (this.mSpaceTracker != null && this.mSpaceTracker.onKeyUp(var1, var2)) {
+    public boolean onKeyUp(int keyCode, KeyEvent keyEvent) {
+        if (mSpaceTracker != null && mSpaceTracker.onKeyUp(keyCode, keyEvent)) {
             return true;
         } else {
-            if (this.isEnterKey(var1)) {
-                if (!this.mKeyDownReceived || this.mLongPressHandled) {
-                    this.mLongPressHandled = false;
+            if (isEnterKey(keyCode)) {
+                if (!mKeyDownReceived || mLongPressHandled) {
+                    mLongPressHandled = false;
                     return true;
                 }
 
-                this.mKeyDownReceived = false;
-                if (this.mContainer.getTouchState() == 3) {
-                    this.mContainer.setTouchState(1);
+                mKeyDownReceived = false;
+                if (mContainer.getTouchState() == 3) {
+                    mContainer.setTouchState(1);
                 }
             }
 
-            return this.handleKeyUpEvent(var1, var2.getEventTime());
+            return handleKeyUpEvent(keyCode, keyEvent.getEventTime());
         }
     }
 

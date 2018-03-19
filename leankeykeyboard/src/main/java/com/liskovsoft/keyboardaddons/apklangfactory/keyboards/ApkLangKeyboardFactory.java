@@ -23,6 +23,8 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
+import com.liskovsoft.keyboardaddons.KeyboardBuilder;
+import com.liskovsoft.keyboardaddons.KeyboardFactory;
 import com.liskovsoft.keyboardaddons.apklangfactory.addons.AddOn;
 import com.liskovsoft.keyboardaddons.apklangfactory.addons.AddOnsFactory;
 import com.liskovsoft.keyboardaddons.apklangfactory.utils.Logger;
@@ -31,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ApkLangKeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder> {
+public class ApkLangKeyboardFactory extends AddOnsFactory<ApkKeyboardAddOnAndBuilder> implements KeyboardFactory {
     private static final String TAG = "ASK_KF";
 
     private static final String XML_LAYOUT_RES_ID_ATTRIBUTE = "layoutResId";
@@ -50,20 +52,21 @@ public class ApkLangKeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilde
                 0, true);
     }
 
-    public List<KeyboardAddOnAndBuilder> getAllAvailableKeyboards(Context askContext) {
-        return getAllAddOns(askContext);
+    @Override
+    public List<? extends KeyboardBuilder> getAllAvailableKeyboards(Context context) {
+        return getAllAddOns(context);
     }
 
-    public List<KeyboardAddOnAndBuilder> getEnabledKeyboards(Context askContext) {
-        final List<KeyboardAddOnAndBuilder> allAddOns = getAllAddOns(askContext);
+    public List<ApkKeyboardAddOnAndBuilder> getEnabledKeyboards(Context askContext) {
+        final List<ApkKeyboardAddOnAndBuilder> allAddOns = getAllAddOns(askContext);
         Logger.i(TAG, "Creating enabled addons list. I have a total of " + allAddOns.size() + " addons");
 
         //getting shared prefs to determine which to create.
         final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(askContext);
 
-        final ArrayList<KeyboardAddOnAndBuilder> enabledAddOns = new ArrayList<>();
+        final ArrayList<ApkKeyboardAddOnAndBuilder> enabledAddOns = new ArrayList<>();
         for (int addOnIndex = 0; addOnIndex < allAddOns.size(); addOnIndex++) {
-            final KeyboardAddOnAndBuilder addOn = allAddOns.get(addOnIndex);
+            final ApkKeyboardAddOnAndBuilder addOn = allAddOns.get(addOnIndex);
 
             final boolean addOnEnabled = sharedPreferences.getBoolean(addOn.getId(), addOn.getKeyboardDefaultEnabled());
 
@@ -76,13 +79,13 @@ public class ApkLangKeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilde
         // Check if there is any keyboards created if not, lets create a default english keyboard
         if (enabledAddOns.size() == 0) {
             final SharedPreferences.Editor editor = sharedPreferences.edit();
-            final KeyboardAddOnAndBuilder addOn = allAddOns.get(0);
+            final ApkKeyboardAddOnAndBuilder addOn = allAddOns.get(0);
             editor.putBoolean(addOn.getId(), true);
             editor.commit();
             enabledAddOns.add(addOn);
         }
 
-        for (final KeyboardAddOnAndBuilder addOn : enabledAddOns) {
+        for (final ApkKeyboardAddOnAndBuilder addOn : enabledAddOns) {
             Logger.d(TAG, "Factory provided addon: %s", addOn.getId());
         }
 
@@ -90,7 +93,7 @@ public class ApkLangKeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilde
     }
 
     @Override
-    protected KeyboardAddOnAndBuilder createConcreteAddOn(Context askContext, Context context, String prefId, int nameId, String description, int sortIndex, AttributeSet attrs) {
+    protected ApkKeyboardAddOnAndBuilder createConcreteAddOn(Context askContext, Context context, String prefId, int nameId, String description, int sortIndex, AttributeSet attrs) {
         final int layoutResId = attrs.getAttributeResourceValue(null, XML_LAYOUT_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
         final int landscapeLayoutResId = attrs.getAttributeResourceValue(null, XML_LANDSCAPE_LAYOUT_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
         //final int iconResId = attrs.getAttributeResourceValue(null, XML_ICON_RES_ID_ATTRIBUTE, R.drawable.sym_keyboard_notification_icon);
@@ -114,7 +117,7 @@ public class ApkLangKeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilde
                             + " landscapeResId:" + landscapeLayoutResId
                             + " iconResId:" + iconResId + " defaultDictionary:"
                             + defaultDictionary);
-            return new KeyboardAddOnAndBuilder(askContext, context,
+            return new ApkKeyboardAddOnAndBuilder(askContext, context,
                     prefId, nameId, layoutResId, landscapeLayoutResId,
                     defaultDictionary, iconResId, physicalTranslationResId,
                     additionalIsLetterExceptions, sentenceSeparators,
@@ -127,7 +130,7 @@ public class ApkLangKeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilde
     }
 
     public Keyboard createKeyboard(Context context) {
-        List<KeyboardAddOnAndBuilder> keyboardBuilders = getAllAvailableKeyboards(context);
+        List<? extends KeyboardBuilder> keyboardBuilders = getAllAvailableKeyboards(context);
         if (keyboardBuilders.size() == 0)
             return new Keyboard(context, 0x7f04000c); // ru keyboard resource id
         // remember, only one external keyboard supported

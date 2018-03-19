@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard android:keyWidth="@dimen/key_width" android:keyHeight="@dimen/key_height" android:horizontalGap="@dimen/keyboard_horizontal_gap" android:verticalGap="@dimen/keyboard_vertical_gap"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Key codes: https://en.wikipedia.org/wiki/Hebrew_(Unicode_block) -->
+    <Row android:rowEdgeFlags="top">
+        <Key android:codes="49" android:popupKeyboard="@xml/shift_1" android:keyEdgeFlags="left" android:keyLabel="1" />
+        <Key android:codes="50" android:popupKeyboard="@xml/shift_2" android:keyLabel="2" />
+        <Key android:codes="51" android:popupKeyboard="@xml/shift_3" android:keyLabel="3" />
+        <Key android:codes="52" android:popupKeyboard="@xml/shift_4" android:keyLabel="4" />
+        <Key android:codes="53" android:popupKeyboard="@xml/shift_5" android:keyLabel="5" />
+        <Key android:codes="54" android:popupKeyboard="@xml/shift_6" android:keyLabel="6" />
+        <Key android:codes="55" android:popupKeyboard="@xml/shift_7" android:keyLabel="7" />
+        <Key android:codes="56" android:popupKeyboard="@xml/shift_8" android:keyLabel="8" />
+        <Key android:codes="57" android:popupKeyboard="@xml/shift_9" android:keyLabel="9" />
+        <Key android:codes="48" android:popupKeyboard="@xml/shift_0" android:keyLabel="0" />
+        <Key android:codes="-5" android:keyEdgeFlags="right" android:keyLabel="@string/keyboardview_keycode_delete" android:keyIcon="@drawable/ic_ime_delete" />
+    </Row>
+    <Row>
+        <Key android:codes="1509" android:keyLabel="ץ" android:keyEdgeFlags="left" />
+        <Key android:codes="1511" android:keyLabel="ק" />
+        <Key android:codes="1512" android:keyLabel="ר" />
+        <Key android:codes="1488" android:keyLabel="א" />
+        <Key android:codes="1496" android:keyLabel="ט" />
+        <Key android:codes="1493" android:keyLabel="ו" />
+        <Key android:codes="1503" android:keyLabel="ן‎" />
+        <Key android:codes="1501" android:keyLabel="ם‎" />
+        <Key android:codes="1508" android:keyLabel="פ" />
+        <!-- Hebrew Punctuation -->
+        <Key android:codes="1523" android:keyLabel="׳" />
+        <Key android:codes="1524" android:keyLabel="״" android:keyEdgeFlags="right" />
+    </Row>
+    <Row>
+        <Key android:codes="1513" android:keyLabel="ש" android:keyEdgeFlags="left" />
+        <Key android:codes="1491" android:keyLabel="ד" />
+        <Key android:codes="1490" android:keyLabel="ג" />
+        <Key android:codes="1499" android:keyLabel="כ" />
+        <Key android:codes="1506" android:keyLabel="ע" />
+        <Key android:codes="1497" android:keyLabel="י" />
+        <Key android:codes="1495" android:keyLabel="ח‎" />
+        <Key android:codes="1500" android:keyLabel="ל‎" />
+        <Key android:codes="1498" android:keyLabel="ך" />
+        <Key android:codes="1507" android:keyLabel="ף" />
+        <!-- Hebrew Punctuation -->
+        <Key android:codes="1478" android:keyLabel="׆" android:keyEdgeFlags="right" />
+    </Row>
+    <Row>
+        <Key android:codes="1494" android:keyLabel="ז" android:keyEdgeFlags="left" />
+        <Key android:codes="1505" android:keyLabel="ס" />
+        <Key android:codes="1489" android:keyLabel="ב" />
+        <Key android:codes="1492" android:keyLabel="ה" />
+        <Key android:codes="1504" android:keyLabel="נ‎" />
+        <Key android:codes="1502" android:keyLabel="מ" />
+        <Key android:codes="1510" android:keyLabel="צ" />
+        <Key android:codes="1514" android:keyLabel="ת" />
+        <!-- Hebrew Punctuation -->
+        <Key android:codes="1470" android:keyLabel="־" />
+        <Key android:codes="1472" android:keyLabel="׀" />
+        <Key android:codes="1475" android:keyLabel="׃" android:keyEdgeFlags="right" />
+    </Row>
+    <Row android:rowEdgeFlags="bottom">
+        <Key android:codes="-2" android:keyEdgeFlags="left" android:keyLabel="@string/keyboardview_keycode_mode_change" android:keyIcon="@drawable/ic_ime_symbols" />
+        <Key android:codes="-1" android:keyLabel="@string/keyboardview_keycode_shift" android:keyIcon="@drawable/ic_ime_shift_off" />
+        <Key android:codes="-9" android:keyLabel="@string/keyboardview_keycode_lang" android:keyIcon="@drawable/ic_ime_world" />
+        <Key android:keyWidth="@dimen/space_key_width" android:codes="32" android:keyLabel="@string/keyboardview_keycode_space" android:keyIcon="@drawable/ic_ime_space_he" />
+        <Key android:codes="-3" android:keyLabel="@string/keyboardview_keycode_left" android:keyIcon="@drawable/ic_ime_left_arrow" />
+        <Key android:codes="-4" android:keyEdgeFlags="right" android:keyLabel="@string/keyboardview_keycode_right" android:keyIcon="@drawable/ic_ime_right_arrow" />
+    </Row>
+</Keyboard>

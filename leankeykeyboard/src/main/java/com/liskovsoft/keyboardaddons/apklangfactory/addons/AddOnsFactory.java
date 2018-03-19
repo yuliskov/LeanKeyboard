@@ -67,24 +67,6 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
     private static final String sTAG = "AddOnsFactory";
 
-    //public static void onPackageChanged(final Intent eventIntent, final AnySoftKeyboard ask) {
-    //    boolean cleared = false;
-    //    boolean recreateView = false;
-    //    for (AddOnsFactory<?> factory : mActiveInstances) {
-    //        try {
-    //            if (factory.isEventRequiresCacheRefresh(eventIntent, ask.getApplicationContext())) {
-    //                cleared = true;
-    //                if (factory.isEventRequiresViewReset(eventIntent, ask.getApplicationContext())) recreateView = true;
-    //                Logger.d(sTAG, factory.getClass().getName() + " will handle this package-changed event. Also recreate view? " + recreateView);
-    //                factory.clearAddOnList();
-    //            }
-    //        } catch (NameNotFoundException e) {
-    //            e.printStackTrace();
-    //        }
-    //    }
-    //    if (cleared) ask.resetKeyboardView(recreateView);
-    //}
-
     public static AddOn locateAddOn(String id, Context askContext) {
         for (AddOnsFactory<?> factory : mActiveInstances) {
             AddOn addOn = factory.getAddOnById(id, askContext);

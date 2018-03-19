@@ -42,6 +42,7 @@ public class LeanbackKeyboardView extends FrameLayout {
     public static final int KEYCODE_SHIFT = -1;
     public static final int KEYCODE_SYM_TOGGLE = -2;
     public static final int KEYCODE_VOICE = -7;
+    public static final int KEYCODE_LANG_TOGGLE = -9;
     private static final int NOT_A_KEY = -1;
     public static final int SHIFT_LOCKED = 2;
     public static final int SHIFT_OFF = 0;

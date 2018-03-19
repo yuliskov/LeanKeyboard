@@ -19,31 +19,31 @@ package com.liskovsoft.keyboardaddons.apklangfactory.keyboards;
 import android.content.Context;
 import android.support.annotation.Nullable;
 
+import com.liskovsoft.keyboardaddons.KeyboardBuilder;
 import com.liskovsoft.keyboardaddons.apklangfactory.addons.AddOn;
 import com.liskovsoft.keyboardaddons.apklangfactory.addons.AddOnImpl;
 
-public class KeyboardAddOnAndBuilder extends AddOnImpl {
+public class ApkKeyboardAddOnAndBuilder extends AddOnImpl implements KeyboardBuilder {
 
     public static final String KEYBOARD_PREF_PREFIX = "keyboard_";
 
     private final int mResId;
     private final int mLandscapeResId;
-    //private final int mIconResId;
     private final String mDefaultDictionary;
     private final int mQwertyTranslationId;
     private final String mAdditionalIsLetterExceptions;
     private final String mSentenceSeparators;
     private final boolean mKeyboardDefaultEnabled;
 
-    public KeyboardAddOnAndBuilder(Context askContext, Context packageContext, String id, int nameResId,
-                                   int layoutResId, int landscapeLayoutResId,
-                                   String defaultDictionary, int iconResId,
-                                   int physicalTranslationResId,
-                                   String additionalIsLetterExceptions,
-                                   String sentenceSeparators,
-                                   String description,
-                                   int keyboardIndex,
-                                   boolean keyboardDefaultEnabled) {
+    public ApkKeyboardAddOnAndBuilder(Context askContext, Context packageContext, String id, int nameResId,
+                                      int layoutResId, int landscapeLayoutResId,
+                                      String defaultDictionary, int iconResId,
+                                      int physicalTranslationResId,
+                                      String additionalIsLetterExceptions,
+                                      String sentenceSeparators,
+                                      String description,
+                                      int keyboardIndex,
+                                      boolean keyboardDefaultEnabled) {
         super(askContext, packageContext, KEYBOARD_PREF_PREFIX + id, nameResId, description, keyboardIndex);
 
         mResId = layoutResId;
@@ -74,16 +74,10 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
     }
 
     @Nullable
+    @Override
     public android.inputmethodservice.Keyboard createKeyboard() {
         Context remoteContext = getPackageContext();
         if (remoteContext == null) return null;
         return new android.inputmethodservice.Keyboard(remoteContext, mLandscapeResId);
     }
-
-    //@Nullable
-    //public android.inputmethodservice.Keyboard createKeyboard(Context askContext, @Keyboard.KeyboardRowModeId int mode) {
-    //    Context remoteContext = getPackageContext();
-    //    if (remoteContext == null) return null;
-    //    return new ExternalAnyKeyboard(this, askContext, remoteContext, mResId, mLandscapeResId, getId(), getName(), mIconResId, mQwertyTranslationId, mDefaultDictionary, mAdditionalIsLetterExceptions, mSentenceSeparators, mode);
-    //}
 }
