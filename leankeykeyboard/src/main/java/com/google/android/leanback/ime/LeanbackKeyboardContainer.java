@@ -59,6 +59,10 @@ public class LeanbackKeyboardContainer {
     public static final int TOUCH_STATE_TOUCH_SNAP = 1;
     private static final boolean VOICE_SUPPORTED = true;
     public static final Interpolator sMovementInterpolator = new DecelerateInterpolator(1.5F);
+    public static final int DIRECTION_UP = 8;
+    public static final int DIRECTION_DOWN = 2;
+    public static final int DIRECTION_LEFT = 1;
+    public static final int DIRECTION_RIGHT = 4;
     private Keyboard mAbcKeyboard;
     private Keyboard mAbcKeyboardRU;
     private Button mActionButtonView;
@@ -267,10 +271,10 @@ public class LeanbackKeyboardContainer {
     }
 
     private void initKeyboards() {
-        this.mAbcKeyboard = new Keyboard(this.mContext, R.xml.qwerty_us);
-        this.mSymKeyboard = new Keyboard(this.mContext, R.xml.sym_us);
-        this.updateAddonKeyboard();
-        this.mNumKeyboard = new Keyboard(this.mContext, R.xml.number);
+        mAbcKeyboard = new Keyboard(mContext, R.xml.qwerty_us);
+        mSymKeyboard = new Keyboard(mContext, R.xml.sym_us);
+        updateAddonKeyboard();
+        mNumKeyboard = new Keyboard(mContext, R.xml.number);
     }
 
     private boolean isMatch(Locale var1, Locale[] var2) {
@@ -614,51 +618,58 @@ public class LeanbackKeyboardContainer {
         return mAutoEnterSpaceEnabled;
     }
 
+    /**
+     * Initialize {@link KeyFocus focus} variable based on supplied coordinates
+     * @param x x coordinates
+     * @param y y coordinates
+     * @param focus result focus
+     * @return whether focus is found or not
+     */
     public boolean getBestFocus(final Float x, final Float y, final LeanbackKeyboardContainer.KeyFocus focus) {
-        this.offsetRect(this.mRect, this.mActionButtonView);
-        int actionLeft = this.mRect.left;
-        this.offsetRect(this.mRect, this.mMainKeyboardView);
-        int keyboardTop = this.mRect.top;
+        offsetRect(mRect, mActionButtonView);
+        int actionLeft = mRect.left;
+        offsetRect(mRect, mMainKeyboardView);
+        int keyboardTop = mRect.top;
         Float newX = x;
         if (x == null) {
-            newX = this.mX;
+            newX = mX;
         }
 
         Float newY = y;
         if (y == null) {
-            newY = this.mY;
+            newY = mY;
         }
 
-        int count = this.mSuggestions.getChildCount();
-        if (newY < (float) keyboardTop && count > 0 && this.mSuggestionsEnabled) {
+        int count = mSuggestions.getChildCount();
+        if (newY < (float) keyboardTop && count > 0 && mSuggestionsEnabled) {
             for (actionLeft = 0; actionLeft < count; ++actionLeft) {
-                View view = this.mSuggestions.getChildAt(actionLeft);
-                this.offsetRect(this.mRect, view);
-                if (newX < (float) this.mRect.right || actionLeft + 1 == count) {
+                View view = mSuggestions.getChildAt(actionLeft);
+                offsetRect(mRect, view);
+                if (newX < (float) mRect.right || actionLeft + 1 == count) {
                     view.requestFocus();
                     LeanbackUtils.sendAccessibilityEvent(view.findViewById(R.id.text), true);
-                    this.configureFocus(focus, this.mRect, actionLeft, 3);
+                    configureFocus(focus, mRect, actionLeft, KeyFocus.TYPE_SUGGESTION);
                     break;
                 }
             }
 
             return true;
-        } else if (newY < (float) keyboardTop && this.mEscapeNorthEnabled) {
-            this.escapeNorth();
+        } else if (newY < (float) keyboardTop && mEscapeNorthEnabled) {
+            escapeNorth();
             return false;
         } else if (newX > (float) actionLeft) {
-            this.offsetRect(this.mRect, this.mActionButtonView);
-            this.configureFocus(focus, this.mRect, 0, 2);
+            offsetRect(mRect, mActionButtonView);
+            configureFocus(focus, mRect, 0, KeyFocus.TYPE_ACTION);
             return true;
         } else {
-            this.mX = newX;
-            this.mY = newY;
-            this.offsetRect(this.mRect, this.mMainKeyboardView);
-            final float left = (float) this.mRect.left;
-            final float top = (float) this.mRect.top;
-            actionLeft = this.mMainKeyboardView.getNearestIndex(Float.valueOf(newX - left), Float.valueOf(newY - top));
-            Key key = this.mMainKeyboardView.getKey(actionLeft);
-            this.configureFocus(focus, this.mRect, actionLeft, key, 0);
+            mX = newX;
+            mY = newY;
+            offsetRect(mRect, mMainKeyboardView);
+            final float left = (float) mRect.left;
+            final float top = (float) mRect.top;
+            actionLeft = mMainKeyboardView.getNearestIndex(Float.valueOf(newX - left), Float.valueOf(newY - top));
+            Key key = mMainKeyboardView.getKey(actionLeft);
+            configureFocus(focus, mRect, actionLeft, key, 0);
             return true;
         }
     }
@@ -688,109 +699,109 @@ public class LeanbackKeyboardContainer {
     public boolean getNextFocusInDirection(int direction, LeanbackKeyboardContainer.KeyFocus startFocus, LeanbackKeyboardContainer.KeyFocus nextFocus) {
         switch (startFocus.type) {
             case KeyFocus.TYPE_MAIN:
-                Key key = this.getKey(startFocus.type, startFocus.index);
-                float var5 = (float) startFocus.rect.height() / 2.0F;
-                float var4 = (float) startFocus.rect.centerX();
-                float var6 = (float) startFocus.rect.centerY();
+                Key key = getKey(startFocus.type, startFocus.index);
+                float centerDelta = (float) startFocus.rect.height() / 2.0F;
+                float centerX = (float) startFocus.rect.centerX();
+                float centerY = (float) startFocus.rect.centerY();
                 if (startFocus.code == 32) {
-                    var4 = this.mX;
+                    centerX = mX;
                 }
 
-                if ((direction & 1) != 0) {
+                if ((direction & DIRECTION_LEFT) != 0) {
                     if ((key.edgeFlags & 1) == 0) {
-                        var4 = (float) startFocus.rect.left - var5;
+                        centerX = (float) startFocus.rect.left - centerDelta;
                     }
-                } else if ((direction & 4) != 0) {
+                } else if ((direction & DIRECTION_RIGHT) != 0) {
                     if ((key.edgeFlags & 2) != 0) {
-                        this.offsetRect(this.mRect, this.mActionButtonView);
-                        var4 = (float) this.mRect.centerX();
+                        offsetRect(mRect, mActionButtonView);
+                        centerX = (float) mRect.centerX();
                     } else {
-                        var4 = (float) startFocus.rect.right + var5;
+                        centerX = (float) startFocus.rect.right + centerDelta;
                     }
                 }
 
-                if ((direction & 8) != 0) {
-                    var5 = (float) ((double) var6 - (double) startFocus.rect.height() * DIRECTION_STEP_MULTIPLIER);
+                if ((direction & DIRECTION_UP) != 0) {
+                    centerDelta = (float) ((double) centerY - (double) startFocus.rect.height() * DIRECTION_STEP_MULTIPLIER);
                 } else {
-                    var5 = var6;
-                    if ((direction & 2) != 0) {
-                        var5 = (float) ((double) var6 + (double) startFocus.rect.height() * DIRECTION_STEP_MULTIPLIER);
+                    centerDelta = centerY;
+                    if ((direction & DIRECTION_DOWN) != 0) {
+                        centerDelta = (float) ((double) centerY + (double) startFocus.rect.height() * DIRECTION_STEP_MULTIPLIER);
                     }
                 }
 
-                this.getPhysicalPosition(var4, var5, this.mTempPoint);
-                return this.getBestFocus(var4, var5, nextFocus);
+                getPhysicalPosition(centerX, centerDelta, mTempPoint);
+                return getBestFocus(centerX, centerDelta, nextFocus);
             case KeyFocus.TYPE_VOICE:
             default:
                 break;
             case KeyFocus.TYPE_ACTION:
-                this.offsetRect(this.mRect, this.mMainKeyboardView);
-                if ((direction & 1) != 0) {
-                    return this.getBestFocus((float) this.mRect.right, null, nextFocus);
+                offsetRect(mRect, mMainKeyboardView);
+                if ((direction & DIRECTION_LEFT) != 0) {
+                    return getBestFocus((float) mRect.right, null, nextFocus);
                 }
 
-                if ((direction & 8) != 0) {
-                    this.offsetRect(this.mRect, this.mSuggestions);
-                    return this.getBestFocus((float) startFocus.rect.centerX(), (float) this.mRect.centerY(), nextFocus);
+                if ((direction & DIRECTION_UP) != 0) {
+                    offsetRect(mRect, mSuggestions);
+                    return getBestFocus((float) startFocus.rect.centerX(), (float) mRect.centerY(), nextFocus);
                 }
                 break;
             case KeyFocus.TYPE_SUGGESTION:
-                if ((direction & 2) != 0) {
-                    this.offsetRect(this.mRect, this.mMainKeyboardView);
-                    return this.getBestFocus((float) startFocus.rect.centerX(), (float) this.mRect.top, nextFocus);
+                if ((direction & DIRECTION_DOWN) != 0) {
+                    offsetRect(mRect, mMainKeyboardView);
+                    return getBestFocus((float) startFocus.rect.centerX(), (float) mRect.top, nextFocus);
                 }
 
-                if ((direction & 8) != 0) {
-                    if (this.mEscapeNorthEnabled) {
-                        this.escapeNorth();
+                if ((direction & DIRECTION_UP) != 0) {
+                    if (mEscapeNorthEnabled) {
+                        escapeNorth();
                         return true;
                     }
                 } else {
-                    boolean var7;
-                    if ((direction & 1) != 0) {
-                        var7 = true;
+                    boolean left;
+                    if ((direction & DIRECTION_LEFT) != 0) {
+                        left = true;
                     } else {
-                        var7 = false;
+                        left = false;
                     }
 
-                    boolean var12;
-                    if ((direction & 4) != 0) {
-                        var12 = true;
+                    boolean right;
+                    if ((direction & DIRECTION_RIGHT) != 0) {
+                        right = true;
                     } else {
-                        var12 = false;
+                        right = false;
                     }
 
-                    if (var7 || var12) {
-                        this.offsetRect(this.mRect, this.mRootView);
-                        MarginLayoutParams var11 = (MarginLayoutParams) this.mSuggestionsContainer.getLayoutParams();
-                        int var8 = this.mRect.left + var11.leftMargin;
-                        int var9 = this.mRect.right - var11.rightMargin;
-                        int var10 = startFocus.index;
-                        byte var13;
-                        if (var7) {
-                            var13 = -1;
+                    if (left || right) {
+                        offsetRect(mRect, mRootView);
+                        MarginLayoutParams params = (MarginLayoutParams) mSuggestionsContainer.getLayoutParams();
+                        int leftCalc = mRect.left + params.leftMargin;
+                        int rightCalc = mRect.right - params.rightMargin;
+                        int focusIdx = startFocus.index;
+                        byte delta;
+                        if (left) {
+                            delta = -1;
                         } else {
-                            var13 = 1;
+                            delta = 1;
                         }
 
-                        direction = var10 + var13;
-                        View var14 = this.mSuggestions.getChildAt(direction);
-                        if (var14 != null) {
-                            this.offsetRect(this.mRect, var14);
-                            if (this.mRect.left < var8 && this.mRect.right > var9) {
-                                this.mRect.left = var8;
-                                this.mRect.right = var9;
-                            } else if (this.mRect.left < var8) {
-                                this.mRect.right = this.mRect.width() + var8;
-                                this.mRect.left = var8;
-                            } else if (this.mRect.right > var9) {
-                                this.mRect.left = var9 - this.mRect.width();
-                                this.mRect.right = var9;
+                        int suggestIdx = focusIdx + delta;
+                        View suggestion = mSuggestions.getChildAt(suggestIdx);
+                        if (suggestion != null) {
+                            offsetRect(mRect, suggestion);
+                            if (mRect.left < leftCalc && mRect.right > rightCalc) {
+                                mRect.left = leftCalc;
+                                mRect.right = rightCalc;
+                            } else if (mRect.left < leftCalc) {
+                                mRect.right = mRect.width() + leftCalc;
+                                mRect.left = leftCalc;
+                            } else if (mRect.right > rightCalc) {
+                                mRect.left = rightCalc - mRect.width();
+                                mRect.right = rightCalc;
                             }
 
-                            var14.requestFocus();
-                            LeanbackUtils.sendAccessibilityEvent(var14.findViewById(R.id.text), true);
-                            this.configureFocus(nextFocus, this.mRect, direction, 3);
+                            suggestion.requestFocus();
+                            LeanbackUtils.sendAccessibilityEvent(suggestion.findViewById(R.id.text), true);
+                            configureFocus(nextFocus, mRect, suggestIdx, KeyFocus.TYPE_SUGGESTION);
                             return true;
                         }
                     }
@@ -800,21 +811,18 @@ public class LeanbackKeyboardContainer {
         return true;
     }
 
-    public CharSequence getSuggestionText(int var1) {
-        Object var3 = null;
-        CharSequence var2 = (CharSequence) var3;
-        if (var1 >= 0) {
-            var2 = (CharSequence) var3;
-            if (var1 < this.mSuggestions.getChildCount()) {
-                Button var4 = (Button) this.mSuggestions.getChildAt(var1).findViewById(R.id.text);
-                var2 = (CharSequence) var3;
-                if (var4 != null) {
-                    var2 = var4.getText();
+    public CharSequence getSuggestionText(int idx) {
+        CharSequence result = null;
+        if (idx >= 0) {
+            if (idx < this.mSuggestions.getChildCount()) {
+                Button btn = (Button) this.mSuggestions.getChildAt(idx).findViewById(R.id.text);
+                if (btn != null) {
+                    result = btn.getText();
                 }
             }
         }
 
-        return var2;
+        return result;
     }
 
     public int getTouchState() {

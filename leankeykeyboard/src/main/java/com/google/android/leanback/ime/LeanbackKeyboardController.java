@@ -349,16 +349,16 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
             handled = true;
             switch (keyCode) {
                 case KeyEvent.KEYCODE_DPAD_UP:
-                    handled = onDirectionalMove(8);
+                    handled = onDirectionalMove(LeanbackKeyboardContainer.DIRECTION_UP);
                     break;
                 case KeyEvent.KEYCODE_DPAD_DOWN:
-                    handled = onDirectionalMove(2);
+                    handled = onDirectionalMove(LeanbackKeyboardContainer.DIRECTION_DOWN);
                     break;
                 case KeyEvent.KEYCODE_DPAD_LEFT:
-                    handled = onDirectionalMove(1);
+                    handled = onDirectionalMove(LeanbackKeyboardContainer.DIRECTION_LEFT);
                     break;
                 case KeyEvent.KEYCODE_DPAD_RIGHT:
-                    handled = onDirectionalMove(4);
+                    handled = onDirectionalMove(LeanbackKeyboardContainer.DIRECTION_RIGHT);
                     break;
                 case KeyEvent.KEYCODE_DPAD_CENTER:
                 case KeyEvent.KEYCODE_ENTER:
@@ -531,10 +531,10 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     }
 
     private boolean onDirectionalMove(int dir) {
-        if (this.mContainer.getNextFocusInDirection(dir, this.mDownFocus, this.mTempFocus)) {
-            this.mContainer.setFocus(this.mTempFocus);
-            this.mDownFocus.set(this.mTempFocus);
-            this.clearKeyIfNecessary();
+        if (mContainer.getNextFocusInDirection(dir, mDownFocus, mTempFocus)) {
+            mContainer.setFocus(mTempFocus);
+            mDownFocus.set(mTempFocus);
+            clearKeyIfNecessary();
         }
 
         return true;
@@ -609,7 +609,7 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
             mInputListener.onEntry(InputListener.ENTRY_TYPE_DISMISS, LeanbackKeyboardView.SHIFT_OFF, null);
         }
     }
-
+    
     public boolean onGenericMotionEvent(MotionEvent event) {
         return mSpaceTracker != null && mContext != null && mContext.isInputViewShown() && mSpaceTracker.onGenericMotionEvent(event);
     }
@@ -639,18 +639,18 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
      * @return is event handled
      */
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        this.mDownFocus.set(this.mContainer.getCurrFocus());
-        if (this.mSpaceTracker != null && this.mSpaceTracker.onKeyDown(keyCode, event)) {
+        mDownFocus.set(mContainer.getCurrFocus());
+        if (mSpaceTracker != null && mSpaceTracker.onKeyDown(keyCode, event)) {
             return true;
         } else {
-            if (this.isEnterKey(keyCode)) {
-                this.mKeyDownReceived = true;
+            if (isEnterKey(keyCode)) {
+                mKeyDownReceived = true;
                 if (event.getRepeatCount() == 0) {
-                    this.mContainer.setTouchState(LeanbackKeyboardContainer.TOUCH_STATE_CLICK);
+                    mContainer.setTouchState(LeanbackKeyboardContainer.TOUCH_STATE_CLICK);
                 }
             }
 
-            return this.handleKeyDownEvent(keyCode, event.getRepeatCount());
+            return handleKeyDownEvent(keyCode, event.getRepeatCount());
         }
     }
 

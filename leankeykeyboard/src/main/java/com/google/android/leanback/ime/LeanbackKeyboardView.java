@@ -24,7 +24,14 @@ import java.util.Iterator;
 import java.util.List;
 
 public class LeanbackKeyboardView extends FrameLayout {
-    public static final int ASCII_PERIOD = 46;
+    /**
+     * space key index (important: wrong value will broke navigation)
+     */
+    public static final int ASCII_PERIOD = 47;
+    /**
+     * keys count among which space key spans (important: wrong value will broke navigation)
+     */
+    public static final int ASCII_PERIOD_LEN = 6;
     public static final int ASCII_SPACE = 32;
     private static final boolean DEBUG = false;
     public static final int KEYCODE_CAPS_LOCK = -6;
@@ -260,6 +267,8 @@ public class LeanbackKeyboardView extends FrameLayout {
 
     /**
      * Get index of the key under cursor
+     * <br/>
+     * Resulted index depends on the space key position
      * @param x x position
      * @param y y position
      * @return index of the key
@@ -296,16 +305,16 @@ public class LeanbackKeyboardView extends FrameLayout {
 
             indexFull += mColCount * result;
             result = indexFull;
-            if (indexFull > ASCII_PERIOD) {
+            if (indexFull > ASCII_PERIOD) { // key goes beyond space
                 result = indexFull;
-                if (indexFull < 53) {
+                if (indexFull < (ASCII_PERIOD + ASCII_PERIOD_LEN)) {  // key stays within space boundary
                     result = ASCII_PERIOD;
                 }
             }
 
             indexFull = result;
-            if (result >= 53) {
-                indexFull = result - 6;
+            if (result >= (ASCII_PERIOD + ASCII_PERIOD_LEN)) { // is key position after space?
+                indexFull = result - ASCII_PERIOD_LEN + 1;
             }
 
             if (indexFull < 0) {

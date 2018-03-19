@@ -18,6 +18,7 @@
     <string name="keyboardview_keycode_delete">Delete</string>
     <string name="keyboardview_keycode_mode_change">Mode change</string>
     <string name="keyboardview_keycode_shift">Shift</string>
+    <string name="keyboardview_keycode_lang">Language</string>
     <string name="keyboardview_keycode_caps">Caps Lock</string>
     <string name="keyboardview_keycode_left">Left</string>
     <string name="keyboardview_keycode_right">Right</string>
