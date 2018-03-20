@@ -72,6 +72,7 @@ public class SettingsActivity extends Activity
     
     protected void onCreate(final Bundle bundle) {
         super.onCreate(bundle);
+        // new ChooseKeyboardDialog(this).run();
         this.launchApp();
     }
 }

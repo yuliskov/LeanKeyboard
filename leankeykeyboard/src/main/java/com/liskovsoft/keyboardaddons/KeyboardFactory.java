@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface KeyboardFactory {
     List<? extends KeyboardBuilder> getAllAvailableKeyboards(Context context);
+    boolean needUpdate();
 }

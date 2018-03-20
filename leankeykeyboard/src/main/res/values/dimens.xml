@@ -27,4 +27,5 @@
     <dimen name="key_font_size">18.0sp</dimen>
     <dimen name="function_key_mode_change_font_size">16.0sp</dimen>
     <dimen name="resize_move_distance">12.0dip</dimen>
+    <dimen name="text_size_dp">15dp</dimen>
 </resources>

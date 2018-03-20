@@ -57,6 +57,12 @@ public class ApkLangKeyboardFactory extends AddOnsFactory<ApkKeyboardAddOnAndBui
         return getAllAddOns(context);
     }
 
+    @Override
+    public boolean needUpdate() {
+        // TODO: implement need update
+        return false;
+    }
+
     public List<ApkKeyboardAddOnAndBuilder> getEnabledKeyboards(Context askContext) {
         final List<ApkKeyboardAddOnAndBuilder> allAddOns = getAllAddOns(askContext);
         Logger.i(TAG, "Creating enabled addons list. I have a total of " + allAddOns.size() + " addons");

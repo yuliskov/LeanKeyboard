@@ -6,6 +6,7 @@ import android.inputmethodservice.Keyboard;
 import android.support.annotation.Nullable;
 import com.liskovsoft.keyboardaddons.KeyboardBuilder;
 import com.liskovsoft.keyboardaddons.KeyboardFactory;
+import com.liskovsoft.keyboardaddons.KeyboardInfo;
 import com.liskovsoft.leankeykeyboard.R;
 
 import java.util.ArrayList;
@@ -21,18 +22,28 @@ public class ResKeyboardFactory implements KeyboardFactory {
     @Override
     public List<? extends KeyboardBuilder> getAllAvailableKeyboards(Context context) {
         List<KeyboardBuilder> result = new ArrayList<>();
-        String[] langs = mContext.getResources().getStringArray(R.array.additional_languages);
+
+        List<KeyboardInfo> infos = ResKeyboardInfo.getAllKeyboardInfos(context);
         final Resources resources = mContext.getResources();
-        for (final String langPair : langs) {
-            final String langCode = langPair.split("\\|")[1];
+
+        for (final KeyboardInfo info : infos) {
+            if (!info.isEnabled()) {
+                continue;
+            }
+
             result.add(new KeyboardBuilder() {
                 @Nullable
                 @Override
                 public Keyboard createKeyboard() {
-                    return new Keyboard(mContext, resources.getIdentifier("qwerty_" + langCode, "xml", mContext.getPackageName()));
+                    return new Keyboard(mContext, resources.getIdentifier("qwerty_" + info.getLangCode(), "xml", mContext.getPackageName()));
                 }
             });
         }
         return result;
+    }
+
+    @Override
+    public boolean needUpdate() {
+        return ResKeyboardInfo.needUpdate();
     }
 }
