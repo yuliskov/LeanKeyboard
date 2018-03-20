@@ -37,7 +37,7 @@ import com.google.android.leanback.ime.voice.RecognizerView;
 import com.google.android.leanback.ime.voice.SpeechLevelSource;
 import com.google.leanback.ime.LeanbackImeService;
 import com.liskovsoft.inputchooser.ChooseKeyboardDialog;
-import com.liskovsoft.inputchooser.SettingsActivity;
+import com.liskovsoft.inputchooser.LeanKeyPreferences;
 import com.liskovsoft.keyboardaddons.KeyboardManager;
 import com.liskovsoft.leankeykeyboard.R;
 
@@ -210,7 +210,7 @@ public class LeanbackKeyboardContainer {
             }
         });
     }
-
+    
     private void configureFocus(LeanbackKeyboardContainer.KeyFocus focus, Rect rect, int index, int type) {
         focus.type = type;
         focus.index = index;
@@ -871,9 +871,7 @@ public class LeanbackKeyboardContainer {
             setTouchState(LeanbackKeyboardContainer.TOUCH_STATE_NO_TOUCH);
             return true;
         } else if (keyCode == LeanbackKeyboardView.KEYCODE_LANG_TOGGLE) {
-            //Intent intent = new Intent(mContext, SettingsActivity.class);
-            //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            //mContext.startActivity(intent);
+            // NOTE: normal constructor cannot be applied here
             new ChooseKeyboardDialog(mContext, mMainKeyboardView).run();
             return true;
         } else {
@@ -1123,6 +1121,8 @@ public class LeanbackKeyboardContainer {
         Keyboard keyboard = mKeyboardManager.getNextKeyboard();
         mInitialMainKeyboard = keyboard;
         keyboardView.setKeyboard(keyboard);
+
+        showRunOnceDialog();
     }
 
     public void updateAddonKeyboard() {
@@ -1157,7 +1157,21 @@ public class LeanbackKeyboardContainer {
 
     public void onLangKeyClick() {
         switchToNextKeyboard();
-        setTouchState(LeanbackKeyboardContainer.TOUCH_STATE_NO_TOUCH);
+        // setTouchState(LeanbackKeyboardContainer.TOUCH_STATE_NO_TOUCH);
+    }
+
+    private void showRunOnceDialog() {
+        LeanKeyPreferences prefs = LeanKeyPreferences.instance(mContext);
+        boolean runOnce = prefs.isRunOnce();
+
+        if (runOnce) {
+            return;
+        }
+
+        prefs.setRunOnce(true);
+
+        // NOTE: normal constructor cannot be applied here
+        new ChooseKeyboardDialog(mContext, mMainKeyboardView).run();
     }
 
     public interface DismissListener {

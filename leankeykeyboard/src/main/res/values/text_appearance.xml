@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TextAppearance">
+        <!-- Text color. -->
+        <attr name="textColor" format="color" />
+        <!-- Size of the text. Recommended dimension type for text is "sp" for scaled-pixels (example: 15sp). -->
+        <attr name="textSize" format="dimension" />
+        <!-- Style (bold, italic, bolditalic) for the text. -->
+        <attr name="textStyle" format="reference" />
+        <!-- Typeface (normal, sans, serif, monospace) for the text. -->
+        <attr name="typeface" format="string" />
+        <!-- Font family (named by string) for the text. -->
+        <attr name="fontFamily" format="string" />
+        <!-- Color of the text selection highlight. -->
+        <attr name="textColorHighlight" format="color" />
+        <!-- Color of the hint text. -->
+        <attr name="textColorHint" format="color" />
+        <!-- Color of the links. -->
+        <attr name="textColorLink" format="color" />
+        <!-- Present the text in ALL CAPS. This may use a small-caps form when available. -->
+        <attr name="textAllCaps" format="boolean" />
+        <!-- Place a blurred shadow of text underneath the text, drawn with the
+             specified color. The text shadow produced does not interact with
+             properties on View that are responsible for real time shadows,
+             {@link android.R.styleable#View_elevation elevation} and
+             {@link android.R.styleable#View_translationZ translationZ}. -->
+        <attr name="shadowColor" format="color" />
+        <!-- Horizontal offset of the text shadow. -->
+        <attr name="shadowDx" format="float" />
+        <!-- Vertical offset of the text shadow. -->
+        <attr name="shadowDy" format="float" />
+        <!-- Blur radius of the text shadow. -->
+        <attr name="shadowRadius" format="float" />
+        <!-- Elegant text height, especially for less compacted complex script text. -->
+        <attr name="elegantTextHeight" format="boolean" />
+        <!-- Text letter-spacing. -->
+        <attr name="letterSpacing" format="float" />
+        <!-- Font feature settings. -->
+        <attr name="fontFeatureSettings" format="string" />
+    </declare-styleable>
+</resources>

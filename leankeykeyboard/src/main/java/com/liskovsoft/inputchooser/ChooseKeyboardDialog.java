@@ -55,8 +55,10 @@ public class ChooseKeyboardDialog implements OnClickListener {
     @TargetApi(17)
     private void showDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        View title = LayoutInflater.from(mContext).inflate(R.layout.lang_selection_dialog_title, null);
         alertDialog = builder
-                .setTitle(R.string.language_dialog_title)
+                //.setTitle(R.string.language_dialog_title)
+                .setCustomTitle(title)
                 .setView(buildView(builder.getContext()))
                 .setOnDismissListener(new OnDismissListener() {
                     @Override

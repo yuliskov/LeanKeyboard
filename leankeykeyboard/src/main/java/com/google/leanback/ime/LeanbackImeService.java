@@ -56,7 +56,6 @@ public class LeanbackImeService extends InputMethodService {
         if (!this.enableHardwareAcceleration()) {
             Log.w("LbImeService", "Could not enable hardware acceleration");
         }
-
     }
 
     private void clearSuggestionsDelayed() {

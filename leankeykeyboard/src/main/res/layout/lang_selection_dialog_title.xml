@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Useful links: -->
+<!-- com.android.internal.widget.DialogTitle: https://android.googlesource.com/platform/frameworks/base/+/master/core/res/res/layout/alert_dialog.xml -->
+<!-- <declare-styleable name="TextAppearance">: https://github.com/aosp-mirror/platform_frameworks_base/blob/master/core/res/res/values/attrs.xml -->
+<!-- https://android.googlesource.com/platform/frameworks/base/+/de47f1c358c8186ff3e14b887d5869f69b9a9d6c/core/java/com/android/internal/widget/DialogTitle.java -->
+<!-- https://android.googlesource.com/platform/frameworks/base.git/+/master/core/java/com/android/internal/app/AlertController.java -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/title_template"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:padding="10dip">
+    <!-- Use the same widget as used in AlertDialog -->
+    <TextView android:id="@+id/alertTitle1"
+                                             android:text="@string/language_dialog_title"
+                                             style="?android:attr/textAppearanceLarge"
+                                             android:layout_width="wrap_content"
+                                             android:layout_height="wrap_content"
+                                             android:maxLines="1"/>
+    <TextView android:id="@+id/alertTitle2"
+                                             android:text="@string/language_dialog_subtitle"
+                                             android:layout_width="wrap_content"
+                                             android:layout_height="wrap_content"
+                                             android:maxLines="1"/>
+</LinearLayout>

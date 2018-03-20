@@ -25,4 +25,5 @@
     <string name="keyboard_headset_required_to_hear_password">Plug in a headset to hear password keys spoken.</string>
     <string name="keyboard_password_character_no_headset">Dot.</string>
     <string name="language_dialog_title">Select desired keyboards</string>
+    <string name="language_dialog_subtitle">To open dialog next time, long press on \'world\' button</string>
 </resources>
