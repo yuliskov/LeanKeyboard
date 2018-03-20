@@ -4,7 +4,7 @@
     <uses-feature android:name="android.hardware.microphone" android:required="false"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
-    <application android:banner="@drawable/banner_app" android:label="LeanKey Keyboard Pro" android:icon="@drawable/ic_launcher" tools:targetApi="21">
+    <application android:banner="@drawable/banner_app" android:label="@string/ime_name" android:icon="@drawable/ic_launcher" tools:targetApi="21">
         <activity android:launchMode="singleTop" android:name="com.liskovsoft.inputchooser.SettingsActivity">
             <meta-data android:name="package" android:value="com.android.settings"/>
             <meta-data android:name="class" android:value="com.android.settings.Settings"/>
@@ -15,7 +15,7 @@
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
             </intent-filter>
         </activity>
-        <service android:label="LeanKey Keyboard" android:name="com.google.leanback.ime.LeanbackImeService" android:permission="android.permission.BIND_INPUT_METHOD">
+        <service android:label="@string/ime_service_name" android:name="com.google.leanback.ime.LeanbackImeService" android:permission="android.permission.BIND_INPUT_METHOD">
             <intent-filter>
                 <action android:name="android.view.InputMethod"/>
             </intent-filter>
