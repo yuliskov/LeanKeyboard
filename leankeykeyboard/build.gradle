@@ -20,6 +20,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    // naming example: SmartYouTubeTV_Xwalk_v6.8.12_r.apk
+    // https://stackoverflow.com/questions/18332474/how-to-set-versionname-in-apk-filename-using-gradle
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def project = "LeanKeyKeyboard"
+            def buildType = variant.variantData.variantConfiguration.buildType.name.take(1)
+            def version = variant.versionName
+
+            def newApkName = sprintf("%s_v%s_%s.apk", [project, version, buildType])
+
+            output.outputFile = new File(output.outputFile.parent, newApkName)
+        }
+    }
 }
 
 dependencies {
