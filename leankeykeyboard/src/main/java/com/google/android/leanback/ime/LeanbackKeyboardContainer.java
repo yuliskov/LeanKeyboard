@@ -66,7 +66,6 @@ public class LeanbackKeyboardContainer {
     public static final int DIRECTION_LEFT = 1;
     public static final int DIRECTION_RIGHT = 4;
     private Keyboard mAbcKeyboard;
-    private Keyboard mAbcKeyboardRU;
     private Button mActionButtonView;
     private final float mAlphaIn;
     private final float mAlphaOut;
@@ -318,7 +317,9 @@ public class LeanbackKeyboardContainer {
     }
 
     /**
-     * All keyboard settings applied here
+     * Init currently displayed keyboard<br/>
+     * Note: all keyboard settings applied here<br/>
+     * Note: this method is called constantly on new field
      * @param resources resources (not used)
      * @param info current ime attributes
      */
@@ -1120,6 +1121,7 @@ public class LeanbackKeyboardContainer {
         LeanbackKeyboardView keyboardView = mMainKeyboardView;
         Keyboard keyboard = mKeyboardManager.getNextKeyboard();
         mInitialMainKeyboard = keyboard;
+        mAbcKeyboard = keyboard;
         keyboardView.setKeyboard(keyboard);
 
         showRunOnceDialog();

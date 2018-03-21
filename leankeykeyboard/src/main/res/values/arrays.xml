@@ -15,6 +15,7 @@
     <string-array name="additional_languages">
         <item>Russian|ru</item>
         <item>Ukrainian|uk</item>
+        <item>Thai|th</item>
         <item>Hebrew|he</item>
         <item>Arabic|ar</item>
         <item>Bulgarian|bg</item>
