@@ -4,6 +4,6 @@
     <Row>
         <Key android:keyLabel="ด" />
         <Key android:keyLabel="ฌ" />
-        <Key android:keyLabel="3657" />
+        <Key android:keyLabel="้" />
     </Row>
 </Keyboard>

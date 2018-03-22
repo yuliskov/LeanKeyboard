@@ -3,7 +3,7 @@
           xmlns:android="http://schemas.android.com/apk/res/android">
     <Row>
         <Key android:keyLabel="ธ" />
-        <Key android:keyLabel="3633" />
-        <Key android:keyLabel="3661" />
+        <Key android:keyLabel="ั" />
+        <Key android:keyLabel="ํ" />
     </Row>
 </Keyboard>
