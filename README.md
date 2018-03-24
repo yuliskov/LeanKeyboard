@@ -1,4 +1,4 @@
-![Logo of LeanKeyKeyboard](screenshots/leankeykeyboard-logo_small.png "Logo of LeanKeyKeyboard") LeanKeyKeyboard
+![Logo of LeanKeyKeyboard](img/leankeykeyboard_logo_small.png "Logo of LeanKeyKeyboard") LeanKeyKeyboard
 =========
 
 [![MPLv2 License](http://img.shields.io/badge/license-MPLv2-blue.svg?style=flat-square)](https://www.mozilla.org/MPL/2.0/)
@@ -37,8 +37,9 @@ __Standard installation via ADB__
 
 ### Screenshots:
 
-![Screenshot of LeanKeyKeyboard](screenshots/leankeykeyboard_screenshot_01.png "Screenshot of LeanKeyKeyboard")
-![Screenshot of LeanKeyKeyboard](screenshots/leankeykeyboard_screenshot_02.png "Screenshot of LeanKeyKeyboard")
+![Screenshot of LeanKeyKeyboard](img/leankeykeyboard_screenshot_01.png "Screenshot of LeanKeyKeyboard")
+![Screenshot of LeanKeyKeyboard](img/leankeykeyboard_screenshot_02.png "Screenshot of LeanKeyKeyboard")
+![Screenshot of LeanKeyKeyboard](img/leankeykeyboard_screenshot_03.png "Screenshot of LeanKeyKeyboard")
 
 ### Why using it:
  * LeanKeyKeyboard provides possibility to enter text with any length.
