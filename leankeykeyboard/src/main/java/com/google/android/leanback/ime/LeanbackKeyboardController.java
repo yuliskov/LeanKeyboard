@@ -49,6 +49,7 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     private PointF mTempPoint;
     private LeanbackKeyboardController.TouchEventListener mTouchEventListener;
     private long prevTime;
+    private boolean mShowInput;
 
     public LeanbackKeyboardController(final InputMethodService context, final LeanbackKeyboardController.InputListener listener) {
         this(context, listener, new TouchNavSpaceTracker(), new LeanbackKeyboardContainer(context));
@@ -681,23 +682,37 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
         }
     }
 
-    public void onStartInput(EditorInfo var1) {
-        if (this.mContainer != null) {
-            this.mContainer.onStartInput(var1);
-            this.initInputView();
+    public void onStartInput(EditorInfo info) {
+        if (mContainer != null) {
+            mContainer.onStartInput(info);
+            initInputView();
         }
 
+        // prevent accidental kbd pop-up on FireTV devices
+        // more info: https://forum.xda-developers.com/fire-tv/general/guide-change-screen-keyboard-to-leankey-t3527675/page2
+        int maskAction = info.imeOptions & EditorInfo.IME_MASK_ACTION;
+        mShowInput = maskAction != 0;
+    }
+
+    public boolean showInputView() {
+        return mShowInput;
+    }
+
+    private void onHideIme() {
+        mContext.requestHideSelf(InputMethodService.BACK_DISPOSITION_DEFAULT);
     }
 
     public void onStartInputView() {
-        this.mKeyDownReceived = false;
-        if (this.mContainer != null) {
-            this.mContainer.onStartInputView();
+        mKeyDownReceived = false;
+
+        if (mContainer != null) {
+            mContainer.onStartInputView();
         }
 
-        this.mDoubleClickDetector.reset();
+        mDoubleClickDetector.reset();
     }
 
+    @Override
     public boolean onTouch(View view, MotionEvent event) {
         Object tag = view.getTag();
         if (tag != null && "Go".equals(tag)) {

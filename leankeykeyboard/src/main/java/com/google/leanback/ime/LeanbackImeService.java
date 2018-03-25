@@ -224,15 +224,19 @@ public class LeanbackImeService extends InputMethodService {
         return false;
     }
 
+    /**
+     * At this point, decision whether to show kbd taking place
+     * @return whether to show kbd
+     */
     @SuppressLint("MissingSuperCall")
     @Override
     public boolean onEvaluateInputViewShown() {
-        return true;
+        return mKeyboardController.showInputView();
     }
 
     @Override
-    public void onFinishInputView(boolean var1) {
-        super.onFinishInputView(var1);
+    public void onFinishInputView(boolean finishingInput) {
+        super.onFinishInputView(finishingInput);
         this.sendBroadcast(new Intent(IME_CLOSE));
         this.mSuggestionsFactory.clearSuggestions();
     }
@@ -246,7 +250,7 @@ public class LeanbackImeService extends InputMethodService {
     }
 
     public void onHideIme() {
-        this.requestHideSelf(0);
+        requestHideSelf(InputMethodService.BACK_DISPOSITION_DEFAULT);
     }
 
     @Override
@@ -298,6 +302,14 @@ public class LeanbackImeService extends InputMethodService {
     @Override
     public void onStartInputView(EditorInfo info, boolean restarting) {
         super.onStartInputView(info, restarting);
+
+        // FireTV: fix accidental kbd pop-ups
+        // more info: https://forum.xda-developers.com/fire-tv/general/guide-change-screen-keyboard-to-leankey-t3527675/page2
+        //if (!mKeyboardController.showInputView()) {
+        //    onHideIme();
+        //    return;
+        //}
+
         mKeyboardController.onStartInputView();
         sendBroadcast(new Intent(IME_OPEN));
         if (mKeyboardController.areSuggestionsEnabled()) {
