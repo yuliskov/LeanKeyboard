@@ -53,7 +53,7 @@ public class LeanbackImeService extends InputMethodService {
 
     @SuppressLint("NewApi")
     public LeanbackImeService() {
-        if (!this.enableHardwareAcceleration()) {
+        if (!enableHardwareAcceleration()) {
             Log.w("LbImeService", "Could not enable hardware acceleration");
         }
     }

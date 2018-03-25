@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard.Key;
 import android.os.Handler;
+import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -688,10 +689,12 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
             initInputView();
         }
 
-        // prevent accidental kbd pop-up on FireTV devices
-        // more info: https://forum.xda-developers.com/fire-tv/general/guide-change-screen-keyboard-to-leankey-t3527675/page2
-        int maskAction = info.imeOptions & EditorInfo.IME_MASK_ACTION;
-        mShowInput = maskAction != 0;
+        //// prevent accidental kbd pop-up on FireTV devices
+        //// more info: https://forum.xda-developers.com/fire-tv/general/guide-change-screen-keyboard-to-leankey-t3527675/page2
+        //int maskAction = info.imeOptions & EditorInfo.IME_MASK_ACTION;
+        //mShowInput = maskAction != 0;
+
+        mShowInput = info.inputType != InputType.TYPE_NULL;
     }
 
     public boolean showInputView() {
