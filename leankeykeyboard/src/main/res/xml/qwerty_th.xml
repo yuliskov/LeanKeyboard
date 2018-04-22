@@ -17,7 +17,9 @@
         <Key android:codes="-5" android:keyEdgeFlags="right"         android:keyLabel="@string/keyboardview_keycode_delete" android:keyIcon="@drawable/ic_ime_delete" />
     </Row>
     <Row>
-        <Key android:popupKeyboard="@xml/accent_q_th"  android:keyLabel="ฝ" android:keyEdgeFlags="left" />
+        <!-- NOTE: example of adding different chars to uppercase/lowercase states  -->
+        <!-- format is: android:keyLabel="lower_char|upper_char" e.g. android:keyLabel="ฝ|๒" -->
+        <Key android:popupKeyboard="@xml/accent_q_th"  android:keyLabel="ฝ|๒" android:keyEdgeFlags="left" />
         <Key android:popupKeyboard="@xml/accent_w_th"  android:keyLabel="๒" />
         <Key android:popupKeyboard="@xml/accent_e_th"  android:keyLabel="๓" />
         <Key android:popupKeyboard="@xml/accent_r_th"  android:keyLabel="ู" />

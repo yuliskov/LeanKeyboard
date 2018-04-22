@@ -124,23 +124,31 @@ public class LeanbackKeyboardView extends FrameLayout {
     }
 
     private CharSequence getSpecialLowerCase(CharSequence label) {
-        String realLabel = label.toString();
-        if (realLabel.contains("|")) {
-            String[] labels = realLabel.split("\\|");
-            return labels[0];
+        String[] labels = splitLabels(label);
+
+        if (labels != null) {
+            return labels[0]; // lower case char
         }
 
         return label.toString().toLowerCase();
     }
 
     private CharSequence getSpecialUpperCase(CharSequence label) {
-        String realLabel = label.toString();
-        if (realLabel.contains("|")) {
-            String[] labels = realLabel.split("\\|");
-            return labels[1];
+        String[] labels = splitLabels(label);
+
+        if (labels != null) {
+            return labels[1]; // upper case char
         }
 
         return label.toString().toUpperCase();
+    }
+
+    private String[] splitLabels(CharSequence label) {
+        String realLabel = label.toString();
+
+        String[] labels = realLabel.split("\\|");
+
+        return labels.length == 2 ? labels : null; // remember, we encoding two chars
     }
 
     @SuppressLint("NewApi")
