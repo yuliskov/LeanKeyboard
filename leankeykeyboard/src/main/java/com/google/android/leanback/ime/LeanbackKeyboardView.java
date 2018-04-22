@@ -69,6 +69,56 @@ public class LeanbackKeyboardView extends FrameLayout {
     private int mRowCount;
     private int mShiftState;
     private final int mUnfocusStartDelay;
+    private final KeyConverter mConverter;
+
+    private class KeyConverter {
+        private static final int LOWER_CASE = 0;
+        private static final int UPPER_CASE = 1;
+
+        private void init(KeyHolder keyHolder) {
+            // store original label
+            // in case when two characters are stored in one label (e.g. "A|B")
+            if (keyHolder.key.text == null) {
+                keyHolder.key.text = keyHolder.key.label;
+            }
+        }
+
+        public void toLowerCase(KeyHolder keyHolder) {
+            extractChar(LOWER_CASE, keyHolder);
+        }
+
+        public void toUpperCase(KeyHolder keyHolder) {
+            extractChar(UPPER_CASE, keyHolder);
+        }
+
+        private void extractChar(int charCase, KeyHolder keyHolder) {
+            init(keyHolder);
+
+            CharSequence result = null;
+            CharSequence label = keyHolder.key.text;
+
+            String[] labels = splitLabels(label);
+
+            switch (charCase) {
+                case LOWER_CASE:
+                    result = labels != null ? labels[0] : label.toString().toLowerCase();
+                    break;
+                case UPPER_CASE:
+                    result = labels != null ? labels[1] : label.toString().toUpperCase();
+                    break;
+            }
+
+            keyHolder.key.label = result;
+        }
+
+        private String[] splitLabels(CharSequence label) {
+            String realLabel = label.toString();
+
+            String[] labels = realLabel.split("\\|");
+
+            return labels.length == 2 ? labels : null; // remember, we encoding two chars
+        }
+    }
 
     public LeanbackKeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -92,63 +142,24 @@ public class LeanbackKeyboardView extends FrameLayout {
         mClickAnimDur = res.getInteger(R.integer.clicked_anim_duration);
         mUnfocusStartDelay = res.getInteger(R.integer.unfocused_anim_delay);
         mInactiveMiniKbAlpha = res.getInteger(R.integer.inactive_mini_kb_alpha);
+        mConverter = new KeyConverter();
     }
 
     private void adjustCase(LeanbackKeyboardView.KeyHolder keyHolder) {
-        // store original label
-        // in case when two characters are stored in one label (e.g. "A|B")
-        if (keyHolder.key.text == null) {
-            keyHolder.key.text = keyHolder.key.label;
+        boolean flag;
+
+        if (keyHolder.isInMiniKb && keyHolder.isInvertible) {
+            flag = true;
+        } else {
+            flag = false;
         }
 
-        CharSequence label = keyHolder.key.text; // source label (see above)
-        CharSequence result;
-
-        if (label != null) {
-            boolean flag;
-            if (keyHolder.isInMiniKb && keyHolder.isInvertible) {
-                flag = true;
-            } else {
-                flag = false;
-            }
-
-            // ^ equals to !=
-            if (mKeyboard.isShifted() ^ flag) {
-                result = getSpecialUpperCase(label);
-            } else {
-                result = getSpecialLowerCase(label);
-            }
-
-            keyHolder.key.label = result;
+        // ^ equals to !=
+        if (mKeyboard.isShifted() ^ flag) {
+            mConverter.toUpperCase(keyHolder);
+        } else {
+            mConverter.toLowerCase(keyHolder);
         }
-    }
-
-    private CharSequence getSpecialLowerCase(CharSequence label) {
-        String[] labels = splitLabels(label);
-
-        if (labels != null) {
-            return labels[0]; // lower case char
-        }
-
-        return label.toString().toLowerCase();
-    }
-
-    private CharSequence getSpecialUpperCase(CharSequence label) {
-        String[] labels = splitLabels(label);
-
-        if (labels != null) {
-            return labels[1]; // upper case char
-        }
-
-        return label.toString().toUpperCase();
-    }
-
-    private String[] splitLabels(CharSequence label) {
-        String realLabel = label.toString();
-
-        String[] labels = realLabel.split("\\|");
-
-        return labels.length == 2 ? labels : null; // remember, we encoding two chars
     }
 
     @SuppressLint("NewApi")
