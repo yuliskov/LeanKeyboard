@@ -94,10 +94,17 @@ public class LeanbackKeyboardView extends FrameLayout {
         mInactiveMiniKbAlpha = res.getInteger(R.integer.inactive_mini_kb_alpha);
     }
 
-    private CharSequence adjustCase(LeanbackKeyboardView.KeyHolder keyHolder) {
-        CharSequence label = keyHolder.key.label;
-        CharSequence result = label;
-        if (label != null && label.length() < 3) {
+    private void adjustCase(LeanbackKeyboardView.KeyHolder keyHolder) {
+        // store original label
+        // in case when two characters are stored in one label (e.g. "A|B")
+        if (keyHolder.key.text == null) {
+            keyHolder.key.text = keyHolder.key.label;
+        }
+
+        CharSequence label = keyHolder.key.text; // source label (see above)
+        CharSequence result;
+
+        if (label != null) {
             boolean flag;
             if (keyHolder.isInMiniKb && keyHolder.isInvertible) {
                 flag = true;
@@ -105,16 +112,35 @@ public class LeanbackKeyboardView extends FrameLayout {
                 flag = false;
             }
 
-            if (this.mKeyboard.isShifted() ^ flag) {
-                result = label.toString().toUpperCase();
+            // ^ equals to !=
+            if (mKeyboard.isShifted() ^ flag) {
+                result = getSpecialUpperCase(label);
             } else {
-                result = label.toString().toLowerCase();
+                result = getSpecialLowerCase(label);
             }
 
             keyHolder.key.label = result;
         }
+    }
 
-        return result;
+    private CharSequence getSpecialLowerCase(CharSequence label) {
+        String realLabel = label.toString();
+        if (realLabel.contains("|")) {
+            String[] labels = realLabel.split("\\|");
+            return labels[0];
+        }
+
+        return label.toString().toLowerCase();
+    }
+
+    private CharSequence getSpecialUpperCase(CharSequence label) {
+        String realLabel = label.toString();
+        if (realLabel.contains("|")) {
+            String[] labels = realLabel.split("\\|");
+            return labels[1];
+        }
+
+        return label.toString().toUpperCase();
     }
 
     @SuppressLint("NewApi")
