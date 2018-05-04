@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="additional_languages">
+        <item>Arabic|ar</item>
+        <item>Bulgarian|bg</item>
+        <item>Dutch|nl</item>
+        <item>French|fr</item>
+        <item>German|de</item>
+        <item>Greek|el</item>
+        <item>Hebrew|he</item>
+        <item>Icelandic|is</item>
+        <item>Italian|it</item>
+        <item>Persian|fa</item>
+        <item>Russian|ru</item>
+        <item>Thai|th</item>
+        <item>Turkish|tr</item>
+        <item>Ukrainian|uk</item>
+    </string-array>
+</resources>
