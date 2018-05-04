@@ -3,7 +3,7 @@
 
 [![MPLv2 License](http://img.shields.io/badge/license-MPLv2-blue.svg?style=flat-square)](https://www.mozilla.org/MPL/2.0/)
 
-__LeanKeyKeyboard: An Keyboard for Android-based set-top boxes and TVs:__
+__LeanKeyKeyboard: Keyboard for Android-based set-top boxes and TVs:__
 
 Visit Google Play page: 
  * <a href="https://play.google.com/store/apps/details?id=org.liskovsoft.androidtv.rukeyboard" target="_blank">[APP] LeanKeyKeyboard</a>
@@ -18,6 +18,9 @@ __NOTE: Google Play release is outdated. So I recommend to obtain new releases [
  * __No root required!__
 
 __Switch to other language performed with 'world' button, menu key or long press on the space bar.__
+
+### Screenshots:
+ * __[Open screenshots](#screens-)__
 
 ### Install LeanKeyKeyboard:
 __Easy installation in less than 10 minutes with only FireTV__
@@ -35,11 +38,6 @@ __Standard installation via ADB__
 ### Changelog:
  * [Check releases page for changelog ..](https://github.com/yuliskov/LeanKeyKeyboard/releases)
 
-### Screenshots:
-![Screenshot of LeanKeyKeyboard](img/leankeykeyboard_screenshot_01.png "Screenshot of LeanKeyKeyboard")
-![Screenshot of LeanKeyKeyboard](img/leankeykeyboard_screenshot_02.png "Screenshot of LeanKeyKeyboard")
-![Screenshot of LeanKeyKeyboard](img/leankeykeyboard_screenshot_03.png "Screenshot of LeanKeyKeyboard")
-
 ### Contributors:
  * __[aglt](https://github.com/aglt)__ (Icelandic lang)
  * __[rabin111](https://github.com/rabin111)__ (Thai lang)
@@ -52,3 +50,8 @@ If you want to support my developments you are welcome to buy me a cup of coffee
  * BTC: 1JAT5VVWarVBkpVbNDn8UA8HXNdrukuBSx
  * WMZ: Z375157140784
  * WMU: U449339012933
+
+### Screens:
+![Screenshot of LeanKeyKeyboard](img/leankeykeyboard_screenshot_01.png "Screenshot of LeanKeyKeyboard")
+![Screenshot of LeanKeyKeyboard](img/leankeykeyboard_screenshot_02.png "Screenshot of LeanKeyKeyboard")
+![Screenshot of LeanKeyKeyboard](img/leankeykeyboard_screenshot_03.png "Screenshot of LeanKeyKeyboard")
