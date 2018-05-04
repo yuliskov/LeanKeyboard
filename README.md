@@ -11,11 +11,11 @@ Visit Google Play page:
 ### Features:
  * Designed for TV screens.
  * Any remote controller support.
- * Support dozens of languages.
+ * Supports dozens of languages.
  * Doesn't depend on Google Services.
  * __No root required!__
 
-__Switch to other language performed with menu key or with long press of the space bar.__
+__Switch to other language performed with 'world' button, menu key or long press on the space bar.__
 
 ### Install LeanKeyKeyboard:
 
