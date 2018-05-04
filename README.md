@@ -41,6 +41,7 @@ __Standard installation via ADB__
 ![Screenshot of LeanKeyKeyboard](img/leankeykeyboard_screenshot_03.png "Screenshot of LeanKeyKeyboard")
 
 ### Contributors:
+ * __[aglt](https://github.com/aglt)__ (Icelandic lang)
  * __[rabin111](https://github.com/rabin111)__ (Thai lang)
 
 ### Developer:
