@@ -9,10 +9,9 @@ Visit Google Play page:
  * <a href="https://play.google.com/store/apps/details?id=org.liskovsoft.androidtv.rukeyboard" target="_blank">[APP] LeanKeyKeyboard</a>
 
 ### Features:
-
  * Designed for TV screens.
  * Any remote controller support.
- * Support dozens of languages through the language packs.
+ * Support dozens of languages.
  * Doesn't depend on Google Services.
  * __No root required!__
 
@@ -36,15 +35,16 @@ __Standard installation via ADB__
  * [Check releases page for changelog ..](https://github.com/yuliskov/LeanKeyKeyboard/releases)
 
 ### Screenshots:
-
 ![Screenshot of LeanKeyKeyboard](img/leankeykeyboard_screenshot_01.png "Screenshot of LeanKeyKeyboard")
 ![Screenshot of LeanKeyKeyboard](img/leankeykeyboard_screenshot_02.png "Screenshot of LeanKeyKeyboard")
 ![Screenshot of LeanKeyKeyboard](img/leankeykeyboard_screenshot_03.png "Screenshot of LeanKeyKeyboard")
 
-### Why using it:
- * LeanKeyKeyboard provides possibility to enter text with any length.
- * LeanKeyKeyboard provides support for the multiple remote controllers which allows you to enter text in a very convenient way.
- 
+### Contributors:
+ * __[rabin111](https://github.com/rabin111)__ (Thai lang)
+
+### Developer:
+ * __[yuliskov](https://github.com/yuliskov)__ (design & coding)
+
 ### Donation:
 If you want to support my developments you are welcome to buy me a cup of coffee :)
  * BTC: 1JAT5VVWarVBkpVbNDn8UA8HXNdrukuBSx
