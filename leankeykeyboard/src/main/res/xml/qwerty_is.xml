@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard android:keyWidth="@dimen/key_width" android:keyHeight="@dimen/key_height" android:horizontalGap="@dimen/keyboard_horizontal_gap" android:verticalGap="@dimen/keyboard_vertical_gap"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--     All letters needed for German and Danish are in the C0 Controls and Basic Latin and C1 Controls and Latin-1 Supplement blocks. (See Wikipedia's list of languages supported by those blocks.)
+        For Czech/Slovak, you also need Latin Extended-A.
+        You should also include General Punctuation, as well as any other symbols you may use (e.g. Arrows).
+        See http://en.wikipedia.org/wiki/Latin_characters_in_Unicode. -->
+    <Row android:rowEdgeFlags="top">
+        <Key android:codes="49" android:popupKeyboard="@xml/shift_1" android:keyEdgeFlags="left" android:keyLabel="1" />
+        <Key android:codes="50" android:popupKeyboard="@xml/shift_2" android:keyLabel="2" />
+        <Key android:codes="51" android:popupKeyboard="@xml/shift_3" android:keyLabel="3" />
+        <Key android:codes="52" android:popupKeyboard="@xml/shift_4" android:keyLabel="4" />
+        <Key android:codes="53" android:popupKeyboard="@xml/shift_5" android:keyLabel="5" />
+        <Key android:codes="54" android:popupKeyboard="@xml/shift_6" android:keyLabel="6" />
+        <Key android:codes="55" android:popupKeyboard="@xml/shift_7" android:keyLabel="7" />
+        <Key android:codes="56" android:popupKeyboard="@xml/shift_8" android:keyLabel="8" />
+        <Key android:codes="57" android:popupKeyboard="@xml/shift_9" android:keyLabel="9" />
+        <Key android:codes="48" android:popupKeyboard="@xml/shift_0" android:keyLabel="0" />
+        <Key android:codes="-5" android:keyEdgeFlags="right" android:keyLabel="@string/keyboardview_keycode_delete" android:keyIcon="@drawable/ic_ime_delete" />
+    </Row>
+    <Row>
+        <Key android:codes="113" android:keyLabel="q" android:keyEdgeFlags="left" />
+        <Key android:codes="119" android:keyLabel="w" />
+        <Key android:codes="101" android:keyLabel="e" android:popupKeyboard="@xml/accent_is_e" />
+        <Key android:codes="114" android:keyLabel="r" />
+        <Key android:codes="116" android:keyLabel="t" />
+        <Key android:codes="121" android:keyLabel="y" android:popupKeyboard="@xml/accent_is_y" />
+        <Key android:codes="117" android:keyLabel="u" android:popupKeyboard="@xml/accent_is_u" />
+        <Key android:codes="105" android:keyLabel="i" android:popupKeyboard="@xml/accent_is_i" />
+        <Key android:codes="111" android:keyLabel="o" android:popupKeyboard="@xml/accent_is_o" />
+        <Key android:codes="112" android:keyLabel="p" />
+        <Key android:codes="208" android:keyLabel="ð" android:keyEdgeFlags="right"/>
+    </Row>
+    <Row>
+        <Key android:codes="97"  android:keyLabel="a" android:popupKeyboard="@xml/accent_is_a" android:keyEdgeFlags="left" />
+        <Key android:codes="115" android:keyLabel="s" />
+        <Key android:codes="100" android:keyLabel="d" />
+        <Key android:codes="102" android:keyLabel="f" />
+        <Key android:codes="103" android:keyLabel="g" />
+        <Key android:codes="104" android:keyLabel="h" />
+        <Key android:codes="106" android:keyLabel="j" />
+        <Key android:codes="107" android:keyLabel="k" />
+        <Key android:codes="108" android:keyLabel="l" />
+        <Key android:codes="230" android:popupKeyboard="@xml/shift_ae" android:keyLabel="æ" />
+        <Key android:codes="246" android:keyLabel="ö" android:keyEdgeFlags="right" />
+
+    </Row>
+    <Row>
+        <Key android:codes="-1" android:keyEdgeFlags="left" android:keyLabel="@string/keyboardview_keycode_shift" android:keyIcon="@drawable/ic_ime_shift_off" />
+        <Key android:codes="122" android:keyLabel="z" />
+        <Key android:codes="120" android:keyLabel="x" />
+        <Key android:codes="99"  android:keyLabel="c" />
+        <Key android:codes="118" android:keyLabel="v" />
+        <Key android:codes="98"  android:keyLabel="b" />
+        <Key android:codes="110" android:keyLabel="n" />
+        <Key android:codes="109" android:keyLabel="m" />
+        <Key android:codes="231" android:keyLabel="þ" />
+        <Key android:keyLabel="." />
+        <Key android:keyLabel="/" android:keyEdgeFlags="right" />
+    </Row>
+    <Row android:rowEdgeFlags="bottom">
+        <Key android:codes="-2" android:keyEdgeFlags="left" android:keyLabel="@string/keyboardview_keycode_mode_change" android:keyIcon="@drawable/ic_ime_symbols" />
+        <Key android:keyLabel="\@" />
+        <Key android:codes="-9" android:keyLabel="@string/keyboardview_keycode_lang" android:keyIcon="@drawable/ic_ime_world" />
+        <Key android:keyWidth="@dimen/space_key_width" android:codes="32" android:keyLabel="@string/keyboardview_keycode_space" android:keyIcon="@drawable/ic_ime_space_de" />
+        <Key android:codes="-3" android:keyLabel="@string/keyboardview_keycode_left" android:keyIcon="@drawable/ic_ime_left_arrow" />
+        <Key android:codes="-4" android:keyEdgeFlags="right" android:keyLabel="@string/keyboardview_keycode_right" android:keyIcon="@drawable/ic_ime_right_arrow" />
+    </Row>
+</Keyboard>
