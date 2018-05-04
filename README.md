@@ -19,8 +19,8 @@ __Switch to other language performed with 'world' button, menu key or long press
 
 ### Install LeanKeyKeyboard:
 
-__Easy installation in less than 5 minutes with only the FireTV__
- * <a href="https://github.com/yuliskov/LeanKeyKeyboard/wiki/Install-LeanKeyKeyboard-on-FireTV">Install LeanKeyKeyboard (only FireTV needed)</a>
+__Easy installation in less than 10 minutes with only the FireTV__
+ * <a href="https://github.com/yuliskov/LeanKeyKeyboard/wiki/How-to-install-LeanKeyKeyboard-on-FireTV">Install LeanKeyKeyboard (only FireTV needed)</a>
 
 __Standard installation via ADB__
  * If you don't know how to sideload/install apps via ADB, read a tutorial (e.g. <a href="http://kodi.wiki/view/HOW-TO:Install_Kodi_on_Fire_TV" target="_blank">this one</a>)
