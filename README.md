@@ -20,7 +20,7 @@ __NOTE: Google Play release is outdated. So I recommend to obtain new releases [
 __Switch to other language performed with 'world' button, menu key or long press on the space bar.__
 
 ### Screenshots:
- * __[Open screenshots](#screens-)__
+ * __[Open screenshots](#screens)__
 
 ### Install LeanKeyKeyboard:
 __Easy installation in less than 10 minutes with only FireTV__
