@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="label_go_key">Перейти</string>
+    <string name="label_next_key">Следующ</string>
+    <string name="label_send_key">Послать</string>
+    <string name="label_search_key">Искать</string>
+    <string name="label_done_key">Готово</string>
+    <string name="language_dialog_title">Выберите дополнительные раскладки</string>
+    <string name="language_dialog_subtitle">Чтобы открыть диалог опять, зажмите кнопку \'земной шар\'</string>
+</resources>
