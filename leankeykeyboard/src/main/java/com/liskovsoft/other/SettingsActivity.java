@@ -2,11 +2,11 @@
 // Decompiled by Procyon v0.5.30
 // 
 
-package com.liskovsoft.inputchooser;
+package com.liskovsoft.other;
 
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
+import android.content.pm.PackageManager;
 import android.widget.Toast;
 import android.os.Bundle;
 import android.content.ComponentName;
@@ -19,27 +19,27 @@ public class SettingsActivity extends Activity
 {
     @SuppressLint("WrongConstant")
     private void addIntentFlags(final Intent intent) {
-        intent.addFlags(67108864);
-        intent.addFlags(536870912);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
     }
 
     @SuppressLint("WrongConstant")
     private ActivityInfo getCurrentActivityInfo() {
         try {
-            return this.getPackageManager().getActivityInfo(this.getComponentName(), 129);
+            return getPackageManager().getActivityInfo(getComponentName(), PackageManager.GET_META_DATA | PackageManager.GET_ACTIVITIES);
         }
         catch (NameNotFoundException ex) {
             ex.printStackTrace();
-            this.makeLongToast(ex.getLocalizedMessage(), 10);
+            makeLongToast(ex.getLocalizedMessage(), 10);
             return null;
         }
     }
     
     private void launchApp() {
-        final Intent intent = this.makeIntent(this.getCurrentActivityInfo());
-        this.addIntentFlags(intent);
-        this.startIntent(intent);
-        this.finish();
+        final Intent intent = makeIntent(getCurrentActivityInfo());
+        addIntentFlags(intent);
+        startIntent(intent);
+        finish();
     }
     
     private Intent makeIntent(final ActivityInfo activityInfo) {
@@ -53,25 +53,25 @@ public class SettingsActivity extends Activity
         return intent;
     }
 
-    private void makeLongToast(final String s, int i) {
+    private void makeLongToast(final String s, int nums) {
         int n;
-        for (n = i / 2, i = 0; i < n; ++i) {
+        for (n = nums / 2, nums = 0; nums < n; ++nums) {
             Toast.makeText(this, s, Toast.LENGTH_LONG).show();
         }
     }
     
     private void startIntent(final Intent intent) {
         try {
-            this.startActivity(intent);
+            startActivity(intent);
         }
         catch (ActivityNotFoundException ex) {
             ex.printStackTrace();
-            this.makeLongToast(ex.getLocalizedMessage(), 10);
+            makeLongToast(ex.getLocalizedMessage(), 10);
         }
     }
     
     protected void onCreate(final Bundle bundle) {
         super.onCreate(bundle);
-        this.launchApp();
+        launchApp();
     }
 }

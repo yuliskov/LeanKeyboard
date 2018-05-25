@@ -36,8 +36,8 @@ import android.widget.RelativeLayout.LayoutParams;
 import com.google.android.leanback.ime.voice.RecognizerView;
 import com.google.android.leanback.ime.voice.SpeechLevelSource;
 import com.google.leanback.ime.LeanbackImeService;
-import com.liskovsoft.inputchooser.ChooseKeyboardDialog;
-import com.liskovsoft.inputchooser.LeanKeyPreferences;
+import com.liskovsoft.other.ChooseKeyboardDialog;
+import com.liskovsoft.utils.LeanKeyPreferences;
 import com.liskovsoft.keyboardaddons.KeyboardManager;
 import com.liskovsoft.leankeykeyboard.R;
 

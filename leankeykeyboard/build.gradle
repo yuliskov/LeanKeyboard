@@ -8,8 +8,8 @@ android {
         applicationId "org.liskovsoft.leankeykeyboard.pro"
         minSdkVersion project.properties.minSdkVersion
         targetSdkVersion project.properties.targetSdkVersion
-        versionCode 61
-        versionName "4.3.11"
+        versionCode 62
+        versionName "4.3.12"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -33,6 +33,12 @@ android {
 
             output.outputFile = new File(output.outputFile.parent, newApkName)
         }
+    }
+
+    lintOptions {
+        abortOnError true
+        disable 'MissingTranslation'
+        disable 'NewApi'
     }
 }
 

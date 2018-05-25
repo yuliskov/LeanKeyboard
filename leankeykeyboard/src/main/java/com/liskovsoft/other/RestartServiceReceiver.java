@@ -1,10 +1,8 @@
-package com.liskovsoft.inputchooser;
+package com.liskovsoft.other;
 import android.app.*;
 import android.content.*;
 import android.content.res.*;
-import android.net.*;
 import android.util.*;
-import android.view.inputmethod.*;
 
 import java.util.*;
 

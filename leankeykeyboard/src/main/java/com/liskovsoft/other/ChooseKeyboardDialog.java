@@ -1,4 +1,4 @@
-package com.liskovsoft.inputchooser;
+package com.liskovsoft.other;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;

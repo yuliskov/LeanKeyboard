@@ -21,7 +21,7 @@
 // <declare-styleable name="TextAppearance">: https://github.com/aosp-mirror/platform_frameworks_base/blob/master/core/res/res/values/attrs.xml
 
 
-package com.liskovsoft.inputchooser.widgets;
+package com.liskovsoft.other.widgets;
 
 import android.content.Context;
 import android.content.res.TypedArray;

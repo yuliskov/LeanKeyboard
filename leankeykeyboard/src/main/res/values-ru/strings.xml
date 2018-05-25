@@ -6,5 +6,5 @@
     <string name="label_search_key">Искать</string>
     <string name="label_done_key">Готово</string>
     <string name="language_dialog_title">Выберите дополнительные раскладки</string>
-    <string name="language_dialog_subtitle">Чтобы открыть диалог опять, зажмите кнопку \'земной шар\'</string>
+    <string name="language_dialog_subtitle">Чтобы открыть этот диалог, зажмите кнопку \'земной шар\'</string>
 </resources>

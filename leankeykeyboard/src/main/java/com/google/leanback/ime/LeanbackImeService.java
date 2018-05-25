@@ -18,6 +18,7 @@ import com.google.android.leanback.ime.LeanbackKeyboardController.InputListener;
 import com.google.android.leanback.ime.LeanbackKeyboardView;
 import com.google.android.leanback.ime.LeanbackSuggestionsFactory;
 import com.google.android.leanback.ime.LeanbackUtils;
+import com.liskovsoft.utils.LangUpdater;
 
 public class LeanbackImeService extends InputMethodService {
     private static final boolean DEBUG = false;
@@ -56,6 +57,14 @@ public class LeanbackImeService extends InputMethodService {
         if (!enableHardwareAcceleration()) {
             Log.w("LbImeService", "Could not enable hardware acceleration");
         }
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        
+        LangUpdater langUpdater = new LangUpdater(this);
+        langUpdater.update();
     }
 
     private void clearSuggestionsDelayed() {
