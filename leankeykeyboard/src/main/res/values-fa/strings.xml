@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ime_name">صفحه‌کلید Leanback</string>
+    <string name="ime_service_name">صفحه‌کلید Leanback</string>
+    <string name="label_go_key">برو</string>
+    <string name="label_next_key">بعدی</string>
+    <string name="label_send_key">ارسال</string>
+    <string name="label_search_key">جستجو</string>
+    <string name="label_done_key">انجام شد</string>
+    <string name="settings_title">گزینه‌های صفحه‌کلید</string>
+    <string name="title_movement_sensitivity">حساسیت حرکت</string>
+    <string name="btn_on">فعال</string>
+    <string name="btn_off">خاموش</string>
+    <string name="keyboardview_keycode_space">فاصله</string>
+    <string name="keyboardview_keycode_delete">حذف</string>
+    <string name="keyboardview_keycode_mode_change">تغییر حالت</string>
+    <string name="keyboardview_keycode_shift">Shift</string>
+    <string name="keyboardview_keycode_caps">Caps Lock</string>
+    <string name="keyboardview_keycode_left">چپ</string>
+    <string name="keyboardview_keycode_right">راست</string>
+    <string name="keyboard_headset_required_to_hear_password">هدست را برای شنیدن کلیدهای گذرواژه که خوانده می‌شوند، وصل کنید.</string>
+    <string name="keyboard_password_character_no_headset">نقطه.</string>
+</resources>

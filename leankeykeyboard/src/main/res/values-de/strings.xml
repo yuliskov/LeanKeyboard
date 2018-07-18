@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ime_name">Leanback-Tastatur</string>
+    <string name="ime_service_name">Leanback-Tastatur</string>
+    <string name="label_go_key">Los</string>
+    <string name="label_next_key">Weiter</string>
+    <string name="label_send_key">Senden</string>
+    <string name="label_search_key">Suchen</string>
+    <string name="label_done_key">Fertig</string>
+    <string name="settings_title">Tastaturoptionen</string>
+    <string name="title_movement_sensitivity">Bewegungsempfindlichkeit</string>
+    <string name="btn_on">An</string>
+    <string name="btn_off">Aus</string>
+    <string name="keyboardview_keycode_space">Leertaste</string>
+    <string name="keyboardview_keycode_delete">Löschen</string>
+    <string name="keyboardview_keycode_mode_change">Modusänderung</string>
+    <string name="keyboardview_keycode_shift">Shift</string>
+    <string name="keyboardview_keycode_caps">Feststelltaste</string>
+    <string name="keyboardview_keycode_left">Nach links</string>
+    <string name="keyboardview_keycode_right">Nach rechts</string>
+    <string name="keyboard_headset_required_to_hear_password">Schließen Sie ein Headset an, um das Passwort gesprochen zu hören.</string>
+    <string name="keyboard_password_character_no_headset">Punkt.</string>
+</resources>

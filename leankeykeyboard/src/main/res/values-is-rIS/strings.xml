@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ime_name">Leanback lyklaborð</string>
+    <string name="ime_service_name">Leanback lyklaborð</string>
+    <string name="label_go_key">Áfram</string>
+    <string name="label_next_key">Næsta</string>
+    <string name="label_send_key">Senda</string>
+    <string name="label_search_key">Leita</string>
+    <string name="label_done_key">Lokið</string>
+    <string name="settings_title">Valkostir lyklaborðs</string>
+    <string name="title_movement_sensitivity">Hreyfinæmi</string>
+    <string name="btn_on">Kveikt</string>
+    <string name="btn_off">Slökkt</string>
+    <string name="keyboardview_keycode_space">Bil</string>
+    <string name="keyboardview_keycode_delete">Eyða</string>
+    <string name="keyboardview_keycode_mode_change">Breyta stillingu</string>
+    <string name="keyboardview_keycode_shift">Shift</string>
+    <string name="keyboardview_keycode_caps">Hástafalás</string>
+    <string name="keyboardview_keycode_left">Vinstri</string>
+    <string name="keyboardview_keycode_right">Hægri</string>
+    <string name="keyboard_headset_required_to_hear_password">Tengdu heyrnartól til að heyra stafi aðgangsorðsins lesna upphátt.</string>
+    <string name="keyboard_password_character_no_headset">Punktur.</string>
+</resources>

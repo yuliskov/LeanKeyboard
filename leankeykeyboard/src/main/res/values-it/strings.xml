@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ime_name">Tastiera Leanback</string>
+    <string name="ime_service_name">Tastiera Leanback</string>
+    <string name="label_go_key">Vai</string>
+    <string name="label_next_key">Avanti</string>
+    <string name="label_send_key">Invia</string>
+    <string name="label_search_key">Cerca</string>
+    <string name="label_done_key">Fine</string>
+    <string name="settings_title">Opzioni tastiera</string>
+    <string name="title_movement_sensitivity">Sensibilità movimento</string>
+    <string name="btn_on">Attiva</string>
+    <string name="btn_off">Disattiva</string>
+    <string name="keyboardview_keycode_space">Spazio</string>
+    <string name="keyboardview_keycode_delete">Elimina</string>
+    <string name="keyboardview_keycode_mode_change">Cambio modalità</string>
+    <string name="keyboardview_keycode_shift">Maiusc</string>
+    <string name="keyboardview_keycode_caps">Bloc Maiusc</string>
+    <string name="keyboardview_keycode_left">Sinistra</string>
+    <string name="keyboardview_keycode_right">Destra</string>
+    <string name="keyboard_headset_required_to_hear_password">Collega gli auricolari per ascoltare la pronuncia dei tasti premuti per la password.</string>
+    <string name="keyboard_password_character_no_headset">Punto.</string>
+</resources>

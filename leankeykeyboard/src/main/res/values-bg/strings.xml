@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ime_name">Клавиатура за Leanback</string>
+    <string name="ime_service_name">Клавиатура за Leanback</string>
+    <string name="label_go_key">Старт</string>
+    <string name="label_next_key">Напред</string>
+    <string name="label_send_key">Изпращане</string>
+    <string name="label_search_key">Търсене</string>
+    <string name="label_done_key">Готово</string>
+    <string name="settings_title">Опции за клавиатурата</string>
+    <string name="title_movement_sensitivity">Чувствителност на движението</string>
+    <string name="btn_on">Включено</string>
+    <string name="btn_off">Изключено</string>
+    <string name="keyboardview_keycode_space">Space</string>
+    <string name="keyboardview_keycode_delete">Изтриване</string>
+    <string name="keyboardview_keycode_mode_change">Промяна на режима</string>
+    <string name="keyboardview_keycode_shift">Shift</string>
+    <string name="keyboardview_keycode_caps">Caps Lock</string>
+    <string name="keyboardview_keycode_left">Left</string>
+    <string name="keyboardview_keycode_right">Right</string>
+    <string name="keyboard_headset_required_to_hear_password">Включете слушалки, за да чуете изговарянето на клавишите за паролата.</string>
+    <string name="keyboard_password_character_no_headset">Точка.</string>
+</resources>
