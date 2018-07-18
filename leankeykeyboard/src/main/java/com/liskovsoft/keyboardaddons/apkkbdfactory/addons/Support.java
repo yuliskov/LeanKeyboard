@@ -1,11 +1,11 @@
-package com.liskovsoft.keyboardaddons.apklangfactory.addons;
+package com.liskovsoft.keyboardaddons.apkkbdfactory.addons;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.util.SparseIntArray;
 
-import com.liskovsoft.keyboardaddons.apklangfactory.utils.Logger;
+import com.liskovsoft.keyboardaddons.apkkbdfactory.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.List;

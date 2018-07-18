@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.liskovsoft.keyboardaddons.apklangfactory.addons;
+package com.liskovsoft.keyboardaddons.apkkbdfactory.addons;
 
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -23,7 +23,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.util.SparseArrayCompat;
 import android.util.SparseIntArray;
 
-import com.liskovsoft.keyboardaddons.apklangfactory.utils.Logger;
+import com.liskovsoft.keyboardaddons.apkkbdfactory.utils.Logger;
 
 import java.lang.ref.WeakReference;
 import java.util.Arrays;

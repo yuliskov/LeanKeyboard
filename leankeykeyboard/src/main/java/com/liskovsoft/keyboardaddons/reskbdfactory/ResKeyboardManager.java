@@ -1,10 +1,10 @@
-package com.liskovsoft.keyboardaddons.reslangfactory;
+package com.liskovsoft.keyboardaddons.reskbdfactory;
 
 import com.liskovsoft.keyboardaddons.KeyboardInfo;
 
 import java.util.List;
 
-public class ResKeyboardManager {
+class ResKeyboardManager {
     public List<KeyboardInfo> getAllKeyboardInfos() {
         return null;
     }

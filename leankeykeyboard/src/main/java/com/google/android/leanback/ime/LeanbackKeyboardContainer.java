@@ -166,7 +166,6 @@ public class LeanbackKeyboardContainer {
         mAlphaIn = res.getFraction(R.fraction.alpha_in, 1, 1);
         mAlphaOut = res.getFraction(R.fraction.alpha_out, 1, 1);
         mVoiceAnimator = new LeanbackKeyboardContainer.VoiceIntroAnimator(mVoiceEnterListener, mVoiceExitListener);
-        initKeyboards();
         mRootView = (RelativeLayout) mContext.getLayoutInflater().inflate(R.layout.root_leanback, null);
         mKeyboardsContainer = mRootView.findViewById(R.id.keyboard);
         mSuggestionsBg = mRootView.findViewById(R.id.candidate_background);
@@ -208,6 +207,7 @@ public class LeanbackKeyboardContainer {
                 LeanbackKeyboardContainer.this.cancelVoiceRecording();
             }
         });
+        initKeyboards();
     }
     
     private void configureFocus(LeanbackKeyboardContainer.KeyFocus focus, Rect rect, int index, int type) {
@@ -1128,9 +1128,8 @@ public class LeanbackKeyboardContainer {
     }
 
     public void updateAddonKeyboard() {
-        KeyboardManager manager = new KeyboardManager(mContext, mAbcKeyboard);
-        mKeyboardManager = manager;
-        mInitialMainKeyboard = manager.getNextKeyboard();
+        mKeyboardManager = new KeyboardManager(mContext, mAbcKeyboard);
+        switchToNextKeyboard();
     }
 
     public void updateSuggestions(ArrayList<String> suggestions) {

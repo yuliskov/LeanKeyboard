@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.liskovsoft.keyboardaddons.apklangfactory.addons;
+package com.liskovsoft.keyboardaddons.apkkbdfactory.addons;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

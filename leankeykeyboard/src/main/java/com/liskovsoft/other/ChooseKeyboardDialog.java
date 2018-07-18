@@ -16,7 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckedTextView;
 import com.liskovsoft.keyboardaddons.KeyboardInfo;
-import com.liskovsoft.keyboardaddons.reslangfactory.ResKeyboardInfo;
+import com.liskovsoft.keyboardaddons.reskbdfactory.ResKeyboardInfo;
 import com.liskovsoft.leankeykeyboard.R;
 
 import java.util.ArrayList;

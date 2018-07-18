@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.liskovsoft.keyboardaddons.apklangfactory.utils;
+package com.liskovsoft.keyboardaddons.apkkbdfactory.utils;
 
 import java.io.File;
 import java.io.FileWriter;

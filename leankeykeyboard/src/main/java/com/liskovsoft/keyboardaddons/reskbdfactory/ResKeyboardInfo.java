@@ -1,4 +1,4 @@
-package com.liskovsoft.keyboardaddons.reslangfactory;
+package com.liskovsoft.keyboardaddons.reskbdfactory;
 
 import android.content.Context;
 import android.content.SharedPreferences;

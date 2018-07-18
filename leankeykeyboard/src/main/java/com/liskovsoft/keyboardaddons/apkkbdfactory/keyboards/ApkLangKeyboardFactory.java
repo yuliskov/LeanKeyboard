@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.liskovsoft.keyboardaddons.apklangfactory.keyboards;
+package com.liskovsoft.keyboardaddons.apkkbdfactory.keyboards;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -25,9 +25,9 @@ import android.util.AttributeSet;
 
 import com.liskovsoft.keyboardaddons.KeyboardBuilder;
 import com.liskovsoft.keyboardaddons.KeyboardFactory;
-import com.liskovsoft.keyboardaddons.apklangfactory.addons.AddOn;
-import com.liskovsoft.keyboardaddons.apklangfactory.addons.AddOnsFactory;
-import com.liskovsoft.keyboardaddons.apklangfactory.utils.Logger;
+import com.liskovsoft.keyboardaddons.apkkbdfactory.addons.AddOn;
+import com.liskovsoft.keyboardaddons.apkkbdfactory.addons.AddOnsFactory;
+import com.liskovsoft.keyboardaddons.apkkbdfactory.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.List;

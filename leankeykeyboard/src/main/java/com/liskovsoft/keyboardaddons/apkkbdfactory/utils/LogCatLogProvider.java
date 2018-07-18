@@ -1,4 +1,4 @@
-package com.liskovsoft.keyboardaddons.apklangfactory.utils;
+package com.liskovsoft.keyboardaddons.apkkbdfactory.utils;
 
 import android.os.Build;
 import android.util.Log;

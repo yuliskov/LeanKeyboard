@@ -1,4 +1,4 @@
-package com.liskovsoft.keyboardaddons.reslangfactory;
+package com.liskovsoft.keyboardaddons.reskbdfactory;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import com.liskovsoft.keyboardaddons.KeyboardBuilder;
 import com.liskovsoft.keyboardaddons.KeyboardFactory;
 import com.liskovsoft.keyboardaddons.KeyboardInfo;
-import com.liskovsoft.leankeykeyboard.R;
 
 import java.util.ArrayList;
 import java.util.List;

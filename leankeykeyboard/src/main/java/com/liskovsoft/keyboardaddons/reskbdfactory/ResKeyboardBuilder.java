@@ -1,10 +1,10 @@
-package com.liskovsoft.keyboardaddons.reslangfactory;
+package com.liskovsoft.keyboardaddons.reskbdfactory;
 
 import android.inputmethodservice.Keyboard;
 import android.support.annotation.Nullable;
 import com.liskovsoft.keyboardaddons.KeyboardBuilder;
 
-public class ResKeyboardBuilder implements KeyboardBuilder {
+class ResKeyboardBuilder implements KeyboardBuilder {
     @Nullable
     @Override
     public Keyboard createKeyboard() {
