@@ -868,7 +868,7 @@ public class LeanbackKeyboardContainer {
             setTouchState(LeanbackKeyboardContainer.TOUCH_STATE_NO_TOUCH);
             return true;
         } else if (keyCode == LeanbackKeyboardView.ASCII_SPACE) {
-            switchToNextKeyboard();
+            onLangKeyPress();
             setTouchState(LeanbackKeyboardContainer.TOUCH_STATE_NO_TOUCH);
             return true;
         } else if (keyCode == LeanbackKeyboardView.KEYCODE_LANG_TOGGLE) {
@@ -1117,14 +1117,18 @@ public class LeanbackKeyboardContainer {
      * Switch to next keyboard (looped).
      * {@link KeyboardManager KeyboardManager} is the source behind all keyboard implementations
      */
-    public void switchToNextKeyboard() {
+    public void onLangKeyPress() {
+        switchToNextKeyboard();
+
+        showRunOnceDialog();
+    }
+
+    private void switchToNextKeyboard() {
         LeanbackKeyboardView keyboardView = mMainKeyboardView;
         Keyboard keyboard = mKeyboardManager.getNextKeyboard();
         mInitialMainKeyboard = keyboard;
         mAbcKeyboard = keyboard;
         keyboardView.setKeyboard(keyboard);
-
-        showRunOnceDialog();
     }
 
     public void updateAddonKeyboard() {
@@ -1157,7 +1161,7 @@ public class LeanbackKeyboardContainer {
     }
 
     public void onLangKeyClick() {
-        switchToNextKeyboard();
+        onLangKeyPress();
         // setTouchState(LeanbackKeyboardContainer.TOUCH_STATE_NO_TOUCH);
     }
 
