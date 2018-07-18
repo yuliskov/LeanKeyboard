@@ -11,10 +11,10 @@
     <string name="title_movement_sensitivity">Rörelsekänslighet</string>
     <string name="btn_on">På</string>
     <string name="btn_off">Av</string>
-    <string name="keyboardview_keycode_space">Space</string>
-    <string name="keyboardview_keycode_delete">Delete</string>
+    <string name="keyboardview_keycode_space">Blanksteg</string>
+    <string name="keyboardview_keycode_delete">Ta bort</string>
     <string name="keyboardview_keycode_mode_change">Funktionsändring</string>
-    <string name="keyboardview_keycode_shift">Shift</string>
+    <string name="keyboardview_keycode_shift">Skift</string>
     <string name="keyboardview_keycode_caps">Caps Lock</string>
     <string name="keyboardview_keycode_left">Vänster</string>
     <string name="keyboardview_keycode_right">Höger</string>
