@@ -14,7 +14,9 @@
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
             </intent-filter>
         </activity>
-        <service android:label="@string/ime_service_name" android:name="com.google.leanback.ime.LeanbackImeService" android:permission="android.permission.BIND_INPUT_METHOD">
+        <service android:label="@string/ime_service_name"
+                 android:name="com.google.leanback.ime.LeanbackImeService"
+                 android:permission="android.permission.BIND_INPUT_METHOD">
             <intent-filter>
                 <action android:name="android.view.InputMethod"/>
             </intent-filter>

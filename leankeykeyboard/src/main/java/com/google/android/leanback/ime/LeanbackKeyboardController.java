@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard.Key;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -51,6 +52,8 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     private LeanbackKeyboardController.TouchEventListener mTouchEventListener;
     private long prevTime;
     private boolean mShowInput;
+    private int mLastEditorIdPhysicalKeyboardWasUsed;
+    private boolean mHideKeyboardWhenPhysicalKeyboardUsed = true;
 
     public LeanbackKeyboardController(final InputMethodService context, final LeanbackKeyboardController.InputListener listener) {
         this(context, listener, new TouchNavSpaceTracker(), new LeanbackKeyboardContainer(context));
@@ -647,7 +650,11 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
      * @param event {@link KeyEvent KeyEvent}
      * @return is event handled
      */
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
+        //greater than zero means it is a physical keyboard.
+        //we also want to hide the view if it's a glyph (for example, not physical volume-up key)
+        if (event.getDeviceId() > 0 && event.isPrintingKey()) onPhysicalKeyboardKeyPressed();
+
         mDownFocus.set(mContainer.getCurrFocus());
         if (mSpaceTracker != null && mSpaceTracker.onKeyDown(keyCode, event)) {
             return true;
@@ -661,6 +668,24 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
 
             return handleKeyDownEvent(keyCode, event.getRepeatCount());
         }
+    }
+
+    private void onPhysicalKeyboardKeyPressed() {
+        EditorInfo editorInfo = mContext.getCurrentInputEditorInfo();
+        mLastEditorIdPhysicalKeyboardWasUsed = editorInfo == null ? 0 : editorInfo.fieldId;
+        if (mHideKeyboardWhenPhysicalKeyboardUsed) {
+            mContext.hideWindow();
+        }
+
+        // For all other keys, if we want to do transformations on
+        // text being entered with a hard keyboard, we need to process
+        // it and do the appropriate action.
+        // using physical keyboard is more annoying with candidate view in
+        // the way
+        // so we disable it.
+
+        // stopping any soft-keyboard prediction
+        //abortCorrectionAndResetPredictionState(false);
     }
 
     public boolean onKeyUp(int keyCode, KeyEvent keyEvent) {
