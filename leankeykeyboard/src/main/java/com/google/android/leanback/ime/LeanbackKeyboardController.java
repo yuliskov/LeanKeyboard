@@ -653,7 +653,8 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
         //greater than zero means it is a physical keyboard.
         //we also want to hide the view if it's a glyph (for example, not physical volume-up key)
-        if (event.getDeviceId() > 0 && event.isPrintingKey()) onPhysicalKeyboardKeyPressed();
+        //if (event.getDeviceId() > 0 && event.isPrintingKey()) onPhysicalKeyboardKeyPressed();
+        if (event.isPrintingKey()) onPhysicalKeyboardKeyPressed();
 
         mDownFocus.set(mContainer.getCurrFocus());
         if (mSpaceTracker != null && mSpaceTracker.onKeyDown(keyCode, event)) {

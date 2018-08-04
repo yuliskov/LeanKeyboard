@@ -8,8 +8,8 @@ android {
         applicationId "org.liskovsoft.leankeykeyboard.pro"
         minSdkVersion project.properties.minSdkVersion
         targetSdkVersion project.properties.targetSdkVersion
-        versionCode 71
-        versionName "4.3.21"
+        versionCode 72
+        versionName "4.3.22"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
