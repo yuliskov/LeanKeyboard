@@ -320,10 +320,10 @@ public class LeanbackKeyboardContainer {
      * Init currently displayed keyboard<br/>
      * Note: all keyboard settings applied here<br/>
      * Note: this method is called constantly on new field
-     * @param resources resources (not used)
+     * @param res resources (not used)
      * @param info current ime attributes
      */
-    private void setImeOptions(Resources resources, EditorInfo info) {
+    private void setImeOptions(Resources res, EditorInfo info) {
         // do not erase last keyboard
         if (mInitialMainKeyboard == null) {
             mInitialMainKeyboard = mAbcKeyboard;

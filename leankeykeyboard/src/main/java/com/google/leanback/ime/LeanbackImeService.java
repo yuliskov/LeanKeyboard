@@ -1,6 +1,7 @@
 package com.google.leanback.ime;
 
 import android.annotation.SuppressLint;
+import android.app.Service;
 import android.content.Intent;
 import android.inputmethodservice.InputMethodService;
 import android.os.Handler;
@@ -161,7 +162,7 @@ public class LeanbackImeService extends InputMethodService {
 
                     connection.commitText(text, 1);
                     mEnterSpaceBeforeCommitting = true;
-                case InputListener.ENTRY_TYPE_ACTION:
+                case InputListener.ENTRY_TYPE_ACTION:  // NOTE: user presses Go, Send, Search etc
                     sendDefaultEditorAction(false);
                     updateSuggestions = false;
                     break;
@@ -298,7 +299,7 @@ public class LeanbackImeService extends InputMethodService {
             }
         }
 
-        return 1;
+        return Service.START_STICKY;
     }
 
     @Override

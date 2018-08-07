@@ -31,6 +31,7 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     private static final int KEY_CHANGE_HISTORY_SIZE = 10;
     private static final long KEY_CHANGE_REVERT_TIME_MS = 100L;
     private static final String TAG = "LbKbController";
+    public static final String TAG_GO = "Go";
     private boolean clickConsumed;
     private long lastClickTime;
     private LeanbackKeyboardContainer mContainer;
@@ -160,8 +161,9 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
                 case KeyFocus.TYPE_VOICE:
                     mContainer.onVoiceClick();
                     return;
-                case KeyFocus.TYPE_ACTION:
+                case KeyFocus.TYPE_ACTION: // NOTE: user presses Go, Send, Search etc
                     mInputListener.onEntry(InputListener.ENTRY_TYPE_ACTION, 0, null);
+                    mContext.hideWindow(); // SmartYouTubeTV fix: force hide keyboard
                     return;
                 case KeyFocus.TYPE_SUGGESTION:
                     mInputListener.onEntry(InputListener.ENTRY_TYPE_SUGGESTION, 0, mContainer.getSuggestionText(focus.index));
@@ -437,7 +439,9 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     private boolean handleKeyUpEvent(int keyCode, long currTime) {
         keyCode = getSimplifiedKey(keyCode);
         boolean handled;
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
+        // NOTE: hide keyboard on ESC key
+        // https://github.com/yuliskov/SmartYouTubeTV/issues/142
+        if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_ESCAPE) {
             handled = false;
         } else if (mContainer.isVoiceVisible()) {
             handled = true;
@@ -607,7 +611,7 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
             Button button = mContainer.getGoButton();
             button.setOnTouchListener(this);
             button.setOnHoverListener(this);
-            button.setTag("Go");
+            button.setTag(TAG_GO);
             return view;
         } else {
             return null;
@@ -744,7 +748,7 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     @Override
     public boolean onTouch(View view, MotionEvent event) {
         Object tag = view.getTag();
-        if (tag != null && "Go".equals(tag)) {
+        if (TAG_GO.equals(tag)) {
             fakeKeyIndex(0, KeyFocus.TYPE_ACTION);
         } else {
             switch (event.getAction()) {
