@@ -272,12 +272,37 @@ public class LeanbackImeService extends InputMethodService {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // NOTE: hide keyboard on ESC key
+        // https://github.com/yuliskov/SmartYouTubeTV/issues/142
+        event = mapEscToBack(event);
+        keyCode = mapEscToBack(keyCode);
+
         return isInputViewShown() && mKeyboardController.onKeyDown(keyCode, event) || super.onKeyDown(keyCode, event);
     }
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
+        // NOTE: hide keyboard on ESC key
+        // https://github.com/yuliskov/SmartYouTubeTV/issues/142
+        event = mapEscToBack(event);
+        keyCode = mapEscToBack(keyCode);
+
         return isInputViewShown() && mKeyboardController.onKeyUp(keyCode, event) || super.onKeyUp(keyCode, event);
+    }
+
+    private KeyEvent mapEscToBack(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_ESCAPE) {
+            // pay attention, you must pass the same action
+            event = new KeyEvent(event.getAction(), KeyEvent.KEYCODE_BACK);
+        }
+        return event;
+    }
+
+    private int mapEscToBack(int keyCode) {
+        if (keyCode == KeyEvent.KEYCODE_ESCAPE) {
+            keyCode = KeyEvent.KEYCODE_BACK;
+        }
+        return keyCode;
     }
 
     // FireTV fix

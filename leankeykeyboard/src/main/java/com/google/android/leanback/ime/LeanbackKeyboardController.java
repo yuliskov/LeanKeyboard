@@ -439,8 +439,7 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     private boolean handleKeyUpEvent(int keyCode, long currTime) {
         keyCode = getSimplifiedKey(keyCode);
         boolean handled;
-        // NOTE: hide keyboard on ESC key
-        // https://github.com/yuliskov/SmartYouTubeTV/issues/142
+
         if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_ESCAPE) {
             handled = false;
         } else if (mContainer.isVoiceVisible()) {
