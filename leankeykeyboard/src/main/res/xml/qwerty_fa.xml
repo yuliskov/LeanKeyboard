@@ -37,7 +37,8 @@
         <Key android:keyLabel="ی" />
         <Key android:keyLabel="ب" />
         <Key android:keyLabel="ل" />
-        <Key android:keyLabel="ا" />
+        <!-- fix from Shobair Mohammadi <shobairmohammadi@gmail.com> -->
+        <Key android:keyLabel="ا|آ" />
         <Key android:keyLabel="ت" />
         <Key android:keyLabel="ن" />
         <Key android:keyLabel="م" />

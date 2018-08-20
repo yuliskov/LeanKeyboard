@@ -155,6 +155,10 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
         this.commitKey(this.mContainer.getCurrFocus());
     }
 
+    /**
+     * NOTE: where all magic happens. Input from virtual kbd is processed here.
+     * @param focus current key
+     */
     private void commitKey(LeanbackKeyboardContainer.KeyFocus focus) {
         if (mContainer != null && focus != null) {
             switch (focus.type) {
@@ -163,7 +167,7 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
                     return;
                 case KeyFocus.TYPE_ACTION: // NOTE: user presses Go, Send, Search etc
                     mInputListener.onEntry(InputListener.ENTRY_TYPE_ACTION, 0, null);
-                    mContext.hideWindow(); // SmartYouTubeTV fix: force hide keyboard
+                    // mContext.hideWindow(); // SmartYouTubeTV fix: force hide keyboard
                     return;
                 case KeyFocus.TYPE_SUGGESTION:
                     mInputListener.onEntry(InputListener.ENTRY_TYPE_SUGGESTION, 0, mContainer.getSuggestionText(focus.index));
@@ -747,31 +751,37 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     @Override
     public boolean onTouch(View view, MotionEvent event) {
         Object tag = view.getTag();
-        if (TAG_GO.equals(tag)) {
-            fakeKeyIndex(0, KeyFocus.TYPE_ACTION);
-        } else {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    moveSelectorToPoint(event.getX(), event.getY());
-                    fakeClickDown();
-                    beginLongClickCountdown();
+        boolean isEnterKey = TAG_GO.equals(tag);
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                if (isEnterKey) {
                     break;
-                case MotionEvent.ACTION_UP:
-                    if (!clickConsumed) {
-                        clickConsumed = true;
-                        if (isDoubleClick()) {
-                            mContainer.onKeyLongPress();
-                            break;
-                        }
+                }
 
-                        fakeClickUp();
+                moveSelectorToPoint(event.getX(), event.getY());
+                fakeClickDown();
+                beginLongClickCountdown();
+                break;
+            case MotionEvent.ACTION_UP:
+                if (isEnterKey) {
+                    fakeKeyIndex(0, KeyFocus.TYPE_ACTION);
+                    break;
+                }
+
+                if (!clickConsumed) {
+                    clickConsumed = true;
+                    if (isDoubleClick()) {
+                        mContainer.onKeyLongPress();
+                        break;
                     }
 
-                    fakeLongClickUp();
-                    break;
-                default:
-                    return false;
-            }
+                    fakeClickUp();
+                }
+
+                fakeLongClickUp();
+                break;
+            default:
+                return false;
         }
 
         return true;

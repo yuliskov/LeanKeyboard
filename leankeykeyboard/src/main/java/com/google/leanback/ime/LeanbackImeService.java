@@ -163,7 +163,14 @@ public class LeanbackImeService extends InputMethodService {
                     connection.commitText(text, 1);
                     mEnterSpaceBeforeCommitting = true;
                 case InputListener.ENTRY_TYPE_ACTION:  // NOTE: user presses Go, Send, Search etc
-                    sendDefaultEditorAction(false);
+                    boolean result = sendDefaultEditorAction(true);
+
+                    if (result) {
+                        hideWindow(); // NOTE: SmartYouTubeTV hide kbd on search page fix
+                    } else {
+                        sendEnterKey(connection);
+                    }
+
                     updateSuggestions = false;
                     break;
                 case InputListener.ENTRY_TYPE_LEFT:
@@ -209,6 +216,10 @@ public class LeanbackImeService extends InputMethodService {
                 mKeyboardController.updateSuggestions(mSuggestionsFactory.getSuggestions());
             }
         }
+    }
+
+    private void sendEnterKey(InputConnection connection) {
+        connection.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
     }
 
     @Override
