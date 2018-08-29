@@ -38,7 +38,7 @@
         <Key android:keyLabel="ب" />
         <Key android:keyLabel="ل" />
         <!-- fix from Shobair Mohammadi <shobairmohammadi@gmail.com> -->
-        <Key android:keyLabel="ا|آ" />
+        <Key android:keyLabel="ا|آ" android:popupKeyboard="@xml/accent_fa_a" />
         <Key android:keyLabel="ت" />
         <Key android:keyLabel="ن" />
         <Key android:keyLabel="م" />
