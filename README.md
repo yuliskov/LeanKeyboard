@@ -47,9 +47,8 @@ __Standard installation via ADB__
 
 ### Donation:
 If you want to support my developments you are welcome to buy me a cup of coffee :)
- * BTC: 1JAT5VVWarVBkpVbNDn8UA8HXNdrukuBSx
- * WMZ: Z375157140784
- * WMU: U449339012933
+ * [__PrivatBank (Ukraine)__](https://sendmoney.privatbank.ua/ru/?hash=1780837895)
+ * __BTC__: 1JAT5VVWarVBkpVbNDn8UA8HXNdrukuBSx
 
 ### Screens:
 ![Screenshot of LeanKeyKeyboard](img/leankeykeyboard_screenshot_01.png "Screenshot of LeanKeyKeyboard")
