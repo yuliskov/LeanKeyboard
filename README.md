@@ -47,7 +47,7 @@ __Standard installation via ADB__
 
 ### Donation:
 If you want to support my developments you are welcome to buy me a cup of coffee :)
- * [__PrivatBank (Ukraine)__](https://sendmoney.privatbank.ua/ru/?hash=1780837895)
+ * [__PrivatBank (Ukraine)__](https://privatbank.ua/ru/sendmoney?payment=5fcdddf53e3d491d63fcb050e6e2e05f2f2678c2)
  * __BTC__: 1JAT5VVWarVBkpVbNDn8UA8HXNdrukuBSx
 
 ### Screens:
