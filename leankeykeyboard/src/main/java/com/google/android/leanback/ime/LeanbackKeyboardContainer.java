@@ -1132,7 +1132,7 @@ public class LeanbackKeyboardContainer {
     }
 
     public void updateAddonKeyboard() {
-        mKeyboardManager = new KeyboardManager(mContext, mAbcKeyboard);
+        mKeyboardManager = new KeyboardManager(mContext);
         switchToNextKeyboard();
     }
 

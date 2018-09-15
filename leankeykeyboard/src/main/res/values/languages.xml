@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="additional_languages">
-        <item>Swedish|sv</item>
+        <item>English|us</item>
         <item>Arabic|ar</item>
         <item>Bulgarian|bg</item>
         <item>Dutch|nl</item>
@@ -13,6 +13,7 @@
         <item>Italian|it</item>
         <item>Persian|fa</item>
         <item>Russian|ru</item>
+        <item>Swedish|sv</item>
         <item>Thai|th</item>
         <item>Turkish|tr</item>
         <item>Ukrainian|uk</item>

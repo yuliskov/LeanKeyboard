@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KeyboardManager {
-    private final Keyboard mEnglishKeyboard;
     private final Context mContext;
     private final KeyboardStateManager mStateManager;
     private List<? extends KeyboardBuilder> mKeyboardBuilders;
@@ -17,13 +16,8 @@ public class KeyboardManager {
 
     private int mKeyboardIndex = 0;
 
-    public KeyboardManager(Context ctx, int keyboardResId) {
-        this(ctx, new Keyboard(ctx, keyboardResId));
-    }
-
-    public KeyboardManager(Context ctx, Keyboard englishKeyboard) {
+    public KeyboardManager(Context ctx) {
         mContext = ctx;
-        mEnglishKeyboard = englishKeyboard;
         mStateManager = new KeyboardStateManager(mContext, this);
         mStateManager.restore();
         init();
@@ -37,7 +31,6 @@ public class KeyboardManager {
 
     private List<Keyboard> buildAllKeyboards() {
         List<Keyboard> keyboards = new ArrayList<>();
-        keyboards.add(mEnglishKeyboard);
         if (!mKeyboardBuilders.isEmpty()) {
             for (KeyboardBuilder builder : mKeyboardBuilders) {
                 keyboards.add(builder.createKeyboard());
