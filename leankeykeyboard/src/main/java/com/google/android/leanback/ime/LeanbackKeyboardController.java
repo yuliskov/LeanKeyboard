@@ -1,7 +1,6 @@
 package com.google.android.leanback.ime;
 
 import android.graphics.PointF;
-import android.graphics.Rect;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard.Key;
 import android.os.Handler;
@@ -51,7 +50,7 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     private LeanbackKeyboardContainer.KeyFocus mTempFocus;
     private PointF mTempPoint;
     private LeanbackKeyboardController.TouchEventListener mTouchEventListener;
-    private long prevTime;
+    private long mPrevTime;
     private boolean mShowInput;
     private int mLastEditorIdPhysicalKeyboardWasUsed;
     private boolean mHideKeyboardWhenPhysicalKeyboardUsed = true;
@@ -500,15 +499,39 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
         updatePositionToCurrentFocus();
     }
 
-    private boolean isCallAllowed(int periodMillis) {
+    /**
+     * Simple throttle routine.
+     * @param callInterval interval
+     * @return is allowed
+     */
+    private boolean isCallAllowedOrigin(int callInterval) {
         long currTimeMS = System.currentTimeMillis();
-        if (this.prevTime != 0L && currTimeMS - this.prevTime <= (long) (periodMillis * 3)) {
-            if (currTimeMS - this.prevTime > (long) periodMillis) {
-                this.prevTime = 0L;
+        long timeDelta = currTimeMS - mPrevTime;
+        if (mPrevTime != 0 && timeDelta <= (callInterval * 3)) {
+            if (timeDelta > callInterval) {
+                mPrevTime = 0;
                 return true;
             }
         } else {
-            this.prevTime = currTimeMS;
+            mPrevTime = currTimeMS;
+        }
+
+        return false;
+    }
+
+    /**
+     * Simple throttle routine. Simplified comparing to previous. Not tested yet!!!!
+     * @param interval interval
+     * @return is allowed
+     */
+    private boolean isCallAllowed2(int interval) {
+        long currTimeMS = System.currentTimeMillis();
+        long timeDelta = currTimeMS - mPrevTime;
+        if (mPrevTime == 0) {
+            mPrevTime = currTimeMS;
+            return true;
+        } else if (timeDelta > interval) {
+            mPrevTime = 0;
         }
 
         return false;
@@ -638,17 +661,14 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
      */
     @Override
     public boolean onHover(View view, MotionEvent event) {
-        return false;
+        boolean handled = false;
+        if (event.getAction() == MotionEvent.ACTION_HOVER_MOVE) {
+            PointF pos = getRelativePosition(mContainer.getView(), event);
+            moveSelectorToPoint(pos.x, pos.y);
+            handled = true;
+        }
 
-        //boolean allowed = isCallAllowed(300);
-        //if (allowed) {
-        //    if (event.getAction() == MotionEvent.ACTION_HOVER_MOVE) {
-        //        PointF pos = getRelativePosition(mContainer.getView(), event);
-        //        moveSelectorToPoint(pos.x, pos.y);
-        //    }
-        //}
-        //
-        //return allowed;
+        return handled;
     }
 
     /**
