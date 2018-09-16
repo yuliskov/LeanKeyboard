@@ -446,23 +446,23 @@ public class LeanbackKeyboardContainer {
             boolean overestimateHeight = false;
             switch (focus.type) {
                 case KeyFocus.TYPE_MAIN:
+                    boolean showScale = false;
+                    overestimateHeight = true;
                     if (focus.code != LeanbackKeyboardView.ASCII_SPACE) {
                         overestimateWidth = true;
-                    } else {
-                        overestimateWidth = false;
+                        showScale = true;
                     }
 
                     LeanbackKeyboardView mainView = mMainKeyboardView;
                     int index = focus.index;
+
+                    boolean isClicked = false;
                     if (mTouchState == TOUCH_STATE_CLICK) {
-                        overestimateHeight = true;
-                    } else {
-                        overestimateHeight = false;
+                        isClicked = true;
                     }
 
-                    mainView.setFocus(index, overestimateHeight, overestimateWidth);
+                    mainView.setFocus(index, isClicked, showScale);
                     mPrevView = mMainKeyboardView;
-                    overestimateHeight = true;
                     break;
                 case KeyFocus.TYPE_VOICE:
                     mVoiceButtonView.setMicFocused(true);
@@ -853,7 +853,7 @@ public class LeanbackKeyboardContainer {
     }
 
     public boolean isVoiceVisible() {
-        return mVoiceButtonView.getVisibility() == 0;
+        return mVoiceButtonView.getVisibility() == View.VISIBLE;
     }
 
     public void onInitInputView() {

@@ -523,8 +523,12 @@ public class LeanbackKeyboardView extends FrameLayout {
                     }
 
                     mCurrentFocusView = mKeyImageViews[indexFull];
-                    mCurrentFocusView.animate().scaleX(scale).scaleY(scale).setInterpolator(LeanbackKeyboardContainer.sMovementInterpolator)
-                            .setDuration((long) mClickAnimDur).start();
+                    mCurrentFocusView.animate()
+                                     .scaleX(scale)
+                                     .scaleY(scale)
+                                     .setInterpolator(LeanbackKeyboardContainer.sMovementInterpolator)
+                                     .setDuration((long) mClickAnimDur)
+                                     .start();
                 }
 
                 mFocusIndex = indexFull;
