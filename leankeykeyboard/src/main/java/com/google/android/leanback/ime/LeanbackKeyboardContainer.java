@@ -594,7 +594,12 @@ public class LeanbackKeyboardContainer {
             mSelector.setX(translatedX);
             mSelector.setY(translatedY);
         } else {
-            mSelector.animate().x(translatedX).y(translatedY).setInterpolator(sMovementInterpolator).setDuration(MOVEMENT_ANIMATION_DURATION).start();
+            mSelector.animate()
+                     .x(translatedX)
+                     .y(translatedY)
+                     .setInterpolator(sMovementInterpolator)
+                     .setDuration(MOVEMENT_ANIMATION_DURATION)
+                     .start();
         }
     }
 
@@ -1029,6 +1034,10 @@ public class LeanbackKeyboardContainer {
 
     public void setFocus(LeanbackKeyboardContainer.KeyFocus focus) {
         setKbFocus(focus, false, true);
+    }
+
+    public void setFocus(LeanbackKeyboardContainer.KeyFocus focus, final boolean animate) {
+        setKbFocus(focus, false, animate);
     }
 
     public void setSelectorToFocus(Rect rect, boolean overestimateWidth, boolean overestimateHeight, boolean animate) {

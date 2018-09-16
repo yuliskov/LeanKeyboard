@@ -540,13 +540,10 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     }
 
     private void moveSelectorToPoint(float x, float y) {
-        LeanbackKeyboardContainer container = this.mContainer;
-        LeanbackKeyboardContainer.KeyFocus focus = this.mTempFocus;
-        container.getBestFocus(new Float(x), new Float(y), focus);
-        this.mContainer.setFocus(this.mTempFocus);
-        container = this.mContainer;
-        Rect rect = this.mTempFocus.rect;
-        container.alignSelector((float) rect.centerX(), (float) rect.centerY(), false);
+        LeanbackKeyboardContainer container = mContainer;
+        LeanbackKeyboardContainer.KeyFocus focus = mTempFocus;
+        container.getBestFocus(x, y, focus);
+        mContainer.setFocus(mTempFocus, false);
     }
 
     private boolean onDirectionalMove(int dir) {
@@ -634,21 +631,24 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     }
 
     /**
-     * Try to handle on hover event
+     * Control keyboard from the mouse. Movement catching
      * @param view active view
      * @param event event object
      * @return is hover handled
      */
+    @Override
     public boolean onHover(View view, MotionEvent event) {
-        boolean allowed = isCallAllowed(300);
-        if (allowed) {
-            if (event.getAction() == MotionEvent.ACTION_HOVER_MOVE) {
-                PointF pos = getRelativePosition(mContainer.getView(), event);
-                moveSelectorToPoint(pos.x, pos.y);
-            }
-        }
+        return false;
 
-        return allowed;
+        //boolean allowed = isCallAllowed(300);
+        //if (allowed) {
+        //    if (event.getAction() == MotionEvent.ACTION_HOVER_MOVE) {
+        //        PointF pos = getRelativePosition(mContainer.getView(), event);
+        //        moveSelectorToPoint(pos.x, pos.y);
+        //    }
+        //}
+        //
+        //return allowed;
     }
 
     /**
