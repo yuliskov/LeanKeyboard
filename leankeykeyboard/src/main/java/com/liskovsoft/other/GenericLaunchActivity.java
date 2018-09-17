@@ -15,8 +15,10 @@ import android.content.pm.ActivityInfo;
 import android.content.Intent;
 import android.app.Activity;
 
-public class SettingsActivity extends Activity
+public class GenericLaunchActivity extends Activity
 {
+    private boolean isSecondLaunch = false;
+
     @SuppressLint("WrongConstant")
     private void addIntentFlags(final Intent intent) {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -43,13 +45,16 @@ public class SettingsActivity extends Activity
     }
     
     private Intent makeIntent(final ActivityInfo activityInfo) {
+        String metaPackage = isSecondLaunch ? "package_alt" : "package";
+        String metaClass = isSecondLaunch ? "class_alt" : "class";
+
         final Bundle metaData = activityInfo.metaData;
         final Intent intent = new Intent();
         if (metaData.getString("intent") != null) {
             intent.setAction(metaData.getString("intent"));
-            return intent;
+        } else {
+            intent.setComponent(new ComponentName(metaData.getString(metaPackage), metaData.getString(metaClass)));
         }
-        intent.setComponent(new ComponentName(metaData.getString("package"), metaData.getString("class")));
         return intent;
     }
 
@@ -65,6 +70,12 @@ public class SettingsActivity extends Activity
             startActivity(intent);
         }
         catch (ActivityNotFoundException ex) {
+            if (!isSecondLaunch) {
+                isSecondLaunch = true;
+                launchApp();
+                return;
+            }
+
             ex.printStackTrace();
             makeLongToast(ex.getLocalizedMessage(), 10);
         }
