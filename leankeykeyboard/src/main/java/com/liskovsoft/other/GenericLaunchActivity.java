@@ -1,7 +1,3 @@
-// 
-// Decompiled by Procyon v0.5.30
-// 
-
 package com.liskovsoft.other;
 
 import android.annotation.SuppressLint;
@@ -15,12 +11,25 @@ import android.content.pm.ActivityInfo;
 import android.content.Intent;
 import android.app.Activity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GenericLaunchActivity extends Activity
 {
-    private boolean isSecondLaunch = false;
+    private static final String META_PACKAGE_NAME = "package";
+    private static final String META_CLASS_NAME = "class";
+    private static final String META_PACKAGE_NAME_ALT = "package_alt";
+    private static final String META_CLASS_NAME_ALT = "class_alt";
+    private static final String META_INTENT_NAME = "intent";
+    private List<Intent> mIntents = new ArrayList<>();
+
+    protected void onCreate(final Bundle bundle) {
+        super.onCreate(bundle);
+        launchApp();
+    }
 
     @SuppressLint("WrongConstant")
-    private void addIntentFlags(final Intent intent) {
+    private void addCommonIntentFlags(final Intent intent) {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
     }
@@ -32,30 +41,69 @@ public class GenericLaunchActivity extends Activity
         }
         catch (NameNotFoundException ex) {
             ex.printStackTrace();
-            makeLongToast(ex.getLocalizedMessage(), 10);
+            makeLongToast(ex.getLocalizedMessage());
             return null;
         }
     }
     
     private void launchApp() {
-        final Intent intent = makeIntent(getCurrentActivityInfo());
-        addIntentFlags(intent);
-        startIntent(intent);
+        makeIntentList();
+        startIntents();
         finish();
     }
-    
-    private Intent makeIntent(final ActivityInfo activityInfo) {
-        String metaPackage = isSecondLaunch ? "package_alt" : "package";
-        String metaClass = isSecondLaunch ? "class_alt" : "class";
 
-        final Bundle metaData = activityInfo.metaData;
-        final Intent intent = new Intent();
-        if (metaData.getString("intent") != null) {
-            intent.setAction(metaData.getString("intent"));
-        } else {
-            intent.setComponent(new ComponentName(metaData.getString(metaPackage), metaData.getString(metaClass)));
+    private void startIntents() {
+        for (Intent intent : mIntents) {
+            boolean result = startIntent(intent);
+            if (result) { // run until first successful attempt
+                break;
+            }
         }
+    }
+
+    private void makeIntentList() {
+        final ActivityInfo activityInfo = getCurrentActivityInfo();
+        if (activityInfo == null) {
+            return;
+        }
+        final Bundle metaData = activityInfo.metaData;
+
+        String metaPackageName = metaData.getString(META_PACKAGE_NAME);
+        String metaClassName = metaData.getString(META_CLASS_NAME);
+        mIntents.add(createIntent(metaPackageName, metaClassName));
+
+        String metaPackageNameAlt = metaData.getString(META_PACKAGE_NAME_ALT);
+        String metaClassNameAlt = metaData.getString(META_CLASS_NAME_ALT);
+        mIntents.add(createIntent(metaPackageNameAlt, metaClassNameAlt));
+
+        String metaIntentName = metaData.getString(META_INTENT_NAME);
+        mIntents.add(createIntent(metaIntentName));
+    }
+
+    private Intent createIntent(String intentName) {
+        if (intentName == null) {
+            return null;
+        }
+
+        final Intent intent = new Intent();
+        intent.setAction(intentName);
+        addCommonIntentFlags(intent);
         return intent;
+    }
+
+    private Intent createIntent(String packageName, String className) {
+        if (packageName == null || className == null) {
+            return null;
+        }
+
+        final Intent intent = new Intent();
+        intent.setComponent(new ComponentName(packageName, className));
+        addCommonIntentFlags(intent);
+        return intent;
+    }
+
+    private void makeLongToast(final String s) {
+        makeLongToast(s, 10);
     }
 
     private void makeLongToast(final String s, int nums) {
@@ -64,25 +112,19 @@ public class GenericLaunchActivity extends Activity
             Toast.makeText(this, s, Toast.LENGTH_LONG).show();
         }
     }
-    
-    private void startIntent(final Intent intent) {
+
+    private boolean startIntent(final Intent intent) {
+        if (intent == null) {
+            return false;
+        }
+
         try {
             startActivity(intent);
         }
         catch (ActivityNotFoundException ex) {
-            if (!isSecondLaunch) {
-                isSecondLaunch = true;
-                launchApp();
-                return;
-            }
-
-            ex.printStackTrace();
-            makeLongToast(ex.getLocalizedMessage(), 10);
+            return false;
         }
-    }
-    
-    protected void onCreate(final Bundle bundle) {
-        super.onCreate(bundle);
-        launchApp();
+
+        return true;
     }
 }

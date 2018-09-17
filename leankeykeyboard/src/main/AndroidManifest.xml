@@ -11,6 +11,8 @@
             <!-- "Languages & input" on old api -->
             <meta-data android:name="package_alt" android:value="com.android.settings"/>
             <meta-data android:name="class_alt" android:value="com.android.settings.Settings$InputMethodAndLanguageSettingsActivity"/>
+            <!-- Last try (if above not found) -->
+            <meta-data android:name="intent" android:value="android.settings.INPUT_METHOD_SETTINGS"/>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
