@@ -5,8 +5,8 @@
 
 __LeanKeyKeyboard: Keyboard for Android-based set-top boxes and TVs:__
 
-Visit Google Play page: 
- * <a href="https://play.google.com/store/apps/details?id=org.liskovsoft.androidtv.rukeyboard" target="_blank">[APP] LeanKeyKeyboard</a>
+ * <a href="https://t.me/LeanKeyKeyboard">Telegram group</a>
+ * <a href="https://play.google.com/store/apps/details?id=org.liskovsoft.androidtv.rukeyboard" target="_blank">Google Play page</a>
 
 __NOTE: Google Play release is outdated. So I recommend to obtain new releases [here](https://github.com/yuliskov/LeanKeyKeyboard/releases).__
 
@@ -47,7 +47,8 @@ __Standard installation via ADB__
 
 ### Donation:
 If you want to support my developments you are welcome to buy me a cup of coffee :)
- * [__PrivatBank (Ukraine)__](https://privatbank.ua/ru/sendmoney?payment=5fcdddf53e3d491d63fcb050e6e2e05f2f2678c2)
+ * [__Donation Alerts (RU)__](https://www.donationalerts.ru/r/firsthash)
+ * [__PrivatBank (UA)__](https://privatbank.ua/ru/sendmoney?payment=5fcdddf53e3d491d63fcb050e6e2e05f2f2678c2)
  * __BTC__: 1JAT5VVWarVBkpVbNDn8UA8HXNdrukuBSx
 
 ### Screens:
