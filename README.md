@@ -17,7 +17,9 @@ __NOTE: Google Play release is outdated. So I recommend to obtain new releases [
  * Doesn't depend on Google Services.
  * __No root required!__
 
-__Switch to other language performed with 'world' button, menu key or long press on the space bar.__
+__Tip: Switch to other language with language button or by long press on the space bar__
+
+__Tip: Do long press on the language button to choose between available languages__
 
 ### Screenshots:
  * __[Open screenshots](#screens)__
@@ -31,9 +33,15 @@ __Standard installation via ADB__
  * <a href="https://github.com/yuliskov/LeanKeyKeyboard/releases" target="_blank">Download latest LeanKeyKeyboard APK</a> and sideload/install with adb: 
  * *adb install -r LeanKeyKeyboard.apk*
  * Enjoy :)
+
+### Donation:
+If you want to support my developments you are welcome to buy me a cup of coffee :)
+ * [__Donation Alerts (RU)__](https://www.donationalerts.ru/r/firsthash)
+ * [__PrivatBank (UA)__](https://privatbank.ua/ru/sendmoney?payment=5fcdddf53e3d491d63fcb050e6e2e05f2f2678c2)
+ * __BTC__: 1JAT5VVWarVBkpVbNDn8UA8HXNdrukuBSx
  
 ### Reviews / Articles:
- * Just google for "LeanKey Keyboard"
+ * [__XDA Discussion__](https://forum.xda-developers.com/fire-tv/general/guide-change-screen-keyboard-to-leankey-t3527675)
  
 ### Changelog:
  * [Check releases page for changelog ..](https://github.com/yuliskov/LeanKeyKeyboard/releases)
@@ -44,12 +52,6 @@ __Standard installation via ADB__
 
 ### Developer:
  * __[yuliskov](https://github.com/yuliskov)__ (design & coding)
-
-### Donation:
-If you want to support my developments you are welcome to buy me a cup of coffee :)
- * [__Donation Alerts (RU)__](https://www.donationalerts.ru/r/firsthash)
- * [__PrivatBank (UA)__](https://privatbank.ua/ru/sendmoney?payment=5fcdddf53e3d491d63fcb050e6e2e05f2f2678c2)
- * __BTC__: 1JAT5VVWarVBkpVbNDn8UA8HXNdrukuBSx
 
 ### Screens:
 ![Screenshot of LeanKeyKeyboard](img/leankeykeyboard_screenshot_01.png "Screenshot of LeanKeyKeyboard")
