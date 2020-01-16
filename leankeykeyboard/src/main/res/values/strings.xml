@@ -29,4 +29,6 @@
     <string name="language_dialog_subtitle">To open dialog next time, long press on \'world\' button</string>
     <string name="user_name">User Name</string>
     <string name="email_id">Email</string>
+    <string name="kb_layout_desc">Keyboard Layout</string>
+    <string name="kb_layout">Layout</string>
 </resources>

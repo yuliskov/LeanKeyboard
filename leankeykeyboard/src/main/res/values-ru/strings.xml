@@ -22,4 +22,6 @@
     <string name="keyboard_password_character_no_headset">Точка</string>
     <string name="language_dialog_title">Выберите дополнительные раскладки</string>
     <string name="language_dialog_subtitle">Чтобы открыть этот диалог, зажмите кнопку \'земной шар\'</string>
+    <string name="kb_layout_desc">Раскладка клавиатуры</string>
+    <string name="kb_layout">Раскладка</string>
 </resources>

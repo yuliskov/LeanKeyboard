@@ -9,6 +9,6 @@ public class KbLayoutActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kblayout);
+        setContentView(R.layout.activity_kb_layout);
     }
 }

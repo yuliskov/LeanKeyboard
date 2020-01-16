@@ -1,45 +1,86 @@
 package com.liskovsoft.leankeyboard.settings.kblayout;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.leanback.app.GuidedStepSupportFragment;
 import androidx.leanback.widget.GuidanceStylist.Guidance;
 import androidx.leanback.widget.GuidedAction;
+import com.liskovsoft.leankeyboard.addons.reskbdfactory.KeyboardInfoAdapter;
+import com.liskovsoft.leankeyboard.keyboard.data.CheckedSource;
+import com.liskovsoft.leankeyboard.keyboard.data.CheckedSource.CheckedItem;
 import com.liskovsoft.leankeykeyboard.R;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class KbLayoutFragment extends GuidedStepSupportFragment {
-    private static final long ACTION_ID_NAME = 0;
-    private static final long ACTION_ID_EMAIL = 1;
+    private Map<Long, CheckedItem> mActions = new HashMap<>();
 
     @NonNull
     @Override
     public Guidance onCreateGuidance(Bundle savedInstanceState) {
-        Guidance guidance = new Guidance("User Profile", "Use Name",
-                "", ContextCompat.getDrawable(getActivity(), R.drawable.ic_launcher));
-        return guidance;
+        String title = getActivity().getResources().getString(R.string.kb_layout);
+        String desc = getActivity().getResources().getString(R.string.kb_layout_desc);
+        Drawable icon = ContextCompat.getDrawable(getActivity(), R.drawable.ic_launcher);
+
+        return new Guidance(
+                title,
+                desc,
+                "",
+                icon
+        );
     }
 
     @Override
     public void onCreateActions(@NonNull List<GuidedAction> actions, Bundle savedInstanceState) {
-        GuidedAction action = new GuidedAction.Builder(getActivity())   .id(ACTION_ID_NAME).description("String name").descriptionEditable(true)
-                .title(getString(R.string.user_name)).build();
-        actions.add(action);
+        KeyboardInfoAdapter adapter = new KeyboardInfoAdapter(getActivity());
+        initCheckedItems(adapter, actions);
 
-        action = new GuidedAction.Builder(getActivity()).id(ACTION_ID_EMAIL).description("String email").descriptionEditable(true).title(getString(R.string.email_id)).build();
-        actions.add(action);
+        //GuidedAction action = new GuidedAction.Builder(getActivity())
+        //        .checkSetId(GuidedAction.CHECKBOX_CHECK_SET_ID)
+        //        .id(ACTION_ID_LAYOUT_LANG)
+        //        .description("String name")
+        //        .title(getString(R.string.user_name)).build();
+        //actions.add(action);
+        //
+        //action = new GuidedAction.Builder(getActivity())
+        //        .checkSetId(GuidedAction.CHECKBOX_CHECK_SET_ID)
+        //        .id(ACTION_ID_LAYOUT_LANG)
+        //        .description("String name")
+        //        .title(getString(R.string.user_name)).build();
+        //actions.add(action);
+        //
+        //action = new GuidedAction.Builder(getActivity())
+        //        .id(ACTION_ID_EMAIL)
+        //        .description("String email")
+        //        .descriptionEditable(true)
+        //        .title(getString(R.string.email_id)).build();
+        //actions.add(action);
     }
 
+    private void initCheckedItems(CheckedSource source, List<GuidedAction> actions) {
+        List<CheckedItem> items = source.getItems();
+        for (CheckedItem item : items) {
+            mActions.put(item.getId(), item);
+            GuidedAction action = new GuidedAction.Builder(getActivity())
+                    .checked(item.getChecked())
+                    .checkSetId(GuidedAction.CHECKBOX_CHECK_SET_ID)
+                    .id(item.getId())
+                    .title(item.getTitle())
+                    .build();
+            actions.add(action);
+        }
+    }
 
     @Override
     public void onGuidedActionClicked(GuidedAction action) {
-        if (ACTION_ID_NAME == action.getId()) {
-            Log.d("editedText", action.getDescription().toString());
-        } else if (ACTION_ID_EMAIL == action.getId()) {
-            Log.d("editedText", action.getDescription().toString());
+        CheckedItem checkedItem = mActions.get(action.getId());
+
+        if (checkedItem != null) {
+            checkedItem.onClick(action.isChecked());
         }
     }
 }
