@@ -19,7 +19,7 @@ import com.google.android.leanback.ime.LeanbackKeyboardController.InputListener;
 import com.google.android.leanback.ime.LeanbackKeyboardView;
 import com.google.android.leanback.ime.LeanbackSuggestionsFactory;
 import com.google.android.leanback.ime.LeanbackUtils;
-import com.liskovsoft.utils.LangUpdater;
+import com.liskovsoft.leankeyboard.utils.LangUpdater;
 
 public class LeanbackImeService extends InputMethodService {
     private static final boolean DEBUG = false;

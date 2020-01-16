@@ -3,6 +3,11 @@
 buildscript {
     repositories {
         jcenter()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+        google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.0'
@@ -17,13 +22,19 @@ buildscript {
         compileSdkVersion = 28
         buildToolsVersion = "28.0.3"
         minSdkVersion = 14
-        targetSdkVersion = 26
-        appCompatVersion = 'com.android.support:appcompat-v7:28.+'
+        targetSdkVersion = 28
         espressoCoreVersion = 'com.android.support.test.espresso:espresso-core:2.2.2'
         junitVersion = 'junit:junit:4.12'
-        supportVersion = 'com.android.support:support-v4:28.+'
         robolectricVersion = 'org.robolectric:robolectric:3.5.1'
         crashlyticsVersion = 'com.crashlytics.sdk.android:crashlytics:2.8.0@aar'
+        // androidx migration:
+        // https://developer.android.com/jetpack/androidx/migrate
+        // https://developer.android.com/jetpack/androidx/migrate/artifact-mappings
+        appCompatXVersion = 'androidx.appcompat:appcompat:1.0.0'
+        supportXVersion = 'androidx.legacy:legacy-support-v4:1.0.0'
+        leanbackCompatXVersion = 'androidx.leanback:leanback:1.0.0'
+        designXVersion = 'com.google.android.material:material:1.0.0'
+        constraintXVersion = 'androidx.constraintlayout:constraintlayout:1.1.3'
     }
 }
 

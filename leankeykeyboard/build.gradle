@@ -1,6 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
+    // FIX: Default interface methods are only supported starting with Android N (--min-api 24)
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    
     compileSdkVersion project.properties.compileSdkVersion
     buildToolsVersion project.properties.buildToolsVersion
 
@@ -8,8 +14,8 @@ android {
         applicationId "org.liskovsoft.leankeykeyboard.pro"
         minSdkVersion project.properties.minSdkVersion
         targetSdkVersion project.properties.targetSdkVersion
-        versionCode 80
-        versionName "4.3.30"
+        versionCode 90
+        versionName "4.4.00"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -40,6 +46,12 @@ android {
         disable 'MissingTranslation'
         disable 'NewApi'
     }
+
+    productFlavors {
+        Vplaystore {
+            applicationId "org.liskovsoft.androidtv.rukeyboard"
+        }
+    }
 }
 
 dependencies {
@@ -47,6 +59,9 @@ dependencies {
     androidTestCompile(project.properties.espressoCoreVersion, {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile project.properties.appCompatVersion
+    compile project.properties.appCompatXVersion
+    compile project.properties.leanbackCompatXVersion
+    compile project.properties.constraintXVersion
+    compile project.properties.designXVersion
     testCompile project.properties.junitVersion
 }

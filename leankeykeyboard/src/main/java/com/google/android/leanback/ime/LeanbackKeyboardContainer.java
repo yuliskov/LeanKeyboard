@@ -36,9 +36,9 @@ import android.widget.RelativeLayout.LayoutParams;
 import com.google.android.leanback.ime.voice.RecognizerView;
 import com.google.android.leanback.ime.voice.SpeechLevelSource;
 import com.google.leanback.ime.LeanbackImeService;
-import com.liskovsoft.other.ChooseKeyboardDialog;
-import com.liskovsoft.utils.LeanKeyPreferences;
-import com.liskovsoft.keyboardaddons.KeyboardManager;
+import com.liskovsoft.leankeyboard.settings.kblayout.KbLayoutActivity;
+import com.liskovsoft.leankeyboard.utils.LeanKeyPreferences;
+import com.liskovsoft.leankeyboard.addons.KeyboardManager;
 import com.liskovsoft.leankeykeyboard.R;
 
 import java.util.ArrayList;
@@ -878,7 +878,8 @@ public class LeanbackKeyboardContainer {
             return true;
         } else if (keyCode == LeanbackKeyboardView.KEYCODE_LANG_TOGGLE) {
             // NOTE: normal constructor cannot be applied here
-            new ChooseKeyboardDialog(mContext, mMainKeyboardView).run();
+            //new ChooseKeyboardDialog(mContext, mMainKeyboardView).run();
+            showKbLayoutSettings();
             return true;
         } else {
             if (mCurrKeyInfo.type == KeyFocus.TYPE_MAIN) {
@@ -1185,7 +1186,8 @@ public class LeanbackKeyboardContainer {
         prefs.setRunOnce(true);
 
         // NOTE: normal constructor cannot be applied here
-        new ChooseKeyboardDialog(mContext, mMainKeyboardView).run();
+        //new ChooseKeyboardDialog(mContext, mMainKeyboardView).run();
+        showKbLayoutSettings();
     }
 
     public interface DismissListener {
@@ -1407,5 +1409,11 @@ public class LeanbackKeyboardContainer {
 
     public interface VoiceListener {
         void onVoiceResult(String result);
+    }
+
+    private void showKbLayoutSettings() {
+        Intent intent = new Intent(mContext, KbLayoutActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(intent);
     }
 }

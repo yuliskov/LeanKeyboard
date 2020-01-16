@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Fix layout errors: https://developer.android.com/training/tv/start/layouts -->
+<fragment
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:name="com.liskovsoft.leankeyboard.settings.kblayout.KbLayoutFragment"
+    android:id="@+id/kb_layout_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>

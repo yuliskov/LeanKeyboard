@@ -3,7 +3,8 @@
     <string name="ime_name">LeanKey Keyboard Pro</string>
     <string name="ime_service_name">LeanKey Keyboard Pro</string>
     <string name="word_separators">" .,;:!?
-()[]*&amp;@{}/&lt;>_+=|"</string>
+        ()[]*&amp;@{}/&lt;>_+=|"
+    </string>
     <string name="label_go_key">Go</string>
     <string name="label_next_key">Next</string>
     <string name="label_send_key">Send</string>
@@ -26,4 +27,6 @@
     <string name="keyboard_password_character_no_headset">Dot.</string>
     <string name="language_dialog_title">Select additional layouts</string>
     <string name="language_dialog_subtitle">To open dialog next time, long press on \'world\' button</string>
+    <string name="user_name">User Name</string>
+    <string name="email_id">Email</string>
 </resources>
