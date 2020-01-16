@@ -1,4 +1,4 @@
-package com.google.android.leanback.ime;
+package com.liskovsoft.leankeyboard.keyboard.android.leanback.ime;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
@@ -33,9 +33,9 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
-import com.google.android.leanback.ime.voice.RecognizerView;
-import com.google.android.leanback.ime.voice.SpeechLevelSource;
-import com.google.leanback.ime.LeanbackImeService;
+import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.voice.RecognizerView;
+import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.voice.SpeechLevelSource;
+import com.liskovsoft.leankeyboard.keyboard.leanback.ime.LeanbackImeService;
 import com.liskovsoft.leankeyboard.settings.kblayout.KbLayoutActivity;
 import com.liskovsoft.leankeyboard.utils.LeanKeyPreferences;
 import com.liskovsoft.leankeyboard.addons.KeyboardManager;

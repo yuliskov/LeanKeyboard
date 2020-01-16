@@ -64,7 +64,7 @@
         </activity>
 
         <service
-            android:name="com.google.leanback.ime.LeanbackImeService"
+            android:name="com.liskovsoft.leankeyboard.keyboard.leanback.ime.LeanbackImeService"
             android:label="@string/ime_service_name"
             android:permission="android.permission.BIND_INPUT_METHOD">
             <intent-filter>

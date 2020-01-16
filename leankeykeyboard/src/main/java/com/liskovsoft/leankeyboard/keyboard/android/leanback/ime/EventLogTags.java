@@ -1,4 +1,4 @@
-package com.google.android.leanback.ime;
+package com.liskovsoft.leankeyboard.keyboard.android.leanback.ime;
 
 import android.util.EventLog;
 

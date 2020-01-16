@@ -1,4 +1,4 @@
-package com.google.android.leanback.ime.voice;
+package com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.voice;
 
 import android.animation.TimeAnimator;
 import android.animation.TimeAnimator.TimeListener;

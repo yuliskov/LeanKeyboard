@@ -1,4 +1,4 @@
-package com.google.leanback.ime;
+package com.liskovsoft.leankeyboard.keyboard.leanback.ime;
 
 import android.annotation.SuppressLint;
 import android.app.Service;
@@ -14,11 +14,11 @@ import android.view.View;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
-import com.google.android.leanback.ime.LeanbackKeyboardController;
-import com.google.android.leanback.ime.LeanbackKeyboardController.InputListener;
-import com.google.android.leanback.ime.LeanbackKeyboardView;
-import com.google.android.leanback.ime.LeanbackSuggestionsFactory;
-import com.google.android.leanback.ime.LeanbackUtils;
+import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackKeyboardController;
+import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackKeyboardController.InputListener;
+import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackKeyboardView;
+import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackSuggestionsFactory;
+import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackUtils;
 import com.liskovsoft.leankeyboard.utils.LangUpdater;
 
 public class LeanbackImeService extends InputMethodService {

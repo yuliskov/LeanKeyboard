@@ -1,17 +1,15 @@
-package com.google.android.leanback.ime.voice;
+package com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.voice;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.BaseSavedState;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import com.google.android.leanback.ime.LeanbackUtils;
+import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackUtils;
 import com.liskovsoft.leankeykeyboard.R;
 
 public class RecognizerView extends RelativeLayout {

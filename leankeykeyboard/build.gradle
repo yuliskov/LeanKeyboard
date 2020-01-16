@@ -37,7 +37,7 @@ android {
 
             def newApkName = sprintf("%s_v%s_%s.apk", [project, version, buildType])
 
-            output.outputFile = new File(output.outputFile.parent, newApkName)
+            output.outputFileName = new File(newApkName)
         }
     }
 
@@ -47,6 +47,10 @@ android {
         disable 'NewApi'
     }
 
+    // gradle 4.6 migration: disable dimensions mechanism
+    // more: https://proandroiddev.com/advanced-android-flavors-part-4-a-new-version-fc2ad80c01bb
+    flavorDimensions "default"
+
     productFlavors {
         Vplaystore {
             applicationId "org.liskovsoft.androidtv.rukeyboard"
@@ -55,13 +59,13 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile(project.properties.espressoCoreVersion, {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation(project.properties.espressoCoreVersion, {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile project.properties.appCompatXVersion
-    compile project.properties.leanbackCompatXVersion
-    compile project.properties.constraintXVersion
-    compile project.properties.designXVersion
-    testCompile project.properties.junitVersion
+    implementation project.properties.appCompatXVersion
+    implementation project.properties.leanbackCompatXVersion
+    implementation project.properties.constraintXVersion
+    implementation project.properties.designXVersion
+    testImplementation project.properties.junitVersion
 }
