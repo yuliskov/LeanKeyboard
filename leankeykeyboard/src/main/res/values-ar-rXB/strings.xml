@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ime_name">Leanback‏‮‬‏ ‏‮Keyboard‬‏</string>
-    <string name="ime_service_name">Leanback‏‮‬‏ ‏‮Keyboard‬‏</string>
     <string name="word_separators">"‏‮ .,;:!?
 ()[]*&amp;@{}/&lt;>_+=|‬‏"</string>
     <string name="label_go_key">‏‮Go‬‏</string>

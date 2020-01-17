@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ime_name">Tangentbord för Leanback</string>
-    <string name="ime_service_name">Tangentbord för Leanback</string>
     <string name="label_go_key">Kör</string>
     <string name="label_next_key">Nästa</string>
     <string name="label_send_key">Skicka</string>

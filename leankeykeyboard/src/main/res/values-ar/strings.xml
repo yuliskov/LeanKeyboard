@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ime_name">لوحة مفاتيح Leanback</string>
-    <string name="ime_service_name">لوحة مفاتيح Leanback</string>
     <string name="label_go_key">انتقال</string>
     <string name="label_next_key">التالي</string>
     <string name="label_send_key">إرسال</string>

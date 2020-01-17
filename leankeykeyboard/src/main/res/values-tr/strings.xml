@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ime_name">Leanback Klavyesi</string>
-    <string name="ime_service_name">Leanback Klavyesi</string>
     <string name="label_go_key">Git</string>
     <string name="label_next_key">İleri</string>
     <string name="label_send_key">Gönder</string>

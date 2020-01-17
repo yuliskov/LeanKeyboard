@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ime_name">Клавіатура додатка Leanback</string>
-    <string name="ime_service_name">Клавіатура додатка Leanback</string>
     <string name="label_go_key">ОК</string>
     <string name="label_next_key">Далі</string>
     <string name="label_send_key">Надіслати</string>

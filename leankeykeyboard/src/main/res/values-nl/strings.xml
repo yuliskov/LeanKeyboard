@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ime_name">Toetsenbord voor Leanback</string>
-    <string name="ime_service_name">Toetsenbord voor Leanback</string>
     <string name="label_go_key">Gaan</string>
     <string name="label_next_key">Volgende</string>
     <string name="label_send_key">Verzenden</string>

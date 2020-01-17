@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ime_name">Πληκτρολόγιο Leanback</string>
-    <string name="ime_service_name">Πληκτρολόγιο Leanback</string>
     <string name="label_go_key">Μετάβαση</string>
     <string name="label_next_key">Επόμενο</string>
     <string name="label_send_key">Αποστολή</string>

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ime_name">Tastiera Leanback</string>
-    <string name="ime_service_name">Tastiera Leanback</string>
     <string name="label_go_key">Vai</string>
     <string name="label_next_key">Avanti</string>
     <string name="label_send_key">Invia</string>

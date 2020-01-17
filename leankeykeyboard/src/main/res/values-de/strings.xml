@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ime_name">Leanback-Tastatur</string>
-    <string name="ime_service_name">Leanback-Tastatur</string>
     <string name="label_go_key">Los</string>
     <string name="label_next_key">Weiter</string>
     <string name="label_send_key">Senden</string>

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ime_name">แป้นพิมพ์ Leanback</string>
-    <string name="ime_service_name">แป้นพิมพ์ Leanback</string>
     <string name="label_go_key">ไป</string>
     <string name="label_next_key">ถัดไป</string>
     <string name="label_send_key">ส่ง</string>
