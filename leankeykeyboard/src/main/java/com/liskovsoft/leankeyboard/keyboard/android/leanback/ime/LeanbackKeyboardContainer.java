@@ -877,8 +877,6 @@ public class LeanbackKeyboardContainer {
             setTouchState(LeanbackKeyboardContainer.TOUCH_STATE_NO_TOUCH);
             return true;
         } else if (keyCode == LeanbackKeyboardView.KEYCODE_LANG_TOGGLE) {
-            // NOTE: normal constructor cannot be applied here
-            //new ChooseKeyboardDialog(mContext, mMainKeyboardView).run();
             showKbLayoutSettings();
             return true;
         } else {
@@ -1130,7 +1128,7 @@ public class LeanbackKeyboardContainer {
     public void onLangKeyPress() {
         switchToNextKeyboard();
 
-        showRunOnceDialog();
+        //showRunOnceDialog();
     }
 
     private void switchToNextKeyboard() {
@@ -1185,8 +1183,6 @@ public class LeanbackKeyboardContainer {
 
         prefs.setRunOnce(true);
 
-        // NOTE: normal constructor cannot be applied here
-        //new ChooseKeyboardDialog(mContext, mMainKeyboardView).run();
         showKbLayoutSettings();
     }
 
