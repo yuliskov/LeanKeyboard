@@ -53,7 +53,6 @@ public class KbSettingsFragment extends GuidedStepSupportFragment {
     public void onGuidedActionClicked(GuidedAction action) {
         if (action.getId() == ACTION_ID_ACTIVATE_KB) {
             Intent intent = new Intent(getActivity(), GenericLaunchActivity.class);
-            Toast.makeText(getActivity(), getString(R.string.enable_kb_in_system_prefs, getString(R.string.ime_name)), Toast.LENGTH_LONG).show();
             startActivity(intent);
         } else if (action.getId() == ACTION_ID_CHANGE_LAYOUT && getFragmentManager() != null) {
             GuidedStepSupportFragment.add(getFragmentManager(), new KbLayoutFragment());

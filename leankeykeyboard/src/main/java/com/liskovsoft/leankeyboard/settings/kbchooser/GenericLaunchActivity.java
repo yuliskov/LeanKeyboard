@@ -10,6 +10,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ActivityInfo;
 import android.content.Intent;
 import android.app.Activity;
+import com.liskovsoft.leankeykeyboard.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class GenericLaunchActivity extends Activity
 
     protected void onCreate(final Bundle bundle) {
         super.onCreate(bundle);
+        Toast.makeText(this, getString(R.string.enable_kb_in_system_prefs, getString(R.string.ime_service_name)), Toast.LENGTH_LONG).show();
         launchApp();
     }
 
