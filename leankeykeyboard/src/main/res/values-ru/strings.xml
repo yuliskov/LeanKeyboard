@@ -24,4 +24,9 @@
     <string name="language_dialog_subtitle">Чтобы открыть этот диалог, зажмите кнопку \'земной шар\'</string>
     <string name="kb_layout_desc">Раскладка клавиатуры</string>
     <string name="kb_layout">Раскладка</string>
+    <string name="kb_settings">Настройки</string>
+    <string name="kb_settings_desc">Настройки клавиатуры</string>
+    <string name="activate_keyboard">Активировать клавиатуру</string>
+    <string name="change_layout">Поменять раскладку</string>
+    <string name="enable_kb_in_system_prefs">Вам нужно включить %s в Системных настройках</string>
 </resources>

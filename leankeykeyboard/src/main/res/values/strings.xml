@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ime_name">LeanKey Keyboard Pro</string>
-    <string name="ime_service_name">LeanKey Keyboard Pro</string>
+    <string name="ime_name" translatable="false">LeanKey Keyboard Pro</string>
+    <string name="ime_service_name" translatable="false">LeanKey Keyboard Pro</string>
     <string name="word_separators">" .,;:!?
         ()[]*&amp;@{}/&lt;>_+=|"
     </string>
@@ -31,4 +31,9 @@
     <string name="email_id">Email</string>
     <string name="kb_layout_desc">Keyboard Layout</string>
     <string name="kb_layout">Layout</string>
+    <string name="kb_settings">Settings</string>
+    <string name="kb_settings_desc">Keyboard Settings</string>
+    <string name="activate_keyboard">Activate Keyboard</string>
+    <string name="change_layout">Change Layout</string>
+    <string name="enable_kb_in_system_prefs">You need to enable %s in System Preferences</string>
 </resources>

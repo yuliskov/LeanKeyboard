@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          package="com.liskovsoft.leankeykeyboard"> <!-- NOTE: use older sdk -->
-    <uses-sdk tools:overrideLibrary="         android.support.v17.leanback,         androidx.leanback"/>
+          package="com.liskovsoft.leankeykeyboard">
+
+    <!-- NOTE: use older sdk -->
+    <uses-sdk tools:overrideLibrary="
+            android.support.v17.leanback,
+            androidx.leanback"/>
 
     <uses-feature
         android:name="android.software.leanback"
@@ -21,10 +25,10 @@
         android:banner="@drawable/banner_app"
         android:icon="@drawable/ic_launcher"
         android:label="@string/ime_name"
-        tools:targetApi="21" >
+        tools:targetApi="21"
+        android:theme="@style/Theme.Leanback">
         <activity
-            android:name="com.liskovsoft.leankeyboard.settings.kblayout.KbLayoutActivity"
-            android:theme="@style/Theme.Leanback"
+            android:name="com.liskovsoft.leankeyboard.settings.settings.KbSettingsActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -33,6 +37,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.liskovsoft.leankeyboard.settings.kblayout.KbLayoutActivity"
+            android:launchMode="singleTop">
         </activity>
         <activity
             android:name="com.liskovsoft.leankeyboard.settings.kbchooser.GenericLaunchActivity"
@@ -54,14 +62,6 @@
             <meta-data
                 android:name="intent"
                 android:value="android.settings.INPUT_METHOD_SETTINGS"/>
-
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN"/>-->
-<!--                <action android:name="android.intent.action.VIEW"/>-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER"/>-->
-<!--                <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>-->
-<!--            </intent-filter>-->
         </activity>
 
         <service

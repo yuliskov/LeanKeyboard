@@ -38,27 +38,6 @@ public class KbLayoutFragment extends GuidedStepSupportFragment {
     public void onCreateActions(@NonNull List<GuidedAction> actions, Bundle savedInstanceState) {
         KeyboardInfoAdapter adapter = new KeyboardInfoAdapter(getActivity());
         initCheckedItems(adapter, actions);
-
-        //GuidedAction action = new GuidedAction.Builder(getActivity())
-        //        .checkSetId(GuidedAction.CHECKBOX_CHECK_SET_ID)
-        //        .id(ACTION_ID_LAYOUT_LANG)
-        //        .description("String name")
-        //        .title(getString(R.string.user_name)).build();
-        //actions.add(action);
-        //
-        //action = new GuidedAction.Builder(getActivity())
-        //        .checkSetId(GuidedAction.CHECKBOX_CHECK_SET_ID)
-        //        .id(ACTION_ID_LAYOUT_LANG)
-        //        .description("String name")
-        //        .title(getString(R.string.user_name)).build();
-        //actions.add(action);
-        //
-        //action = new GuidedAction.Builder(getActivity())
-        //        .id(ACTION_ID_EMAIL)
-        //        .description("String email")
-        //        .descriptionEditable(true)
-        //        .title(getString(R.string.email_id)).build();
-        //actions.add(action);
     }
 
     private void initCheckedItems(CheckedSource source, List<GuidedAction> actions) {
