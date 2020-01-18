@@ -1,34 +1,13 @@
 package com.liskovsoft.leankeyboard.utils;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Build;
+import android.os.Build.VERSION;
 
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
-/*
- * Copyright 2013 Phil Brown
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *     http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- *
- * Get Script name by Locale
- * <br>
- * @author Phil Brown
- * @since 9:47:09 AM Dec 20, 2013
- *
- */
 
 /*
  * Additional info:
@@ -750,19 +729,42 @@ public class LocaleUtility {
         return script == null ? scripts.get("") : script;
 
     }
+    
+    public static Locale getSystemLocale(Context context) {
+        return getSystemLocale(context.getResources().getConfiguration());
+    }
+
+    public static void setSystemLocale(Context context, Locale locale) {
+        setSystemLocale(context.getResources().getConfiguration(), locale);
+    }
+
+    @SuppressWarnings("deprecation")
+    public static void setSystemLocale(Configuration config, Locale locale) {
+        if (VERSION.SDK_INT < 24) {
+            config.locale = locale;
+        } else {
+            config.setLocale(locale);
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    public static Locale getSystemLocale(Configuration config) {
+        if (VERSION.SDK_INT < 24) {
+            return config.locale;
+        } else {
+            return config.getLocales().get(0);
+        }
+    }
 
     /**
-     * Obtain right locale even if the user changes their Locale in settings after your application process is running.
-     * Android N (Api level 24) update (no warnings).
-     * @param context activity
-     * @return locale
+     * <a href="https://stackoverflow.com/questions/40221711/android-context-getresources-updateconfiguration-deprecated/40704077#40704077">Modern Solution</a>
      */
-    public static Locale getCurrentLocale(Context context){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-            return context.getResources().getConfiguration().getLocales().get(0);
-        } else{
-            //noinspection deprecation
-            return context.getResources().getConfiguration().locale;
-        }
+    @SuppressWarnings("deprecation")
+    public static void forceLocaleOld(Context ctx, Locale locale) {
+        Locale.setDefault(locale);
+        Configuration config = ctx.getResources().getConfiguration();
+        LocaleUtility.setSystemLocale(config, locale);
+        ctx.getResources().updateConfiguration(config,
+                ctx.getResources().getDisplayMetrics());
     }
 }

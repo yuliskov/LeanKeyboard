@@ -74,11 +74,7 @@ public class LangUpdater {
         }
 
         Locale locale = parseLangCode(langCode);
-        Locale.setDefault(locale);
-        Configuration config = mContext.getResources().getConfiguration();
-        config.locale = locale;
-        mContext.getResources().updateConfiguration(config,
-                mContext.getResources().getDisplayMetrics());
+        LocaleUtility.forceLocaleOld(mContext, locale);
     }
 
     private boolean isRussianPackage(String pkgName) {
@@ -103,7 +99,7 @@ public class LangUpdater {
 
     public String getLocale() {
         Configuration config = mContext.getResources().getConfiguration();
-        return config.locale.getLanguage();
+        return LocaleUtility.getSystemLocale(config).getLanguage();
     }
 
     /**

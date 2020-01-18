@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
 import android.inputmethodservice.InputMethodService;
+import android.os.Build;
+import android.os.Build.VERSION;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -32,30 +34,34 @@ public class LeanbackImeService extends InputMethodService {
     private static final int SUGGESTIONS_CLEAR_DELAY = 1000;
     private static final String TAG = "LbImeService";
     private boolean mEnterSpaceBeforeCommitting;
-    private final Handler mHandler = new Handler() {
-        public void handleMessage(Message msg) {
-            if (msg.what == MSG_SUGGESTIONS_CLEAR && LeanbackImeService.this.mShouldClearSuggestions) {
-                LeanbackImeService.this.mSuggestionsFactory.clearSuggestions();
-                LeanbackImeService.this.mKeyboardController.updateSuggestions(LeanbackImeService.this.mSuggestionsFactory.getSuggestions());
-                LeanbackImeService.this.mShouldClearSuggestions = false;
-            }
-
-        }
-    };
-    private LeanbackKeyboardController.InputListener mInputListener = new LeanbackKeyboardController.InputListener() {
-        @Override
-        public void onEntry(int type, int keyCode, CharSequence text) {
-            LeanbackImeService.this.handleTextEntry(type, keyCode, text);
-        }
-    };
     private View mInputView;
     private LeanbackKeyboardController mKeyboardController;
     private boolean mShouldClearSuggestions = true;
     private LeanbackSuggestionsFactory mSuggestionsFactory;
 
+    @SuppressLint("HandlerLeak")
+    private final Handler mHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            if (msg.what == MSG_SUGGESTIONS_CLEAR && mShouldClearSuggestions) {
+                mSuggestionsFactory.clearSuggestions();
+                mKeyboardController.updateSuggestions(mSuggestionsFactory.getSuggestions());
+                mShouldClearSuggestions = false;
+            }
+
+        }
+    };
+
+    private LeanbackKeyboardController.InputListener mInputListener = new LeanbackKeyboardController.InputListener() {
+        @Override
+        public void onEntry(int type, int keyCode, CharSequence text) {
+            handleTextEntry(type, keyCode, text);
+        }
+    };
+
     @SuppressLint("NewApi")
+    @SuppressWarnings("deprecation")
     public LeanbackImeService() {
-        if (!enableHardwareAcceleration()) {
+        if (VERSION.SDK_INT < 21 && !enableHardwareAcceleration()) {
             Log.w("LbImeService", "Could not enable hardware acceleration");
         }
     }
@@ -246,14 +252,14 @@ public class LeanbackImeService extends InputMethodService {
     }
 
     /**
-     * At this point, decision whether to show kbd taking place
+     * At this point, decision whether to show kbd taking place<br/>
+     * <a href="https://stackoverflow.com/questions/7449283/is-it-possible-to-have-both-physical-keyboard-and-soft-keyboard-active-at-the-sa">More info</a>
      * @return whether to show kbd
      */
     @SuppressLint("MissingSuperCall")
     @Override
     public boolean onEvaluateInputViewShown() {
-        //return mKeyboardController.showInputView();
-        return true; // force to show even when there is an hardware kbd
+        return mKeyboardController.showInputView();
     }
 
     @Override

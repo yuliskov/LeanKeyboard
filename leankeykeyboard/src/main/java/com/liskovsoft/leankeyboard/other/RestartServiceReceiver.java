@@ -1,8 +1,8 @@
 package com.liskovsoft.leankeyboard.other;
 import android.app.*;
 import android.content.*;
-import android.content.res.*;
 import android.util.*;
+import com.liskovsoft.leankeyboard.utils.LocaleUtility;
 
 import java.util.*;
 
@@ -57,16 +57,8 @@ public class RestartServiceReceiver extends BroadcastReceiver {
     private void switchLocale(Context ctx) {
         Log.e("RestartServiceReceiver", "Trying to switch locale back and forward");
         Locale savedLocale = Locale.getDefault();
-        trySwitchLocale(ctx, new Locale("ru"));
-        trySwitchLocale(ctx, savedLocale);
-    }
-
-    private void trySwitchLocale(Context ctx, Locale locale) {
-        Locale.setDefault(locale);
-        Configuration config = ctx.getResources().getConfiguration();
-        config.locale = locale;
-        ctx.getResources().updateConfiguration(config,
-                ctx.getResources().getDisplayMetrics());
+        LocaleUtility.forceLocaleOld(ctx, new Locale("ru"));
+        LocaleUtility.forceLocaleOld(ctx, savedLocale);
     }
 
     private String getPackageName(Context ctx) {

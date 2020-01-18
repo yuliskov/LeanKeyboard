@@ -14,6 +14,7 @@ import android.graphics.Rect;
 import android.graphics.Paint.Style;
 import android.util.AttributeSet;
 import android.view.View;
+import androidx.core.content.ContextCompat;
 import com.liskovsoft.leankeykeyboard.R;
 
 public class BitmapSoundLevelView extends View {
@@ -159,13 +160,13 @@ public class BitmapSoundLevelView extends View {
                 size = (centerX - this.mMinimumLevelSize) * this.mCurrentVolume / 100 + this.mMinimumLevelSize;
                 this.mDestRect.set(centerX - size, centerY - size, centerX + size, centerY + size);
                 canvas.drawBitmap(this.mPrimaryLevel, (Rect) null, this.mDestRect, this.mEmptyPaint);
-                this.mPaint.setColor(this.getResources().getColor(R.color.search_mic_background));
+                this.mPaint.setColor(ContextCompat.getColor(getContext(), R.color.search_mic_background));
                 this.mPaint.setStyle(Style.FILL);
                 canvas.drawCircle((float) centerX, (float) centerY, (float) (this.mMinimumLevelSize - 3), this.mPaint);
             }
 
             if (this.mTrailLevel != null && this.mPrimaryLevel != null) {
-                this.mPaint.setColor(this.getResources().getColor(R.color.search_mic_levels_guideline));
+                this.mPaint.setColor(ContextCompat.getColor(getContext(), R.color.search_mic_levels_guideline));
                 this.mPaint.setStyle(Style.STROKE);
                 canvas.drawCircle((float) centerX, (float) centerY, (float) (centerX - 13), this.mPaint);
             }

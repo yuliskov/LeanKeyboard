@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import androidx.core.content.ContextCompat;
 import com.liskovsoft.leankeykeyboard.R;
 
 import java.util.Iterator;
@@ -134,7 +135,7 @@ public class LeanbackKeyboardView extends FrameLayout {
         mPaint.setAlpha(255);
         mPadding = new Rect(0, 0, 0, 0);
         mModeChangeTextSize = (int) res.getDimension(R.dimen.function_key_mode_change_font_size);
-        mKeyTextColor = res.getColor(R.color.key_text_default);
+        mKeyTextColor = ContextCompat.getColor(getContext(), R.color.key_text_default);
         mFocusIndex = -1;
         mShiftState = 0;
         mFocusedScale = res.getFraction(R.fraction.focused_scale, 1, 1);
@@ -190,13 +191,13 @@ public class LeanbackKeyboardView extends FrameLayout {
             if (key.codes[0] == NOT_A_KEY) {
                 switch (mShiftState) {
                     case SHIFT_OFF:
-                        key.icon = getContext().getResources().getDrawable(R.drawable.ic_ime_shift_off);
+                        key.icon = ContextCompat.getDrawable(getContext(), R.drawable.ic_ime_shift_off);
                         break;
                     case SHIFT_ON:
-                        key.icon = getContext().getResources().getDrawable(R.drawable.ic_ime_shift_on);
+                        key.icon = ContextCompat.getDrawable(getContext(), R.drawable.ic_ime_shift_on);
                         break;
                     case SHIFT_LOCKED:
-                        key.icon = getContext().getResources().getDrawable(R.drawable.ic_ime_shift_lock_on);
+                        key.icon = ContextCompat.getDrawable(getContext(), R.drawable.ic_ime_shift_lock_on);
                 }
             }
 
