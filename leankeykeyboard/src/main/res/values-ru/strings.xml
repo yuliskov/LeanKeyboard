@@ -27,4 +27,6 @@
     <string name="activate_keyboard">Активировать клавиатуру</string>
     <string name="change_layout">Поменять раскладку</string>
     <string name="enable_kb_in_system_prefs">Вам нужно включить %s в Системных настройках</string>
+    <string name="about">О приложении</string>
+    <string name="about_desc">О приложении</string>
 </resources>

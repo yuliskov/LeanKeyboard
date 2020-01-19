@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.settings.kbchooser;
+package com.liskovsoft.leankeyboard.settings.old.kbchooser;
 
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;

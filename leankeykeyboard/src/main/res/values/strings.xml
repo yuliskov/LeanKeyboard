@@ -36,4 +36,6 @@
     <string name="activate_keyboard">Activate Keyboard</string>
     <string name="change_layout">Change Layout</string>
     <string name="enable_kb_in_system_prefs">You need to enable %s in System Preferences</string>
+    <string name="about">About</string>
+    <string name="about_desc">About Application</string>
 </resources>

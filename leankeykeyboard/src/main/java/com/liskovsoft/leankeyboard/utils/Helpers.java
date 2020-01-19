@@ -141,4 +141,12 @@ public class Helpers {
                 PackageManager.MATCH_DEFAULT_ONLY);
         return list.size() > 0;
     }
+
+    public static String getSimpleClassName(String name) {
+        if (name == null) {
+            return null;
+        }
+
+        return name.substring(name.lastIndexOf('.') + 1);
+    }
 }
