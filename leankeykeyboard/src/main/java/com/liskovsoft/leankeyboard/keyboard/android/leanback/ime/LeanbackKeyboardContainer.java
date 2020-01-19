@@ -128,8 +128,8 @@ public class LeanbackKeyboardContainer {
 
         @Override
         public void onAnimationStart(Animator animation) {
-            LeanbackKeyboardContainer.this.mSelector.setVisibility(View.INVISIBLE);
-            LeanbackKeyboardContainer.this.startRecognition(LeanbackKeyboardContainer.this.mContext);
+            mSelector.setVisibility(View.INVISIBLE);
+            startRecognition(mContext);
         }
     };
     private AnimatorListener mVoiceExitListener = new AnimatorListener() {
@@ -139,7 +139,7 @@ public class LeanbackKeyboardContainer {
 
         @Override
         public void onAnimationEnd(Animator animation) {
-            LeanbackKeyboardContainer.this.mSelector.setVisibility(View.VISIBLE);
+            mSelector.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -148,10 +148,10 @@ public class LeanbackKeyboardContainer {
 
         @Override
         public void onAnimationStart(Animator animation) {
-            LeanbackKeyboardContainer.this.mVoiceButtonView.showNotListening();
-            LeanbackKeyboardContainer.this.mSpeechRecognizer.cancel();
-            LeanbackKeyboardContainer.this.mSpeechRecognizer.setRecognitionListener((RecognitionListener) null);
-            LeanbackKeyboardContainer.this.mVoiceOn = false;
+            mVoiceButtonView.showNotListening();
+            mSpeechRecognizer.cancel();
+            mSpeechRecognizer.setRecognitionListener((RecognitionListener) null);
+            mVoiceOn = false;
         }
     };
     private boolean mVoiceKeyDismissesEnabled;

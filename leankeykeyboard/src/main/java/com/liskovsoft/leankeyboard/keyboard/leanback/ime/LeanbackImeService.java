@@ -72,6 +72,8 @@ public class LeanbackImeService extends InputMethodService {
         
         LangUpdater langUpdater = new LangUpdater(this);
         langUpdater.update();
+
+        updateInputViewShown();
     }
 
     private void clearSuggestionsDelayed() {
@@ -259,7 +261,8 @@ public class LeanbackImeService extends InputMethodService {
     @SuppressLint("MissingSuperCall")
     @Override
     public boolean onEvaluateInputViewShown() {
-        return mKeyboardController.showInputView();
+        //return mKeyboardController.showInputView();
+        return true;
     }
 
     @Override
