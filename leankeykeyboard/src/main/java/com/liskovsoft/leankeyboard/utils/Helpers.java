@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
@@ -96,7 +97,7 @@ public class Helpers {
     }
 
     public static InputStream toStream(String content) {
-        return new ByteArrayInputStream(content.getBytes(Charset.forName("UTF8")));
+        return new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8));
     }
 
     public static void postOnUiThread(Runnable runnable) {
@@ -104,7 +105,7 @@ public class Helpers {
     }
 
     public static String unixToLocalDate(Context ctx, String timestamp) {
-        Locale current = ctx.getResources().getConfiguration().locale;
+        Locale current = LocaleUtility.getSystemLocale(ctx);
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG, current);
         Date date;
         if (timestamp == null) {
