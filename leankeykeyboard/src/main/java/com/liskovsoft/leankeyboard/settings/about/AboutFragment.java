@@ -30,8 +30,14 @@ public class AboutFragment extends GuidedStepSupportFragment {
 
     @Override
     public void onCreateActions(@NonNull List<GuidedAction> actions, Bundle savedInstanceState) {
+        appendInfoAction(AppInfoHelpers.getApplicationName(getActivity()), actions);
+        appendInfoAction("Version " + AppInfoHelpers.getAppVersionName(getActivity()), actions);
+    }
+
+    private void appendInfoAction(String textLine, List<GuidedAction> actions) {
         GuidedAction action = new GuidedAction.Builder(getActivity())
-                .title(AppInfoHelpers.getAppVersionName(getActivity())).build();
+                .title(textLine)
+                .build();
         actions.add(action);
     }
 }

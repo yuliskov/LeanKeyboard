@@ -37,6 +37,7 @@ import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.voice.Recognize
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.voice.SpeechLevelSource;
 import com.liskovsoft.leankeyboard.keyboard.leanback.ime.LeanbackImeService;
 import com.liskovsoft.leankeyboard.settings.kblayout.KbLayoutActivity;
+import com.liskovsoft.leankeyboard.settings.settings.KbSettingsActivity;
 import com.liskovsoft.leankeyboard.utils.LeanKeyPreferences;
 import com.liskovsoft.leankeyboard.addons.KeyboardManager;
 import com.liskovsoft.leankeykeyboard.R;
@@ -1408,8 +1409,7 @@ public class LeanbackKeyboardContainer {
     }
 
     private void showKbLayoutSettings() {
-        Intent intent = new Intent(mContext, KbLayoutActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Intent intent = new Intent(mContext, KbSettingsActivity.class);
         mContext.startActivity(intent);
     }
 }
