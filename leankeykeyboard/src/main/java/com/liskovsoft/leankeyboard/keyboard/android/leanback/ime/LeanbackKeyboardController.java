@@ -855,10 +855,10 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
         public void addEvent(long currTime) {
             if (currTime - mFirstClickTime > DOUBLE_CLICK_TIMEOUT_MS) {
                 mFirstClickTime = currTime;
-                mFirstClickShiftLocked = LeanbackKeyboardController.this.mContainer.isCapsLockOn();
-                LeanbackKeyboardController.this.commitKey();
+                mFirstClickShiftLocked = mContainer.isCapsLockOn();
+                commitKey();
             } else {
-                LeanbackKeyboardController.this.mContainer.onShiftDoubleClick(mFirstClickShiftLocked);
+                mContainer.onShiftDoubleClick(mFirstClickShiftLocked);
                 reset();
             }
         }
@@ -903,37 +903,37 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
         }
 
         public boolean onKeyDown(int keyCode, KeyEvent event) {
-            if (LeanbackKeyboardController.this.isEnterKey(keyCode)) {
-                LeanbackKeyboardController.this.mKeyDownReceived = true;
+            if (isEnterKey(keyCode)) {
+                mKeyDownReceived = true;
                 if (event.getRepeatCount() == 0) {
-                    LeanbackKeyboardController.this.mContainer.setTouchState(3);
-                    LeanbackKeyboardController.this.mSpaceTracker.blockMovementUntil(event.getEventTime() + CLICK_MOVEMENT_BLOCK_DURATION_MS);
-                    LeanbackKeyboardController.this.performBestSnap(event.getEventTime());
+                    mContainer.setTouchState(LeanbackKeyboardContainer.TOUCH_STATE_CLICK);
+                    mSpaceTracker.blockMovementUntil(event.getEventTime() + CLICK_MOVEMENT_BLOCK_DURATION_MS);
+                    performBestSnap(event.getEventTime());
                 }
             }
 
-            return LeanbackKeyboardController.this.handleKeyDownEvent(keyCode, event.getRepeatCount());
+            return handleKeyDownEvent(keyCode, event.getRepeatCount());
         }
 
         public boolean onKeyLongPress(int keyCode, KeyEvent event) {
-            return LeanbackKeyboardController.this.handleKeyLongPress(keyCode);
+            return handleKeyLongPress(keyCode);
         }
 
         public boolean onKeyUp(int keyCode, KeyEvent event) {
-            if (LeanbackKeyboardController.this.isEnterKey(keyCode)) {
-                if (!LeanbackKeyboardController.this.mKeyDownReceived || LeanbackKeyboardController.this.mLongPressHandled) {
-                    LeanbackKeyboardController.this.mLongPressHandled = false;
+            if (isEnterKey(keyCode)) {
+                if (!mKeyDownReceived || mLongPressHandled) {
+                    mLongPressHandled = false;
                     return true;
                 }
 
-                LeanbackKeyboardController.this.mKeyDownReceived = false;
-                if (LeanbackKeyboardController.this.mContainer.getTouchState() == 3) {
-                    LeanbackKeyboardController.this.mContainer.setTouchState(1);
-                    LeanbackKeyboardController.this.mSpaceTracker.unblockMovement();
+                mKeyDownReceived = false;
+                if (mContainer.getTouchState() == LeanbackKeyboardContainer.TOUCH_STATE_CLICK) {
+                    mContainer.setTouchState(LeanbackKeyboardContainer.TOUCH_STATE_TOUCH_SNAP);
+                    mSpaceTracker.unblockMovement();
                 }
             }
 
-            return LeanbackKeyboardController.this.handleKeyUpEvent(keyCode, event.getEventTime());
+            return handleKeyUpEvent(keyCode, event.getEventTime());
         }
     }
 }

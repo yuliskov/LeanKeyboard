@@ -72,8 +72,6 @@ public class LeanbackImeService extends InputMethodService {
         
         LangUpdater langUpdater = new LangUpdater(this);
         langUpdater.update();
-
-        updateInputViewShown();
     }
 
     private void clearSuggestionsDelayed() {
