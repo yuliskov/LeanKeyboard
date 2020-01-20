@@ -325,10 +325,10 @@ public class LeanbackImeService extends InputMethodService {
     }
 
     // FireTV fix
-    //@Override
-    //public boolean onShowInputRequested(int flags, boolean configChange) {
-    //    return true;
-    //}
+    @Override
+    public boolean onShowInputRequested(int flags, boolean configChange) {
+        return true;
+    }
 
     @Override
     public int onStartCommand(final Intent intent, final int flags, final int startId) {
@@ -360,11 +360,11 @@ public class LeanbackImeService extends InputMethodService {
 
         // FireTV: fix accidental kbd pop-ups
         // more info: https://forum.xda-developers.com/fire-tv/general/guide-change-screen-keyboard-to-leankey-t3527675/page2
-        updateInputViewShown();
-        if (!mKeyboardController.showInputView()) {
-            onHideIme();
-            return;
-        }
+        //updateInputViewShown();
+        //if (!mKeyboardController.showInputView()) {
+        //    onHideIme();
+        //    return;
+        //}
 
         mKeyboardController.onStartInputView();
         sendBroadcast(new Intent(IME_OPEN));
