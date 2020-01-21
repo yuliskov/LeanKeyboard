@@ -11,8 +11,8 @@ import com.liskovsoft.leankeykeyboard.R;
 import java.util.ArrayList;
 
 public class LeanbackSuggestionsFactory {
-    private static final String TAG = LeanbackSuggestionsFactory.class.getSimpleName();
-    private static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
+    private static final String TAG = "LbSuggestionsFactory";
+    private static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG); // Use short text tag to fix "Log tag exceeds limit of 23 characters"
     private static final int MODE_AUTO_COMPLETE = 2;
     private static final int MODE_DEFAULT = 0;
     private static final int MODE_DOMAIN = 1;
@@ -61,7 +61,7 @@ public class LeanbackSuggestionsFactory {
             mSuggestions.add(i, infos[i].getText().toString());
         }
 
-        if (Log.isLoggable(TAG, Log.DEBUG)) {
+        if (DEBUG) {
             for (len = 0; len < mSuggestions.size(); ++len) {
                 Log.d(TAG, "completion " + len + ": " + mSuggestions.get(len));
             }

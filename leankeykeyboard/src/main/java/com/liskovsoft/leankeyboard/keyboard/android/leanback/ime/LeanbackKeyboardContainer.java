@@ -36,7 +36,6 @@ import android.widget.RelativeLayout.LayoutParams;
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.voice.RecognizerView;
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.voice.SpeechLevelSource;
 import com.liskovsoft.leankeyboard.keyboard.leanback.ime.LeanbackImeService;
-import com.liskovsoft.leankeyboard.settings.kblayout.KbLayoutActivity;
 import com.liskovsoft.leankeyboard.settings.settings.KbSettingsActivity;
 import com.liskovsoft.leankeyboard.utils.LeanKeyPreferences;
 import com.liskovsoft.leankeyboard.addons.KeyboardManager;
@@ -353,7 +352,7 @@ public class LeanbackKeyboardContainer {
                     case InputType.TYPE_TEXT_VARIATION_PASSWORD:
                     case InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD:
                     case InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD:
-                        mSuggestionsEnabled = false;
+                        mSuggestionsEnabled = true; // use suggestion widget as input indicator
                         mVoiceEnabled = false;
                         mInitialMainKeyboard = mAbcKeyboard;
                 }
@@ -1137,6 +1136,8 @@ public class LeanbackKeyboardContainer {
     }
 
     public void updateSuggestions(ArrayList<String> suggestions) {
+        fillSuggestions(suggestions);
+
         int oldCount = mSuggestions.getChildCount();
         int newCount = suggestions.size();
         if (newCount < oldCount) {
@@ -1157,6 +1158,15 @@ public class LeanbackKeyboardContainer {
 
         if (getCurrFocus().type == KeyFocus.TYPE_SUGGESTION) {
             resetFocusCursor();
+        }
+    }
+
+    private void fillSuggestions(ArrayList<String> suggestions) {
+        String editorText = LeanbackUtils.getEditorText(mContext.getCurrentInputConnection());
+        if (suggestions.size() == 0) {
+            suggestions.add(editorText);
+        } else {
+            suggestions.set(0, editorText);
         }
     }
 

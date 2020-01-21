@@ -20,7 +20,6 @@ import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackKeyboar
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackKeyboardView;
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackSuggestionsFactory;
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackUtils;
-import com.liskovsoft.leankeyboard.utils.LangUpdater;
 
 public class LeanbackImeService extends InputMethodService {
     private static final String TAG = LeanbackImeService.class.getSimpleName();
@@ -83,51 +82,6 @@ public class LeanbackImeService extends InputMethodService {
 
     }
 
-    private int getAmpersandLocation(InputConnection connection) {
-        String text = getEditorText(connection);
-        int pos = text.indexOf(64);
-        if (pos < 0) { // not found
-            pos = text.length();
-        }
-
-        return pos;
-    }
-
-    private int getCharLengthAfterCursor(InputConnection connection) {
-        int len = 0;
-        CharSequence after = connection.getTextAfterCursor(1000, 0);
-        if (after != null) {
-            len = after.length();
-        }
-
-        return len;
-    }
-
-    private int getCharLengthBeforeCursor(InputConnection connection) {
-        int len = 0;
-        CharSequence before = connection.getTextBeforeCursor(1000, 0);
-        if (before != null) {
-            len = before.length();
-        }
-
-        return len;
-    }
-
-    private String getEditorText(InputConnection connection) {
-        StringBuilder result = new StringBuilder();
-        CharSequence before = connection.getTextBeforeCursor(1000, 0);
-        CharSequence after = connection.getTextAfterCursor(1000, 0);
-        if (before != null) {
-            result.append(before);
-        }
-
-        if (after != null) {
-            result.append(after);
-        }
-
-        return result.toString();
-    }
-
     private void handleTextEntry(final int type, final int keyCode, final CharSequence text) {
         final InputConnection connection = getCurrentInputConnection();
         if (connection != null) {
@@ -159,11 +113,11 @@ public class LeanbackImeService extends InputMethodService {
                 case InputListener.ENTRY_TYPE_VOICE:
                     clearSuggestionsDelayed();
                     if (!mSuggestionsFactory.shouldSuggestionsAmend()) {
-                        connection.deleteSurroundingText(this.getCharLengthBeforeCursor(connection), this.getCharLengthAfterCursor(connection));
+                        connection.deleteSurroundingText(LeanbackUtils.getCharLengthBeforeCursor(connection), LeanbackUtils.getCharLengthAfterCursor(connection));
                     } else {
-                        int location = this.getAmpersandLocation(connection);
+                        int location = LeanbackUtils.getAmpersandLocation(connection);
                         connection.setSelection(location, location);
-                        connection.deleteSurroundingText(0, this.getCharLengthAfterCursor(connection));
+                        connection.deleteSurroundingText(0, LeanbackUtils.getCharLengthAfterCursor(connection));
                     }
 
                     connection.commitText(text, 1);
@@ -174,7 +128,7 @@ public class LeanbackImeService extends InputMethodService {
                     if (result) {
                         hideWindow(); // NOTE: SmartYouTubeTV hide kbd on search page fix
                     } else {
-                        sendEnterKey(connection);
+                        LeanbackUtils.sendEnterKey(connection);
                     }
 
                     updateSuggestions = false;
@@ -222,10 +176,6 @@ public class LeanbackImeService extends InputMethodService {
                 mKeyboardController.updateSuggestions(mSuggestionsFactory.getSuggestions());
             }
         }
-    }
-
-    private void sendEnterKey(InputConnection connection) {
-        connection.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
     }
 
     @Override
@@ -373,8 +323,8 @@ public class LeanbackImeService extends InputMethodService {
             mKeyboardController.updateSuggestions(mSuggestionsFactory.getSuggestions());
             InputConnection connection = getCurrentInputConnection();
             if (connection != null) {
-                String text = getEditorText(connection);
-                connection.deleteSurroundingText(getCharLengthBeforeCursor(connection), getCharLengthAfterCursor(connection));
+                String text = LeanbackUtils.getEditorText(connection);
+                connection.deleteSurroundingText(LeanbackUtils.getCharLengthBeforeCursor(connection), LeanbackUtils.getCharLengthAfterCursor(connection));
                 connection.commitText(text, 1);
             }
         }

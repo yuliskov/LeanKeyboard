@@ -24,7 +24,7 @@ public class KbLayoutFragment extends GuidedStepSupportFragment {
     public Guidance onCreateGuidance(Bundle savedInstanceState) {
         String title = getActivity().getResources().getString(R.string.kb_layout);
         String desc = getActivity().getResources().getString(R.string.kb_layout_desc);
-        Drawable icon = ContextCompat.getDrawable(getActivity(), R.mipmap.ic_launcher_main);
+        Drawable icon = ContextCompat.getDrawable(getActivity(), R.drawable.ic_launcher);
 
         return new Guidance(
                 title,

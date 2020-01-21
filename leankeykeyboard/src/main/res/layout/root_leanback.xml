@@ -3,6 +3,9 @@
                 android:background="@color/keyboard_background" android:paddingBottom="@dimen/keyboard_bottom_spacing" android:focusable="true"
                 android:clipChildren="false" android:clipToPadding="false" android:layout_width="fill_parent" android:layout_height="wrap_content"
                 xmlns:android="http://schemas.android.com/apk/res/android">
+    <View android:id="@+id/candidate_background" android:background="@color/candidate_background" android:layout_width="wrap_content"
+          android:layout_height="wrap_content" android:layout_alignBottom="@id/suggestions_container" android:layout_alignParentLeft="true"
+          android:layout_alignParentTop="true" android:layout_alignParentRight="true"/>
     <HorizontalScrollView android:gravity="center" android:id="@+id/suggestions_container" android:scrollbars="none" android:clipChildren="false"
                           android:layout_width="wrap_content" android:layout_height="@dimen/key_height"
                           android:layout_marginLeft="@dimen/candidate_scroll_view_horz_spacing"
@@ -11,10 +14,6 @@
         <LinearLayout android:gravity="center" android:orientation="horizontal" android:id="@+id/suggestions" android:clipChildren="false"
                       android:layout_width="wrap_content" android:layout_height="wrap_content" android:divider="@null" android:showDividers="middle"/>
     </HorizontalScrollView>
-    <!-- NOTE: moved below HorizontalScrollView because some ids not generated yet -->
-    <View android:id="@+id/candidate_background" android:background="@color/candidate_background" android:layout_width="wrap_content"
-          android:layout_height="wrap_content" android:layout_alignBottom="@id/suggestions_container" android:layout_alignParentLeft="true"
-          android:layout_alignParentTop="true" android:layout_alignParentRight="true"/>
     <LinearLayout android:gravity="center" android:id="@+id/keyboard" android:paddingTop="@dimen/keyboard_top_spacing" android:clipChildren="false"
                   android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/suggestions_container"
                   android:layout_centerHorizontal="true">

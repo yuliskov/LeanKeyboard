@@ -3,9 +3,11 @@ package com.liskovsoft.leankeyboard.keyboard.android.leanback.ime;
 import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 
 public class LeanbackUtils {
     private static final int ACCESSIBILITY_DELAY_MS = 250;
@@ -41,12 +43,57 @@ public class LeanbackUtils {
     public static void sendAccessibilityEvent(final View view, boolean focusGained) {
         if (view != null && focusGained) {
             sAccessibilityHandler.removeCallbacksAndMessages(null);
-            sAccessibilityHandler.postDelayed(new Runnable() {
-                public void run() {
-                    view.sendAccessibilityEvent(AccessibilityEvent.TYPE_ANNOUNCEMENT);
-                }
-            }, ACCESSIBILITY_DELAY_MS);
+            sAccessibilityHandler.postDelayed(() -> view.sendAccessibilityEvent(AccessibilityEvent.TYPE_ANNOUNCEMENT), ACCESSIBILITY_DELAY_MS);
         }
 
+    }
+
+    public static int getAmpersandLocation(InputConnection connection) {
+        String text = getEditorText(connection);
+        int pos = text.indexOf(64);
+        if (pos < 0) { // not found
+            pos = text.length();
+        }
+
+        return pos;
+    }
+
+    public static int getCharLengthAfterCursor(InputConnection connection) {
+        int len = 0;
+        CharSequence after = connection.getTextAfterCursor(1000, 0);
+        if (after != null) {
+            len = after.length();
+        }
+
+        return len;
+    }
+
+    public static int getCharLengthBeforeCursor(InputConnection connection) {
+        int len = 0;
+        CharSequence before = connection.getTextBeforeCursor(1000, 0);
+        if (before != null) {
+            len = before.length();
+        }
+
+        return len;
+    }
+
+    public static String getEditorText(InputConnection connection) {
+        StringBuilder result = new StringBuilder();
+        CharSequence before = connection.getTextBeforeCursor(1000, 0);
+        CharSequence after = connection.getTextAfterCursor(1000, 0);
+        if (before != null) {
+            result.append(before);
+        }
+
+        if (after != null) {
+            result.append(after);
+        }
+
+        return result.toString();
+    }
+
+    public static void sendEnterKey(InputConnection connection) {
+        connection.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
     }
 }
