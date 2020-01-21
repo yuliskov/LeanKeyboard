@@ -610,19 +610,19 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     }
 
     private void updatePositionToCurrentFocus() {
-        PointF pos = this.getCurrentKeyPosition();
-        if (pos != null && this.mSpaceTracker != null) {
-            this.mSpaceTracker.setPixelPosition(pos.x, pos.y);
+        PointF pos = getCurrentKeyPosition();
+        if (pos != null && mSpaceTracker != null) {
+            mSpaceTracker.setPixelPosition(pos.x, pos.y);
         }
 
     }
 
     public boolean areSuggestionsEnabled() {
-        return mContainer != null ? mContainer.areSuggestionsEnabled() : false;
+        return mContainer != null && mContainer.areSuggestionsEnabled();
     }
 
     public boolean enableAutoEnterSpace() {
-        return mContainer != null ? mContainer.enableAutoEnterSpace() : false;
+        return mContainer != null && mContainer.enableAutoEnterSpace();
     }
 
     public View getView() {

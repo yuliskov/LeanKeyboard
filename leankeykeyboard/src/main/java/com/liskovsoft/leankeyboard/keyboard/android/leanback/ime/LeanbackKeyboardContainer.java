@@ -330,10 +330,10 @@ public class LeanbackKeyboardContainer {
             mInitialMainKeyboard = mAbcKeyboard;
         }
 
-        mSuggestionsEnabled = false;
+        mSuggestionsEnabled = true;
         // fix auto space after period
-        mAutoEnterSpaceEnabled = false;
-        mVoiceEnabled = false;
+        mAutoEnterSpaceEnabled = true;
+        mVoiceEnabled = true;
         mEscapeNorthEnabled = false;
         mVoiceKeyDismissesEnabled = false;
 
@@ -344,9 +344,9 @@ public class LeanbackKeyboardContainer {
                     case InputType.TYPE_DATETIME_VARIATION_TIME:
                     case InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT:
                     case InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
-                        mSuggestionsEnabled = false;
-                        mAutoEnterSpaceEnabled = false;
-                        mVoiceEnabled = false;
+                        mSuggestionsEnabled = true;
+                        mAutoEnterSpaceEnabled = true;
+                        mVoiceEnabled = true;
                         mInitialMainKeyboard = mAbcKeyboard;
                         break;
                     case InputType.TYPE_TEXT_VARIATION_PERSON_NAME:
@@ -361,52 +361,43 @@ public class LeanbackKeyboardContainer {
             case InputType.TYPE_CLASS_NUMBER:
             case InputType.TYPE_CLASS_PHONE:
             case InputType.TYPE_CLASS_DATETIME:
-                mSuggestionsEnabled = false;
+                mSuggestionsEnabled = true;
                 mVoiceEnabled = false;
-                mInitialMainKeyboard = this.mAbcKeyboard;
+                mInitialMainKeyboard = mAbcKeyboard;
         }
-
-        // TODO: many empty ifs
 
         if (mSuggestionsEnabled) {
-            if ((info.inputType & InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS) == 0) {
-                ;
+            if ((info.inputType & InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS) != 0) {
+                mSuggestionsEnabled = false;
             }
-
-            mSuggestionsEnabled = false;
         }
 
-        if (mAutoEnterSpaceEnabled) {
-            if (mSuggestionsEnabled && mAutoEnterSpaceEnabled) {
-                ;
+        if (!mAutoEnterSpaceEnabled) {
+            if ((info.inputType & InputType.TYPE_TEXT_FLAG_CAP_SENTENCES) != 0) {
+                mCapSentences = true;
             }
+        }
 
+        if (mAutoEnterSpaceEnabled && !mSuggestionsEnabled) {
             mAutoEnterSpaceEnabled = false;
         }
 
-        if ((info.inputType & InputType.TYPE_TEXT_FLAG_CAP_SENTENCES) != 0) {
-            ;
+        if ((info.inputType & InputType.TYPE_TEXT_FLAG_CAP_WORDS) != 0 ||
+             LeanbackUtils.getInputTypeVariation(info) == InputType.TYPE_TEXT_VARIATION_PERSON_NAME) {
+            mCapWords = true;
         }
 
-        mCapSentences = false;
-        if ((info.inputType & InputType.TYPE_TEXT_FLAG_CAP_WORDS) == 0 &&
-                LeanbackUtils.getInputTypeVariation(info) == InputType.TYPE_TEXT_VARIATION_PERSON_NAME) {
-            ;
-        }
-
-        mCapWords = false;
         if ((info.inputType & InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS) != 0) {
-            ;
+            mCapCharacters = true;
         }
 
-        mCapCharacters = false;
         if (info.privateImeOptions != null) {
             if (info.privateImeOptions.contains(IME_PRIVATE_OPTIONS_ESCAPE_NORTH)) {
-                mEscapeNorthEnabled = false;
+                mEscapeNorthEnabled = true;
             }
 
             if (info.privateImeOptions.contains(IME_PRIVATE_OPTIONS_VOICE_DISMISS)) {
-                mVoiceKeyDismissesEnabled = false;
+                mVoiceKeyDismissesEnabled = true;
             }
         }
 
@@ -520,7 +511,7 @@ public class LeanbackKeyboardContainer {
 
             @Override
             public void onBeginningOfSpeech() {
-                LeanbackKeyboardContainer.this.mVoiceButtonView.showRecording();
+                mVoiceButtonView.showRecording();
             }
 
             @Override
@@ -529,28 +520,28 @@ public class LeanbackKeyboardContainer {
 
             @Override
             public void onEndOfSpeech() {
-                LeanbackKeyboardContainer.this.mVoiceButtonView.showRecognizing();
-                LeanbackKeyboardContainer.this.mVoiceOn = false;
+                mVoiceButtonView.showRecognizing();
+                mVoiceOn = false;
             }
 
             @Override
-            public void onError(int i) {
-                LeanbackKeyboardContainer.this.cancelVoiceRecording();
-                switch (i) {
-                    case 4:
+            public void onError(int error) {
+                cancelVoiceRecording();
+                switch (error) {
+                    case SpeechRecognizer.ERROR_SERVER:
                         Log.d("LbKbContainer", "recognizer error server error");
                         return;
-                    case 5:
+                    case SpeechRecognizer.ERROR_CLIENT:
                         Log.d("LbKbContainer", "recognizer error client error");
                         return;
-                    case 6:
+                    case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
                         Log.d("LbKbContainer", "recognizer error speech timeout");
                         return;
-                    case 7:
+                    case SpeechRecognizer.ERROR_NO_MATCH:
                         Log.d("LbKbContainer", "recognizer error no match");
                         return;
                     default:
-                        Log.d("LbKbContainer", "recognizer other error " + i);
+                        Log.d("LbKbContainer", "recognizer other error " + error);
                 }
             }
 
@@ -566,17 +557,17 @@ public class LeanbackKeyboardContainer {
 
             @Override
             public void onReadyForSpeech(Bundle bundle) {
-                LeanbackKeyboardContainer.this.mVoiceButtonView.showListening();
+                mVoiceButtonView.showListening();
             }
 
             @Override
             public void onResults(Bundle bundle) {
                 ArrayList results = bundle.getStringArrayList("results_recognition");
-                if (results != null && LeanbackKeyboardContainer.this.mVoiceListener != null) {
-                    LeanbackKeyboardContainer.this.mVoiceListener.onVoiceResult((String) results.get(0));
+                if (results != null && mVoiceListener != null) {
+                    mVoiceListener.onVoiceResult((String) results.get(0));
                 }
 
-                LeanbackKeyboardContainer.this.cancelVoiceRecording();
+                cancelVoiceRecording();
             }
 
             @Override
@@ -955,11 +946,11 @@ public class LeanbackKeyboardContainer {
         clearSuggestions();
         LayoutParams params = (LayoutParams) mKeyboardsContainer.getLayoutParams();
         if (mSuggestionsEnabled) {
-            params.removeRule(10);
+            params.removeRule(RelativeLayout.ALIGN_PARENT_TOP);
             mSuggestionsContainer.setVisibility(View.VISIBLE);
             mSuggestionsBg.setVisibility(View.VISIBLE);
         } else {
-            params.addRule(10);
+            params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
             mSuggestionsContainer.setVisibility(View.GONE);
             mSuggestionsBg.setVisibility(View.GONE);
         }
@@ -1306,19 +1297,19 @@ public class LeanbackKeyboardContainer {
         }
 
         public void setAnimationBounds(float x, float y, float width, float height) {
-            this.mEndX = x;
-            this.mEndY = y;
-            this.mEndWidth = width;
-            this.mEndHeight = height;
+            mEndX = x;
+            mEndY = y;
+            mEndWidth = width;
+            mEndHeight = height;
         }
 
         public void setValues(float x, float y, float width, float height) {
-            this.mView.setX(x);
-            this.mView.setY(y);
-            this.mParams.width = (int) width;
-            this.mParams.height = (int) height;
-            this.mView.setLayoutParams(this.mParams);
-            this.mView.requestLayout();
+            mView.setX(x);
+            mView.setY(y);
+            mParams.width = (int) width;
+            mParams.height = (int) height;
+            mView.setLayoutParams(mParams);
+            mView.requestLayout();
         }
     }
 
@@ -1364,25 +1355,25 @@ public class LeanbackKeyboardContainer {
                         calcOpacity = scale;
                     }
 
-                    LeanbackKeyboardContainer.this.mMainKeyboardView.setAlpha(opacity);
-                    LeanbackKeyboardContainer.this.mActionButtonView.setAlpha(opacity);
-                    LeanbackKeyboardContainer.this.mVoiceButtonView.setAlpha(calcOpacity);
-                    if (scale == LeanbackKeyboardContainer.this.mAlphaOut) {
+                    mMainKeyboardView.setAlpha(opacity);
+                    mActionButtonView.setAlpha(opacity);
+                    mVoiceButtonView.setAlpha(calcOpacity);
+                    if (scale == mAlphaOut) {
                         if (!enterVoice) {
-                            LeanbackKeyboardContainer.this.mMainKeyboardView.setVisibility(View.VISIBLE);
-                            LeanbackKeyboardContainer.this.mActionButtonView.setVisibility(View.VISIBLE);
+                            mMainKeyboardView.setVisibility(View.VISIBLE);
+                            mActionButtonView.setVisibility(View.VISIBLE);
                             return;
                         }
 
-                        LeanbackKeyboardContainer.this.mVoiceButtonView.setVisibility(View.VISIBLE);
-                    } else if (scale == LeanbackKeyboardContainer.this.mAlphaIn) {
+                        mVoiceButtonView.setVisibility(View.VISIBLE);
+                    } else if (scale == mAlphaIn) {
                         if (enterVoice) {
-                            LeanbackKeyboardContainer.this.mMainKeyboardView.setVisibility(View.INVISIBLE);
-                            LeanbackKeyboardContainer.this.mActionButtonView.setVisibility(View.INVISIBLE);
+                            mMainKeyboardView.setVisibility(View.INVISIBLE);
+                            mActionButtonView.setVisibility(View.INVISIBLE);
                             return;
                         }
 
-                        LeanbackKeyboardContainer.this.mVoiceButtonView.setVisibility(View.INVISIBLE);
+                        mVoiceButtonView.setVisibility(View.INVISIBLE);
                     }
                 }
             });
@@ -1390,15 +1381,15 @@ public class LeanbackKeyboardContainer {
         }
 
         void startEnterAnimation() {
-            if (!LeanbackKeyboardContainer.this.isVoiceVisible() && !this.mValueAnimator.isRunning()) {
-                this.start(true);
+            if (!isVoiceVisible() && !mValueAnimator.isRunning()) {
+                start(true);
             }
 
         }
 
         void startExitAnimation() {
-            if (LeanbackKeyboardContainer.this.isVoiceVisible() && !this.mValueAnimator.isRunning()) {
-                this.start(false);
+            if (isVoiceVisible() && !mValueAnimator.isRunning()) {
+                start(false);
             }
 
         }

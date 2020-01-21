@@ -21,48 +21,48 @@ public class RecognizerView extends RelativeLayout {
     private BitmapSoundLevelView mSoundLevels;
     private RecognizerView.State mState;
 
-    public RecognizerView(Context var1) {
-        super(var1);
+    public RecognizerView(Context context) {
+        super(context);
     }
 
-    public RecognizerView(Context var1, AttributeSet var2) {
-        super(var1, var2);
+    public RecognizerView(Context context, AttributeSet attrs) {
+        super(context, attrs);
     }
 
-    public RecognizerView(Context var1, AttributeSet var2, int var3) {
-        super(var1, var2, var3);
+    public RecognizerView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
     }
 
-    private void updateState(RecognizerView.State var1) {
-        this.mState = var1;
-        this.refreshUi();
+    private void updateState(RecognizerView.State state) {
+        mState = state;
+        refreshUi();
     }
 
     public View getMicButton() {
-        return this.mMicButton;
+        return mMicButton;
     }
 
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
-        this.refreshUi();
+        refreshUi();
     }
 
     public void onClick() {
-        switch (this.mState) {
+        switch (mState) {
             case MIC_INITIALIZING:
             default:
                 return;
             case LISTENING:
-                this.mCallback.onCancelRecordingClicked();
+                mCallback.onCancelRecordingClicked();
                 return;
             case RECORDING:
-                this.mCallback.onStopRecordingClicked();
+                mCallback.onStopRecordingClicked();
                 return;
             case RECOGNIZING:
-                this.mCallback.onCancelRecordingClicked();
+                mCallback.onCancelRecordingClicked();
                 return;
             case NOT_LISTENING:
-                this.mCallback.onStartRecordingClicked();
+                mCallback.onStartRecordingClicked();
         }
     }
 
@@ -70,51 +70,51 @@ public class RecognizerView extends RelativeLayout {
     @Override
     public void onFinishInflate() {
         LayoutInflater.from(this.getContext()).inflate(R.layout.recognizer_view, this, true);
-        this.mSoundLevels = (BitmapSoundLevelView) this.findViewById(R.id.microphone);
-        this.mMicButton = (ImageView) this.findViewById(R.id.recognizer_mic_button);
-        this.mState = RecognizerView.State.NOT_LISTENING;
+        mSoundLevels = (BitmapSoundLevelView) findViewById(R.id.microphone);
+        mMicButton = (ImageView) findViewById(R.id.recognizer_mic_button);
+        mState = RecognizerView.State.NOT_LISTENING;
     }
 
     @Override
-    public void onRestoreInstanceState(Parcelable var1) {
-        if (!(var1 instanceof RecognizerView.SavedState)) {
-            super.onRestoreInstanceState(var1);
+    public void onRestoreInstanceState(Parcelable state) {
+        if (!(state instanceof RecognizerView.SavedState)) {
+            super.onRestoreInstanceState(state);
         } else {
-            RecognizerView.SavedState var2 = (RecognizerView.SavedState) var1;
-            super.onRestoreInstanceState(var2.getSuperState());
-            this.mState = var2.mState;
+            RecognizerView.SavedState savedState = (RecognizerView.SavedState) state;
+            super.onRestoreInstanceState(savedState.getSuperState());
+            mState = savedState.mState;
         }
     }
 
     @Override
     public Parcelable onSaveInstanceState() {
-        RecognizerView.SavedState var1 = new RecognizerView.SavedState(super.onSaveInstanceState());
-        var1.mState = this.mState;
-        return var1;
+        RecognizerView.SavedState savedState = new RecognizerView.SavedState(super.onSaveInstanceState());
+        savedState.mState = mState;
+        return savedState;
     }
 
     protected void refreshUi() {
-        if (this.mEnabled) {
-            switch (this.mState) {
+        if (mEnabled) {
+            switch (mState) {
                 case MIC_INITIALIZING:
-                    this.mMicButton.setImageResource(R.drawable.vs_micbtn_on_selector);
-                    this.mSoundLevels.setEnabled(false);
+                    mMicButton.setImageResource(R.drawable.vs_micbtn_on_selector);
+                    mSoundLevels.setEnabled(false);
                     return;
                 case LISTENING:
-                    this.mMicButton.setImageResource(R.drawable.vs_micbtn_on_selector);
-                    this.mSoundLevels.setEnabled(true);
+                    mMicButton.setImageResource(R.drawable.vs_micbtn_on_selector);
+                    mSoundLevels.setEnabled(true);
                     return;
                 case RECORDING:
-                    this.mMicButton.setImageResource(R.drawable.vs_micbtn_rec_selector);
-                    this.mSoundLevels.setEnabled(true);
+                    mMicButton.setImageResource(R.drawable.vs_micbtn_rec_selector);
+                    mSoundLevels.setEnabled(true);
                     return;
                 case RECOGNIZING:
-                    this.mMicButton.setImageResource(R.drawable.vs_micbtn_off_selector);
-                    this.mSoundLevels.setEnabled(false);
+                    mMicButton.setImageResource(R.drawable.vs_micbtn_off_selector);
+                    mSoundLevels.setEnabled(false);
                     return;
                 case NOT_LISTENING:
-                    this.mMicButton.setImageResource(R.drawable.vs_micbtn_off_selector);
-                    this.mSoundLevels.setEnabled(false);
+                    mMicButton.setImageResource(R.drawable.vs_micbtn_off_selector);
+                    mSoundLevels.setEnabled(false);
                     return;
                 default:
             }
@@ -122,29 +122,29 @@ public class RecognizerView extends RelativeLayout {
     }
 
     public void setCallback(RecognizerView.Callback callback) {
-        this.mCallback = callback;
+        mCallback = callback;
     }
 
     public void setMicEnabled(boolean enabled) {
-        this.mEnabled = enabled;
+        mEnabled = enabled;
         if (enabled) {
-            this.mMicButton.setAlpha(1.0F);
-            this.mMicButton.setImageResource(R.drawable.ic_voice_available);
+            mMicButton.setAlpha(1.0F);
+            mMicButton.setImageResource(R.drawable.ic_voice_available);
         } else {
-            this.mMicButton.setAlpha(0.1F);
-            this.mMicButton.setImageResource(R.drawable.ic_voice_off);
+            mMicButton.setAlpha(0.1F);
+            mMicButton.setImageResource(R.drawable.ic_voice_off);
         }
     }
 
     public void setMicFocused(boolean focused) {
-        if (this.mEnabled) {
+        if (mEnabled) {
             if (focused) {
-                this.mMicButton.setImageResource(R.drawable.ic_voice_focus);
+                mMicButton.setImageResource(R.drawable.ic_voice_focus);
             } else {
-                this.mMicButton.setImageResource(R.drawable.ic_voice_available);
+                mMicButton.setImageResource(R.drawable.ic_voice_available);
             }
 
-            LeanbackUtils.sendAccessibilityEvent(this.mMicButton, focused);
+            LeanbackUtils.sendAccessibilityEvent(mMicButton, focused);
         }
 
     }
