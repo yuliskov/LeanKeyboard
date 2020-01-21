@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
 import android.inputmethodservice.InputMethodService;
-import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Handler;
 import android.os.Message;
@@ -24,6 +23,7 @@ import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackUtils;
 import com.liskovsoft.leankeyboard.utils.LangUpdater;
 
 public class LeanbackImeService extends InputMethodService {
+    private static final String TAG = LeanbackImeService.class.getSimpleName();
     private static final boolean DEBUG = false;
     public static final String IME_CLOSE = "com.google.android.athome.action.IME_CLOSE";
     public static final String IME_OPEN = "com.google.android.athome.action.IME_OPEN";
@@ -32,12 +32,12 @@ public class LeanbackImeService extends InputMethodService {
     static final int MODE_TRACKPAD_NAVIGATION = 0;
     private static final int MSG_SUGGESTIONS_CLEAR = 123;
     private static final int SUGGESTIONS_CLEAR_DELAY = 1000;
-    private static final String TAG = "LbImeService";
     private boolean mEnterSpaceBeforeCommitting;
     private View mInputView;
     private LeanbackKeyboardController mKeyboardController;
     private boolean mShouldClearSuggestions = true;
     private LeanbackSuggestionsFactory mSuggestionsFactory;
+    public static final String COMMAND_RESTART = "restart";
 
     @SuppressLint("HandlerLeak")
     private final Handler mHandler = new Handler() {
@@ -69,9 +69,9 @@ public class LeanbackImeService extends InputMethodService {
     @Override
     public void onCreate() {
         super.onCreate();
-        
-        LangUpdater langUpdater = new LangUpdater(this);
-        langUpdater.update();
+
+        //LangUpdater langUpdater = new LangUpdater(this);
+        //langUpdater.update();
     }
 
     private void clearSuggestionsDelayed() {
@@ -334,8 +334,8 @@ public class LeanbackImeService extends InputMethodService {
     public int onStartCommand(final Intent intent, final int flags, final int startId) {
         if (intent != null) {
             super.onStartCommand(intent, flags, startId);
-            if (intent.getBooleanExtra("restart", false)) {
-                Log.e("LeanbackImeService", "Service->onStartCommand: trying to restart service");
+            if (intent.getBooleanExtra(COMMAND_RESTART, false)) {
+                Log.e(TAG, "Service->onStartCommand: trying to restart service");
                 LeanbackKeyboardController controller = mKeyboardController;
                 if (controller != null) {
                     controller.updateAddonKeyboard();

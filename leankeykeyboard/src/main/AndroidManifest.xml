@@ -22,10 +22,9 @@
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
 
     <application
-        android:banner="@drawable/banner_app"
-        android:icon="@drawable/ic_launcher"
+        android:banner="@mipmap/ic_banner_main"
+        android:icon="@mipmap/ic_launcher_main"
         android:label="@string/ime_name"
-        tools:targetApi="21"
         android:theme="@style/Theme.Leanback">
         <activity
             android:name="com.liskovsoft.leankeyboard.settings.settings.KbSettingsActivity"
@@ -79,8 +78,8 @@
 
         <receiver
             android:name="com.liskovsoft.leankeyboard.other.RestartServiceReceiver"
-            android:enabled="true"
-            android:exported="true">
+            android:enabled="false"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED"/>
                 <action android:name="android.intent.action.PACKAGE_REMOVED"/>

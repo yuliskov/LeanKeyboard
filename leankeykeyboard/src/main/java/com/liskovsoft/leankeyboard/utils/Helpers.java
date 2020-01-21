@@ -1,5 +1,7 @@
 package com.liskovsoft.leankeyboard.utils;
 
+import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -7,6 +9,7 @@ import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -149,5 +152,36 @@ public class Helpers {
         }
 
         return name.substring(name.lastIndexOf('.') + 1);
+    }
+
+    private static void killThisPackageProcess(Context context) {
+        Log.e("RestartServiceReceiver", "Attempting to kill org.liskovsoft.androidtv.rukeyboard process");
+        ActivityManager activityManager = (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
+        activityManager.killBackgroundProcesses(getPackageName(context));
+    }
+
+    private static void restartService(Context context) {
+        // START YOUR SERVICE HERE
+        Log.e("RestartServiceReceiver", "Restarting Service");
+        //final Class<?> serviceClass = classForName("com.google.leanback.ime.LeanbackImeService");
+        //Intent serviceIntent = new Intent(context.getApplicationContext(), serviceClass);
+        Intent serviceIntent = new Intent();
+        serviceIntent.setComponent(new ComponentName(getPackageName(context), "com.google.leanback.ime.LeanbackImeService"));
+        context.stopService(serviceIntent);
+        context.startService(serviceIntent);
+    }
+
+    public static Class<?> classForName(String clazz) {
+        Class<?> serviceClass;
+        try {
+            serviceClass = Class.forName(clazz);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return serviceClass;
+    }
+    
+    public static String getPackageName(Context ctx) {
+        return ctx.getPackageName();
     }
 }

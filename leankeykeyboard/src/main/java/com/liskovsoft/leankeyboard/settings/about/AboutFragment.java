@@ -18,7 +18,7 @@ public class AboutFragment extends GuidedStepSupportFragment {
     public Guidance onCreateGuidance(Bundle savedInstanceState) {
         String title = getActivity().getResources().getString(R.string.about);
         String desc = getActivity().getResources().getString(R.string.about_desc);
-        Drawable icon = ContextCompat.getDrawable(getActivity(), R.drawable.ic_launcher);
+        Drawable icon = ContextCompat.getDrawable(getActivity(), R.mipmap.ic_launcher_main);
 
         return new Guidance(
                 title,

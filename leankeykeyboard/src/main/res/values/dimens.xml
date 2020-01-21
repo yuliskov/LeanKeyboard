@@ -3,7 +3,7 @@
     <dimen name="key_height">28.0dip</dimen>
     <dimen name="key_width">28.0dip</dimen>
     <!--
-    NOTE: don't change space size unless you've setup constants here:
+    NOTE: Don't change space size unless you've set this constants:
     LeanbackKeyboardView.ASCII_PERIOD, LeanbackKeyboardView.ASCII_PERIOD_LEN
     Old space width: 268.0dip
     -->

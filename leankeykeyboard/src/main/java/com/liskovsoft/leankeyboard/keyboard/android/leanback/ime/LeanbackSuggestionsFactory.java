@@ -11,11 +11,11 @@ import com.liskovsoft.leankeykeyboard.R;
 import java.util.ArrayList;
 
 public class LeanbackSuggestionsFactory {
-    private static final boolean DEBUG = Log.isLoggable("LbSuggestionsFactory", Log.DEBUG);
+    private static final String TAG = LeanbackSuggestionsFactory.class.getSimpleName();
+    private static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
     private static final int MODE_AUTO_COMPLETE = 2;
     private static final int MODE_DEFAULT = 0;
     private static final int MODE_DOMAIN = 1;
-    private static final String TAG = "LbSuggestionsFactory";
     private InputMethodService mContext;
     private int mMode;
     private int mNumSuggestions;
@@ -61,9 +61,9 @@ public class LeanbackSuggestionsFactory {
             mSuggestions.add(i, infos[i].getText().toString());
         }
 
-        if (Log.isLoggable("LbSuggestionsFactory", Log.DEBUG)) {
+        if (Log.isLoggable(TAG, Log.DEBUG)) {
             for (len = 0; len < mSuggestions.size(); ++len) {
-                Log.d("LbSuggestionsFactory", "completion " + len + ": " + mSuggestions.get(len));
+                Log.d(TAG, "completion " + len + ": " + mSuggestions.get(len));
             }
         }
 
