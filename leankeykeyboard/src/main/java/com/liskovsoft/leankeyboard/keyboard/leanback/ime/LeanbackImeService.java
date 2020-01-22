@@ -216,8 +216,8 @@ public class LeanbackImeService extends InputMethodService {
     @Override
     public void onFinishInputView(boolean finishingInput) {
         super.onFinishInputView(finishingInput);
-        this.sendBroadcast(new Intent(IME_CLOSE));
-        this.mSuggestionsFactory.clearSuggestions();
+        sendBroadcast(new Intent(IME_CLOSE));
+        mSuggestionsFactory.clearSuggestions();
     }
 
     @SuppressLint("NewApi")
@@ -283,17 +283,18 @@ public class LeanbackImeService extends InputMethodService {
     @Override
     public int onStartCommand(final Intent intent, final int flags, final int startId) {
         if (intent != null) {
-            super.onStartCommand(intent, flags, startId);
             if (intent.getBooleanExtra(COMMAND_RESTART, false)) {
-                Log.e(TAG, "Service->onStartCommand: trying to restart service");
+                Log.d(TAG, "Service->onStartCommand: trying to restart service");
                 LeanbackKeyboardController controller = mKeyboardController;
                 if (controller != null) {
                     controller.updateAddonKeyboard();
                 }
+
+                return Service.START_REDELIVER_INTENT;
             }
         }
 
-        return Service.START_STICKY;
+        return super.onStartCommand(intent, flags, startId);
     }
 
     @Override

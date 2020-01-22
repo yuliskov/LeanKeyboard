@@ -42,13 +42,7 @@ public class ResKeyboardFactory implements KeyboardFactory {
     }
 
     private KeyboardBuilder createKeyboard(final String langCode) {
-        return new KeyboardBuilder() {
-            @Nullable
-            @Override
-            public Keyboard createKeyboard() {
-                return new Keyboard(mContext, mContext.getResources().getIdentifier("qwerty_" + langCode, "xml", mContext.getPackageName()));
-            }
-        };
+        return () -> new Keyboard(mContext, mContext.getResources().getIdentifier("qwerty_" + langCode, "xml", mContext.getPackageName()));
     }
 
     @Override
