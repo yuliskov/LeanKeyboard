@@ -204,7 +204,7 @@ public class LeanbackKeyboardView extends FrameLayout {
             int iconWidth = key.icon.getIntrinsicWidth();
             int iconHeight = key.icon.getIntrinsicHeight();
 
-            if (key.width > key.height) { // wide key like space key
+            if (key.width > key.height) { // wide key fix (space key)
                 iconWidth = key.width;
             }
 
