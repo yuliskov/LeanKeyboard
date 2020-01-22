@@ -196,17 +196,17 @@ public class LeanbackKeyboardContainer {
         mVoiceButtonView.setCallback(new RecognizerView.Callback() {
             @Override
             public void onCancelRecordingClicked() {
-                LeanbackKeyboardContainer.this.cancelVoiceRecording();
+                cancelVoiceRecording();
             }
 
             @Override
             public void onStartRecordingClicked() {
-                LeanbackKeyboardContainer.this.startVoiceRecording();
+                startVoiceRecording();
             }
 
             @Override
             public void onStopRecordingClicked() {
-                LeanbackKeyboardContainer.this.cancelVoiceRecording();
+                cancelVoiceRecording();
             }
         });
         initKeyboards();
@@ -274,8 +274,8 @@ public class LeanbackKeyboardContainer {
     }
 
     private void initKeyboards() {
-        mAbcKeyboard = new Keyboard(mContext, R.xml.qwerty_us);
-        mSymKeyboard = new Keyboard(mContext, R.xml.sym_us);
+        mAbcKeyboard = new Keyboard(mContext, R.xml.qwerty_en_us);
+        mSymKeyboard = new Keyboard(mContext, R.xml.sym_en_us);
         updateAddonKeyboard();
         mNumKeyboard = new Keyboard(mContext, R.xml.number);
     }

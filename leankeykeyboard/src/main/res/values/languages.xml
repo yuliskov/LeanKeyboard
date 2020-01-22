@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="additional_languages">
-        <item>English|us</item>
+        <item>English|en_us</item>
         <item>Arabic|ar</item>
         <item>Bulgarian|bg</item>
         <item>Dutch|nl</item>

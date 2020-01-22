@@ -32,7 +32,7 @@ public class LeanbackKeyboardView extends FrameLayout {
     /**
      * keys count among which space key spans (important: wrong value will broke navigation)
      */
-    public static final int ASCII_PERIOD_LEN = 6;
+    public static final int ASCII_PERIOD_LEN = 5;
     public static final int ASCII_SPACE = 32;
     private static final boolean DEBUG = false;
     public static final int KEYCODE_CAPS_LOCK = -6;
