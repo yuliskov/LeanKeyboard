@@ -42,6 +42,7 @@ import com.liskovsoft.leankeyboard.addons.KeyboardManager;
 import com.liskovsoft.leankeykeyboard.R;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class LeanbackKeyboardContainer {
@@ -75,9 +76,9 @@ public class LeanbackKeyboardContainer {
     private boolean mCapWords;
     private final int mClickAnimDur;
     private LeanbackImeService mContext;
-    private LeanbackKeyboardContainer.KeyFocus mCurrKeyInfo = new LeanbackKeyboardContainer.KeyFocus();
-    private LeanbackKeyboardContainer.DismissListener mDismissListener;
-    private LeanbackKeyboardContainer.KeyFocus mDownKeyInfo = new LeanbackKeyboardContainer.KeyFocus();
+    private KeyFocus mCurrKeyInfo = new KeyFocus();
+    private DismissListener mDismissListener;
+    private KeyFocus mDownKeyInfo = new KeyFocus();
     private CharSequence mEnterKeyText;
     private int mEnterKeyTextResId;
     private boolean mEscapeNorthEnabled;
@@ -104,7 +105,7 @@ public class LeanbackKeyboardContainer {
     private HorizontalScrollView mSuggestionsContainer;
     private boolean mSuggestionsEnabled;
     private Keyboard mSymKeyboard;
-    private LeanbackKeyboardContainer.KeyFocus mTempKeyInfo = new LeanbackKeyboardContainer.KeyFocus();
+    private KeyFocus mTempKeyInfo = new KeyFocus();
     private PointF mTempPoint = new PointF();
     private boolean mTouchDown = false;
     private int mTouchState = TOUCH_STATE_NO_TOUCH;
@@ -112,6 +113,13 @@ public class LeanbackKeyboardContainer {
     private final LeanbackKeyboardContainer.VoiceIntroAnimator mVoiceAnimator;
     private RecognizerView mVoiceButtonView;
     private boolean mVoiceEnabled;
+    private boolean mVoiceKeyDismissesEnabled;
+    private LeanbackKeyboardContainer.VoiceListener mVoiceListener;
+    private boolean mVoiceOn;
+    private Float mX;
+    private Float mY;
+    private String mLabel;
+
     private AnimatorListener mVoiceEnterListener = new AnimatorListener() {
         @Override
         public void onAnimationCancel(Animator animation) {
@@ -131,6 +139,7 @@ public class LeanbackKeyboardContainer {
             startRecognition(mContext);
         }
     };
+
     private AnimatorListener mVoiceExitListener = new AnimatorListener() {
         @Override
         public void onAnimationCancel(Animator animation) {
@@ -149,15 +158,10 @@ public class LeanbackKeyboardContainer {
         public void onAnimationStart(Animator animation) {
             mVoiceButtonView.showNotListening();
             mSpeechRecognizer.cancel();
-            mSpeechRecognizer.setRecognitionListener((RecognitionListener) null);
+            mSpeechRecognizer.setRecognitionListener(null);
             mVoiceOn = false;
         }
     };
-    private boolean mVoiceKeyDismissesEnabled;
-    private LeanbackKeyboardContainer.VoiceListener mVoiceListener;
-    private boolean mVoiceOn;
-    private Float mX;
-    private Float mY;
 
     public LeanbackKeyboardContainer(Context context) {
         mContext = (LeanbackImeService) context;
@@ -179,14 +183,12 @@ public class LeanbackKeyboardContainer {
         mOverestimate = mContext.getResources().getFraction(R.fraction.focused_scale, 1, 1);
         final float scale = context.getResources().getFraction(R.fraction.clicked_scale, 1, 1);
         mClickAnimDur = context.getResources().getInteger(R.integer.clicked_anim_duration);
-        mSelectorAnimator = ValueAnimator.ofFloat(new float[]{1.0F, scale});
-        mSelectorAnimator.setDuration((long) mClickAnimDur);
-        mSelectorAnimator.addUpdateListener(new AnimatorUpdateListener() {
-            public void onAnimationUpdate(ValueAnimator animation) {
-                final float value = (Float) animation.getAnimatedValue();
-                LeanbackKeyboardContainer.this.mSelector.setScaleX(value);
-                LeanbackKeyboardContainer.this.mSelector.setScaleY(value);
-            }
+        mSelectorAnimator = ValueAnimator.ofFloat(1.0F, scale);
+        mSelectorAnimator.setDuration(mClickAnimDur);
+        mSelectorAnimator.addUpdateListener(animation -> {
+            final float value = (Float) animation.getAnimatedValue();
+            mSelector.setScaleX(value);
+            mSelector.setScaleY(value);
         });
         mSpeechLevelSource = new SpeechLevelSource();
         mVoiceButtonView.setSpeechLevelSource(mSpeechLevelSource);
@@ -502,7 +504,7 @@ public class LeanbackKeyboardContainer {
      */
     private void startRecognition(Context context) {
         mRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        mRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "free_form");
+        mRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         mRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
         mSpeechRecognizer.setRecognitionListener(new RecognitionListener() {
             float peakRmsLevel = 0.0F;
@@ -514,7 +516,7 @@ public class LeanbackKeyboardContainer {
             }
 
             @Override
-            public void onBufferReceived(byte[] bytes) {
+            public void onBufferReceived(byte[] buffer) {
             }
 
             @Override
@@ -545,7 +547,7 @@ public class LeanbackKeyboardContainer {
             }
 
             @Override
-            public void onEvent(int i, Bundle bundle) {
+            public void onEvent(int eventType, Bundle bundle) {
             }
 
             @Override
@@ -561,9 +563,9 @@ public class LeanbackKeyboardContainer {
 
             @Override
             public void onResults(Bundle bundle) {
-                ArrayList results = bundle.getStringArrayList("results_recognition");
+                List<String> results = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
                 if (results != null && mVoiceListener != null) {
-                    mVoiceListener.onVoiceResult((String) results.get(0));
+                    mVoiceListener.onVoiceResult(results.get(0));
                 }
 
                 cancelVoiceRecording();
@@ -624,7 +626,7 @@ public class LeanbackKeyboardContainer {
      * @param focus result focus
      * @return whether focus is found or not
      */
-    public boolean getBestFocus(final Float x, final Float y, final LeanbackKeyboardContainer.KeyFocus focus) {
+    public boolean getBestFocus(final Float x, final Float y, final KeyFocus focus) {
         offsetRect(mRect, mActionButtonView);
         int actionLeft = mRect.left;
         offsetRect(mRect, mMainKeyboardView);
@@ -666,7 +668,7 @@ public class LeanbackKeyboardContainer {
             offsetRect(mRect, mMainKeyboardView);
             final float left = (float) mRect.left;
             final float top = (float) mRect.top;
-            actionLeft = mMainKeyboardView.getNearestIndex(Float.valueOf(newX - left), Float.valueOf(newY - top));
+            actionLeft = mMainKeyboardView.getNearestIndex(newX - left, newY - top);
             Key key = mMainKeyboardView.getKey(actionLeft);
             configureFocus(focus, mRect, actionLeft, key, 0);
             return true;
@@ -695,7 +697,7 @@ public class LeanbackKeyboardContainer {
         return type == KeyFocus.TYPE_MAIN ? this.mMainKeyboardView.getKey(index) : null;
     }
 
-    public boolean getNextFocusInDirection(int direction, LeanbackKeyboardContainer.KeyFocus startFocus, LeanbackKeyboardContainer.KeyFocus nextFocus) {
+    public boolean getNextFocusInDirection(int direction, KeyFocus startFocus, KeyFocus nextFocus) {
         switch (startFocus.type) {
             case KeyFocus.TYPE_MAIN:
                 Key key = getKey(startFocus.type, startFocus.index);
@@ -813,8 +815,8 @@ public class LeanbackKeyboardContainer {
     public CharSequence getSuggestionText(int idx) {
         CharSequence result = null;
         if (idx >= 0) {
-            if (idx < this.mSuggestions.getChildCount()) {
-                Button btn = (Button) this.mSuggestions.getChildAt(idx).findViewById(R.id.text);
+            if (idx < mSuggestions.getChildCount()) {
+                Button btn = mSuggestions.getChildAt(idx).findViewById(R.id.text);
                 if (btn != null) {
                     result = btn.getText();
                 }
@@ -938,6 +940,7 @@ public class LeanbackKeyboardContainer {
     public void onStartInput(EditorInfo info) {
         setImeOptions(mContext.getResources(), info);
         mVoiceOn = false;
+        mLabel = LeanbackUtils.getEditorLabel(info);
     }
 
     @SuppressLint("NewApi")
@@ -1163,6 +1166,15 @@ public class LeanbackKeyboardContainer {
 
     private void fillSuggestions(ArrayList<String> suggestions) {
         String editorText = LeanbackUtils.getEditorText(mContext.getCurrentInputConnection());
+
+        if (editorText.isEmpty()) {
+            editorText = mLabel;
+        }
+
+        if (editorText == null) {
+            return;
+        }
+
         if (suggestions.size() == 0) {
             suggestions.add(editorText);
         } else {

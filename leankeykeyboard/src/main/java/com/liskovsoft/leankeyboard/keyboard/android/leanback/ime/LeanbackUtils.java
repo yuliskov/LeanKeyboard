@@ -8,9 +8,11 @@ import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import com.liskovsoft.leankeyboard.keyboard.leanback.ime.LeanbackImeService;
 
 public class LeanbackUtils {
     private static final int ACCESSIBILITY_DELAY_MS = 250;
+    private static final String EDITOR_LABEL = "label";
     private static final Handler sAccessibilityHandler = new Handler();
 
     public static int getImeAction(EditorInfo info) {
@@ -95,5 +97,13 @@ public class LeanbackUtils {
 
     public static void sendEnterKey(InputConnection connection) {
         connection.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
+    }
+
+    public static String getEditorLabel(EditorInfo info) {
+        if (info != null && info.extras != null && info.extras.containsKey(EDITOR_LABEL)) {
+            return info.extras.getString(EDITOR_LABEL);
+        }
+
+        return null;
     }
 }
