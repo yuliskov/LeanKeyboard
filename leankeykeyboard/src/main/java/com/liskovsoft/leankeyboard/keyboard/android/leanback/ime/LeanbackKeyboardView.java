@@ -201,10 +201,17 @@ public class LeanbackKeyboardView extends FrameLayout {
                 }
             }
 
-            int dx = (key.width - padding.left - padding.right - key.icon.getIntrinsicWidth()) / 2 + padding.left;
-            int dy = (key.height - padding.top - padding.bottom - key.icon.getIntrinsicHeight()) / 2 + padding.top;
+            int iconWidth = key.icon.getIntrinsicWidth();
+            int iconHeight = key.icon.getIntrinsicHeight();
+
+            if (key.width > key.height) { // wide key like space key
+                iconWidth = key.width;
+            }
+
+            int dx = (key.width - padding.left - padding.right - iconWidth) / 2 + padding.left;
+            int dy = (key.height - padding.top - padding.bottom - iconHeight) / 2 + padding.top;
             canvas.translate((float) dx, (float) dy);
-            key.icon.setBounds(0, 0, key.icon.getIntrinsicWidth(), key.icon.getIntrinsicHeight());
+            key.icon.setBounds(0, 0, iconWidth, iconHeight);
             key.icon.draw(canvas);
             canvas.translate((float) (-dx), (float) (-dy));
         } else if (label != null) {
