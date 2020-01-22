@@ -78,7 +78,7 @@
 
         <receiver
             android:name="com.liskovsoft.leankeyboard.other.RestartServiceReceiver"
-            android:enabled="false"
+            android:enabled="true"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED"/>
