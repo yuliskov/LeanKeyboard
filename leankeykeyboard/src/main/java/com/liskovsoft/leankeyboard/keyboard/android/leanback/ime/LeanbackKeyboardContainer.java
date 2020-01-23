@@ -37,7 +37,7 @@ import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.voice.Recognize
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.voice.SpeechLevelSource;
 import com.liskovsoft.leankeyboard.keyboard.leanback.ime.LeanbackImeService;
 import com.liskovsoft.leankeyboard.settings.settings.KbSettingsActivity;
-import com.liskovsoft.leankeyboard.utils.LeanKeyPreferences;
+import com.liskovsoft.leankeyboard.utils.LeanKeySettings;
 import com.liskovsoft.leankeyboard.addons.KeyboardManager;
 import com.liskovsoft.leankeykeyboard.R;
 
@@ -1188,7 +1188,7 @@ public class LeanbackKeyboardContainer {
     }
 
     private void showRunOnceDialog() {
-        LeanKeyPreferences prefs = LeanKeyPreferences.instance(mContext);
+        LeanKeySettings prefs = LeanKeySettings.instance(mContext);
         boolean runOnce = prefs.isRunOnce();
 
         if (runOnce) {

@@ -20,6 +20,7 @@ import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackKeyboar
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackKeyboardView;
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackSuggestionsFactory;
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackUtils;
+import com.liskovsoft.leankeyboard.utils.LeanKeySettings;
 
 public class LeanbackImeService extends InputMethodService {
     private static final String TAG = LeanbackImeService.class.getSimpleName();
@@ -37,6 +38,7 @@ public class LeanbackImeService extends InputMethodService {
     private boolean mShouldClearSuggestions = true;
     private LeanbackSuggestionsFactory mSuggestionsFactory;
     public static final String COMMAND_RESTART = "restart";
+    private boolean mForceShowKbd;
 
     @SuppressLint("HandlerLeak")
     private final Handler mHandler = new Handler() {
@@ -50,12 +52,7 @@ public class LeanbackImeService extends InputMethodService {
         }
     };
 
-    private LeanbackKeyboardController.InputListener mInputListener = new LeanbackKeyboardController.InputListener() {
-        @Override
-        public void onEntry(int type, int keyCode, CharSequence text) {
-            handleTextEntry(type, keyCode, text);
-        }
-    };
+    private InputListener mInputListener = this::handleTextEntry;
 
     @SuppressLint("NewApi")
     @SuppressWarnings("deprecation")
@@ -69,8 +66,14 @@ public class LeanbackImeService extends InputMethodService {
     public void onCreate() {
         super.onCreate();
 
+        initSettings();
+
         //LangUpdater langUpdater = new LangUpdater(this);
         //langUpdater.update();
+    }
+
+    private void initSettings() {
+        mForceShowKbd = LeanKeySettings.instance(this).getForceShowKeyboard();
     }
 
     private void clearSuggestionsDelayed() {
@@ -206,11 +209,9 @@ public class LeanbackImeService extends InputMethodService {
      * <a href="https://stackoverflow.com/questions/7449283/is-it-possible-to-have-both-physical-keyboard-and-soft-keyboard-active-at-the-sa">More info</a>
      * @return whether to show kbd
      */
-    @SuppressLint("MissingSuperCall")
     @Override
     public boolean onEvaluateInputViewShown() {
-        //return mKeyboardController.showInputView();
-        return true;
+        return mForceShowKbd || super.onEvaluateInputViewShown();
     }
 
     @Override

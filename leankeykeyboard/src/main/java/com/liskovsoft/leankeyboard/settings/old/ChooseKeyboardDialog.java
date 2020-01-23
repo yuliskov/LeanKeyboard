@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.settings.kblayout;
+package com.liskovsoft.leankeyboard.settings.old;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;

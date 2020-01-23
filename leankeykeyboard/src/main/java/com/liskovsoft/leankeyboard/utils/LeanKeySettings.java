@@ -4,21 +4,22 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-public final class LeanKeyPreferences {
+public final class LeanKeySettings {
     private static final String APP_RUN_ONCE = "appRunOnce";
     private static final String BOOTSTRAP_SELECTED_LANGUAGE = "bootstrapSelectedLanguage";
     private static final String APP_KEYBOARD_INDEX = "appKeyboardIndex";
-    private static LeanKeyPreferences sInstance;
+    private static final String FORCE_SHOW_KEYBOARD = "forceShowKeyboard";
+    private static LeanKeySettings sInstance;
     private final Context mContext;
     private SharedPreferences mPrefs;
 
-    public static LeanKeyPreferences instance(Context ctx) {
+    public static LeanKeySettings instance(Context ctx) {
         if (sInstance == null)
-            sInstance = new LeanKeyPreferences(ctx);
+            sInstance = new LeanKeySettings(ctx);
         return sInstance;
     }
 
-    public LeanKeyPreferences(Context context) {
+    public LeanKeySettings(Context context) {
         mContext = context.getApplicationContext();
         mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
     }
@@ -40,18 +41,26 @@ public final class LeanKeyPreferences {
     }
 
     public String getPreferredLanguage() {
-        String name = mPrefs.getString(BOOTSTRAP_SELECTED_LANGUAGE, "");
-        return name;
+        return mPrefs.getString(BOOTSTRAP_SELECTED_LANGUAGE, "");
     }
 
     public int getKeyboardIndex() {
-        int idx = mPrefs.getInt(APP_KEYBOARD_INDEX, 0);
-        return idx;
+        return mPrefs.getInt(APP_KEYBOARD_INDEX, 0);
     }
 
     public void setKeyboardIndex(int idx) {
         mPrefs.edit()
                 .putInt(APP_KEYBOARD_INDEX, idx)
+                .apply();
+    }
+
+    public boolean getForceShowKeyboard() {
+        return mPrefs.getBoolean(FORCE_SHOW_KEYBOARD, false);
+    }
+
+    public void setForceShowKeyboard(boolean force) {
+        mPrefs.edit()
+                .putBoolean(FORCE_SHOW_KEYBOARD, force)
                 .apply();
     }
 }

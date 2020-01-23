@@ -42,7 +42,7 @@
             android:launchMode="singleTop">
         </activity>
         <activity
-            android:name="com.liskovsoft.leankeyboard.settings.old.kbchooser.GenericLaunchActivity"
+            android:name="com.liskovsoft.leankeyboard.settings.kbselector.KbSelectActivity"
             android:launchMode="singleTop">
             <meta-data
                 android:name="package"

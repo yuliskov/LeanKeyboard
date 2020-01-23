@@ -1,23 +1,24 @@
 package com.liskovsoft.leankeyboard.settings.kblayout;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import androidx.leanback.app.GuidedStepSupportFragment;
 import androidx.leanback.widget.GuidanceStylist.Guidance;
-import androidx.leanback.widget.GuidedAction;
 import com.liskovsoft.leankeyboard.addons.reskbdfactory.KeyboardInfoAdapter;
 import com.liskovsoft.leankeyboard.keyboard.data.CheckedSource;
 import com.liskovsoft.leankeyboard.keyboard.data.CheckedSource.CheckedItem;
+import com.liskovsoft.leankeyboard.settings.base.BaseSettingsFragment;
 import com.liskovsoft.leankeykeyboard.R;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+public class KbLayoutFragment extends BaseSettingsFragment {
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
 
-public class KbLayoutFragment extends GuidedStepSupportFragment {
-    private Map<Long, CheckedItem> mActions = new HashMap<>();
+        initCheckedItems();
+    }
 
     @NonNull
     @Override
@@ -34,32 +35,10 @@ public class KbLayoutFragment extends GuidedStepSupportFragment {
         );
     }
 
-    @Override
-    public void onCreateActions(@NonNull List<GuidedAction> actions, Bundle savedInstanceState) {
-        KeyboardInfoAdapter adapter = new KeyboardInfoAdapter(getActivity());
-        initCheckedItems(adapter, actions);
-    }
-
-    private void initCheckedItems(CheckedSource source, List<GuidedAction> actions) {
-        List<CheckedItem> items = source.getItems();
-        for (CheckedItem item : items) {
-            mActions.put(item.getId(), item);
-            GuidedAction action = new GuidedAction.Builder(getActivity())
-                    .checked(item.getChecked())
-                    .checkSetId(GuidedAction.CHECKBOX_CHECK_SET_ID)
-                    .id(item.getId())
-                    .title(item.getTitle())
-                    .build();
-            actions.add(action);
-        }
-    }
-
-    @Override
-    public void onGuidedActionClicked(GuidedAction action) {
-        CheckedItem checkedItem = mActions.get(action.getId());
-
-        if (checkedItem != null) {
-            checkedItem.onClick(action.isChecked());
+    private void initCheckedItems() {
+        CheckedSource source = new KeyboardInfoAdapter(getActivity());
+        for (CheckedItem item : source.getItems()) {
+            addCheckedAction(item.getTitle(), item::getChecked, item::onClick);
         }
     }
 }
