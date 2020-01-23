@@ -18,7 +18,7 @@ public class MiscFragment extends BaseSettingsFragment {
         super.onAttach(context);
 
         mPrefs = LeanKeySettings.instance(getActivity());
-        addCheckedAction(R.string.keep_on_screen, mPrefs::getForceShowKeyboard, mPrefs::setForceShowKeyboard);
+        addCheckedAction(R.string.keep_on_screen, R.string.keep_on_screen_desc, mPrefs::getForceShowKeyboard, mPrefs::setForceShowKeyboard);
     }
 
     @NonNull

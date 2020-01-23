@@ -29,7 +29,8 @@
     <string name="enable_kb_in_system_prefs">Вам нужно включить %s в Системных настройках</string>
     <string name="about">О приложении</string>
     <string name="about_desc">О приложении</string>
-    <string name="keep_on_screen">Показывать на экране вместе физической</string>
+    <string name="keep_on_screen">Показывать на экране</string>
+    <string name="keep_on_screen_desc">Показывать на экране вместе физической</string>
     <string name="misc">Разное</string>
     <string name="misc_desc">Разные настройки</string>
 </resources>

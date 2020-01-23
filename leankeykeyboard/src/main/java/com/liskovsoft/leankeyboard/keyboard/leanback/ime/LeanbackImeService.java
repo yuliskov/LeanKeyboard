@@ -278,7 +278,7 @@ public class LeanbackImeService extends InputMethodService {
     // FireTV fix
     @Override
     public boolean onShowInputRequested(int flags, boolean configChange) {
-        return true;
+        return mForceShowKbd || super.onShowInputRequested(flags, configChange);
     }
 
     @Override

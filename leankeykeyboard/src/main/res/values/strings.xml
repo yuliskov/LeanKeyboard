@@ -39,7 +39,8 @@
     <string name="enable_kb_in_system_prefs">You need to enable %s in System Preferences</string>
     <string name="about">About</string>
     <string name="about_desc">About Application</string>
-    <string name="keep_on_screen">Keep it on screen while physical keyboard is active</string>
+    <string name="keep_on_screen_desc">Keep it on screen while physical keyboard is active</string>
     <string name="misc">Misc</string>
     <string name="misc_desc">Misc Settings</string>
+    <string name="keep_on_screen">Keep on Screen</string>
 </resources>

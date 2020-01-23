@@ -27,7 +27,8 @@
     <string name="about_desc">Über die Applikation</string>
     <string name="about">Über</string>
     <string name="enable_kb_in_system_prefs">Sie müssen %s in den Systemeinstellungen aktivieren</string>
-    <string name="keep_on_screen">Auf dem Display einblenden, wenn die physische Tastatur aktiv ist</string>
+    <string name="keep_on_screen_desc">Auf dem Display einblenden, wenn die physische Tastatur aktiv ist</string>
+    <string name="keep_on_screen">Auf dem Display einblenden</string>
     <string name="misc">Andere</string>
     <string name="misc_desc">Andere Einstellungen</string>
 </resources>
