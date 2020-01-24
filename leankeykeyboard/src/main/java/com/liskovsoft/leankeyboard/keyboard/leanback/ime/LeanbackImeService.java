@@ -67,13 +67,12 @@ public class LeanbackImeService extends InputMethodService {
         super.onCreate();
 
         initSettings();
-
-        //LangUpdater langUpdater = new LangUpdater(this);
-        //langUpdater.update();
     }
 
     private void initSettings() {
         mForceShowKbd = LeanKeySettings.instance(this).getForceShowKeyboard();
+
+        updateInputViewShown();
     }
 
     private void clearSuggestionsDelayed() {
@@ -201,7 +200,7 @@ public class LeanbackImeService extends InputMethodService {
 
     @Override
     public boolean onEvaluateFullscreenMode() {
-        return false;
+        return false; // don't change it (true shows edit dialog above kbd)
     }
 
     /**
@@ -212,6 +211,12 @@ public class LeanbackImeService extends InputMethodService {
     @Override
     public boolean onEvaluateInputViewShown() {
         return mForceShowKbd || super.onEvaluateInputViewShown();
+    }
+
+    // FireTV fix
+    @Override
+    public boolean onShowInputRequested(int flags, boolean configChange) {
+        return mForceShowKbd || super.onShowInputRequested(flags, configChange);
     }
 
     @Override
@@ -273,12 +278,6 @@ public class LeanbackImeService extends InputMethodService {
             keyCode = KeyEvent.KEYCODE_BACK;
         }
         return keyCode;
-    }
-
-    // FireTV fix
-    @Override
-    public boolean onShowInputRequested(int flags, boolean configChange) {
-        return mForceShowKbd || super.onShowInputRequested(flags, configChange);
     }
 
     @Override
