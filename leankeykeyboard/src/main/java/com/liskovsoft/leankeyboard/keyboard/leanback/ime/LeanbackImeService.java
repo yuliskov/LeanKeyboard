@@ -66,13 +66,13 @@ public class LeanbackImeService extends InputMethodService {
     public void onCreate() {
         super.onCreate();
 
+        Log.d(TAG, "onCreate");
+
         initSettings();
     }
 
     private void initSettings() {
         mForceShowKbd = LeanKeySettings.instance(this).getForceShowKeyboard();
-
-        updateInputViewShown();
     }
 
     private void clearSuggestionsDelayed() {
@@ -210,12 +210,14 @@ public class LeanbackImeService extends InputMethodService {
      */
     @Override
     public boolean onEvaluateInputViewShown() {
+        Log.d(TAG, "onEvaluateInputViewShown");
         return mForceShowKbd || super.onEvaluateInputViewShown();
     }
 
     // FireTV fix
     @Override
     public boolean onShowInputRequested(int flags, boolean configChange) {
+        Log.d(TAG, "onShowInputRequested");
         return mForceShowKbd || super.onShowInputRequested(flags, configChange);
     }
 
@@ -284,10 +286,12 @@ public class LeanbackImeService extends InputMethodService {
     public int onStartCommand(final Intent intent, final int flags, final int startId) {
         if (intent != null) {
             if (intent.getBooleanExtra(COMMAND_RESTART, false)) {
-                Log.d(TAG, "Service->onStartCommand: trying to restart service");
-                LeanbackKeyboardController controller = mKeyboardController;
-                if (controller != null) {
-                    controller.updateAddonKeyboard();
+                Log.d(TAG, "onStartCommand: trying to restart service");
+
+                initSettings();
+
+                if (mKeyboardController != null) {
+                    mKeyboardController.updateAddonKeyboard();
                 }
 
                 return Service.START_REDELIVER_INTENT;

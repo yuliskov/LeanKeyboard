@@ -3,7 +3,7 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.liskovsoft.leankeykeyboard">
 
-    <!-- NOTE: use older sdk -->
+    <!-- Use older sdk -->
     <uses-sdk tools:overrideLibrary="
             android.support.v17.leanback,
             androidx.leanback"/>
@@ -20,6 +20,7 @@
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
     <application
         android:banner="@mipmap/ic_banner_main"
