@@ -571,13 +571,37 @@ public class LeanbackKeyboardContainer {
                 cancelVoiceRecording();
             }
 
+            // TODO: not fully decompiled and may contains bugs
             @Override
-            public void onRmsChanged(float v) {
-                // $FF: Couldn't be decompiled
-                throw new IllegalStateException("method not implemented");
+            public void onRmsChanged(float rmsdB) {
+                synchronized (this) {
+                    mVoiceOn = true;
+
+                    int speechLevel = 0;
+
+                    if (rmsdB >= 0) {
+                        speechLevel = (int) (rmsdB * 10f);
+                    }
+
+                    mSpeechLevelSource.setSpeechLevel(speechLevel);
+
+                    peakRmsLevel = Math.max(peakRmsLevel, rmsdB);
+                    rmsCounter++;
+
+                    if (rmsCounter <= 100) {
+                        return;
+                    }
+
+                    if (peakRmsLevel < 0) {
+                        return;
+                    }
+
+                    mVoiceButtonView.showNotListening();
+                }
             }
         });
-        mSpeechRecognizer.startListening(this.mRecognizerIntent);
+
+        mSpeechRecognizer.startListening(mRecognizerIntent);
     }
 
     public void alignSelector(final float x, final float y, final boolean playAnimation) {

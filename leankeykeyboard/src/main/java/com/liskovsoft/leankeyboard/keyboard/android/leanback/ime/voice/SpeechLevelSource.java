@@ -4,20 +4,20 @@ public class SpeechLevelSource {
    private volatile int mSpeechLevel;
 
    public int getSpeechLevel() {
-      return this.mSpeechLevel;
+      return mSpeechLevel;
    }
 
    public boolean isValid() {
-      return this.mSpeechLevel > 0;
+      return mSpeechLevel > 0;
    }
 
    public void reset() {
-      this.mSpeechLevel = -1;
+      mSpeechLevel = -1;
    }
 
-   public void setSpeechLevel(int var1) {
-      if (var1 >= 0 && var1 <= 100) {
-         this.mSpeechLevel = var1;
+   public void setSpeechLevel(int speechLevel) {
+      if (speechLevel >= 0 && speechLevel <= 100) {
+         mSpeechLevel = speechLevel;
       } else {
          throw new IllegalArgumentException();
       }

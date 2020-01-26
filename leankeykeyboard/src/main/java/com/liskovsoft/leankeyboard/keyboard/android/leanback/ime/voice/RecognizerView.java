@@ -21,6 +21,10 @@ public class RecognizerView extends RelativeLayout {
     private BitmapSoundLevelView mSoundLevels;
     private RecognizerView.State mState;
 
+    private enum State {
+        LISTENING, MIC_INITIALIZING, NOT_LISTENING, RECOGNIZING, RECORDING;
+    }
+
     public RecognizerView(Context context) {
         super(context);
     }
@@ -33,7 +37,7 @@ public class RecognizerView extends RelativeLayout {
         super(context, attrs, defStyleAttr);
     }
 
-    private void updateState(RecognizerView.State state) {
+    private void updateState(State state) {
         mState = state;
         refreshUi();
     }
@@ -150,27 +154,27 @@ public class RecognizerView extends RelativeLayout {
     }
 
     public void setSpeechLevelSource(SpeechLevelSource var1) {
-        this.mSoundLevels.setLevelSource(var1);
+        mSoundLevels.setLevelSource(var1);
     }
 
     public void showInitializingMic() {
-        this.updateState(RecognizerView.State.MIC_INITIALIZING);
+        updateState(State.MIC_INITIALIZING);
     }
 
     public void showListening() {
-        this.updateState(RecognizerView.State.LISTENING);
+        updateState(State.LISTENING);
     }
 
     public void showNotListening() {
-        this.updateState(RecognizerView.State.NOT_LISTENING);
+        updateState(State.NOT_LISTENING);
     }
 
     public void showRecognizing() {
-        this.updateState(RecognizerView.State.RECOGNIZING);
+        updateState(State.RECOGNIZING);
     }
 
     public void showRecording() {
-        this.updateState(RecognizerView.State.RECORDING);
+        updateState(State.RECORDING);
     }
 
     public interface Callback {
@@ -206,9 +210,5 @@ public class RecognizerView extends RelativeLayout {
             super.writeToParcel(var1, var2);
             var1.writeString(this.mState.toString());
         }
-    }
-
-    private static enum State {
-        LISTENING, MIC_INITIALIZING, NOT_LISTENING, RECOGNIZING, RECORDING;
     }
 }
