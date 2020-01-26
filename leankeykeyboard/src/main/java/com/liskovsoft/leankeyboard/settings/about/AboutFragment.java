@@ -1,6 +1,8 @@
 package com.liskovsoft.leankeyboard.settings.about;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -13,6 +15,8 @@ import com.liskovsoft.leankeykeyboard.R;
 import java.util.List;
 
 public class AboutFragment extends GuidedStepSupportFragment {
+    private static final String MARKET_LINK = "https://play.google.com/store/apps/details?id=org.liskovsoft.androidtv.rukeyboard";
+
     @NonNull
     @Override
     public Guidance onCreateGuidance(Bundle savedInstanceState) {
@@ -39,5 +43,11 @@ public class AboutFragment extends GuidedStepSupportFragment {
                 .title(textLine)
                 .build();
         actions.add(action);
+    }
+
+    @Override
+    public void onGuidedActionClicked(GuidedAction action) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(MARKET_LINK));
+        startActivity(intent);
     }
 }
