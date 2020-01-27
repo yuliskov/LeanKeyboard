@@ -52,7 +52,7 @@
         <Key android:codes="98"  android:keyLabel="b" />
         <Key android:codes="110" android:keyLabel="n" />
         <Key android:codes="109" android:keyLabel="m" />
-        <Key android:codes="223" android:keyLabel="ß" />
+        <Key android:codes="223" android:keyLabel="ß|ẞ" />
         <Key android:keyLabel="." />
         <Key android:keyLabel="/" />
         <Key android:keyLabel="\?" android:keyEdgeFlags="right" />
