@@ -35,11 +35,11 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     private long lastClickTime;
     private LeanbackKeyboardContainer mContainer;
     private InputMethodService mContext;
-    private LeanbackKeyboardController.DoubleClickDetector mDoubleClickDetector;
+    private DoubleClickDetector mDoubleClickDetector;
     private LeanbackKeyboardContainer.KeyFocus mDownFocus;
     private Handler mHandler;
-    private LeanbackKeyboardController.InputListener mInputListener;
-    ArrayList<LeanbackKeyboardController.KeyChange> mKeyChangeHistory;
+    private InputListener mInputListener;
+    ArrayList<KeyChange> mKeyChangeHistory;
     private LeanbackKeyboardContainer.KeyFocus mKeyDownKeyFocus;
     private boolean mKeyDownReceived;
     private boolean mLongPressHandled;
@@ -232,7 +232,7 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
                 }
 
                 LeanbackKeyboardController.KeyChange change = mKeyChangeHistory.get(count);
-                if (currTime - mKeyChangeHistory.get(count + 1).time < 100L) {
+                if (currTime - mKeyChangeHistory.get(count + 1).time < KEY_CHANGE_REVERT_TIME_MS) {
                     pos = change.position;
                     mKeyChangeHistory.clear();
                     mKeyChangeHistory.add(new LeanbackKeyboardController.KeyChange(currTime, pos));
@@ -339,6 +339,13 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
                 }
 
                 mContainer.onLangKeyClick();
+                return;
+            case LeanbackKeyboardView.KEYCODE_CLIPBOARD:
+                if (Log.isLoggable(TAG, Log.DEBUG)) {
+                    Log.d(TAG, "paste from clipboard");
+                }
+
+                mContainer.onClipboardClick(mInputListener);
                 return;
             default:
                 mInputListener.onEntry(InputListener.ENTRY_TYPE_STRING, keyCode, text);

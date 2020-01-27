@@ -5,6 +5,8 @@ import android.animation.Animator.AnimatorListener;
 import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -33,6 +35,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
+import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackKeyboardController.InputListener;
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.voice.RecognizerView;
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.voice.SpeechLevelSource;
 import com.liskovsoft.leankeyboard.keyboard.leanback.ime.LeanbackImeService;
@@ -1211,21 +1214,23 @@ public class LeanbackKeyboardContainer {
         // setTouchState(LeanbackKeyboardContainer.TOUCH_STATE_NO_TOUCH);
     }
 
-    private void showRunOnceDialog() {
-        LeanKeySettings prefs = LeanKeySettings.instance(mContext);
-        boolean runOnce = prefs.isRunOnce();
+    public void onClipboardClick(InputListener listener) {
+        ClipboardManager clipBoard = (ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
 
-        if (runOnce) {
-            return;
+        if (clipBoard != null) {
+            ClipData clipData = clipBoard.getPrimaryClip();
+            if (clipData != null) {
+                ClipData.Item item = clipData.getItemAt(0);
+                String text = item.getText().toString();
+                if (listener != null) {
+                    listener.onEntry(InputListener.ENTRY_TYPE_STRING, LeanbackKeyboardView.NOT_A_KEY, text);
+                }
+            }
         }
-
-        prefs.setRunOnce(true);
-
-        showKbLayoutSettings();
     }
 
     public interface DismissListener {
-        void onDismiss(boolean var1);
+        void onDismiss(boolean fromVoice);
     }
 
     public static class KeyFocus {
@@ -1238,7 +1243,7 @@ public class LeanbackKeyboardContainer {
         int index;
         CharSequence label;
         final Rect rect = new Rect();
-        int type = -1;
+        int type = TYPE_INVALID;
 
         @Override
         public boolean equals(Object obj) {
@@ -1247,7 +1252,8 @@ public class LeanbackKeyboardContainer {
                     return false;
                 }
 
-                LeanbackKeyboardContainer.KeyFocus focus = (LeanbackKeyboardContainer.KeyFocus) obj;
+                KeyFocus focus = (KeyFocus) obj;
+
                 if (this.code != focus.code) {
                     return false;
                 }
@@ -1277,6 +1283,7 @@ public class LeanbackKeyboardContainer {
             return true;
         }
 
+        @Override
         public int hashCode() {
             int hash = this.rect.hashCode();
             int index = this.index;
@@ -1292,7 +1299,7 @@ public class LeanbackKeyboardContainer {
             return (((hash * 31 + index) * 31 + type) * 31 + code) * 31 + salt;
         }
 
-        public void set(LeanbackKeyboardContainer.KeyFocus focus) {
+        public void set(KeyFocus focus) {
             this.index = focus.index;
             this.type = focus.type;
             this.code = focus.code;
@@ -1300,11 +1307,9 @@ public class LeanbackKeyboardContainer {
             this.rect.set(focus.rect);
         }
 
+        @Override
         public String toString() {
-            StringBuilder builder = new StringBuilder();
-            builder.append("[type: ").append(this.type).append(", index: ").append(this.index).append(", code: ").append(this.code).append(", label: " +
-                    "").append(this.label).append(", rect: ").append(this.rect).append("]");
-            return builder.toString();
+            return "[type: " + this.type + ", index: " + this.index + ", code: " + this.code + ", label: " + this.label + ", rect: " + this.rect + "]";
         }
     }
 
@@ -1324,7 +1329,7 @@ public class LeanbackKeyboardContainer {
             mView = view;
             mParams = view.getLayoutParams();
             setDuration(MOVEMENT_ANIMATION_DURATION);
-            setInterpolator(LeanbackKeyboardContainer.sMovementInterpolator);
+            setInterpolator(sMovementInterpolator);
         }
 
         @Override
@@ -1367,8 +1372,8 @@ public class LeanbackKeyboardContainer {
         public VoiceIntroAnimator(AnimatorListener enterListener, AnimatorListener exitListener) {
             mEnterListener = enterListener;
             mExitListener = exitListener;
-            mValueAnimator = ValueAnimator.ofFloat(LeanbackKeyboardContainer.this.mAlphaOut, LeanbackKeyboardContainer.this.mAlphaIn);
-            mValueAnimator.setDuration((long) LeanbackKeyboardContainer.this.mVoiceAnimDur);
+            mValueAnimator = ValueAnimator.ofFloat(mAlphaOut, mAlphaIn);
+            mValueAnimator.setDuration(mVoiceAnimDur);
             mValueAnimator.setInterpolator(new AccelerateInterpolator());
         }
 
@@ -1385,42 +1390,39 @@ public class LeanbackKeyboardContainer {
 
             animation.addListener(listener);
             mValueAnimator.removeAllUpdateListeners();
-            mValueAnimator.addUpdateListener(new AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(final ValueAnimator animation) {
-                    float scale = (Float) VoiceIntroAnimator.this.mValueAnimator.getAnimatedValue();
-                    float calcOpacity = LeanbackKeyboardContainer.this.mAlphaIn + LeanbackKeyboardContainer.this.mAlphaOut - scale;
-                    float opacity;
+            mValueAnimator.addUpdateListener(animation1 -> {
+                float scale = (Float) mValueAnimator.getAnimatedValue();
+                float calcOpacity = mAlphaIn + mAlphaOut - scale;
+                float opacity;
+                if (enterVoice) {
+                    opacity = calcOpacity;
+                } else {
+                    opacity = scale;
+                }
+
+                if (enterVoice) {
+                    calcOpacity = scale;
+                }
+
+                mMainKeyboardView.setAlpha(opacity);
+                mActionButtonView.setAlpha(opacity);
+                mVoiceButtonView.setAlpha(calcOpacity);
+                if (scale == mAlphaOut) {
+                    if (!enterVoice) {
+                        mMainKeyboardView.setVisibility(View.VISIBLE);
+                        mActionButtonView.setVisibility(View.VISIBLE);
+                        return;
+                    }
+
+                    mVoiceButtonView.setVisibility(View.VISIBLE);
+                } else if (scale == mAlphaIn) {
                     if (enterVoice) {
-                        opacity = calcOpacity;
-                    } else {
-                        opacity = scale;
+                        mMainKeyboardView.setVisibility(View.INVISIBLE);
+                        mActionButtonView.setVisibility(View.INVISIBLE);
+                        return;
                     }
 
-                    if (enterVoice) {
-                        calcOpacity = scale;
-                    }
-
-                    mMainKeyboardView.setAlpha(opacity);
-                    mActionButtonView.setAlpha(opacity);
-                    mVoiceButtonView.setAlpha(calcOpacity);
-                    if (scale == mAlphaOut) {
-                        if (!enterVoice) {
-                            mMainKeyboardView.setVisibility(View.VISIBLE);
-                            mActionButtonView.setVisibility(View.VISIBLE);
-                            return;
-                        }
-
-                        mVoiceButtonView.setVisibility(View.VISIBLE);
-                    } else if (scale == mAlphaIn) {
-                        if (enterVoice) {
-                            mMainKeyboardView.setVisibility(View.INVISIBLE);
-                            mActionButtonView.setVisibility(View.INVISIBLE);
-                            return;
-                        }
-
-                        mVoiceButtonView.setVisibility(View.INVISIBLE);
-                    }
+                    mVoiceButtonView.setVisibility(View.INVISIBLE);
                 }
             });
             mValueAnimator.start();
