@@ -431,14 +431,8 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     }
 
     private boolean handleKeyLongPress(int keyCode) {
-        boolean isHandled;
-        if (isEnterKey(keyCode) && mContainer.onKeyLongPress()) {
-            isHandled = true;
-        } else {
-            isHandled = false;
-        }
+        mLongPressHandled = isEnterKey(keyCode) && mContainer.onKeyLongPress();
 
-        mLongPressHandled = isHandled;
         if (mContainer.isMiniKeyboardOnScreen()) {
             Log.d("LbKbController", "mini keyboard shown after long press");
         }

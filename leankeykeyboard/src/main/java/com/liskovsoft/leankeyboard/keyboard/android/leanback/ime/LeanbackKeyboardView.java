@@ -423,6 +423,7 @@ public class LeanbackKeyboardView extends FrameLayout {
 
     public void onKeyLongPress() {
         int popupResId = mKeys[mFocusIndex].key.popupResId;
+
         if (popupResId != 0) {
             dismissMiniKeyboard();
             mMiniKeyboardOnScreen = true;
@@ -445,19 +446,21 @@ public class LeanbackKeyboardView extends FrameLayout {
                 mKeys[baseIndex + i].key = accentKey;
                 mKeys[baseIndex + i].isInMiniKb = true;
                 KeyHolder holder = mKeys[baseIndex + i];
-                boolean invertible;
-                if (i == 0) {
-                    invertible = true;
-                } else {
-                    invertible = false;
-                }
 
-                holder.isInvertible = invertible;
+                holder.isInvertible = i == 0; // uppercase first char
             }
 
             invalidateAllKeys();
-        }
+        } else { // simple use the same char in uppercase
+            dismissMiniKeyboard();
+            mMiniKeyboardOnScreen = true;
+            mBaseMiniKbIndex = mFocusIndex;
 
+            mKeys[mFocusIndex].isInMiniKb = true;
+            mKeys[mFocusIndex].isInvertible = true;
+
+            invalidateAllKeys();
+        }
     }
 
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
