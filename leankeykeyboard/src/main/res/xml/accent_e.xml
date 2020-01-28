@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Keyboard android:keyWidth="@dimen/key_width" android:keyHeight="@dimen/key_height" android:horizontalGap="@dimen/keyboard_horizontal_gap" android:verticalGap="@dimen/keyboard_vertical_gap"
   xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- JavaScript example: "€".charCodeAt(0) -->
     <Row>
         <Key android:codes="101" android:keyLabel="e" />
         <Key android:codes="232" android:keyLabel="è" />
@@ -10,5 +11,6 @@
         <Key android:codes="275" android:keyLabel="ē" />
         <Key android:codes="279" android:keyLabel="ė" />
         <Key android:codes="281" android:keyLabel="ę" />
+        <Key android:codes="8364" android:keyLabel="€" />
     </Row>
 </Keyboard>

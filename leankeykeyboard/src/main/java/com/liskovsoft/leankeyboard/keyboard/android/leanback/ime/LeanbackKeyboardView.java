@@ -63,7 +63,7 @@ public class LeanbackKeyboardView extends FrameLayout {
     private int mKeyTextColor;
     private int mKeyTextSize;
     private Keyboard mKeyboard;
-    private LeanbackKeyboardView.KeyHolder[] mKeys;
+    private KeyHolder[] mKeys;
     private boolean mMiniKeyboardOnScreen;
     private int mModeChangeTextSize;
     private Rect mPadding;
@@ -147,7 +147,7 @@ public class LeanbackKeyboardView extends FrameLayout {
         mConverter = new KeyConverter();
     }
 
-    private void adjustCase(LeanbackKeyboardView.KeyHolder keyHolder) {
+    private void adjustCase(KeyHolder keyHolder) {
         boolean flag;
 
         if (keyHolder.isInMiniKb && keyHolder.isInvertible) {
@@ -247,7 +247,7 @@ public class LeanbackKeyboardView extends FrameLayout {
         return image;
     }
 
-    private void createKeyImageViews(LeanbackKeyboardView.KeyHolder[] keys) {
+    private void createKeyImageViews(KeyHolder[] keys) {
         if (mKeyImageViews != null) {
             ImageView[] images = mKeyImageViews;
             int totalImages = images.length;
@@ -414,7 +414,7 @@ public class LeanbackKeyboardView extends FrameLayout {
     }
 
     public boolean isShifted() {
-        return mShiftState == 1 || mShiftState == 2;
+        return mShiftState == SHIFT_ON || mShiftState == SHIFT_LOCKED;
     }
 
     public void onDraw(Canvas canvas) {
@@ -444,7 +444,7 @@ public class LeanbackKeyboardView extends FrameLayout {
                 accentKey.edgeFlags = mKeys[baseIndex + i].key.edgeFlags;
                 mKeys[baseIndex + i].key = accentKey;
                 mKeys[baseIndex + i].isInMiniKb = true;
-                LeanbackKeyboardView.KeyHolder holder = mKeys[baseIndex + i];
+                KeyHolder holder = mKeys[baseIndex + i];
                 boolean invertible;
                 if (i == 0) {
                     invertible = true;
@@ -516,12 +516,12 @@ public class LeanbackKeyboardView extends FrameLayout {
                                      .scaleX(1.0F)
                                      .scaleY(1.0F)
                                      .setInterpolator(LeanbackKeyboardContainer.sMovementInterpolator)
-                                     .setStartDelay((long) mUnfocusStartDelay);
+                                     .setStartDelay(mUnfocusStartDelay);
 
                     mCurrentFocusView.animate()
-                                     .setDuration((long) mClickAnimDur)
+                                     .setDuration(mClickAnimDur)
                                      .setInterpolator(LeanbackKeyboardContainer.sMovementInterpolator)
-                                     .setStartDelay((long) mUnfocusStartDelay);
+                                     .setStartDelay(mUnfocusStartDelay);
                 }
 
                 if (indexFull != -1) {

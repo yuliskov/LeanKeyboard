@@ -43,4 +43,5 @@
     <string name="misc">Misc</string>
     <string name="misc_desc">Misc Settings</string>
     <string name="keep_on_screen">Keep on Screen</string>
+    <string name="keyboardview_keycode_clipboard">Clipboard</string>
 </resources>
