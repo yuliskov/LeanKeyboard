@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Keyboard android:keyWidth="@dimen/key_width" android:keyHeight="@dimen/key_height" android:horizontalGap="@dimen/keyboard_horizontal_gap" android:verticalGap="@dimen/keyboard_vertical_gap"
   xmlns:android="http://schemas.android.com/apk/res/android">
-<!--     All letters needed for German and Danish are in the C0 Controls and Basic Latin and C1 Controls and Latin-1 Supplement blocks. (See Wikipedia's list of languages supported by those blocks.)
+    <!--
+    All letters needed for German and Danish are in the C0 Controls and Basic Latin and C1 Controls and Latin-1 Supplement blocks. (See Wikipedia's list of languages supported by those blocks.)
     For Czech/Slovak, you also need Latin Extended-A.
     You should also include General Punctuation, as well as any other symbols you may use (e.g. Arrows).
-    See http://en.wikipedia.org/wiki/Latin_characters_in_Unicode. -->
+    See http://en.wikipedia.org/wiki/Latin_characters_in_Unicode.
+    -->
     <Row android:rowEdgeFlags="top">
         <Key android:codes="49" android:popupKeyboard="@xml/shift_1" android:keyEdgeFlags="left" android:keyLabel="1" />
         <Key android:codes="50" android:popupKeyboard="@xml/shift_2" android:keyLabel="2" />
@@ -53,17 +55,17 @@
         <Key android:codes="110" android:keyLabel="n" android:popupKeyboard="@xml/accent_n" />
         <Key android:codes="109" android:keyLabel="m" android:popupKeyboard="@xml/shift_m" />
         <Key android:codes="223" android:keyLabel="ß|ẞ" android:popupKeyboard="@xml/accent_de_b" />
-        <Key android:codes="46" android:keyLabel="." />
-        <Key android:codes="47" android:keyLabel="/" />
-        <Key android:codes="63" android:keyLabel="\?" android:keyEdgeFlags="right" />
+        <Key android:codes="46"  android:keyLabel="." />
+        <Key android:codes="47"  android:keyLabel="/" />
+        <Key android:codes="-10" android:keyLabel="@string/keyboardview_keycode_clipboard" android:keyIcon="@drawable/ic_ime_clipboard" android:keyEdgeFlags="right" />
     </Row>
     <Row android:rowEdgeFlags="bottom">
-        <Key android:codes="-2" android:keyEdgeFlags="left" android:keyLabel="@string/keyboardview_keycode_mode_change" android:keyIcon="@drawable/ic_ime_symbols" />
+        <Key android:codes="-2" android:keyLabel="@string/keyboardview_keycode_mode_change" android:keyIcon="@drawable/ic_ime_symbols" android:keyEdgeFlags="left" />
         <Key android:codes="-1" android:keyLabel="@string/keyboardview_keycode_shift" android:keyIcon="@drawable/ic_ime_shift_off" />
         <Key android:codes="-9" android:keyLabel="@string/keyboardview_keycode_lang" android:keyIcon="@drawable/ic_ime_world" />
-        <Key android:keyWidth="@dimen/space_key_width" android:codes="32" android:keyLabel="@string/keyboardview_keycode_space" android:keyIcon="@drawable/ic_ime_space_de" />
+        <Key android:codes="32" android:keyLabel="@string/keyboardview_keycode_space" android:keyIcon="@drawable/ic_ime_space_de" android:keyWidth="@dimen/space_key_width" />
         <Key android:codes="-7" android:keyLabel="@string/keyboardview_keycode_voice" android:keyIcon="@drawable/ic_ime_voice" />
         <Key android:codes="-3" android:keyLabel="@string/keyboardview_keycode_left" android:keyIcon="@drawable/ic_ime_left_arrow" />
-        <Key android:codes="-4" android:keyEdgeFlags="right" android:keyLabel="@string/keyboardview_keycode_right" android:keyIcon="@drawable/ic_ime_right_arrow" />
+        <Key android:codes="-4" android:keyLabel="@string/keyboardview_keycode_right" android:keyIcon="@drawable/ic_ime_right_arrow" android:keyEdgeFlags="right" />
     </Row>
 </Keyboard>
