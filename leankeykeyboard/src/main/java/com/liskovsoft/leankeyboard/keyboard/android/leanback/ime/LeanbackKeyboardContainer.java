@@ -1449,6 +1449,7 @@ public class LeanbackKeyboardContainer {
 
     private void showKbLayoutSettings() {
         Intent intent = new Intent(mContext, KbSettingsActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(intent);
     }
 }

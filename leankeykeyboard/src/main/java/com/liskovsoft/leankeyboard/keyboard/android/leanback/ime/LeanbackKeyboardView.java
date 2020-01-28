@@ -423,6 +423,7 @@ public class LeanbackKeyboardView extends FrameLayout {
 
     public void onKeyLongPress() {
         int popupResId = mKeys[mFocusIndex].key.popupResId;
+        CharSequence popupCharacters = mKeys[mFocusIndex].key.popupCharacters;
 
         if (popupResId != 0) {
             dismissMiniKeyboard();
