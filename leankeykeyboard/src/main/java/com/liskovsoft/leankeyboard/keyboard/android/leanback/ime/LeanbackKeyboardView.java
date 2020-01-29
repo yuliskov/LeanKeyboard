@@ -423,7 +423,6 @@ public class LeanbackKeyboardView extends FrameLayout {
 
     public void onKeyLongPress() {
         int popupResId = mKeys[mFocusIndex].key.popupResId;
-        CharSequence popupCharacters = mKeys[mFocusIndex].key.popupCharacters;
 
         if (popupResId != 0) {
             dismissMiniKeyboard();
@@ -452,15 +451,19 @@ public class LeanbackKeyboardView extends FrameLayout {
             }
 
             invalidateAllKeys();
-        } else { // simple use the same char in uppercase
-            dismissMiniKeyboard();
-            mMiniKeyboardOnScreen = true;
-            mBaseMiniKbIndex = mFocusIndex;
+        } else {
+            boolean isSpecialKey = mKeys[mFocusIndex].key.icon != null; // space, paste, voice input etc
 
-            mKeys[mFocusIndex].isInMiniKb = true;
-            mKeys[mFocusIndex].isInvertible = true;
+            if (!isSpecialKey) { // simply use the same char in uppercase
+                dismissMiniKeyboard();
+                mMiniKeyboardOnScreen = true;
+                mBaseMiniKbIndex = mFocusIndex;
 
-            invalidateAllKeys();
+                mKeys[mFocusIndex].isInMiniKb = true;
+                mKeys[mFocusIndex].isInvertible = true;
+
+                invalidateAllKeys();
+            }
         }
     }
 
