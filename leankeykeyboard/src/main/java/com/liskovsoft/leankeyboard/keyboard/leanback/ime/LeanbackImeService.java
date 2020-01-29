@@ -124,11 +124,11 @@ public class LeanbackImeService extends InputMethodService {
 
                     connection.commitText(text, 1);
                     mEnterSpaceBeforeCommitting = true;
-                case InputListener.ENTRY_TYPE_ACTION:  // NOTE: user presses Go, Send, Search etc
+                case InputListener.ENTRY_TYPE_ACTION:  // User presses Go, Send, Search etc
                     boolean result = sendDefaultEditorAction(true);
 
                     if (result) {
-                        hideWindow(); // NOTE: SmartYouTubeTV hide kbd on search page fix
+                        hideWindow(); // SmartYouTubeTV: hide kbd on search page fix
                     } else {
                         LeanbackUtils.sendEnterKey(connection);
                     }
@@ -249,8 +249,7 @@ public class LeanbackImeService extends InputMethodService {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // NOTE: hide keyboard on ESC key
-        // https://github.com/yuliskov/SmartYouTubeTV/issues/142
+        // Hide keyboard on ESC key: https://github.com/yuliskov/SmartYouTubeTV/issues/142
         event = mapEscToBack(event);
         keyCode = mapEscToBack(keyCode);
 
@@ -259,8 +258,7 @@ public class LeanbackImeService extends InputMethodService {
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
-        // NOTE: hide keyboard on ESC key
-        // https://github.com/yuliskov/SmartYouTubeTV/issues/142
+        // Hide keyboard on ESC key: https://github.com/yuliskov/SmartYouTubeTV/issues/142
         event = mapEscToBack(event);
         keyCode = mapEscToBack(keyCode);
 

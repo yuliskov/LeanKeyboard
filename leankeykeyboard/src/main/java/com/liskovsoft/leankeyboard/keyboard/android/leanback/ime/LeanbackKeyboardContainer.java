@@ -321,9 +321,9 @@ public class LeanbackKeyboardContainer {
     }
 
     /**
-     * Init currently displayed keyboard<br/>
-     * Note: all keyboard settings applied here<br/>
-     * Note: this method is called constantly on new field
+     * NOTE: Init currently displayed keyboard<br/>
+     * All keyboard settings applied here<br/>
+     * This method is called constantly on new field
      * @param res resources (not used)
      * @param info current ime attributes
      */

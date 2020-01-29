@@ -204,7 +204,7 @@ public class LeanbackKeyboardView extends FrameLayout {
                 }
             }
 
-            // NOTE: fix non proper scale of space key on low dpi
+            // NOTE: Fix non proper scale of space key on low dpi
 
             int iconWidth = key.width; // originally used key.icon.getIntrinsicWidth();
             int iconHeight = key.height; // originally used key.icon.getIntrinsicHeight();

@@ -31,8 +31,8 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     private static final long KEY_CHANGE_REVERT_TIME_MS = 100L;
     private static final String TAG = "LbKbController";
     public static final String TAG_GO = "Go";
-    private boolean clickConsumed;
-    private long lastClickTime;
+    private boolean mClickConsumed;
+    private long mLastClickTime;
     private LeanbackKeyboardContainer mContainer;
     private InputMethodService mContext;
     private DoubleClickDetector mDoubleClickDetector;
@@ -130,7 +130,7 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     }
 
     private void beginLongClickCountdown() {
-        this.clickConsumed = false;
+        this.mClickConsumed = false;
         Handler handler = this.mHandler;
         if (handler == null) {
             handler = new Handler();
@@ -155,7 +155,7 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     }
 
     /**
-     * NOTE: where all magic happens. Input from virtual kbd is processed here.
+     * NOTE: Where all magic happens. Input from virtual kbd is processed here.
      * @param focus current key
      */
     private void commitKey(LeanbackKeyboardContainer.KeyFocus focus) {
@@ -164,7 +164,7 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
                 case KeyFocus.TYPE_VOICE:
                     mContainer.onVoiceClick();
                     return;
-                case KeyFocus.TYPE_ACTION: // NOTE: user presses Go, Send, Search etc
+                case KeyFocus.TYPE_ACTION: // User presses Go, Send, Search etc
                     mInputListener.onEntry(InputListener.ENTRY_TYPE_ACTION, 0, null);
                     // mContext.hideWindow(); // SmartYouTubeTV fix: force hide keyboard
                     return;
@@ -178,7 +178,6 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
                     }
             }
         }
-
     }
 
     private void fakeClickDown() {
@@ -287,7 +286,7 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     }
 
     /**
-     * Handle keyboard key
+     * NOTE: Specials keys (e.g. voice key) handled here
      * @param keyCode key code e.g {@link LeanbackKeyboardView#KEYCODE_SHIFT LeanbackKeyboardView.KEYCODE_SHIFT}
      * @param text typed content
      */
@@ -434,7 +433,7 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
         mLongPressHandled = isEnterKey(keyCode) && mContainer.onKeyLongPress();
 
         if (mContainer.isMiniKeyboardOnScreen()) {
-            Log.d("LbKbController", "mini keyboard shown after long press");
+            Log.d(TAG, "mini keyboard shown after long press");
         }
 
         return mLongPressHandled;
@@ -540,17 +539,17 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
 
     private boolean isDoubleClick() {
         long currTimeMS = System.currentTimeMillis();
-        long lastTime = this.lastClickTime;
-        if (this.lastClickTime != 0L && currTimeMS - lastTime <= (long) 300) {
+        long lastTime = mLastClickTime;
+        if (mLastClickTime != 0L && currTimeMS - lastTime <= (long) 300) {
             return true;
         } else {
-            this.lastClickTime = currTimeMS;
+            mLastClickTime = currTimeMS;
             return false;
         }
     }
 
     private boolean isEnterKey(int keyCode) {
-        keyCode = this.getSimplifiedKey(keyCode);
+        keyCode = getSimplifiedKey(keyCode);
         return keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER;
     }
 
@@ -581,13 +580,13 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     }
 
     private void performBestSnap(long time) {
-        LeanbackKeyboardContainer.KeyFocus focus = this.mContainer.getCurrFocus();
-        this.mTempPoint.x = (float) focus.rect.centerX();
-        this.mTempPoint.y = (float) focus.rect.centerY();
-        PointF pos = this.getBestSnapPosition(this.mTempPoint, time);
-        this.mContainer.getBestFocus(pos.x, pos.y, this.mTempFocus);
-        this.mContainer.setFocus(this.mTempFocus);
-        this.updatePositionToCurrentFocus();
+        LeanbackKeyboardContainer.KeyFocus focus = mContainer.getCurrFocus();
+        mTempPoint.x = (float) focus.rect.centerX();
+        mTempPoint.y = (float) focus.rect.centerY();
+        PointF pos = getBestSnapPosition(mTempPoint, time);
+        mContainer.getBestFocus(pos.x, pos.y, mTempFocus);
+        mContainer.setFocus(mTempFocus);
+        updatePositionToCurrentFocus();
     }
 
     /**
@@ -789,8 +788,8 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
                     break;
                 }
 
-                if (!clickConsumed) {
-                    clickConsumed = true;
+                if (!mClickConsumed) {
+                    mClickConsumed = true;
                     if (isDoubleClick()) {
                         mContainer.onKeyLongPress();
                         break;
@@ -815,8 +814,8 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
 
     @Override
     public void run() {
-        if (!clickConsumed) {
-            clickConsumed = true;
+        if (!mClickConsumed) {
+            mClickConsumed = true;
             fakeLongClickDown();
         }
     }
