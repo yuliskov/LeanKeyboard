@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.liskovsoft.leankeyboard.addons.apkkbdfactory.utils;
+package com.liskovsoft.leankeyboard.addons.apkkbdfactory.utils.log;
 
 public interface LogProvider {
 

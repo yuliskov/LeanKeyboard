@@ -27,7 +27,7 @@ import com.liskovsoft.leankeyboard.addons.KeyboardBuilder;
 import com.liskovsoft.leankeyboard.addons.KeyboardFactory;
 import com.liskovsoft.leankeyboard.addons.apkkbdfactory.addons.AddOn;
 import com.liskovsoft.leankeyboard.addons.apkkbdfactory.addons.AddOnsFactory;
-import com.liskovsoft.leankeyboard.addons.apkkbdfactory.utils.Logger;
+import com.liskovsoft.leankeyboard.addons.apkkbdfactory.utils.log.Logger;
 
 import java.util.ArrayList;
 import java.util.List;

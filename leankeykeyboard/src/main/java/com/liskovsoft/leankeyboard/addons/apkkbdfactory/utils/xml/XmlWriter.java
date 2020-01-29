@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.liskovsoft.leankeyboard.addons.apkkbdfactory.utils;
+package com.liskovsoft.leankeyboard.addons.apkkbdfactory.utils.xml;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -67,8 +67,6 @@ public class XmlWriter {
 
     /**
      * Begin to output an entity.
-     *
-     * @param String name of entity.
      */
     public XmlWriter writeEntity(String name) throws IOException {
         closeOpeningTag(true);
@@ -202,7 +200,7 @@ public class XmlWriter {
      * @param text String to do search and replace in
      * @param repl String to search for
      * @param with String to replace with
-     * @param n    int values to replace
+     * @param max  int values to replace
      * @return String with n values replacEd
      */
     static public String replaceString(String text, String repl, String with, int max) {

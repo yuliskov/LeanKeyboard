@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.utils;
+package com.liskovsoft.leankeyboard.utils.helpers;
 
 import java.util.HashMap;
 import java.util.Locale;

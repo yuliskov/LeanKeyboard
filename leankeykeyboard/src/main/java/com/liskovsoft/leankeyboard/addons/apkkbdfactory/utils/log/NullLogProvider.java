@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.addons.apkkbdfactory.utils;
+package com.liskovsoft.leankeyboard.addons.apkkbdfactory.utils.log;
 
 /**
  * Doesn't do anything. For release.

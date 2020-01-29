@@ -27,7 +27,7 @@ import android.util.AttributeSet;
 import android.util.Xml;
 
 //import com.liskovsoft.keyboardaddons.apklangfactory.AnySoftKeyboard;
-import com.liskovsoft.leankeyboard.addons.apkkbdfactory.utils.Logger;
+import com.liskovsoft.leankeyboard.addons.apkkbdfactory.utils.log.Logger;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;

@@ -3,7 +3,6 @@ package com.liskovsoft.leankeyboard.keyboard.android.leanback.ime;
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ValueAnimator;
-import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -40,8 +39,8 @@ import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.voice.Recognize
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.voice.SpeechLevelSource;
 import com.liskovsoft.leankeyboard.keyboard.leanback.ime.LeanbackImeService;
 import com.liskovsoft.leankeyboard.settings.settings.KbSettingsActivity;
-import com.liskovsoft.leankeyboard.utils.LeanKeySettings;
 import com.liskovsoft.leankeyboard.addons.KeyboardManager;
+import com.liskovsoft.leankeyboard.utils.helpers.MessageHelpers;
 import com.liskovsoft.leankeykeyboard.R;
 
 import java.util.ArrayList;
@@ -502,7 +501,7 @@ public class LeanbackKeyboardContainer {
     }
 
     /**
-     * Speech recognizer routine
+     * NOTE: Speech recognizer routine
      * @param context context
      */
     private void startRecognition(Context context) {
@@ -520,6 +519,7 @@ public class LeanbackKeyboardContainer {
 
             @Override
             public void onBufferReceived(byte[] buffer) {
+                // NOP
             }
 
             @Override
@@ -531,32 +531,39 @@ public class LeanbackKeyboardContainer {
             @Override
             public void onError(int error) {
                 cancelVoiceRecording();
+
+                String errorMsg;
+
                 switch (error) {
                     case SpeechRecognizer.ERROR_SERVER:
-                        Log.d("LbKbContainer", "recognizer error server error");
-                        return;
+                        errorMsg = "recognizer error server error";
+                        break;
                     case SpeechRecognizer.ERROR_CLIENT:
-                        Log.d("LbKbContainer", "recognizer error client error");
-                        return;
+                        errorMsg = "recognizer error client error";
+                        break;
                     case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
-                        Log.d("LbKbContainer", "recognizer error speech timeout");
-                        return;
+                        errorMsg = "recognizer error speech timeout";
+                        break;
                     case SpeechRecognizer.ERROR_NO_MATCH:
-                        Log.d("LbKbContainer", "recognizer error no match");
-                        return;
+                        errorMsg = "recognizer error no match";
+                        break;
                     default:
-                        Log.d("LbKbContainer", "recognizer other error " + error);
+                        errorMsg = "recognizer other error " + error;
                 }
+
+                MessageHelpers.showLongMessage(mContext, errorMsg);
+
+                Log.d(TAG, errorMsg);
             }
 
             @Override
             public void onEvent(int eventType, Bundle bundle) {
+                // NOP
             }
 
             @Override
             public void onPartialResults(Bundle bundle) {
-                synchronized (this) {
-                }
+                // NOP
             }
 
             @Override
@@ -567,6 +574,7 @@ public class LeanbackKeyboardContainer {
             @Override
             public void onResults(Bundle bundle) {
                 List<String> results = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+
                 if (results != null && mVoiceListener != null) {
                     mVoiceListener.onVoiceResult(results.get(0));
                 }
@@ -1135,10 +1143,9 @@ public class LeanbackKeyboardContainer {
         if (mVoiceEnabled) {
             if (!mVoiceKeyDismissesEnabled) {
                 mVoiceAnimator.startEnterAnimation();
-                return;
+            } else {
+                mDismissListener.onDismiss(true);
             }
-
-            mDismissListener.onDismiss(true);
         }
     }
 
@@ -1380,17 +1387,18 @@ public class LeanbackKeyboardContainer {
         private void start(final boolean enterVoice) {
             mValueAnimator.cancel();
             mValueAnimator.removeAllListeners();
-            ValueAnimator animation = mValueAnimator;
+
             AnimatorListener listener;
+
             if (enterVoice) {
                 listener = mEnterListener;
             } else {
                 listener = mExitListener;
             }
 
-            animation.addListener(listener);
+            mValueAnimator.addListener(listener);
             mValueAnimator.removeAllUpdateListeners();
-            mValueAnimator.addUpdateListener(animation1 -> {
+            mValueAnimator.addUpdateListener(animation -> {
                 float scale = (Float) mValueAnimator.getAnimatedValue();
                 float calcOpacity = mAlphaIn + mAlphaOut - scale;
                 float opacity;
@@ -1432,14 +1440,12 @@ public class LeanbackKeyboardContainer {
             if (!isVoiceVisible() && !mValueAnimator.isRunning()) {
                 start(true);
             }
-
         }
 
         void startExitAnimation() {
             if (isVoiceVisible() && !mValueAnimator.isRunning()) {
                 start(false);
             }
-
         }
     }
 

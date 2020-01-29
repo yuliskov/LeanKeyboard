@@ -23,7 +23,7 @@ import android.util.SparseIntArray;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.collection.SparseArrayCompat;
-import com.liskovsoft.leankeyboard.addons.apkkbdfactory.utils.Logger;
+import com.liskovsoft.leankeyboard.addons.apkkbdfactory.utils.log.Logger;
 
 import java.lang.ref.WeakReference;
 import java.util.Arrays;

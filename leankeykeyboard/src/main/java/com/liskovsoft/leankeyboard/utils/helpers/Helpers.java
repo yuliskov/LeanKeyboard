@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.utils;
+package com.liskovsoft.leankeyboard.utils.helpers;
 
 import android.app.ActivityManager;
 import android.content.ComponentName;
@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.util.Date;
@@ -87,6 +86,14 @@ public class Helpers {
             }
         }
         return false;
+    }
+
+    public static String toString(Throwable ex) {
+        if (ex instanceof IllegalStateException &&
+                ex.getCause() != null) {
+            ex = ex.getCause();
+        }
+        return String.format("%s: %s", ex.getClass().getCanonicalName(), ex.getMessage());
     }
 
     public static String toString(InputStream inputStream) {
