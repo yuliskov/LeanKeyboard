@@ -1061,17 +1061,17 @@ public class LeanbackKeyboardContainer {
     }
 
     public void setSelectorToFocus(Rect rect, boolean overestimateWidth, boolean overestimateHeight, boolean animate) {
-        if (this.mSelector.getWidth() != 0 && this.mSelector.getHeight() != 0 && rect.width() != 0 && rect.height() != 0) {
+        if (mSelector.getWidth() != 0 && mSelector.getHeight() != 0 && rect.width() != 0 && rect.height() != 0) {
             final float width = (float) rect.width();
             final float height = (float) rect.height();
             float heightOver = height;
             if (overestimateHeight) {
-                heightOver = height * this.mOverestimate;
+                heightOver = height * mOverestimate;
             }
 
             float widthOver = width;
             if (overestimateWidth) {
-                widthOver = width * this.mOverestimate;
+                widthOver = width * mOverestimate;
             }
 
             float deltaY = heightOver;
@@ -1083,13 +1083,13 @@ public class LeanbackKeyboardContainer {
 
             final float x = rect.exactCenterX() - deltaX / 2.0F;
             final float y = rect.exactCenterY() - deltaY / 2.0F;
-            this.mSelectorAnimation.cancel();
+            mSelectorAnimation.cancel();
             if (animate) {
-                this.mSelectorAnimation.reset();
-                this.mSelectorAnimation.setAnimationBounds(x, y, deltaX, deltaY);
-                this.mSelector.startAnimation(this.mSelectorAnimation);
+                mSelectorAnimation.reset();
+                mSelectorAnimation.setAnimationBounds(x, y, deltaX, deltaY);
+                mSelector.startAnimation(mSelectorAnimation);
             } else {
-                this.mSelectorAnimation.setValues(x, y, deltaX, deltaY);
+                mSelectorAnimation.setValues(x, y, deltaX, deltaY);
             }
         }
     }

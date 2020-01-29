@@ -53,6 +53,7 @@ public class LeanbackKeyboardView extends FrameLayout {
     private int mBaseMiniKbIndex = -1;
     private final int mClickAnimDur;
     private final float mClickedScale;
+    private final float mSquareIconScaleFactor;
     private int mColCount;
     private View mCurrentFocusView;
     private boolean mFocusClicked;
@@ -141,6 +142,7 @@ public class LeanbackKeyboardView extends FrameLayout {
         mShiftState = 0;
         mFocusedScale = res.getFraction(R.fraction.focused_scale, 1, 1);
         mClickedScale = res.getFraction(R.fraction.clicked_scale, 1, 1);
+        mSquareIconScaleFactor = res.getFraction(R.fraction.square_icon_scale_factor, 1, 1);
         mClickAnimDur = res.getInteger(R.integer.clicked_anim_duration);
         mUnfocusStartDelay = res.getInteger(R.integer.unfocused_anim_delay);
         mInactiveMiniKbAlpha = res.getInteger(R.integer.inactive_mini_kb_alpha);
@@ -179,8 +181,8 @@ public class LeanbackKeyboardView extends FrameLayout {
             label = key.label.toString();
         }
 
-        if (Log.isLoggable("LbKbView", Log.DEBUG)) {
-            Log.d("LbKbView", "LABEL: " + key.label + "->" + label);
+        if (Log.isLoggable(TAG, Log.DEBUG)) {
+            Log.d(TAG, "LABEL: " + key.label + "->" + label);
         }
 
         Bitmap bitmap = Bitmap.createBitmap(key.width, key.height, Config.ARGB_8888);
@@ -202,15 +204,20 @@ public class LeanbackKeyboardView extends FrameLayout {
                 }
             }
 
-            int iconWidth = key.icon.getIntrinsicWidth();
-            int iconHeight = key.icon.getIntrinsicHeight();
+            // NOTE: fix non proper scale of space key on low dpi
 
-            if (key.width > key.height) { // wide key fix (space key)
-                iconWidth = key.width;
+            int iconWidth = key.width; // originally used key.icon.getIntrinsicWidth();
+            int iconHeight = key.height; // originally used key.icon.getIntrinsicHeight();
+
+            if (key.width == key.height) {
+                int newSize = Math.round(key.width * mSquareIconScaleFactor);
+                iconWidth = newSize;
+                iconHeight = newSize;
             }
 
             int dx = (key.width - padding.left - padding.right - iconWidth) / 2 + padding.left;
             int dy = (key.height - padding.top - padding.bottom - iconHeight) / 2 + padding.top;
+
             canvas.translate((float) dx, (float) dy);
             key.icon.setBounds(0, 0, iconWidth, iconHeight);
             key.icon.draw(canvas);
@@ -224,8 +231,12 @@ public class LeanbackKeyboardView extends FrameLayout {
                 paint.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
             }
 
-            canvas.drawText(label, (float) ((key.width - padding.left - padding.right) / 2 + padding.left), (float) ((key.height - padding.top - padding.bottom) /
-                    2) + (paint.getTextSize() - paint.descent()) / 2.0F + (float) padding.top, paint);
+            canvas.drawText(
+                    label,
+                    (float) ((key.width - padding.left - padding.right) / 2 + padding.left),
+                    (float) ((key.height - padding.top - padding.bottom) / 2) + (paint.getTextSize() - paint.descent()) / 2.0F + (float) padding.top,
+                    paint
+            );
             paint.setShadowLayer(0.0F, 0.0F, 0.0F, 0);
         }
 

@@ -1,7 +1,6 @@
 package com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.voice;
 
 import android.animation.TimeAnimator;
-import android.animation.TimeAnimator.TimeListener;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,8 +9,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.Paint.Style;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 import androidx.core.content.ContextCompat;
@@ -49,10 +48,10 @@ public class BitmapSoundLevelView extends View {
     @TargetApi(16)
     public BitmapSoundLevelView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.mEmptyPaint = new Paint();
+        mEmptyPaint = new Paint();
         TypedArray styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.BitmapSoundLevelView, defStyleAttr, 0);
-        this.mEnableBackgroundColor = styledAttrs.getColor(R.styleable.BitmapSoundLevelView_enabledBackgroundColor, Color.parseColor("#66FFFFFF"));
-        this.mDisableBackgroundColor = styledAttrs.getColor(R.styleable.BitmapSoundLevelView_disabledBackgroundColor, -1);
+        mEnableBackgroundColor = styledAttrs.getColor(R.styleable.BitmapSoundLevelView_enabledBackgroundColor, Color.parseColor("#66FFFFFF"));
+        mDisableBackgroundColor = styledAttrs.getColor(R.styleable.BitmapSoundLevelView_disabledBackgroundColor, -1);
         boolean primaryLevelEnabled = false;
         boolean peakLevelEnabled = false;
         int primaryLevelId = 0;
@@ -67,130 +66,126 @@ public class BitmapSoundLevelView extends View {
             peakLevelEnabled = true;
         }
 
-        this.mCenterTranslationX = styledAttrs.getDimensionPixelOffset(R.styleable.BitmapSoundLevelView_levelsCenterX, 0);
-        this.mCenterTranslationY = styledAttrs.getDimensionPixelOffset(R.styleable.BitmapSoundLevelView_levelsCenterY, 0);
-        this.mMinimumLevelSize = styledAttrs.getDimensionPixelOffset(R.styleable.BitmapSoundLevelView_minLevelRadius, 0);
+        mCenterTranslationX = styledAttrs.getDimensionPixelOffset(R.styleable.BitmapSoundLevelView_levelsCenterX, 0);
+        mCenterTranslationY = styledAttrs.getDimensionPixelOffset(R.styleable.BitmapSoundLevelView_levelsCenterY, 0);
+        mMinimumLevelSize = styledAttrs.getDimensionPixelOffset(R.styleable.BitmapSoundLevelView_minLevelRadius, 0);
         styledAttrs.recycle();
         if (primaryLevelEnabled) {
-            this.mPrimaryLevel = BitmapFactory.decodeResource(this.getResources(), primaryLevelId);
+            mPrimaryLevel = BitmapFactory.decodeResource(getResources(), primaryLevelId);
         } else {
-            this.mPrimaryLevel = null;
+            mPrimaryLevel = null;
         }
 
         if (peakLevelEnabled) {
-            this.mTrailLevel = BitmapFactory.decodeResource(this.getResources(), trailLevelId);
+            mTrailLevel = BitmapFactory.decodeResource(getResources(), trailLevelId);
         } else {
-            this.mTrailLevel = null;
+            mTrailLevel = null;
         }
 
-        this.mPaint = new Paint();
-        this.mDestRect = new Rect();
-        this.mEmptyPaint.setFilterBitmap(true);
-        this.mLevelSource = new SpeechLevelSource();
-        this.mLevelSource.setSpeechLevel(0);
-        this.mAnimator = new TimeAnimator();
-        this.mAnimator.setRepeatCount(-1);
-        this.mAnimator.setTimeListener(new TimeListener() {
-            public void onTimeUpdate(TimeAnimator animator, long l, long l1) {
-                BitmapSoundLevelView.this.invalidate();
-            }
-        });
+        mPaint = new Paint();
+        mDestRect = new Rect();
+        mEmptyPaint.setFilterBitmap(true);
+        mLevelSource = new SpeechLevelSource();
+        mLevelSource.setSpeechLevel(0);
+        mAnimator = new TimeAnimator();
+        mAnimator.setRepeatCount(-1);
+        mAnimator.setTimeListener((animation, totalTime, deltaTime) -> invalidate());
     }
 
     @TargetApi(16)
     private void startAnimator() {
-        if (!this.mAnimator.isStarted()) {
-            this.mAnimator.start();
+        if (!mAnimator.isStarted()) {
+            mAnimator.start();
         }
 
     }
 
     @TargetApi(16)
     private void stopAnimator() {
-        this.mAnimator.cancel();
+        mAnimator.cancel();
     }
 
     private void updateAnimatorState() {
-        if (this.isEnabled()) {
-            this.startAnimator();
+        if (isEnabled()) {
+            startAnimator();
         } else {
-            this.stopAnimator();
+            stopAnimator();
         }
     }
 
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        this.updateAnimatorState();
+        updateAnimatorState();
     }
 
     protected void onDetachedFromWindow() {
-        this.stopAnimator();
+        stopAnimator();
         super.onDetachedFromWindow();
     }
 
     public void onDraw(Canvas canvas) {
-        if (this.isEnabled()) {
-            canvas.drawColor(this.mEnableBackgroundColor);
-            final int level = this.mLevelSource.getSpeechLevel();
-            if (level > this.mPeakLevel) {
-                this.mPeakLevel = level;
-                this.mPeakLevelCountDown = 25;
-            } else if (this.mPeakLevelCountDown == 0) {
-                this.mPeakLevel = Math.max(0, this.mPeakLevel - 2);
+        if (isEnabled()) {
+            canvas.drawColor(mEnableBackgroundColor);
+            final int level = mLevelSource.getSpeechLevel();
+            if (level > mPeakLevel) {
+                mPeakLevel = level;
+                mPeakLevelCountDown = 25;
+            } else if (mPeakLevelCountDown == 0) {
+                mPeakLevel = Math.max(0, mPeakLevel - 2);
             } else {
-                --this.mPeakLevelCountDown;
+                --mPeakLevelCountDown;
             }
 
-            if (level > this.mCurrentVolume) {
-                this.mCurrentVolume += (level - this.mCurrentVolume) / 4;
+            if (level > mCurrentVolume) {
+                mCurrentVolume += (level - mCurrentVolume) / 4;
             } else {
-                this.mCurrentVolume = (int) ((float) this.mCurrentVolume * 0.95F);
+                mCurrentVolume = (int) ((float) mCurrentVolume * 0.95F);
             }
 
-            final int centerX = this.mCenterTranslationX + this.getWidth() / 2;
-            final int centerY = this.mCenterTranslationY + this.getWidth() / 2;
+            final int centerX = mCenterTranslationX + getWidth() / 2;
+            final int centerY = mCenterTranslationY + getWidth() / 2;
             int size;
-            if (this.mTrailLevel != null) {
-                size = (centerX - this.mMinimumLevelSize) * this.mPeakLevel / 100 + this.mMinimumLevelSize;
-                this.mDestRect.set(centerX - size, centerY - size, centerX + size, centerY + size);
-                canvas.drawBitmap(this.mTrailLevel, (Rect) null, this.mDestRect, this.mEmptyPaint);
+            if (mTrailLevel != null) {
+                size = (centerX - mMinimumLevelSize) * mPeakLevel / 100 + mMinimumLevelSize;
+                mDestRect.set(centerX - size, centerY - size, centerX + size, centerY + size);
+                canvas.drawBitmap(mTrailLevel, null, mDestRect, mEmptyPaint);
             }
 
-            if (this.mPrimaryLevel != null) {
-                size = (centerX - this.mMinimumLevelSize) * this.mCurrentVolume / 100 + this.mMinimumLevelSize;
-                this.mDestRect.set(centerX - size, centerY - size, centerX + size, centerY + size);
-                canvas.drawBitmap(this.mPrimaryLevel, (Rect) null, this.mDestRect, this.mEmptyPaint);
-                this.mPaint.setColor(ContextCompat.getColor(getContext(), R.color.search_mic_background));
-                this.mPaint.setStyle(Style.FILL);
-                canvas.drawCircle((float) centerX, (float) centerY, (float) (this.mMinimumLevelSize - 3), this.mPaint);
+            if (mPrimaryLevel != null) {
+                size = (centerX - mMinimumLevelSize) * mCurrentVolume / 100 + mMinimumLevelSize;
+                mDestRect.set(centerX - size, centerY - size, centerX + size, centerY + size);
+                canvas.drawBitmap(mPrimaryLevel, null, mDestRect, mEmptyPaint);
+                mPaint.setColor(ContextCompat.getColor(getContext(), R.color.search_mic_background));
+                mPaint.setStyle(Style.FILL);
+                canvas.drawCircle((float) centerX, (float) centerY, (float) (mMinimumLevelSize - 3), mPaint);
             }
 
-            if (this.mTrailLevel != null && this.mPrimaryLevel != null) {
-                this.mPaint.setColor(ContextCompat.getColor(getContext(), R.color.search_mic_levels_guideline));
-                this.mPaint.setStyle(Style.STROKE);
-                canvas.drawCircle((float) centerX, (float) centerY, (float) (centerX - 13), this.mPaint);
+            if (mTrailLevel != null && mPrimaryLevel != null) {
+                mPaint.setColor(ContextCompat.getColor(getContext(), R.color.search_mic_levels_guideline));
+                mPaint.setStyle(Style.STROKE);
+                canvas.drawCircle((float) centerX, (float) centerY, (float) (centerX - 13), mPaint);
             }
 
         } else {
-            canvas.drawColor(this.mDisableBackgroundColor);
+            canvas.drawColor(mDisableBackgroundColor);
         }
     }
 
     public void onWindowFocusChanged(boolean var1) {
         super.onWindowFocusChanged(var1);
         if (var1) {
-            this.updateAnimatorState();
+            updateAnimatorState();
         } else {
-            this.stopAnimator();
+            stopAnimator();
         }
     }
 
     public void setEnabled(boolean var1) {
         super.setEnabled(var1);
-        this.updateAnimatorState();
+        updateAnimatorState();
     }
 
     public void setLevelSource(SpeechLevelSource var1) {
-        this.mLevelSource = var1;
+        mLevelSource = var1;
     }
 }
