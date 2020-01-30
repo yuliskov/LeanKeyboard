@@ -513,7 +513,7 @@ public class LeanbackKeyboardContainer {
 
             mSpeechRecognizer.startListening(mRecognizerIntent);
         } else {
-            String noRecognition = "Seems that current device is not supporting voice recognition";
+            String noRecognition = "Seems that the voice recognition is not enabled on your device";
 
             MessageHelpers.showLongMessage(context, noRecognition);
 
