@@ -505,114 +505,20 @@ public class LeanbackKeyboardContainer {
      * @param context context
      */
     private void startRecognition(Context context) {
-        mRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        mRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        mRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
-        mSpeechRecognizer.setRecognitionListener(new RecognitionListener() {
-            float peakRmsLevel = 0.0F;
-            int rmsCounter = 0;
+        if (SpeechRecognizer.isRecognitionAvailable(context)) {
+            mRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+            mRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+            mRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
+            mSpeechRecognizer.setRecognitionListener(new MyVoiceRecognitionListener());
 
-            @Override
-            public void onBeginningOfSpeech() {
-                mVoiceButtonView.showRecording();
-            }
+            mSpeechRecognizer.startListening(mRecognizerIntent);
+        } else {
+            String noRecognition = "Seems that current device is not supporting voice recognition";
 
-            @Override
-            public void onBufferReceived(byte[] buffer) {
-                // NOP
-            }
+            MessageHelpers.showLongMessage(context, noRecognition);
 
-            @Override
-            public void onEndOfSpeech() {
-                mVoiceButtonView.showRecognizing();
-                mVoiceOn = false;
-            }
-
-            @Override
-            public void onError(int error) {
-                cancelVoiceRecording();
-
-                String errorMsg;
-
-                switch (error) {
-                    case SpeechRecognizer.ERROR_SERVER:
-                        errorMsg = "recognizer error server error";
-                        break;
-                    case SpeechRecognizer.ERROR_CLIENT:
-                        errorMsg = "recognizer error client error";
-                        break;
-                    case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
-                        errorMsg = "recognizer error speech timeout";
-                        break;
-                    case SpeechRecognizer.ERROR_NO_MATCH:
-                        errorMsg = "recognizer error no match";
-                        break;
-                    default:
-                        errorMsg = "recognizer other error " + error;
-                }
-
-                MessageHelpers.showLongMessage(mContext, errorMsg);
-
-                Log.d(TAG, errorMsg);
-            }
-
-            @Override
-            public void onEvent(int eventType, Bundle bundle) {
-                // NOP
-            }
-
-            @Override
-            public void onPartialResults(Bundle bundle) {
-                // NOP
-            }
-
-            @Override
-            public void onReadyForSpeech(Bundle bundle) {
-                mVoiceButtonView.showListening();
-            }
-
-            @Override
-            public void onResults(Bundle bundle) {
-                List<String> results = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-
-                if (results != null && mVoiceListener != null) {
-                    mVoiceListener.onVoiceResult(results.get(0));
-                }
-
-                cancelVoiceRecording();
-            }
-
-            // TODO: not fully decompiled and may contains bugs
-            @Override
-            public void onRmsChanged(float rmsdB) {
-                synchronized (this) {
-                    mVoiceOn = true;
-
-                    int speechLevel = 0;
-
-                    if (rmsdB >= 0) {
-                        speechLevel = (int) (rmsdB * 10f);
-                    }
-
-                    mSpeechLevelSource.setSpeechLevel(speechLevel);
-
-                    peakRmsLevel = Math.max(peakRmsLevel, rmsdB);
-                    rmsCounter++;
-
-                    if (rmsCounter <= 100) {
-                        return;
-                    }
-
-                    if (peakRmsLevel < 0) {
-                        return;
-                    }
-
-                    mVoiceButtonView.showNotListening();
-                }
-            }
-        });
-
-        mSpeechRecognizer.startListening(mRecognizerIntent);
+            Log.e(TAG, noRecognition);
+        }
     }
 
     public void alignSelector(final float x, final float y, final boolean playAnimation) {
@@ -1457,5 +1363,109 @@ public class LeanbackKeyboardContainer {
         Intent intent = new Intent(mContext, KbSettingsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(intent);
+    }
+
+    private class MyVoiceRecognitionListener implements RecognitionListener {
+        float peakRmsLevel = 0.0F;
+        int rmsCounter = 0;
+
+        @Override
+        public void onBeginningOfSpeech() {
+            mVoiceButtonView.showRecording();
+        }
+
+        @Override
+        public void onBufferReceived(byte[] buffer) {
+            // NOP
+        }
+
+        @Override
+        public void onEndOfSpeech() {
+            mVoiceButtonView.showRecognizing();
+            mVoiceOn = false;
+        }
+
+        @Override
+        public void onError(int error) {
+            cancelVoiceRecording();
+
+            String errorMsg;
+
+            switch (error) {
+                case SpeechRecognizer.ERROR_SERVER:
+                    errorMsg = "recognizer error server error";
+                    break;
+                case SpeechRecognizer.ERROR_CLIENT:
+                    errorMsg = "recognizer error client error";
+                    break;
+                case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
+                    errorMsg = "recognizer error speech timeout";
+                    break;
+                case SpeechRecognizer.ERROR_NO_MATCH:
+                    errorMsg = "recognizer error no match";
+                    break;
+                default:
+                    errorMsg = "recognizer other error " + error;
+            }
+
+            MessageHelpers.showLongMessage(mContext, errorMsg);
+
+            Log.d(TAG, errorMsg);
+        }
+
+        @Override
+        public void onEvent(int eventType, Bundle bundle) {
+            // NOP
+        }
+
+        @Override
+        public void onPartialResults(Bundle bundle) {
+            // NOP
+        }
+
+        @Override
+        public void onReadyForSpeech(Bundle bundle) {
+            mVoiceButtonView.showListening();
+        }
+
+        @Override
+        public void onResults(Bundle bundle) {
+            List<String> results = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+
+            if (results != null && mVoiceListener != null) {
+                mVoiceListener.onVoiceResult(results.get(0));
+            }
+
+            cancelVoiceRecording();
+        }
+
+        // TODO: not fully decompiled and may contains bugs
+        @Override
+        public void onRmsChanged(float rmsdB) {
+            synchronized (this) {
+                mVoiceOn = true;
+
+                int speechLevel = 0;
+
+                if (rmsdB >= 0) {
+                    speechLevel = (int) (rmsdB * 10f);
+                }
+
+                mSpeechLevelSource.setSpeechLevel(speechLevel);
+
+                peakRmsLevel = Math.max(peakRmsLevel, rmsdB);
+                rmsCounter++;
+
+                if (rmsCounter <= 100) {
+                    return;
+                }
+
+                if (peakRmsLevel < 0) {
+                    return;
+                }
+
+                mVoiceButtonView.showNotListening();
+            }
+        }
     }
 }
