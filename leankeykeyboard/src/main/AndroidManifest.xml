@@ -29,6 +29,7 @@
         android:icon="@mipmap/ic_launcher_main"
         android:label="@string/ime_name"
         android:theme="@style/Theme.Leanback">
+
         <activity
             android:name="com.liskovsoft.leankeyboard.settings.settings.KbSettingsActivity"
             android:launchMode="singleTop">
@@ -44,6 +45,7 @@
             android:name="com.liskovsoft.leankeyboard.settings.kblayout.KbLayoutActivity"
             android:launchMode="singleTop">
         </activity>
+
         <activity
             android:name="com.liskovsoft.leankeyboard.settings.kbselector.KbSelectActivity"
             android:launchMode="singleTop">
@@ -65,6 +67,8 @@
                 android:name="intent"
                 android:value="android.settings.INPUT_METHOD_SETTINGS"/>
         </activity>
+
+        <activity android:name="com.liskovsoft.leankeyboard.addons.voicesearch.RecognizerIntentActivity"/>
 
         <service
             android:name="com.liskovsoft.leankeyboard.keyboard.leanback.ime.LeanbackImeService"

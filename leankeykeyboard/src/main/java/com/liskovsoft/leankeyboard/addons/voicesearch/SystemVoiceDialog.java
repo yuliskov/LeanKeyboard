@@ -3,8 +3,8 @@ package com.liskovsoft.leankeyboard.addons.voicesearch;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.os.Build.VERSION;
 import android.speech.RecognizerIntent;
+
 import java.util.List;
 
 class SystemVoiceDialog implements VoiceDialog, ActivityListener {
@@ -18,10 +18,6 @@ class SystemVoiceDialog implements VoiceDialog, ActivityListener {
     }
 
     public boolean displaySpeechRecognizer() {
-        //if (VERSION.SDK_INT < 21) {
-        //    return false;
-        //}
-
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);

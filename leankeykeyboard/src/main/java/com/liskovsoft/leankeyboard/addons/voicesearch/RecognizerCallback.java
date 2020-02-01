@@ -1,5 +1,5 @@
 package com.liskovsoft.leankeyboard.addons.voicesearch;
 
-public interface VoiceCallback {
+public interface RecognizerCallback {
     void openSearchPage(String searchText);
 }

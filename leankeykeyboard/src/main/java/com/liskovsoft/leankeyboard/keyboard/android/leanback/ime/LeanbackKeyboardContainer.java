@@ -34,6 +34,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
+import com.liskovsoft.leankeyboard.addons.voicesearch.RecognizerIntentWrapper;
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackKeyboardController.InputListener;
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.voice.RecognizerView;
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.voice.SpeechLevelSource;
@@ -102,6 +103,7 @@ public class LeanbackKeyboardContainer {
     private ValueAnimator mSelectorAnimator;
     private SpeechLevelSource mSpeechLevelSource;
     private SpeechRecognizer mSpeechRecognizer;
+    private RecognizerIntentWrapper mRecognizerIntentWrapper;
     private LinearLayout mSuggestions;
     private View mSuggestionsBg;
     private HorizontalScrollView mSuggestionsContainer;
@@ -195,6 +197,7 @@ public class LeanbackKeyboardContainer {
         mSpeechLevelSource = new SpeechLevelSource();
         mVoiceButtonView.setSpeechLevelSource(mSpeechLevelSource);
         mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(mContext);
+        mRecognizerIntentWrapper = new RecognizerIntentWrapper(mContext);
         mVoiceButtonView.setCallback(new RecognizerView.Callback() {
             @Override
             public void onCancelRecordingClicked() {
@@ -513,11 +516,14 @@ public class LeanbackKeyboardContainer {
 
             mSpeechRecognizer.startListening(mRecognizerIntent);
         } else {
-            String noRecognition = "Seems that the voice recognition is not enabled on your device";
+            mRecognizerIntentWrapper.setListener(searchText -> mVoiceListener.onVoiceResult(searchText));
+            mRecognizerIntentWrapper.startListening();
 
-            MessageHelpers.showLongMessage(context, noRecognition);
-
-            Log.e(TAG, noRecognition);
+            //String noRecognition = "Seems that the voice recognition is not enabled on your device";
+            //
+            //MessageHelpers.showLongMessage(context, noRecognition);
+            //
+            //Log.e(TAG, noRecognition);
         }
     }
 

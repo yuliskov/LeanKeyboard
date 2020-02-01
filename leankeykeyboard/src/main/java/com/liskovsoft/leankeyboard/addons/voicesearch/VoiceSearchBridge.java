@@ -5,12 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-public class VoiceSearchBridge implements SearchCallback {
+class VoiceSearchBridge implements SearchCallback {
     private final ArrayList<VoiceDialog> mDialogs;
     private final AppCompatActivity mActivity;
-    private final VoiceCallback mCallback;
+    private final RecognizerCallback mCallback;
 
-    public VoiceSearchBridge(AppCompatActivity activity, VoiceCallback callback) {
+    public VoiceSearchBridge(AppCompatActivity activity, RecognizerCallback callback) {
         mActivity = activity;
         mCallback = callback;
         mDialogs = new ArrayList<>();
