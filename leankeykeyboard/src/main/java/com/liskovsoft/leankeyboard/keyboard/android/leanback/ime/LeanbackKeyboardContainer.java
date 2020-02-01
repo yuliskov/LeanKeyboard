@@ -116,7 +116,7 @@ public class LeanbackKeyboardContainer {
     private RecognizerView mVoiceButtonView;
     private boolean mVoiceEnabled;
     private boolean mVoiceKeyDismissesEnabled;
-    private LeanbackKeyboardContainer.VoiceListener mVoiceListener;
+    private VoiceListener mVoiceListener;
     private boolean mVoiceOn;
     private Float mX;
     private Float mY;
@@ -1041,7 +1041,7 @@ public class LeanbackKeyboardContainer {
         setKbFocus(mCurrKeyInfo, true, true);
     }
 
-    public void setVoiceListener(LeanbackKeyboardContainer.VoiceListener listener) {
+    public void setVoiceListener(VoiceListener listener) {
         mVoiceListener = listener;
     }
 
@@ -1061,8 +1061,6 @@ public class LeanbackKeyboardContainer {
      */
     public void onLangKeyPress() {
         switchToNextKeyboard();
-
-        //showRunOnceDialog();
     }
 
     private void switchToNextKeyboard() {

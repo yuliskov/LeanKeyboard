@@ -63,9 +63,10 @@ dependencies {
     androidTestImplementation(project.properties.espressoCoreVersion, {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    testImplementation project.properties.junitVersion
     implementation project.properties.appCompatXVersion
     implementation project.properties.leanbackCompatXVersion
     implementation project.properties.constraintXVersion
     implementation project.properties.designXVersion
-    testImplementation project.properties.junitVersion
+    implementation project.properties.voiceOverlayVersion
 }

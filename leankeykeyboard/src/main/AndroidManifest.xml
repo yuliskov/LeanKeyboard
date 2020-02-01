@@ -6,7 +6,8 @@
     <!-- Use older sdk -->
     <uses-sdk tools:overrideLibrary="
             android.support.v17.leanback,
-            androidx.leanback"/>
+            androidx.leanback,
+            com.algolia.instantsearch.voice"/>
 
     <uses-feature
         android:name="android.software.leanback"

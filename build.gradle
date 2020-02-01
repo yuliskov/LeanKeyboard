@@ -35,6 +35,7 @@ buildscript {
         leanbackCompatXVersion = 'androidx.leanback:leanback:1.0.0'
         designXVersion = 'com.google.android.material:material:1.0.0'
         constraintXVersion = 'androidx.constraintlayout:constraintlayout:1.1.3'
+        voiceOverlayVersion = 'com.algolia.instantsearch:voice:1.0.0-beta02' // https://github.com/algolia/voice-overlay-android
     }
 }
 
