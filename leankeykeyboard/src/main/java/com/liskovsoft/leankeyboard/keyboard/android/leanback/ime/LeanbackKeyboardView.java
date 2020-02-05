@@ -288,13 +288,17 @@ public class LeanbackKeyboardView extends FrameLayout {
         Log.w(TAG, "method 'removeMessages()' not implemented");
     }
 
+    /**
+     * NOTE: Keys initialization routine.<br/>
+     * Any manipulations with keys should be done here.
+     */
     private void setKeys(List<Key> keys) {
-        mKeys = new LeanbackKeyboardView.KeyHolder[keys.size()];
-        Iterator iterator = keys.iterator();
+        mKeys = new KeyHolder[keys.size()];
+        Iterator<Key> iterator = keys.iterator();
 
         for (int i = 0; i < mKeys.length && iterator.hasNext(); ++i) {
-            Key key = (Key) iterator.next();
-            mKeys[i] = new LeanbackKeyboardView.KeyHolder(key);
+            Key key = iterator.next();
+            mKeys[i] = new KeyHolder(key);
         }
 
     }
