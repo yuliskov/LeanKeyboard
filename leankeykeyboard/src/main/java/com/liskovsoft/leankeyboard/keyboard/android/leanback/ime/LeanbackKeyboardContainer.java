@@ -224,7 +224,7 @@ public class LeanbackKeyboardContainer {
     }
 
     /**
-     * Initialize {@link KeyFocus} with values
+     * NOTE: Initialize {@link KeyFocus} with values
      * @param focus {@link KeyFocus} to configure
      * @param rect {@link Rect}
      * @param index key index
@@ -254,28 +254,28 @@ public class LeanbackKeyboardContainer {
     }
 
     private PointF getAlignmentPosition(final float posXCm, final float posYCm, final PointF result) {
-        final float width = (float) (this.mRootView.getWidth() - this.mRootView.getPaddingRight() - this.mRootView.getPaddingLeft());
-        final float height = (float) (this.mRootView.getHeight() - this.mRootView.getPaddingTop() - this.mRootView.getPaddingBottom());
-        final float size = this.mContext.getResources().getDimension(R.dimen.selector_size);
-        result.x = posXCm / PHYSICAL_WIDTH_CM * (width - size) + (float) this.mRootView.getPaddingLeft();
-        result.y = posYCm / PHYSICAL_HEIGHT_CM * (height - size) + (float) this.mRootView.getPaddingTop();
+        final float width = (float) (mRootView.getWidth() - mRootView.getPaddingRight() - mRootView.getPaddingLeft());
+        final float height = (float) (mRootView.getHeight() - mRootView.getPaddingTop() - mRootView.getPaddingBottom());
+        final float size = mContext.getResources().getDimension(R.dimen.selector_size);
+        result.x = posXCm / PHYSICAL_WIDTH_CM * (width - size) + (float) mRootView.getPaddingLeft();
+        result.y = posYCm / PHYSICAL_HEIGHT_CM * (height - size) + (float) mRootView.getPaddingTop();
         return result;
     }
 
-    private void getPhysicalPosition(final float x, final float y, final PointF result) {
-        float width = (float) (this.mSelector.getWidth() / 2);
-        float height = (float) (this.mSelector.getHeight() / 2);
-        float posXCm = (float) (this.mRootView.getWidth() - this.mRootView.getPaddingRight() - this.mRootView.getPaddingLeft());
-        float posYCm = (float) (this.mRootView.getHeight() - this.mRootView.getPaddingTop() - this.mRootView.getPaddingBottom());
-        float size = this.mContext.getResources().getDimension(R.dimen.selector_size);
-        result.x = (x - width - (float) this.mRootView.getPaddingLeft()) * PHYSICAL_WIDTH_CM / (posXCm - size);
-        result.y = (y - height - (float) this.mRootView.getPaddingTop()) * PHYSICAL_HEIGHT_CM / (posYCm - size);
+    private void getPhysicalPosition(final float x, final float y, final PointF position) {
+        float width = (float) (mSelector.getWidth() / 2);
+        float height = (float) (mSelector.getHeight() / 2);
+        float posXCm = (float) (mRootView.getWidth() - mRootView.getPaddingRight() - mRootView.getPaddingLeft());
+        float posYCm = (float) (mRootView.getHeight() - mRootView.getPaddingTop() - mRootView.getPaddingBottom());
+        float size = mContext.getResources().getDimension(R.dimen.selector_size);
+        position.x = (x - width - (float) mRootView.getPaddingLeft()) * PHYSICAL_WIDTH_CM / (posXCm - size);
+        position.y = (y - height - (float) mRootView.getPaddingTop()) * PHYSICAL_HEIGHT_CM / (posYCm - size);
     }
 
     private PointF getTouchSnapPosition() {
-        PointF var1 = new PointF();
-        this.getPhysicalPosition((float) this.mCurrKeyInfo.rect.centerX(), (float) this.mCurrKeyInfo.rect.centerY(), var1);
-        return var1;
+        PointF position = new PointF();
+        getPhysicalPosition((float) mCurrKeyInfo.rect.centerX(), (float) mCurrKeyInfo.rect.centerY(), position);
+        return position;
     }
 
     private void initKeyboards() {
@@ -300,12 +300,12 @@ public class LeanbackKeyboardContainer {
     }
 
     /**
-     * Move focus to specified key
+     * NOTE: Move focus to specified key
      * @param index key index
      * @param type {@link KeyFocus#type} constant
      */
     private void moveFocusToIndex(int index, int type) {
-        Key key = this.mMainKeyboardView.getKey(index);
+        Key key = mMainKeyboardView.getKey(index);
         configureFocus(mTempKeyInfo, mRect, index, key, type);
         setTouchState(TOUCH_STATE_NO_TOUCH);
         setKbFocus(mTempKeyInfo, true, true);

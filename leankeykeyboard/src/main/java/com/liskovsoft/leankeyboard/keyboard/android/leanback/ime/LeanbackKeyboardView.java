@@ -168,12 +168,15 @@ public class LeanbackKeyboardView extends FrameLayout {
         }
     }
 
+    /**
+     * NOTE: Adds key views to root window
+     */
     @SuppressLint("NewApi")
     private ImageView createKeyImageView(final int keyIndex) {
         Rect padding = mPadding;
         int kbdPaddingLeft = getPaddingLeft();
         int kbdPaddingTop = getPaddingTop();
-        LeanbackKeyboardView.KeyHolder keyHolder = mKeys[keyIndex];
+        KeyHolder keyHolder = mKeys[keyIndex];
         Key key = keyHolder.key;
         adjustCase(keyHolder);
         String label;
@@ -252,6 +255,7 @@ public class LeanbackKeyboardView extends FrameLayout {
         ImageView image = new ImageView(getContext());
         image.setImageBitmap(bitmap);
         image.setContentDescription(label);
+        // Adds key views to root window
         addView(image, new LayoutParams(-2, -2));
         image.setX((float) (key.x + kbdPaddingLeft));
         image.setY((float) (key.y + kbdPaddingTop));
@@ -385,7 +389,6 @@ public class LeanbackKeyboardView extends FrameLayout {
             indexFull += mColCount * result;
             result = indexFull;
             if (indexFull > ASCII_PERIOD) { // key goes beyond space
-                result = indexFull;
                 if (indexFull < (ASCII_PERIOD + ASCII_PERIOD_LEN)) {  // key stays within space boundary
                     result = ASCII_PERIOD;
                 }
@@ -616,7 +619,7 @@ public class LeanbackKeyboardView extends FrameLayout {
         }
     }
 
-    private class KeyHolder {
+    private static class KeyHolder {
         public boolean isInMiniKb = false;
         public boolean isInvertible = false;
         public Key key;
