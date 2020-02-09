@@ -44,4 +44,6 @@
     <string name="misc_desc">Misc Settings</string>
     <string name="keep_on_screen">Keep on Screen</string>
     <string name="keyboardview_keycode_clipboard">Clipboard</string>
+    <string name="increase_kbd_size">Enlarge keyboard</string>
+    <string name="increase_kbd_size_desc">Increase keyboard size</string>
 </resources>

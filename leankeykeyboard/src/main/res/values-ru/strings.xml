@@ -33,4 +33,6 @@
     <string name="keep_on_screen_desc">Показывать на экране вместе физической</string>
     <string name="misc">Разное</string>
     <string name="misc_desc">Разные настройки</string>
+    <string name="increase_kbd_size">Увеличить</string>
+    <string name="increase_kbd_size_desc">Увеличить клавиатуру</string>
 </resources>

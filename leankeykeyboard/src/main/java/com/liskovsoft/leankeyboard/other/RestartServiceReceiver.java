@@ -12,6 +12,7 @@ public class RestartServiceReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         sendMessageToService(context);
+        //restartService(context);
     }
 
     private void sendMessageToService(Context context) {
@@ -19,5 +20,9 @@ public class RestartServiceReceiver extends BroadcastReceiver {
         Intent intent = new Intent(context, LeanbackImeService.class);
         intent.putExtra(LeanbackImeService.COMMAND_RESTART, true);
         context.startService(intent);
+    }
+
+    private void restartService(Context context) {
+        System.exit(0);
     }
 }

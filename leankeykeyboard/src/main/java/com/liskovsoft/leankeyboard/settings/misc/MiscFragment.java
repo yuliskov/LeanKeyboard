@@ -19,6 +19,7 @@ public class MiscFragment extends BaseSettingsFragment {
 
         mPrefs = LeanKeySettings.instance(getActivity());
         addCheckedAction(R.string.keep_on_screen, R.string.keep_on_screen_desc, mPrefs::getForceShowKeyboard, mPrefs::setForceShowKeyboard);
+        addCheckedAction(R.string.increase_kbd_size, R.string.increase_kbd_size_desc, mPrefs::getEnlargeKeyboard, mPrefs::setEnlargeKeyboard);
     }
 
     @NonNull

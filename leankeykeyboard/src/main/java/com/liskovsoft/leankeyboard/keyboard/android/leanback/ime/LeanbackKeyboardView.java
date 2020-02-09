@@ -14,11 +14,13 @@ import android.graphics.Typeface;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.Keyboard.Key;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import androidx.core.content.ContextCompat;
+import com.liskovsoft.leankeyboard.utils.LeanKeySettings;
 import com.liskovsoft.leankeykeyboard.R;
 
 import java.util.Iterator;
@@ -209,10 +211,17 @@ public class LeanbackKeyboardView extends FrameLayout {
             int iconWidth = key.width; // originally used key.icon.getIntrinsicWidth();
             int iconHeight = key.height; // originally used key.icon.getIntrinsicHeight();
 
-            if (key.width == key.height) {
+            if (key.width == key.height) { // square key proper fit
                 int newSize = Math.round(key.width * mSquareIconScaleFactor);
                 iconWidth = newSize;
                 iconHeight = newSize;
+            }
+
+            if (key.codes[0] == ASCII_SPACE && LeanKeySettings.instance(getContext()).getEnlargeKeyboard()) {
+                // space fix for large interface
+                float gap = getResources().getDimension(R.dimen.keyboard_horizontal_gap);
+                float gapDelta = (gap * 1.3f) - gap;
+                iconWidth -= gapDelta * (ASCII_PERIOD_LEN - 1);
             }
 
             int dx = (key.width - padding.left - padding.right - iconWidth) / 2 + padding.left;
@@ -255,6 +264,7 @@ public class LeanbackKeyboardView extends FrameLayout {
 
         image.setImageAlpha(opacity);
         image.setVisibility(View.VISIBLE);
+
         return image;
     }
 
@@ -300,7 +310,6 @@ public class LeanbackKeyboardView extends FrameLayout {
             Key key = iterator.next();
             mKeys[i] = new KeyHolder(key);
         }
-
     }
 
     public boolean dismissMiniKeyboard() {
@@ -506,7 +515,7 @@ public class LeanbackKeyboardView extends FrameLayout {
     }
 
     /**
-     * Move focus to the key specified by index
+     * NOTE: Increase size of currently focused or clicked key
      * @param index index of the key
      * @param clicked key state
      * @param showFocusScale increase size
@@ -535,8 +544,8 @@ public class LeanbackKeyboardView extends FrameLayout {
 
                 if (mCurrentFocusView != null) {
                     mCurrentFocusView.animate()
-                                     .scaleX(1.0F)
-                                     .scaleY(1.0F)
+                                     .scaleX(scale)
+                                     .scaleY(scale)
                                      .setInterpolator(LeanbackKeyboardContainer.sMovementInterpolator)
                                      .setStartDelay(mUnfocusStartDelay);
 
@@ -558,7 +567,7 @@ public class LeanbackKeyboardView extends FrameLayout {
                                      .scaleX(scale)
                                      .scaleY(scale)
                                      .setInterpolator(LeanbackKeyboardContainer.sMovementInterpolator)
-                                     .setDuration((long) mClickAnimDur)
+                                     .setDuration(mClickAnimDur)
                                      .start();
                 }
 

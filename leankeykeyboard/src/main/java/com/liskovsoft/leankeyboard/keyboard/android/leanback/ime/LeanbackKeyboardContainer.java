@@ -183,7 +183,7 @@ public class LeanbackKeyboardContainer {
         mVoiceButtonView = (RecognizerView) mRootView.findViewById(R.id.voice);
         mActionButtonView = (Button) mRootView.findViewById(R.id.enter);
         mSelector = mRootView.findViewById(R.id.selector);
-        mSelectorAnimation = new LeanbackKeyboardContainer.ScaleAnimation((FrameLayout) mSelector);
+        mSelectorAnimation = new ScaleAnimation((FrameLayout) mSelector);
         mOverestimate = mContext.getResources().getFraction(R.fraction.focused_scale, 1, 1);
         final float scale = context.getResources().getFraction(R.fraction.clicked_scale, 1, 1);
         mClickAnimDur = context.getResources().getInteger(R.integer.clicked_anim_duration);
@@ -217,7 +217,7 @@ public class LeanbackKeyboardContainer {
         initKeyboards();
     }
     
-    private void configureFocus(LeanbackKeyboardContainer.KeyFocus focus, Rect rect, int index, int type) {
+    private void configureFocus(KeyFocus focus, Rect rect, int index, int type) {
         focus.type = type;
         focus.index = index;
         focus.rect.set(rect);
@@ -231,7 +231,7 @@ public class LeanbackKeyboardContainer {
      * @param key {@link Key}
      * @param type {@link KeyFocus#type} constant
      */
-    private void configureFocus(LeanbackKeyboardContainer.KeyFocus focus, Rect rect, int index, Key key, int type) {
+    private void configureFocus(KeyFocus focus, Rect rect, int index, Key key, int type) {
         focus.type = type;
         if (key != null) {
             if (key.codes != null) {
@@ -435,7 +435,7 @@ public class LeanbackKeyboardContainer {
      * @param forceFocusChange force focus
      * @param animate animate transition
      */
-    private void setKbFocus(final LeanbackKeyboardContainer.KeyFocus focus, final boolean forceFocusChange, final boolean animate) {
+    private void setKbFocus(final KeyFocus focus, final boolean forceFocusChange, final boolean animate) {
         boolean clicked = true;
         if (!focus.equals(mCurrKeyInfo) || forceFocusChange) {
             LeanbackKeyboardView prevView = mPrevView;
@@ -968,18 +968,21 @@ public class LeanbackKeyboardContainer {
         mVoiceButtonView.setVisibility(View.INVISIBLE);
     }
 
-    public void setDismissListener(LeanbackKeyboardContainer.DismissListener listener) {
+    public void setDismissListener(DismissListener listener) {
         mDismissListener = listener;
     }
 
-    public void setFocus(LeanbackKeyboardContainer.KeyFocus focus) {
+    public void setFocus(KeyFocus focus) {
         setKbFocus(focus, false, true);
     }
 
-    public void setFocus(LeanbackKeyboardContainer.KeyFocus focus, final boolean animate) {
+    public void setFocus(KeyFocus focus, final boolean animate) {
         setKbFocus(focus, false, animate);
     }
 
+    /**
+     * NOTE: Selection animation when moving from one button to another
+     */
     public void setSelectorToFocus(Rect rect, boolean overestimateWidth, boolean overestimateHeight, boolean animate) {
         if (mSelector.getWidth() != 0 && mSelector.getHeight() != 0 && rect.width() != 0 && rect.height() != 0) {
             final float width = (float) rect.width();
@@ -996,9 +999,11 @@ public class LeanbackKeyboardContainer {
 
             float deltaY = heightOver;
             float deltaX = widthOver;
-            if ((double) (Math.max(widthOver, heightOver) / Math.min(widthOver, heightOver)) < 1.1D) {
-                deltaY = Math.max(widthOver, heightOver);
-                deltaX = deltaY;
+            float maxDelta = Math.max(widthOver, heightOver);
+            float minDelta = Math.min(widthOver, heightOver);
+            if ((double) (maxDelta / minDelta) < 1.1D) {
+                deltaY = maxDelta;
+                deltaX = maxDelta;
             }
 
             final float x = rect.exactCenterX() - deltaX / 2.0F;

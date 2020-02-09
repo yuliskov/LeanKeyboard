@@ -2,16 +2,19 @@ package com.liskovsoft.leankeyboard.keyboard.leanback.ime;
 
 import android.annotation.SuppressLint;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.inputmethodservice.InputMethodService;
 import android.os.Build.VERSION;
 import android.os.Handler;
 import android.os.Message;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -64,11 +67,22 @@ public class LeanbackImeService extends InputMethodService {
 
     @Override
     public void onCreate() {
+        //setupDensity();
         super.onCreate();
 
         Log.d(TAG, "onCreate");
 
         initSettings();
+    }
+
+    private void setupDensity() {
+        if (LeanKeySettings.instance(this).getEnlargeKeyboard()) {
+            DisplayMetrics metrics = LeanbackUtils.createMetricsFrom(this, 1.3f);
+
+            if (metrics != null) {
+                getResources().getDisplayMetrics().setTo(metrics);
+            }
+        }
     }
 
     private void initSettings() {

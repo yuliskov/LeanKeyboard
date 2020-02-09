@@ -9,6 +9,7 @@ public final class LeanKeySettings {
     private static final String BOOTSTRAP_SELECTED_LANGUAGE = "bootstrapSelectedLanguage";
     private static final String APP_KEYBOARD_INDEX = "appKeyboardIndex";
     private static final String FORCE_SHOW_KEYBOARD = "forceShowKeyboard";
+    private static final String ENLARGE_KEYBOARD = "enlargeKeyboard";
     private static LeanKeySettings sInstance;
     private final Context mContext;
     private SharedPreferences mPrefs;
@@ -61,6 +62,16 @@ public final class LeanKeySettings {
     public void setForceShowKeyboard(boolean force) {
         mPrefs.edit()
                 .putBoolean(FORCE_SHOW_KEYBOARD, force)
+                .apply();
+    }
+
+    public boolean getEnlargeKeyboard() {
+        return mPrefs.getBoolean(ENLARGE_KEYBOARD, false);
+    }
+
+    public void setEnlargeKeyboard(boolean enlarge) {
+        mPrefs.edit()
+                .putBoolean(ENLARGE_KEYBOARD, enlarge)
                 .apply();
     }
 }

@@ -31,4 +31,6 @@
     <string name="keep_on_screen">Auf dem Display einblenden</string>
     <string name="misc">Andere</string>
     <string name="misc_desc">Andere Einstellungen</string>
+    <string name="increase_kbd_size">Vergrößern Sie</string>
+    <string name="increase_kbd_size_desc">Vergrößern Sie die Tastatur</string>
 </resources>

@@ -1,19 +1,25 @@
 package com.liskovsoft.leankeyboard.keyboard.android.leanback.ime;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Handler;
 import android.text.InputType;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import androidx.core.content.ContextCompat;
 import com.liskovsoft.leankeyboard.keyboard.leanback.ime.LeanbackImeService;
 
 public class LeanbackUtils {
     private static final int ACCESSIBILITY_DELAY_MS = 250;
     private static final String EDITOR_LABEL = "label";
     private static final Handler sAccessibilityHandler = new Handler();
+    private static final String TAG = LeanbackUtils.class.getSimpleName();
 
     public static int getImeAction(EditorInfo info) {
         return info.imeOptions & (EditorInfo.IME_FLAG_NO_ENTER_ACTION | EditorInfo.IME_MASK_ACTION);
@@ -105,5 +111,28 @@ public class LeanbackUtils {
         }
 
         return null;
+    }
+
+    public static DisplayMetrics createMetricsFrom(Context context, float factor) {
+        DisplayMetrics metrics = null;
+        Object service = context.getSystemService(Context.WINDOW_SERVICE);
+
+        if (service instanceof WindowManager) {
+            WindowManager manager = (WindowManager) service;
+            metrics = new DisplayMetrics();
+            manager.getDefaultDisplay().getMetrics(metrics);
+            Log.d(TAG, metrics.toString());
+
+            // new values
+            metrics.density *= factor;
+            metrics.densityDpi *= factor;
+            metrics.heightPixels *= factor;
+            metrics.widthPixels *= factor;
+            metrics.scaledDensity *= factor;
+            metrics.xdpi *= factor;
+            metrics.ydpi *= factor;
+        }
+
+        return metrics;
     }
 }

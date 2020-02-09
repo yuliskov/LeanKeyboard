@@ -79,9 +79,9 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
 
             }
         };
-        mTouchEventListener = new LeanbackKeyboardController.TouchEventListener();
-        mDownFocus = new LeanbackKeyboardContainer.KeyFocus();
-        mTempFocus = new LeanbackKeyboardContainer.KeyFocus();
+        mTouchEventListener = new TouchEventListener();
+        mDownFocus = new KeyFocus();
+        mTempFocus = new KeyFocus();
         mKeyChangeHistory = new ArrayList<>(11);
         mTempPoint = new PointF();
         mKeyDownReceived = false;
@@ -142,10 +142,10 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     }
 
     private void clearKeyIfNecessary() {
-        ++this.mMoveCount;
-        if (this.mMoveCount >= 3) {
-            this.mMoveCount = 0;
-            this.mKeyDownKeyFocus = null;
+        ++mMoveCount;
+        if (mMoveCount >= 3) {
+            mMoveCount = 0;
+            mKeyDownKeyFocus = null;
         }
 
     }
@@ -158,7 +158,7 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
      * NOTE: Where all magic happens. Input from virtual kbd is processed here.
      * @param focus current key
      */
-    private void commitKey(LeanbackKeyboardContainer.KeyFocus focus) {
+    private void commitKey(KeyFocus focus) {
         if (mContainer != null && focus != null) {
             switch (focus.type) {
                 case KeyFocus.TYPE_VOICE:
