@@ -2,21 +2,21 @@
 <resources>
     <string-array name="additional_languages">
         <item>English|en_us</item>
-        <item>Arabic|ar</item>
+        <item>German|de</item>
+        <item>Russian|ru</item>
+        <item>Ukrainian|uk</item>
         <item>Bulgarian|bg</item>
         <item>Dutch|nl</item>
         <item>French|fr</item>
-        <item>German|de</item>
         <item>Greek|el</item>
-        <item>Hebrew|he</item>
         <item>Icelandic|is</item>
         <item>Italian|it</item>
-        <item>Persian|fa</item>
-        <item>Russian|ru</item>
         <item>Swedish|sv</item>
+        <item>Spanish|es_us</item>
+        <item>Arabic|ar</item>
+        <item>Hebrew|he</item>
+        <item>Persian|fa</item>
         <item>Thai|th</item>
         <item>Turkish|tr</item>
-        <item>Ukrainian|uk</item>
-<!--        <item>Spanish|es_us</item>-->
     </string-array>
 </resources>
