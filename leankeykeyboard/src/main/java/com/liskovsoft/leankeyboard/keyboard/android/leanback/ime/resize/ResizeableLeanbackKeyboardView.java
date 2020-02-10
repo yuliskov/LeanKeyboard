@@ -13,7 +13,7 @@ public class ResizeableLeanbackKeyboardView extends LeanbackKeyboardView {
     private final LeanKeySettings mPrefs;
     private final int mKeyTextSizeOrigin;
     private final int mModeChangeTextSizeOrigin;
-    private final float mSizeFactor = 1.2f;
+    private final float mSizeFactor = 1.3f;
     private int mKeyOriginWidth;
 
     public ResizeableLeanbackKeyboardView(Context context, AttributeSet attrs) {
@@ -54,7 +54,7 @@ public class ResizeableLeanbackKeyboardView extends LeanbackKeyboardView {
 
         KeyboardWrapper wrapper = KeyboardWrapper.from(keyboard, getContext());
         wrapper.setHeightFactor(mSizeFactor);
-        //wrapper.setWidthFactor(mKeyboardHeightFactor);
+        wrapper.setWidthFactor(mSizeFactor);
 
         return wrapper;
     }
