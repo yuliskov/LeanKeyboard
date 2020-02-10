@@ -56,7 +56,7 @@ public final class LeanKeySettings {
     }
 
     public boolean getForceShowKeyboard() {
-        return mPrefs.getBoolean(FORCE_SHOW_KEYBOARD, false);
+        return mPrefs.getBoolean(FORCE_SHOW_KEYBOARD, true);
     }
 
     public void setForceShowKeyboard(boolean force) {

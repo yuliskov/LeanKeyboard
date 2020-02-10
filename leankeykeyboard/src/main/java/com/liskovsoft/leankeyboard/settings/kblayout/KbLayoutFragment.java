@@ -7,8 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.leanback.widget.GuidanceStylist.Guidance;
 import com.liskovsoft.leankeyboard.addons.reskbdfactory.KeyboardInfoAdapter;
-import com.liskovsoft.leankeyboard.keyboard.data.CheckedSource;
-import com.liskovsoft.leankeyboard.keyboard.data.CheckedSource.CheckedItem;
+import com.liskovsoft.leankeyboard.addons.reskbdfactory.CheckedSource;
+import com.liskovsoft.leankeyboard.addons.reskbdfactory.CheckedSource.CheckedItem;
 import com.liskovsoft.leankeyboard.settings.base.BaseSettingsFragment;
 import com.liskovsoft.leankeykeyboard.R;
 

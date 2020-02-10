@@ -47,7 +47,7 @@ public class KeyboardManager {
     }
 
     /**
-     * Get next keyboard from internal source (looped)
+     * NOTE: Get next keyboard from internal source (looped)
      * @return keyboard
      */
     public Keyboard getNextKeyboard() {

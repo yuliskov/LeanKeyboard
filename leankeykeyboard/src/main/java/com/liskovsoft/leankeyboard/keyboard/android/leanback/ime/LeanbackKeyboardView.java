@@ -14,9 +14,10 @@ import android.graphics.Typeface;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.Keyboard.Key;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import androidx.core.content.ContextCompat;
@@ -27,12 +28,13 @@ import java.util.Iterator;
 import java.util.List;
 
 public class LeanbackKeyboardView extends FrameLayout {
+    private static final String TAG = "LbKbView";
     /**
-     * space key index (important: wrong value will broke navigation)
+     * Space key index (important: wrong value will broke navigation)
      */
     public static final int ASCII_PERIOD = 47;
     /**
-     * keys count among which space key spans (important: wrong value will broke navigation)
+     * Keys count among which space key spans (important: wrong value will broke navigation)
      */
     public static final int ASCII_PERIOD_LEN = 5;
     public static final int ASCII_SPACE = 32;
@@ -51,7 +53,6 @@ public class LeanbackKeyboardView extends FrameLayout {
     public static final int SHIFT_LOCKED = 2;
     public static final int SHIFT_OFF = 0;
     public static final int SHIFT_ON = 1;
-    private static final String TAG = "LbKbView";
     private int mBaseMiniKbIndex = -1;
     private final int mClickAnimDur;
     private final float mClickedScale;
@@ -64,19 +65,19 @@ public class LeanbackKeyboardView extends FrameLayout {
     private final int mInactiveMiniKbAlpha;
     private ImageView[] mKeyImageViews;
     private int mKeyTextColor;
-    private int mKeyTextSize;
     private Keyboard mKeyboard;
     private KeyHolder[] mKeys;
     private boolean mMiniKeyboardOnScreen;
-    private int mModeChangeTextSize;
     private Rect mPadding;
-    private Paint mPaint;
     private int mRowCount;
     private int mShiftState;
     private final int mUnfocusStartDelay;
     private final KeyConverter mConverter;
+    protected Paint mPaint;
+    protected int mKeyTextSize;
+    protected int mModeChangeTextSize;
 
-    private class KeyConverter {
+    private static class KeyConverter {
         private static final int LOWER_CASE = 0;
         private static final int UPPER_CASE = 1;
 
@@ -134,7 +135,7 @@ public class LeanbackKeyboardView extends FrameLayout {
         mKeyTextSize = (int) res.getDimension(R.dimen.key_font_size);
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
-        mPaint.setTextSize((float) mKeyTextSize);
+        mPaint.setTextSize(mKeyTextSize);
         mPaint.setTextAlign(Align.CENTER);
         mPaint.setAlpha(255);
         mPadding = new Rect(0, 0, 0, 0);
@@ -256,7 +257,8 @@ public class LeanbackKeyboardView extends FrameLayout {
         image.setImageBitmap(bitmap);
         image.setContentDescription(label);
         // Adds key views to root window
-        addView(image, new LayoutParams(-2, -2));
+        addView(image, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+        // Set position manually for each key
         image.setX((float) (key.x + kbdPaddingLeft));
         image.setY((float) (key.y + kbdPaddingTop));
         int opacity;

@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.keyboard.data;
+package com.liskovsoft.leankeyboard.addons.reskbdfactory;
 
 import java.util.List;
 

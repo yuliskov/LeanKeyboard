@@ -2,7 +2,6 @@ package com.liskovsoft.leankeyboard.addons.reskbdfactory;
 
 import android.content.Context;
 import com.liskovsoft.leankeyboard.addons.KeyboardInfo;
-import com.liskovsoft.leankeyboard.keyboard.data.CheckedSource;
 
 import java.util.ArrayList;
 import java.util.List;

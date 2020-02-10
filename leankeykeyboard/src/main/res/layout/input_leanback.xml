@@ -4,7 +4,7 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:leanbackime="http://schemas.android.com/apk/res-auto">
     <LinearLayout android:id="@+id/keyboard" android:orientation="horizontal" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerHorizontal="true">
-        <com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackKeyboardView android:id="@+id/main_keyboard" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content" leanbackime:rowCount="5" leanbackime:columnCount="11" />
+        <com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.resize.ResizeableLeanbackKeyboardView android:id="@+id/main_keyboard" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content" leanbackime:rowCount="5" leanbackime:columnCount="11" />
     </LinearLayout>
     <FrameLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignTop="@id/keyboard" android:layout_alignBottom="@id/keyboard" android:layout_centerHorizontal="true">
         <com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.voice.RecognizerView android:id="@+id/voice" android:layout_gravity="center" android:visibility="invisible" android:layout_width="@dimen/recognizer_size" android:layout_height="@dimen/recognizer_size" />

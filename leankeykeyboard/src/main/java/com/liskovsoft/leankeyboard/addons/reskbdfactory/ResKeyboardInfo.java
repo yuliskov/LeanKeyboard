@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import com.liskovsoft.leankeyboard.addons.KeyboardInfo;
-import com.liskovsoft.leankeyboard.keyboard.data.CheckedSource;
 import com.liskovsoft.leankeykeyboard.R;
 
 import java.util.ArrayList;
