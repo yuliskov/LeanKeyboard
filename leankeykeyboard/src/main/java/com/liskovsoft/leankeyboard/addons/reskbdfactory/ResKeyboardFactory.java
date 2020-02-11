@@ -2,7 +2,6 @@ package com.liskovsoft.leankeyboard.addons.reskbdfactory;
 
 import android.content.Context;
 import android.inputmethodservice.Keyboard;
-import androidx.annotation.Nullable;
 import com.liskovsoft.leankeyboard.addons.KeyboardBuilder;
 import com.liskovsoft.leankeyboard.addons.KeyboardFactory;
 import com.liskovsoft.leankeyboard.addons.KeyboardInfo;
@@ -23,17 +22,15 @@ public class ResKeyboardFactory implements KeyboardFactory {
         List<KeyboardInfo> infos = ResKeyboardInfo.getAllKeyboardInfos(context);
 
         for (final KeyboardInfo info : infos) {
-            if (!info.isEnabled()) {
-                continue;
+            if (info.isEnabled()) {
+                result.add(createKeyboard(info));
             }
-
-            result.add(createKeyboard(info.getLangCode()));
         }
 
         // at least one kbd should be enabled
         if (result.isEmpty()) {
             KeyboardInfo firstKbd = infos.get(0);
-            result.add(createKeyboard(firstKbd.getLangCode()));
+            result.add(createKeyboard(firstKbd));
             firstKbd.setEnabled(true);
             ResKeyboardInfo.updateAllKeyboardInfos(mContext, infos);
         }
@@ -41,8 +38,15 @@ public class ResKeyboardFactory implements KeyboardFactory {
         return result;
     }
 
-    private KeyboardBuilder createKeyboard(final String langCode) {
-        return () -> new Keyboard(mContext, mContext.getResources().getIdentifier("qwerty_" + langCode, "xml", mContext.getPackageName()));
+    /**
+     * NOTE: create keyboard from xml data
+     */
+    private KeyboardBuilder createKeyboard(final KeyboardInfo info) {
+        return () -> {
+            String prefix = info.isAzerty() ? "azerty_" : "qwerty_";
+            int kbResId = mContext.getResources().getIdentifier(prefix + info.getLangCode(), "xml", mContext.getPackageName());
+            return new Keyboard(mContext, kbResId);
+        };
     }
 
     @Override

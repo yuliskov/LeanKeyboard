@@ -2,12 +2,14 @@
 <resources>
     <string-array name="additional_languages">
         <item>English|en_us</item>
+        <item>English (azerty)|en_us|azerty</item>
         <item>German|de</item>
         <item>Russian|ru</item>
         <item>Ukrainian|uk</item>
         <item>Bulgarian|bg</item>
         <item>Dutch|nl</item>
         <item>French|fr</item>
+        <item>French (azerty)|fr|azerty</item>
         <item>Greek|el</item>
         <item>Icelandic|is</item>
         <item>Italian|it</item>

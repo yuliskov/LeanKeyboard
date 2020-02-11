@@ -1,10 +1,12 @@
 package com.liskovsoft.leankeyboard.addons;
 
 public interface KeyboardInfo {
-    boolean isEnabled();
     String getLangCode();
+    void setLangCode(String langCode);
     String getLangName();
     void setLangName(String langName);
-    void setLangCode(String langCode);
+    boolean isEnabled();
     void setEnabled(boolean enabled);
+    boolean isAzerty();
+    void setIsAzerty(boolean enabled);
 }

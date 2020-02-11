@@ -3,6 +3,7 @@ package com.liskovsoft.leankeyboard.addons.reskbdfactory;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import androidx.annotation.NonNull;
 import com.liskovsoft.leankeyboard.addons.KeyboardInfo;
 import com.liskovsoft.leankeykeyboard.R;
 
@@ -14,6 +15,7 @@ public class ResKeyboardInfo implements KeyboardInfo {
     private boolean mEnabled;
     private String mLangCode;
     private String mLangName;
+    private boolean mIsAzerty;
 
     public static List<KeyboardInfo> getAllKeyboardInfos(Context ctx) {
         List<KeyboardInfo> result = new ArrayList<>();
@@ -22,9 +24,11 @@ public class ResKeyboardInfo implements KeyboardInfo {
             String[] pairs = langPair.split("\\|");
             final String langName = pairs[0];
             final String langCode = pairs[1];
+            final boolean isAzerty = pairs.length >= 3 && "azerty".equals(pairs[2]);
             KeyboardInfo info = new ResKeyboardInfo();
             info.setLangName(langName);
             info.setLangCode(langCode);
+            info.setIsAzerty(isAzerty);
             // sync with prefs
             syncWithPrefs(ctx, info);
             result.add(info);
@@ -43,7 +47,7 @@ public class ResKeyboardInfo implements KeyboardInfo {
 
     private static void syncWithPrefs(Context ctx, KeyboardInfo info) {
         final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ctx);
-        final boolean kbdEnabled = sharedPreferences.getBoolean(info.getLangCode(), false);
+        final boolean kbdEnabled = sharedPreferences.getBoolean(info.toString(), false);
         info.setEnabled(kbdEnabled);
     }
 
@@ -51,7 +55,7 @@ public class ResKeyboardInfo implements KeyboardInfo {
         final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ctx);
 
         final SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(info.getLangCode(), info.isEnabled());
+        editor.putBoolean(info.toString(), info.isEnabled());
         editor.apply();
     }
 
@@ -89,4 +93,19 @@ public class ResKeyboardInfo implements KeyboardInfo {
         mEnabled = enabled;
     }
 
+    @Override
+    public boolean isAzerty() {
+        return mIsAzerty;
+    }
+
+    @Override
+    public void setIsAzerty(boolean isAzerty) {
+        mIsAzerty = isAzerty;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return String.format("{Name: %s, Code: %s, IsAzerty: %b}", mLangName, mLangCode, mIsAzerty);
+    }
 }
