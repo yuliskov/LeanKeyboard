@@ -68,7 +68,9 @@
                 android:value="android.settings.INPUT_METHOD_SETTINGS"/>
         </activity>
 
-        <activity android:name="com.liskovsoft.leankeyboard.addons.voicesearch.RecognizerIntentActivity"/>
+        <activity
+            android:name="com.liskovsoft.leankeyboard.addons.voicesearch.RecognizerIntentActivity"
+            android:theme="@style/Theme.AppCompat"/>
 
         <service
             android:name="com.liskovsoft.leankeyboard.keyboard.leanback.ime.LeanbackImeService"

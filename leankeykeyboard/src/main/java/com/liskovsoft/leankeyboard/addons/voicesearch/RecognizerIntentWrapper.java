@@ -18,7 +18,9 @@ public class RecognizerIntentWrapper {
     public void startListening() {
         if (mCallback != null) {
             RecognizerIntentActivity.sCallback = mCallback;
-            mContext.startActivity(new Intent(mContext, RecognizerIntentActivity.class));
+            Intent intent = new Intent(mContext, RecognizerIntentActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            mContext.startActivity(intent);
         }
     }
 }
