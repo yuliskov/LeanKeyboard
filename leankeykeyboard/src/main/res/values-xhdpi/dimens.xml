@@ -1,5 +1,5 @@
-<!-- Values for devices with 320 dpi e.g. Amazon Fire TV Stick -->
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Values for devices with 320 dpi e.g. Amazon Fire TV Stick -->
 <resources>
     <!-- Main values -->
     <dimen name="key_height">28.0dip</dimen>

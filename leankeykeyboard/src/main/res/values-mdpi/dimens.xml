@@ -1,5 +1,5 @@
-<!-- Values for devices with 160 dpi e.g. Red Box TV -->
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Values for devices with 160 dpi e.g. Red Box TV -->
 <resources>
     <!-- Main values -->
     <dimen name="key_height">37.0dip</dimen>

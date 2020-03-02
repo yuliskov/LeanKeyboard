@@ -1077,9 +1077,15 @@ public class LeanbackKeyboardContainer {
     private void switchToNextKeyboard() {
         LeanbackKeyboardView keyboardView = mMainKeyboardView;
         Keyboard keyboard = mKeyboardManager.getNextKeyboard();
-        mInitialMainKeyboard = keyboard;
-        mAbcKeyboard = keyboard;
-        keyboardView.setKeyboard(keyboard);
+
+        if (keyboardView.getKeyboard() == keyboard) {
+            // Only one keyboard in the list.
+            showKbLayoutSettings();
+        } else {
+            mInitialMainKeyboard = keyboard;
+            mAbcKeyboard = keyboard;
+            keyboardView.setKeyboard(keyboard);
+        }
     }
 
     public void updateAddonKeyboard() {
