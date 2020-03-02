@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.settings.kblayout;
+package com.liskovsoft.leankeyboard.settings.layout;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

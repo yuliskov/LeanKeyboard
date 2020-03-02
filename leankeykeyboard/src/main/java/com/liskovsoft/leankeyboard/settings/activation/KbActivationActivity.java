@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.settings.kbselector;
+package com.liskovsoft.leankeyboard.settings.activation;
 
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
@@ -15,7 +15,7 @@ import com.liskovsoft.leankeykeyboard.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KbSelectActivity extends Activity
+public class KbActivationActivity extends Activity
 {
     private static final String META_PACKAGE_NAME = "package";
     private static final String META_CLASS_NAME = "class";

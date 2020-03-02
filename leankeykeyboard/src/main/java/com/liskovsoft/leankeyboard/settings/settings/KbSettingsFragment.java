@@ -10,9 +10,9 @@ import androidx.leanback.app.GuidedStepSupportFragment;
 import androidx.leanback.widget.GuidanceStylist.Guidance;
 import com.liskovsoft.leankeyboard.settings.about.AboutFragment;
 import com.liskovsoft.leankeyboard.settings.base.BaseSettingsFragment;
-import com.liskovsoft.leankeyboard.settings.kblayout.KbLayoutFragment;
+import com.liskovsoft.leankeyboard.settings.layout.KbLayoutFragment;
 import com.liskovsoft.leankeyboard.settings.misc.MiscFragment;
-import com.liskovsoft.leankeyboard.settings.kbselector.KbSelectActivity;
+import com.liskovsoft.leankeyboard.settings.activation.KbActivationActivity;
 import com.liskovsoft.leankeykeyboard.R;
 
 public class KbSettingsFragment extends BaseSettingsFragment {
@@ -21,7 +21,7 @@ public class KbSettingsFragment extends BaseSettingsFragment {
         super.onAttach(context);
 
         addNextAction(R.string.activate_keyboard, () -> {
-            Intent intent = new Intent(getActivity(), KbSelectActivity.class);
+            Intent intent = new Intent(getActivity(), KbActivationActivity.class);
             startActivity(intent);
         });
 

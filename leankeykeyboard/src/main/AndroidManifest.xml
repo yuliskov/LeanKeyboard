@@ -42,12 +42,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.liskovsoft.leankeyboard.settings.kblayout.KbLayoutActivity"
+            android:name="com.liskovsoft.leankeyboard.settings.layout.KbLayoutActivity"
             android:launchMode="singleTop">
         </activity>
 
         <activity
-            android:name="com.liskovsoft.leankeyboard.settings.kbselector.KbSelectActivity"
+            android:name="com.liskovsoft.leankeyboard.settings.activation.KbActivationActivity"
             android:launchMode="singleTop">
             <meta-data
                 android:name="package"
