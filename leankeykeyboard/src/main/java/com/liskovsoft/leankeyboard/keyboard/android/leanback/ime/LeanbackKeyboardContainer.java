@@ -39,8 +39,10 @@ import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackKeyboar
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.voice.RecognizerView;
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.voice.SpeechLevelSource;
 import com.liskovsoft.leankeyboard.keyboard.leanback.ime.LeanbackImeService;
+import com.liskovsoft.leankeyboard.settings.layout.KbLayoutActivity;
 import com.liskovsoft.leankeyboard.settings.settings.KbSettingsActivity;
 import com.liskovsoft.leankeyboard.addons.KeyboardManager;
+import com.liskovsoft.leankeyboard.utils.helpers.Helpers;
 import com.liskovsoft.leankeyboard.utils.helpers.MessageHelpers;
 import com.liskovsoft.leankeykeyboard.R;
 
@@ -817,7 +819,7 @@ public class LeanbackKeyboardContainer {
             setTouchState(LeanbackKeyboardContainer.TOUCH_STATE_NO_TOUCH);
             return true;
         } else if (keyCode == LeanbackKeyboardView.KEYCODE_LANG_TOGGLE) {
-            showKbLayoutSettings();
+            Helpers.startActivity(mContext, KbSettingsActivity.class);
             return true;
         } else {
             if (mCurrKeyInfo.type == KeyFocus.TYPE_MAIN) {
@@ -1078,9 +1080,9 @@ public class LeanbackKeyboardContainer {
         LeanbackKeyboardView keyboardView = mMainKeyboardView;
         Keyboard keyboard = mKeyboardManager.getNextKeyboard();
 
-        if (keyboardView.getKeyboard() == keyboard) {
-            // Only one keyboard in the list.
-            showKbLayoutSettings();
+        if (keyboardView.getKeyboard() == keyboard) { // one keyboard in the list
+            // Prompt user to select layout.
+            Helpers.startActivity(mContext, KbLayoutActivity.class);
         } else {
             mInitialMainKeyboard = keyboard;
             mAbcKeyboard = keyboard;
@@ -1372,12 +1374,6 @@ public class LeanbackKeyboardContainer {
 
     public interface VoiceListener {
         void onVoiceResult(String result);
-    }
-
-    private void showKbLayoutSettings() {
-        Intent intent = new Intent(mContext, KbSettingsActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        mContext.startActivity(intent);
     }
 
     private class MyVoiceRecognitionListener implements RecognitionListener {

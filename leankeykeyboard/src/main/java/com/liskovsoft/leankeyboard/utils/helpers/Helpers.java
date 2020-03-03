@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import com.liskovsoft.leankeyboard.settings.settings.KbSettingsActivity;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -190,5 +191,16 @@ public class Helpers {
     
     public static String getPackageName(Context ctx) {
         return ctx.getPackageName();
+    }
+
+    public static void startActivity(Context context, Class<?> activityClass) {
+        try {
+            Intent intent = new Intent(context, activityClass);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            MessageHelpers.showLongMessage(context, "Can't start: " + e.getMessage());
+        }
     }
 }
