@@ -2,7 +2,6 @@ package com.liskovsoft.leankeyboard.keyboard.leanback.ime;
 
 import android.annotation.SuppressLint;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.inputmethodservice.InputMethodService;
 import android.os.Build.VERSION;
@@ -14,7 +13,6 @@ import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -297,6 +295,8 @@ public class LeanbackImeService extends InputMethodService {
     @Override
     public int onStartCommand(final Intent intent, final int flags, final int startId) {
         if (intent != null) {
+            Log.d(TAG, "onStartCommand: " + intent.toUri(0));
+
             if (intent.getBooleanExtra(COMMAND_RESTART, false)) {
                 Log.d(TAG, "onStartCommand: trying to restart service");
 

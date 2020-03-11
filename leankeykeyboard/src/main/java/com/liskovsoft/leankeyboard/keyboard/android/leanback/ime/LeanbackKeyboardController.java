@@ -111,16 +111,16 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     private boolean applyLETVFixesUp(int keyCode) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_MENU:
-                this.mContainer.onLangKeyPress();
+                mContainer.switchToNextKeyboard();
                 break;
             case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
-                this.fakeKeyIndex(0, 2);
+                fakeKeyIndex(0, 2);
                 break;
             case KeyEvent.KEYCODE_MEDIA_REWIND:
-                this.fakeKeyCode(-5);
+                fakeKeyCode(-5);
                 break;
             case KeyEvent.KEYCODE_MEDIA_FAST_FORWARD:
-                this.fakeKeyCode(32);
+                fakeKeyCode(32);
                 break;
             default:
                 return false;

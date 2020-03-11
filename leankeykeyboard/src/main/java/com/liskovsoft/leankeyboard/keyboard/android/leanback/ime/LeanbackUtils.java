@@ -2,6 +2,7 @@ package com.liskovsoft.leankeyboard.keyboard.android.leanback.ime;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.inputmethodservice.InputMethodService;
 import android.os.Handler;
 import android.text.InputType;
 import android.util.DisplayMetrics;
@@ -12,6 +13,7 @@ import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import android.view.inputmethod.InputMethodManager;
 import androidx.core.content.ContextCompat;
 import com.liskovsoft.leankeyboard.keyboard.leanback.ime.LeanbackImeService;
 
@@ -134,5 +136,17 @@ public class LeanbackUtils {
         }
 
         return metrics;
+    }
+
+    public static void showKeyboardPicker(InputMethodService context) {
+        if (context != null) {
+            InputMethodManager imeManager = (InputMethodManager) context.getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imeManager != null) {
+                imeManager.showInputMethodPicker();
+
+                Log.d(TAG, "Keyboard may stuck on screen. Fixing it...");
+                context.stopSelf();
+            }
+        }
     }
 }

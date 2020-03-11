@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Values for devices with 160 dpi e.g. Red Box TV -->
+<resources>
+    <!-- Main values -->
+    <dimen name="key_height">37.0dip</dimen>
+    <dimen name="key_width">37.0dip</dimen>
+    <!--
+    NOTE: Don't change space size unless you've set this constants:
+    LeanbackKeyboardView.ASCII_PERIOD, LeanbackKeyboardView.ASCII_PERIOD_LEN
+    Old space width: 230.0dip
+    -->
+    <dimen name="space_key_width">245.0dip</dimen>
+    <dimen name="keyboard_horizontal_gap">16.0dip</dimen>
+    <dimen name="keyboard_vertical_gap">11.0dip</dimen>
+    <dimen name="selector_size">32.0dip</dimen>
+    <dimen name="key_font_size">24.0sp</dimen>
+    <dimen name="function_key_mode_change_font_size">21.0sp</dimen>
+    <dimen name="resize_move_distance">16.0dip</dimen>
+    <!-- Enter key values -->
+    <dimen name="enter_key_height">42.0dip</dimen>
+    <dimen name="enter_key_font_size">24.0sp</dimen>
+    <dimen name="enter_key_padding_horizontal">21.0dip</dimen>
+    <!-- Keyboard other -->
+    <dimen name="keyboard_top_spacing">8.0dip</dimen>
+    <dimen name="keyboard_bottom_spacing">37.0dip</dimen>
+    <!-- Voice input -->
+    <dimen name="action_button_size">84.0dip</dimen>
+    <dimen name="recognizer_size">125.0dip</dimen>
+    <!-- Suggestions -->
+    <dimen name="candidate_height">37.0dip</dimen>
+    <dimen name="candidate_scroll_view_horz_spacing">73.0dip</dimen>
+    <dimen name="candidate_font_size">24.0sp</dimen>
+    <dimen name="candidate_padding_horizontal">21.0dip</dimen>
+    <dimen name="candidate_margin_horizontal">6.0dip</dimen>
+</resources>
