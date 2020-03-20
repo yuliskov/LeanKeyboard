@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.other;
+package com.liskovsoft.leankeyboard.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

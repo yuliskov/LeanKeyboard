@@ -23,6 +23,7 @@
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="com.amazon.tv.ime.permission.KEYBOARD_STATE"/>
 
     <application
         android:banner="@mipmap/ic_banner_main"
@@ -86,7 +87,7 @@
         </service>
 
         <receiver
-            android:name="com.liskovsoft.leankeyboard.other.RestartServiceReceiver"
+            android:name="com.liskovsoft.leankeyboard.receiver.RestartServiceReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -95,6 +96,18 @@
                 <action android:name="android.intent.action.PACKAGE_REPLACED"/>
 
                 <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="com.liskovsoft.leankeyboard.receiver.TextUpdateReceiver"
+            android:permission="com.amazon.tv.ime.permission.KEYBOARD_STATE"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.amazon.tv.ime.action.CLIENT_TEXT"/>
+                <action android:name="com.amazon.tv.ime.action.IME_TEXT"/>
+                <action android:name="com.amazon.tv.ime.action.KEYBOARD_STATE"/>
             </intent-filter>
         </receiver>
     </application>

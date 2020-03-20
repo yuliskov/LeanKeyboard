@@ -14,15 +14,15 @@ android {
         applicationId "org.liskovsoft.leankeykeyboard.pro"
         minSdkVersion project.properties.minSdkVersion
         targetSdkVersion project.properties.targetSdkVersion
-        versionCode 118
-        versionName "5.2.18"
+        versionCode 119
+        versionName "5.2.19"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
