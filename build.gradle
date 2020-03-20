@@ -30,11 +30,11 @@ buildscript {
         // androidx migration:
         // https://developer.android.com/jetpack/androidx/migrate
         // https://developer.android.com/jetpack/androidx/migrate/artifact-mappings
-        appCompatXVersion = 'androidx.appcompat:appcompat:1.0.0'
+        appCompatXVersion = 'androidx.appcompat:appcompat:1.1.0'
+        constraintXVersion = 'androidx.constraintlayout:constraintlayout:1.1.3'
         supportXVersion = 'androidx.legacy:legacy-support-v4:1.0.0'
         leanbackCompatXVersion = 'androidx.leanback:leanback:1.0.0'
         designXVersion = 'com.google.android.material:material:1.0.0'
-        constraintXVersion = 'androidx.constraintlayout:constraintlayout:1.1.3'
         voiceOverlayVersion = 'com.algolia.instantsearch:voice:1.0.0-beta02' // https://github.com/algolia/voice-overlay-android
     }
 }
