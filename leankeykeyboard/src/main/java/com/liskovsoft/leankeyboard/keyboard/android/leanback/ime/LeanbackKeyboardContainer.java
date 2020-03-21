@@ -1083,6 +1083,7 @@ public class LeanbackKeyboardContainer {
         if (keyboardView.getKeyboard() == keyboard) { // one keyboard in the list
             // Prompt user to select layout.
             Helpers.startActivity(mContext, KbLayoutActivity.class);
+            mContext.onHideIme();
         } else {
             mInitialMainKeyboard = keyboard;
             mAbcKeyboard = keyboard;
