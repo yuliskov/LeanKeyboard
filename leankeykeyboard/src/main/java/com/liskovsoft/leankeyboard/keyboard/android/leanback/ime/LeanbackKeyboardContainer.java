@@ -816,7 +816,8 @@ public class LeanbackKeyboardContainer {
             return true;
         } else if (keyCode == LeanbackKeyboardView.ASCII_SPACE) {
             LeanbackUtils.showKeyboardPicker(mContext);
-            //setTouchState(LeanbackKeyboardContainer.TOUCH_STATE_NO_TOUCH);
+            // revert button states to normal
+            setTouchState(LeanbackKeyboardContainer.TOUCH_STATE_NO_TOUCH);
             return true;
         } else if (keyCode == LeanbackKeyboardView.KEYCODE_LANG_TOGGLE) {
             Helpers.startActivity(mContext, KbSettingsActivity.class);
