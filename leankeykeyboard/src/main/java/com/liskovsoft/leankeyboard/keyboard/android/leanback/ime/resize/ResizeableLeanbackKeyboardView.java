@@ -42,7 +42,7 @@ public class ResizeableLeanbackKeyboardView extends LeanbackKeyboardView {
     private Keyboard updateKeyboard(Keyboard keyboard) {
         List<Key> keys = keyboard.getKeys();
 
-        if (notSizedYet(keys.get(0))) {
+        if (isNotSizedYet(keys.get(0))) {
             for (Key key : keys) {
                 key.width *= mSizeFactor;
                 key.height *= mSizeFactor;
@@ -59,7 +59,7 @@ public class ResizeableLeanbackKeyboardView extends LeanbackKeyboardView {
         return wrapper;
     }
 
-    private boolean notSizedYet(Key key) {
+    private boolean isNotSizedYet(Key key) {
         boolean result = false;
 
         if (mKeyOriginWidth == 0) {

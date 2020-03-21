@@ -280,7 +280,7 @@ public class LeanbackKeyboardContainer {
         return position;
     }
 
-    private void initKeyboards() {
+    public void initKeyboards() {
         mAbcKeyboard = new Keyboard(mContext, R.xml.qwerty_en_us);
         mSymKeyboard = new Keyboard(mContext, R.xml.sym_en_us);
         updateAddonKeyboard();
@@ -1077,23 +1077,28 @@ public class LeanbackKeyboardContainer {
      * {@link KeyboardManager KeyboardManager} is the source behind all keyboard implementations
      */
     public void switchToNextKeyboard() {
-        LeanbackKeyboardView keyboardView = mMainKeyboardView;
-        Keyboard keyboard = mKeyboardManager.getNextKeyboard();
+        Keyboard nextKeyboard = mKeyboardManager.getNextKeyboard();
+        Keyboard currentKeyboard = mMainKeyboardView.getKeyboard();
 
-        if (keyboardView.getKeyboard() == keyboard) { // one keyboard in the list
+        if (currentKeyboard != null &&
+                currentKeyboard.equals(nextKeyboard)) { // one keyboard in the list
             // Prompt user to select layout.
             Helpers.startActivity(mContext, KbLayoutActivity.class);
             mContext.onHideIme();
         } else {
-            mInitialMainKeyboard = keyboard;
-            mAbcKeyboard = keyboard;
-            keyboardView.setKeyboard(keyboard);
+            mInitialMainKeyboard = nextKeyboard;
+            mAbcKeyboard = nextKeyboard;
+            mMainKeyboardView.setKeyboard(nextKeyboard);
         }
     }
 
     public void updateAddonKeyboard() {
         mKeyboardManager = new KeyboardManager(mContext);
-        switchToNextKeyboard();
+
+        Keyboard keyboard = mKeyboardManager.getNextKeyboard();
+        mInitialMainKeyboard = keyboard;
+        mAbcKeyboard = keyboard;
+        mMainKeyboardView.setKeyboard(keyboard);
     }
 
     public void updateSuggestions(ArrayList<String> suggestions) {

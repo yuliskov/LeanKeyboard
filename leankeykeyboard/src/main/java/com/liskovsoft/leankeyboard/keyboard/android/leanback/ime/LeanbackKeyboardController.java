@@ -2,6 +2,7 @@ package com.liskovsoft.leankeyboard.keyboard.android.leanback.ime;
 
 import android.graphics.PointF;
 import android.inputmethodservice.InputMethodService;
+import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.Keyboard.Key;
 import android.os.Handler;
 import android.text.InputType;
@@ -831,8 +832,8 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
         tracker.setKeyEventListener(mTouchEventListener);
     }
 
-    public void updateAddonKeyboard() {
-        mContainer.updateAddonKeyboard();
+    public void initKeyboards() {
+        mContainer.initKeyboards();
     }
 
     public void updateSuggestions(ArrayList<String> suggestions) {

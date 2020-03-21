@@ -2,6 +2,8 @@ package com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.resize;
 
 import android.content.Context;
 import android.inputmethodservice.Keyboard;
+import androidx.annotation.Nullable;
+import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackKeyboardContainer;
 import com.liskovsoft.leankeykeyboard.R;
 
 import java.util.List;
@@ -81,5 +83,17 @@ public class KeyboardWrapper extends Keyboard {
 
     public void setWidthFactor(float factor) {
         mWidthFactor = factor;
+    }
+
+    /**
+     * Wrapper fix: {@link LeanbackKeyboardContainer#onModeChangeClick}
+     */
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj instanceof Keyboard) {
+            return mKeyboard.equals(obj);
+        }
+
+        return false;
     }
 }

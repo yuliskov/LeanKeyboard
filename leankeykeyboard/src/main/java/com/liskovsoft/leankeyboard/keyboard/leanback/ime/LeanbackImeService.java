@@ -303,7 +303,7 @@ public class LeanbackImeService extends InputMethodService {
                 initSettings();
 
                 if (mKeyboardController != null) {
-                    mKeyboardController.updateAddonKeyboard();
+                    mKeyboardController.initKeyboards();
                 }
 
                 return Service.START_REDELIVER_INTENT;
