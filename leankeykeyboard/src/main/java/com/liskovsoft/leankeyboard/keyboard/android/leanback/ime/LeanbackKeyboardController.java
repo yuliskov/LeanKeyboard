@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackKeyboardContainer.KeyFocus;
 import com.liskovsoft.leankeyboard.keyboard.android.pano.util.TouchNavSpaceTracker;
+import com.liskovsoft.leankeyboard.utils.LeanKeySettings;
 import com.liskovsoft.leankeykeyboard.R;
 
 import java.util.ArrayList;
@@ -56,29 +57,29 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     private int mLastEditorIdPhysicalKeyboardWasUsed;
     private boolean mHideKeyboardWhenPhysicalKeyboardUsed = true;
 
-    public LeanbackKeyboardController(final InputMethodService context, final LeanbackKeyboardController.InputListener listener) {
+    public LeanbackKeyboardController(final InputMethodService context,
+                                      final InputListener listener) {
         this(context, listener, new TouchNavSpaceTracker(), new LeanbackKeyboardContainer(context));
     }
 
-    public LeanbackKeyboardController(final InputMethodService context, final LeanbackKeyboardController.InputListener listener, final TouchNavSpaceTracker tracker,
-                               final LeanbackKeyboardContainer container) {
-        mDoubleClickDetector = new LeanbackKeyboardController.DoubleClickDetector();
-        mOnLayoutChangeListener = new OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View view, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                left = right - left;
-                top = bottom - top;
-                if (left > 0 && top > 0) {
-                    if (LeanbackKeyboardController.this.mSpaceTracker != null) {
-                        LeanbackKeyboardController.this.mSpaceTracker.setPixelSize((float) left, (float) top);
-                    }
-
-                    if (left != oldRight - oldLeft || top != oldBottom - oldTop) {
-                        LeanbackKeyboardController.this.initInputView();
-                    }
+    public LeanbackKeyboardController(final InputMethodService context,
+                                      final InputListener listener,
+                                      final TouchNavSpaceTracker tracker,
+                                      final LeanbackKeyboardContainer container) {
+        mDoubleClickDetector = new DoubleClickDetector();
+        mOnLayoutChangeListener = (view, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+            left = right - left;
+            top = bottom - top;
+            if (left > 0 && top > 0) {
+                if (mSpaceTracker != null) {
+                    mSpaceTracker.setPixelSize((float) left, (float) top);
                 }
 
+                if (left != oldRight - oldLeft || top != oldBottom - oldTop) {
+                    initInputView();
+                }
             }
+
         };
         mTouchEventListener = new TouchEventListener();
         mDownFocus = new KeyFocus();
@@ -841,6 +842,10 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
             mContainer.updateSuggestions(suggestions);
         }
 
+    }
+
+    public void setHideWhenPhysicalKeyboardUsed(boolean hide) {
+        mHideKeyboardWhenPhysicalKeyboardUsed = hide;
     }
 
     private class DoubleClickDetector {

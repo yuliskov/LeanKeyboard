@@ -255,6 +255,7 @@ public class LeanbackImeService extends InputMethodService {
     @Override
     public void onInitializeInterface() {
         mKeyboardController = new LeanbackKeyboardController(this, mInputListener);
+        mKeyboardController.setHideWhenPhysicalKeyboardUsed(!mForceShowKbd);
         mEnterSpaceBeforeCommitting = false;
         mSuggestionsFactory = new LeanbackSuggestionsFactory(this, MAX_SUGGESTIONS);
     }
