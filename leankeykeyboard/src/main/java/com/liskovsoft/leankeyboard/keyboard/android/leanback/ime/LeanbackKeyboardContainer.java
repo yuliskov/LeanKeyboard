@@ -816,11 +816,14 @@ public class LeanbackKeyboardContainer {
             return true;
         } else if (keyCode == LeanbackKeyboardView.ASCII_SPACE) {
             LeanbackUtils.showKeyboardPicker(mContext);
-            // revert button states to normal
+            // Keyboard may stuck on screen. Fixing it...
+            mContext.stopSelf();
+            // Revert button touch states to normal
             setTouchState(LeanbackKeyboardContainer.TOUCH_STATE_NO_TOUCH);
             return true;
         } else if (keyCode == LeanbackKeyboardView.KEYCODE_LANG_TOGGLE) {
             Helpers.startActivity(mContext, KbSettingsActivity.class);
+            mContext.onHideIme();
             return true;
         } else {
             if (mCurrKeyInfo.type == KeyFocus.TYPE_MAIN) {

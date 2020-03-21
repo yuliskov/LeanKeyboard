@@ -138,14 +138,11 @@ public class LeanbackUtils {
         return metrics;
     }
 
-    public static void showKeyboardPicker(InputMethodService context) {
+    public static void showKeyboardPicker(Context context) {
         if (context != null) {
             InputMethodManager imeManager = (InputMethodManager) context.getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             if (imeManager != null) {
                 imeManager.showInputMethodPicker();
-
-                Log.d(TAG, "Keyboard may stuck on screen. Fixing it...");
-                context.stopSelf();
             }
         }
     }
