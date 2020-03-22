@@ -14,8 +14,8 @@ android {
         applicationId "org.liskovsoft.leankeykeyboard.pro"
         minSdkVersion project.properties.minSdkVersion
         targetSdkVersion project.properties.targetSdkVersion
-        versionCode 129
-        versionName "5.2.29"
+        versionCode 130
+        versionName "5.2.30"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
