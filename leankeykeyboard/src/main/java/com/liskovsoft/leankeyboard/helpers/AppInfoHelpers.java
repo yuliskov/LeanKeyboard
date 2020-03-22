@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.utils.helpers;
+package com.liskovsoft.leankeyboard.helpers;
 
 import android.app.Activity;
 import android.content.ComponentName;

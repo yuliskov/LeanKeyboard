@@ -2,7 +2,6 @@ package com.liskovsoft.leankeyboard.keyboard.android.leanback.ime;
 
 import android.graphics.PointF;
 import android.inputmethodservice.InputMethodService;
-import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.Keyboard.Key;
 import android.os.Handler;
 import android.text.InputType;
@@ -19,7 +18,6 @@ import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackKeyboardContainer.KeyFocus;
 import com.liskovsoft.leankeyboard.keyboard.android.pano.util.TouchNavSpaceTracker;
-import com.liskovsoft.leankeyboard.utils.LeanKeySettings;
 import com.liskovsoft.leankeykeyboard.R;
 
 import java.util.ArrayList;

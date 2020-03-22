@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.leanback.widget.GuidanceStylist.Guidance;
 import com.liskovsoft.leankeyboard.settings.base.BaseSettingsFragment;
-import com.liskovsoft.leankeyboard.utils.LeanKeySettings;
+import com.liskovsoft.leankeyboard.settings.LeanKeySettings;
 import com.liskovsoft.leankeykeyboard.R;
 
 public class MiscFragment extends BaseSettingsFragment {

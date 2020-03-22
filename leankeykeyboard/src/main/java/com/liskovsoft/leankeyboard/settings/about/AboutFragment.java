@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat;
 import androidx.leanback.app.GuidedStepSupportFragment;
 import androidx.leanback.widget.GuidanceStylist.Guidance;
 import androidx.leanback.widget.GuidedAction;
-import com.liskovsoft.leankeyboard.utils.helpers.AppInfoHelpers;
+import com.liskovsoft.leankeyboard.helpers.AppInfoHelpers;
 import com.liskovsoft.leankeykeyboard.R;
 
 import java.util.List;

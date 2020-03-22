@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.utils.helpers;
+package com.liskovsoft.leankeyboard.helpers;
 
 import android.app.ActivityManager;
 import android.content.ComponentName;
@@ -10,7 +10,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import com.liskovsoft.leankeyboard.settings.settings.KbSettingsActivity;
+import com.liskovsoft.leankeyboard.utils.LocaleUtility;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -202,5 +202,11 @@ public class Helpers {
             e.printStackTrace();
             MessageHelpers.showLongMessage(context, "Can't start: " + e.getMessage());
         }
+    }
+
+    public static boolean isGenymotion() {
+        String deviceName = getDeviceName();
+
+        return deviceName.contains("(vbox86p)");
     }
 }
