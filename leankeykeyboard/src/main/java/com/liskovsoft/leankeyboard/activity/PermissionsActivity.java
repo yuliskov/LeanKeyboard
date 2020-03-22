@@ -8,13 +8,11 @@ import com.liskovsoft.leankeyboard.helpers.PermissionHelpers;
 import com.liskovsoft.leankeyboard.receiver.RestartServiceReceiver;
 
 public class PermissionsActivity extends FragmentActivity {
-    private int mRequestCalledTimes;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        PermissionHelpers.verifyMicPermissions(this);
+        checkPermissions();
     }
 
     @Override
@@ -30,14 +28,16 @@ public class PermissionsActivity extends FragmentActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (mRequestCalledTimes == 0) {
-            PermissionHelpers.verifyStoragePermissions(this);
-        }
+        checkPermissions();
+    }
 
-        if (mRequestCalledTimes == 1) {
+    private void checkPermissions() {
+        if (!PermissionHelpers.hasMicPermissions(this)) {
+            PermissionHelpers.verifyMicPermissions(this);
+        } else if (!PermissionHelpers.hasStoragePermissions(this)) {
+            PermissionHelpers.verifyStoragePermissions(this);
+        } else {
             finish();
         }
-
-        mRequestCalledTimes++;
     }
 }
