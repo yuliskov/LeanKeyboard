@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.settings.about;
+package com.liskovsoft.leankeyboard.fragments.settings;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;

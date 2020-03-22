@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.settings.layout;
+package com.liskovsoft.leankeyboard.fragments.settings;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -9,7 +9,6 @@ import androidx.leanback.widget.GuidanceStylist.Guidance;
 import com.liskovsoft.leankeyboard.addons.reskbdfactory.KeyboardInfoAdapter;
 import com.liskovsoft.leankeyboard.addons.reskbdfactory.CheckedSource;
 import com.liskovsoft.leankeyboard.addons.reskbdfactory.CheckedSource.CheckedItem;
-import com.liskovsoft.leankeyboard.settings.base.BaseSettingsFragment;
 import com.liskovsoft.leankeykeyboard.R;
 
 public class KbLayoutFragment extends BaseSettingsFragment {

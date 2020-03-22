@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.settings;
+package com.liskovsoft.leankeyboard.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

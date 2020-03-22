@@ -36,12 +36,13 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import com.liskovsoft.leankeyboard.addons.voicesearch.RecognizerIntentWrapper;
 import com.liskovsoft.leankeyboard.helpers.PermissionHelpers;
+import com.liskovsoft.leankeyboard.activity.PermissionsActivity;
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackKeyboardController.InputListener;
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.voice.RecognizerView;
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.voice.SpeechLevelSource;
 import com.liskovsoft.leankeyboard.keyboard.leanback.ime.LeanbackImeService;
-import com.liskovsoft.leankeyboard.settings.layout.KbLayoutActivity;
-import com.liskovsoft.leankeyboard.settings.settings.KbSettingsActivity;
+import com.liskovsoft.leankeyboard.activity.settings.KbLayoutActivity;
+import com.liskovsoft.leankeyboard.activity.settings.KbSettingsActivity;
 import com.liskovsoft.leankeyboard.addons.KeyboardManager;
 import com.liskovsoft.leankeyboard.helpers.Helpers;
 import com.liskovsoft.leankeyboard.helpers.MessageHelpers;
@@ -511,22 +512,27 @@ public class LeanbackKeyboardContainer {
      * @param context context
      */
     private void startRecognition(Context context) {
-        if (SpeechRecognizer.isRecognitionAvailable(context)) {
-            mRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-            mRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-            mRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
-            mSpeechRecognizer.setRecognitionListener(new MyVoiceRecognitionListener());
+        if (PermissionHelpers.hasStoragePermissions(context) &&
+            PermissionHelpers.hasMicPermissions(context)) {
+            if (SpeechRecognizer.isRecognitionAvailable(context)) {
+                mRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                mRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                mRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
+                mSpeechRecognizer.setRecognitionListener(new MyVoiceRecognitionListener());
 
-            mSpeechRecognizer.startListening(mRecognizerIntent);
+                mSpeechRecognizer.startListening(mRecognizerIntent);
+            } else {
+                mRecognizerIntentWrapper.setListener(searchText -> mVoiceListener.onVoiceResult(searchText));
+                mRecognizerIntentWrapper.startListening();
+
+                //String noRecognition = "Seems that the voice recognition is not enabled on your device";
+                //
+                //MessageHelpers.showLongMessage(context, noRecognition);
+                //
+                //Log.e(TAG, noRecognition);
+            }
         } else {
-            mRecognizerIntentWrapper.setListener(searchText -> mVoiceListener.onVoiceResult(searchText));
-            mRecognizerIntentWrapper.startListening();
-
-            //String noRecognition = "Seems that the voice recognition is not enabled on your device";
-            //
-            //MessageHelpers.showLongMessage(context, noRecognition);
-            //
-            //Log.e(TAG, noRecognition);
+            Helpers.startActivity(context, PermissionsActivity.class);
         }
     }
 

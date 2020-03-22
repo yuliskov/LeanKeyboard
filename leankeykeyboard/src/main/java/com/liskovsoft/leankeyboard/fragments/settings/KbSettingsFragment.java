@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.settings.settings;
+package com.liskovsoft.leankeyboard.fragments.settings;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,11 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.leanback.app.GuidedStepSupportFragment;
 import androidx.leanback.widget.GuidanceStylist.Guidance;
-import com.liskovsoft.leankeyboard.settings.about.AboutFragment;
-import com.liskovsoft.leankeyboard.settings.base.BaseSettingsFragment;
-import com.liskovsoft.leankeyboard.settings.layout.KbLayoutFragment;
-import com.liskovsoft.leankeyboard.settings.misc.MiscFragment;
-import com.liskovsoft.leankeyboard.settings.activation.KbActivationActivity;
+import com.liskovsoft.leankeyboard.activity.settings.KbActivationActivity;
 import com.liskovsoft.leankeykeyboard.R;
 
 public class KbSettingsFragment extends BaseSettingsFragment {

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import com.liskovsoft.leankeyboard.helpers.Helpers;
-import com.liskovsoft.leankeyboard.settings.LeanKeySettings;
 
 import java.util.ArrayList;
 import java.util.List;

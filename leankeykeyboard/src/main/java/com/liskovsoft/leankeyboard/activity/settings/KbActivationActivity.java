@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.settings.activation;
+package com.liskovsoft.leankeyboard.activity.settings;
 
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;

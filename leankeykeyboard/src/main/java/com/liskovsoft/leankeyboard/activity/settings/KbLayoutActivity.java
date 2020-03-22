@@ -1,9 +1,10 @@
-package com.liskovsoft.leankeyboard.settings.layout;
+package com.liskovsoft.leankeyboard.activity.settings;
 
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.FragmentActivity;
 import androidx.leanback.app.GuidedStepSupportFragment;
+import com.liskovsoft.leankeyboard.fragments.settings.KbLayoutFragment;
 import com.liskovsoft.leankeyboard.receiver.RestartServiceReceiver;
 
 public class KbLayoutActivity extends FragmentActivity {

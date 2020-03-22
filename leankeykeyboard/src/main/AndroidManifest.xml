@@ -33,7 +33,7 @@
         android:theme="@style/Theme.Leanback">
 
         <activity
-            android:name="com.liskovsoft.leankeyboard.settings.settings.KbSettingsActivity"
+            android:name="com.liskovsoft.leankeyboard.activity.settings.KbSettingsActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -44,12 +44,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.liskovsoft.leankeyboard.settings.layout.KbLayoutActivity"
+            android:name="com.liskovsoft.leankeyboard.activity.settings.KbLayoutActivity"
             android:launchMode="singleTop">
         </activity>
+        <activity
+            android:name="com.liskovsoft.leankeyboard.activity.PermissionsActivity"
+            android:launchMode="singleTop">
+        </activity>
+        <activity
+            android:name="com.liskovsoft.leankeyboard.addons.voicesearch.RecognizerIntentActivity"
+            android:theme="@style/Theme.AppCompat"
+            android:launchMode="singleTop"/>
 
         <activity
-            android:name="com.liskovsoft.leankeyboard.settings.activation.KbActivationActivity"
+            android:name="com.liskovsoft.leankeyboard.activity.settings.KbActivationActivity"
             android:launchMode="singleTop">
             <meta-data
                 android:name="package"
@@ -69,10 +77,6 @@
                 android:name="intent"
                 android:value="android.settings.INPUT_METHOD_SETTINGS"/>
         </activity>
-
-        <activity
-            android:name="com.liskovsoft.leankeyboard.addons.voicesearch.RecognizerIntentActivity"
-            android:theme="@style/Theme.AppCompat"/>
 
         <service
             android:name="com.liskovsoft.leankeyboard.keyboard.leanback.ime.LeanbackImeService"

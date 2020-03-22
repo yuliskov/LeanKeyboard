@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.settings.base;
+package com.liskovsoft.leankeyboard.fragments.settings;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;

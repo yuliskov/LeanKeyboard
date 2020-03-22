@@ -21,7 +21,7 @@ import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackKeyboar
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackKeyboardView;
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackSuggestionsFactory;
 import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackUtils;
-import com.liskovsoft.leankeyboard.settings.LeanKeySettings;
+import com.liskovsoft.leankeyboard.utils.LeanKeySettings;
 
 public class LeanbackImeService extends InputMethodService {
     private static final String TAG = LeanbackImeService.class.getSimpleName();
