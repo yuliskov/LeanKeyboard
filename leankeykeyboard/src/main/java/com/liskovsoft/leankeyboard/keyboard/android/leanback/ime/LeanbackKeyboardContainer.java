@@ -511,28 +511,22 @@ public class LeanbackKeyboardContainer {
      * @param context context
      */
     private void startRecognition(Context context) {
-        if (PermissionHelpers.hasStoragePermissions(context) &&
-            PermissionHelpers.hasMicPermissions(context)) {
-            if (SpeechRecognizer.isRecognitionAvailable(context)) {
-                mRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-                mRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-                mRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
-                mSpeechRecognizer.setRecognitionListener(new MyVoiceRecognitionListener());
+        if (SpeechRecognizer.isRecognitionAvailable(context)) {
+            mRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+            mRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+            mRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
+            mSpeechRecognizer.setRecognitionListener(new MyVoiceRecognitionListener());
 
-                mSpeechRecognizer.startListening(mRecognizerIntent);
-            } else {
-                mRecognizerIntentWrapper.setListener(searchText -> mVoiceListener.onVoiceResult(searchText));
-                mRecognizerIntentWrapper.startListening();
-
-                //String noRecognition = "Seems that the voice recognition is not enabled on your device";
-                //
-                //MessageHelpers.showLongMessage(context, noRecognition);
-                //
-                //Log.e(TAG, noRecognition);
-            }
+            mSpeechRecognizer.startListening(mRecognizerIntent);
         } else {
-            PermissionHelpers.verifyStoragePermissions(context);
-            PermissionHelpers.verifyMicPermissions(context);
+            mRecognizerIntentWrapper.setListener(searchText -> mVoiceListener.onVoiceResult(searchText));
+            mRecognizerIntentWrapper.startListening();
+
+            //String noRecognition = "Seems that the voice recognition is not enabled on your device";
+            //
+            //MessageHelpers.showLongMessage(context, noRecognition);
+            //
+            //Log.e(TAG, noRecognition);
         }
     }
 

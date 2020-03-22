@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.FragmentActivity;
 import androidx.leanback.app.GuidedStepSupportFragment;
+import androidx.leanback.app.PermissionHelper;
+import com.liskovsoft.leankeyboard.helpers.PermissionHelpers;
 import com.liskovsoft.leankeyboard.receiver.RestartServiceReceiver;
 
 public class KbSettingsActivity extends FragmentActivity {
@@ -12,6 +14,9 @@ public class KbSettingsActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
 
         GuidedStepSupportFragment.addAsRoot(this, new KbSettingsFragment(), android.R.id.content);
+
+        PermissionHelpers.verifyStoragePermissions(this);
+        PermissionHelpers.verifyMicPermissions(this);
     }
 
     @Override
