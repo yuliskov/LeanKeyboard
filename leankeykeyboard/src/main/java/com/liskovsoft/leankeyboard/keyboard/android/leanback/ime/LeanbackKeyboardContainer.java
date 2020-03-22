@@ -28,6 +28,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.Transformation;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
@@ -1135,20 +1136,20 @@ public class LeanbackKeyboardContainer {
     }
 
     private void fillSuggestions(ArrayList<String> suggestions) {
-        String editorText = LeanbackUtils.getEditorText(mContext.getCurrentInputConnection());
+        InputConnection connection = mContext.getCurrentInputConnection();
 
-        if (editorText.isEmpty()) {
-            editorText = mLabel;
-        }
+        if (connection != null) {
+            String editorText = LeanbackUtils.getEditorText(connection);
 
-        if (editorText == null) {
-            return;
-        }
+            if (editorText.isEmpty()) {
+                editorText = mLabel;
+            }
 
-        if (suggestions.size() == 0) {
-            suggestions.add(editorText);
-        } else {
-            suggestions.set(0, editorText);
+            if (suggestions.size() == 0) {
+                suggestions.add(editorText);
+            } else {
+                suggestions.set(0, editorText);
+            }
         }
     }
 

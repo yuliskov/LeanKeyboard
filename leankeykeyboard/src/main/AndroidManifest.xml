@@ -34,9 +34,7 @@
 
         <activity
             android:name="com.liskovsoft.leankeyboard.activity.settings.KbSettingsActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="landscape"
-            android:configChanges="orientation|keyboardHidden">
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <action android:name="android.intent.action.VIEW"/>
@@ -47,9 +45,7 @@
         </activity>
         <activity
             android:name="com.liskovsoft.leankeyboard.activity.settings.KbLayoutActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="landscape"
-            android:configChanges="orientation|keyboardHidden">
+            android:launchMode="singleTop">
         </activity>
         <activity
             android:name="com.liskovsoft.leankeyboard.activity.PermissionsActivity"
