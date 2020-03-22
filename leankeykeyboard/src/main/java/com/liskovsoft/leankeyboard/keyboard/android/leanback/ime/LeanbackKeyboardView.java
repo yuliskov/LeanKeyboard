@@ -153,13 +153,7 @@ public class LeanbackKeyboardView extends FrameLayout {
     }
 
     private void adjustCase(KeyHolder keyHolder) {
-        boolean flag;
-
-        if (keyHolder.isInMiniKb && keyHolder.isInvertible) {
-            flag = true;
-        } else {
-            flag = false;
-        }
+        boolean flag = keyHolder.isInMiniKb && keyHolder.isInvertible;
 
         // ^ equals to !=
         if (mKeyboard.isShifted() ^ flag) {
