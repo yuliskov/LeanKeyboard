@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.keyboard.android.pano.util;
+package com.liskovsoft.leankeyboard.ime.pano.util;
 
 import android.animation.TimeInterpolator;
 import android.graphics.PointF;

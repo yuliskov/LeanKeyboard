@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.keyboard.android.leanback.ime;
+package com.liskovsoft.leankeyboard.ime;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

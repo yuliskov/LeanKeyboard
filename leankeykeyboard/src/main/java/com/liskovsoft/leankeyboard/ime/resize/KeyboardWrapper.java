@@ -1,9 +1,9 @@
-package com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.resize;
+package com.liskovsoft.leankeyboard.ime.resize;
 
 import android.content.Context;
 import android.inputmethodservice.Keyboard;
 import androidx.annotation.Nullable;
-import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackKeyboardContainer;
+import com.liskovsoft.leankeyboard.ime.LeanbackKeyboardContainer;
 import com.liskovsoft.leankeykeyboard.R;
 
 import java.util.List;

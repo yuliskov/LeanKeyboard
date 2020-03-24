@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.keyboard.android.leanback.ime;
+package com.liskovsoft.leankeyboard.ime;
 
 import android.graphics.PointF;
 import android.inputmethodservice.InputMethodService;
@@ -16,8 +16,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
-import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackKeyboardContainer.KeyFocus;
-import com.liskovsoft.leankeyboard.keyboard.android.pano.util.TouchNavSpaceTracker;
+import com.liskovsoft.leankeyboard.ime.LeanbackKeyboardContainer.KeyFocus;
+import com.liskovsoft.leankeyboard.ime.pano.util.TouchNavSpaceTracker;
 import com.liskovsoft.leankeykeyboard.R;
 
 import java.util.ArrayList;

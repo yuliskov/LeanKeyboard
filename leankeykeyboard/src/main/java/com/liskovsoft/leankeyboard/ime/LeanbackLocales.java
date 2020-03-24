@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.keyboard.android.leanback.ime;
+package com.liskovsoft.leankeyboard.ime;
 
 import java.util.Locale;
 

@@ -1,8 +1,7 @@
-package com.liskovsoft.leankeyboard.keyboard.android.leanback.ime;
+package com.liskovsoft.leankeyboard.ime;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.inputmethodservice.InputMethodService;
 import android.os.Handler;
 import android.text.InputType;
 import android.util.DisplayMetrics;
@@ -14,8 +13,6 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
-import androidx.core.content.ContextCompat;
-import com.liskovsoft.leankeyboard.keyboard.leanback.ime.LeanbackImeService;
 
 public class LeanbackUtils {
     private static final int ACCESSIBILITY_DELAY_MS = 250;

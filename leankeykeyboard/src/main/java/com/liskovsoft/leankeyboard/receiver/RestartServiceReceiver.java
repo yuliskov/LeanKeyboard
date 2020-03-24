@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import com.liskovsoft.leankeyboard.keyboard.leanback.ime.LeanbackImeService;
+import com.liskovsoft.leankeyboard.ime.LeanbackImeService;
 
 public class RestartServiceReceiver extends BroadcastReceiver {
     private static final String TAG = RestartServiceReceiver.class.getSimpleName();

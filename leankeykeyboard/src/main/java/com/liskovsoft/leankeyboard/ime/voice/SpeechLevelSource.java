@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.voice;
+package com.liskovsoft.leankeyboard.ime.voice;
 
 public class SpeechLevelSource {
    private volatile int mSpeechLevel;

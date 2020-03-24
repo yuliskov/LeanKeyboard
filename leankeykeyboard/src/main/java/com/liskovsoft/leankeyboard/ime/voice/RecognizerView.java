@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.voice;
+package com.liskovsoft.leankeyboard.ime.voice;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import com.liskovsoft.leankeyboard.keyboard.android.leanback.ime.LeanbackUtils;
+import com.liskovsoft.leankeyboard.ime.LeanbackUtils;
 import com.liskovsoft.leankeykeyboard.R;
 
 public class RecognizerView extends RelativeLayout {
