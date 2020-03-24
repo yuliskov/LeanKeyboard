@@ -35,8 +35,9 @@ android {
             def project = "LeanKeyKeyboardPro"
             def buildType = variant.variantData.variantConfiguration.buildType.name.take(1)
             def version = variant.versionName
+            def flavor = variant.productFlavors[-1].name
 
-            def newApkName = sprintf("%s_v%s_%s.apk", [project, version, buildType])
+            def newApkName = sprintf("%s_%s_v%s_%s.apk", [project, flavor, version, buildType])
 
             output.outputFileName = new File(newApkName)
         }
@@ -53,10 +54,10 @@ android {
     flavorDimensions "default"
 
     productFlavors {
-        Vplaystore {
+        playstore {
             applicationId "org.liskovsoft.androidtv.rukeyboard"
         }
-        Vorigin {
+        origin {
             applicationId "com.liskovsoft.leankeyboard"
         }
     }
