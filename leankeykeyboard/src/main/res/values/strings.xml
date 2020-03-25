@@ -46,4 +46,7 @@
     <string name="keyboardview_keycode_clipboard">Clipboard</string>
     <string name="increase_kbd_size">Enlarge keyboard</string>
     <string name="increase_kbd_size_desc">Increase keyboard size</string>
+    <string name="manually_activate_commands">You need to enable %s in System Preferences or activate it manually with commands below.\n\n%s\n\n%s</string>
+    <string name="about_donate">Donate</string>
+    <string name="about_web_site">Web Site</string>
 </resources>

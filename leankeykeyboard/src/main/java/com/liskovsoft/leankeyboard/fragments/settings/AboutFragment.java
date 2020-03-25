@@ -16,6 +16,8 @@ import java.util.List;
 
 public class AboutFragment extends GuidedStepSupportFragment {
     private static final String MARKET_LINK = "https://play.google.com/store/apps/details?id=org.liskovsoft.androidtv.rukeyboard";
+    private static final String DONATE_LINK = "https://www.donationalerts.com/r/firsthash";
+    private static final String WEBSITE_LINK = "https://github.com/yuliskov/LeankeyKeyboard";
 
     @NonNull
     @Override
@@ -34,8 +36,12 @@ public class AboutFragment extends GuidedStepSupportFragment {
 
     @Override
     public void onCreateActions(@NonNull List<GuidedAction> actions, Bundle savedInstanceState) {
-        appendInfoAction(AppInfoHelpers.getApplicationName(getActivity()), actions);
-        appendInfoAction("Version " + AppInfoHelpers.getAppVersionName(getActivity()), actions);
+        appendInfoAction(getString(R.string.about_donate), actions);
+        appendInfoAction(getString(R.string.about_web_site), actions);
+
+        String appName = AppInfoHelpers.getApplicationName(getActivity());
+        String appVersion = AppInfoHelpers.getAppVersionName(getActivity());
+        appendInfoAction(appName + " " + appVersion, actions);
     }
 
     private void appendInfoAction(String textLine, List<GuidedAction> actions) {
@@ -47,7 +53,16 @@ public class AboutFragment extends GuidedStepSupportFragment {
 
     @Override
     public void onGuidedActionClicked(GuidedAction action) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(MARKET_LINK));
+        String link = MARKET_LINK;
+
+        if (action.getTitle().equals(getString(R.string.about_donate))) {
+            link = DONATE_LINK;
+        } else if (action.getTitle().equals(getString(R.string.about_web_site))) {
+            link = WEBSITE_LINK;
+        }
+
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+        
         startActivity(intent);
     }
 }

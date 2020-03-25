@@ -10,6 +10,8 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ActivityInfo;
 import android.content.Intent;
 import android.app.Activity;
+import com.liskovsoft.leankeyboard.helpers.MessageHelpers;
+import com.liskovsoft.leankeyboard.ime.LeanbackImeService;
 import com.liskovsoft.leankeykeyboard.R;
 
 import java.util.ArrayList;
@@ -26,7 +28,16 @@ public class KbActivationActivity extends Activity
 
     protected void onCreate(final Bundle bundle) {
         super.onCreate(bundle);
-        Toast.makeText(this, getString(R.string.enable_kb_in_system_prefs, getString(R.string.ime_service_name)), Toast.LENGTH_LONG).show();
+
+        String kbdName = getString(R.string.ime_service_name);
+        String serviceName = getPackageName() + "/" + LeanbackImeService.class.getCanonicalName();
+        String enableCommand = String.format("adb shell ime enable %s", serviceName);
+        String setCommand = String.format("adb shell ime set %s", serviceName);
+        MessageHelpers.showLongMessage(this, getString(R.string.manually_activate_commands,
+                kbdName,
+                enableCommand,
+                setCommand));
+
         launchApp();
     }
 
