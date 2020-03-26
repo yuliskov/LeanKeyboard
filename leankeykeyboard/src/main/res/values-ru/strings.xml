@@ -35,7 +35,7 @@
     <string name="misc_desc">Разные настройки</string>
     <string name="increase_kbd_size">Увеличить</string>
     <string name="increase_kbd_size_desc">Увеличить клавиатуру</string>
-    <string name="manually_activate_commands">Вам нужно включить %s в Системных настройках или активировать вручную командами ниже.\n\n%s\n\n%s</string>
+    <string name="manually_activate_commands">Произошла ошибка. Попробуйте активировать %s командами ниже.\n\n%s\n\n%s</string>
     <string name="about_donate">Помочь проекту</string>
     <string name="about_web_site">Веб-сайт</string>
 </resources>

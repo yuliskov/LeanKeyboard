@@ -1,6 +1,7 @@
 package com.liskovsoft.leankeyboard.helpers;
 
 import android.app.ActivityManager;
+import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -202,6 +203,20 @@ public class Helpers {
             e.printStackTrace();
             MessageHelpers.showLongMessage(context, "Can't start: " + e.getMessage());
         }
+    }
+
+    public static boolean startIntent(final Context context, final Intent intent) {
+        if (intent == null) {
+            return false;
+        }
+
+        try {
+            context.startActivity(intent);
+        } catch (ActivityNotFoundException ex) {
+            return false;
+        }
+
+        return true;
     }
 
     public static boolean isGenymotion() {

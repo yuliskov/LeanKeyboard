@@ -10,6 +10,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ActivityInfo;
 import android.content.Intent;
 import android.app.Activity;
+import com.liskovsoft.leankeyboard.helpers.Helpers;
 import com.liskovsoft.leankeyboard.helpers.MessageHelpers;
 import com.liskovsoft.leankeyboard.ime.LeanbackImeService;
 import com.liskovsoft.leankeykeyboard.R;
@@ -25,18 +26,19 @@ public class KbActivationActivity extends Activity
     private static final String META_CLASS_NAME_ALT = "class_alt";
     private static final String META_INTENT_NAME = "intent";
     private List<Intent> mIntents = new ArrayList<>();
+    private String mErrorMsg;
 
     protected void onCreate(final Bundle bundle) {
         super.onCreate(bundle);
 
         String kbdName = getString(R.string.ime_service_name);
-        String serviceName = getPackageName() + "/" + LeanbackImeService.class.getCanonicalName();
+        String serviceName = getPackageName() + "/" + LeanbackImeService.class.getCanonicalName().replace(getPackageName(), "");
         String enableCommand = String.format("adb shell ime enable %s", serviceName);
         String setCommand = String.format("adb shell ime set %s", serviceName);
-        MessageHelpers.showLongMessage(this, getString(R.string.manually_activate_commands,
-                kbdName,
-                enableCommand,
-                setCommand));
+        mErrorMsg = getString(R.string.manually_activate_commands, kbdName, enableCommand, setCommand);
+
+        String welcomeMsg = getString(R.string.enable_kb_in_system_prefs, kbdName);
+        MessageHelpers.showLongMessage(this, welcomeMsg);
 
         launchApp();
     }
@@ -54,7 +56,7 @@ public class KbActivationActivity extends Activity
         }
         catch (NameNotFoundException ex) {
             ex.printStackTrace();
-            makeLongToast(ex.getLocalizedMessage());
+            MessageHelpers.showLongMessage(this, ex.getLocalizedMessage());
             return null;
         }
     }
@@ -67,11 +69,12 @@ public class KbActivationActivity extends Activity
 
     private void startIntents() {
         for (Intent intent : mIntents) {
-            boolean result = startIntent(intent);
-            if (result) { // run until first successful attempt
-                break;
+            if (Helpers.startIntent(this, intent)) { // run until first successful attempt
+                return;
             }
         }
+
+        MessageHelpers.showLongMessage(this, mErrorMsg);
     }
 
     private void makeIntentList() {
@@ -113,31 +116,5 @@ public class KbActivationActivity extends Activity
         intent.setComponent(new ComponentName(packageName, className));
         addCommonIntentFlags(intent);
         return intent;
-    }
-
-    private void makeLongToast(final String s) {
-        makeLongToast(s, 10);
-    }
-
-    private void makeLongToast(final String s, int nums) {
-        int n;
-        for (n = nums / 2, nums = 0; nums < n; ++nums) {
-            Toast.makeText(this, s, Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private boolean startIntent(final Intent intent) {
-        if (intent == null) {
-            return false;
-        }
-
-        try {
-            startActivity(intent);
-        }
-        catch (ActivityNotFoundException ex) {
-            return false;
-        }
-
-        return true;
     }
 }
