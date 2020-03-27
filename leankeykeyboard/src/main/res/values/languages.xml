@@ -19,6 +19,7 @@
         <item>Hebrew|he</item>
         <item>Persian|fa</item>
         <item>Thai|th</item>
-        <item>Turkish|tr</item>
+        <item>Turkish (Q board)|tr</item>
+        <item>Turkish|tr|azerty</item>
     </string-array>
 </resources>

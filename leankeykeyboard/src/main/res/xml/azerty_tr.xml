@@ -19,42 +19,42 @@
         <Key android:codes="-5" android:keyEdgeFlags="right" android:keyLabel="@string/keyboardview_keycode_delete" android:keyIcon="@drawable/ic_ime_delete" />
     </Row>
     <Row>
-        <Key android:keyLabel="q" android:keyEdgeFlags="left" />
-        <Key android:keyLabel="w" />
-        <Key android:keyLabel="e" />
-        <Key android:keyLabel="r" />
-        <Key android:keyLabel="t" />
-        <Key android:keyLabel="y" />
-        <Key android:keyLabel="u" />
+        <Key android:keyLabel="f" android:keyEdgeFlags="left" />
+        <Key android:keyLabel="g" />
+        <Key android:keyLabel="ğ" />
         <Key android:keyLabel="ı" />
         <Key android:keyLabel="o" />
-        <Key android:keyLabel="p" />
-        <Key android:keyLabel="ğ" android:keyEdgeFlags="right" />
-    </Row>
-    <Row>
-        <Key android:keyLabel="a" android:keyEdgeFlags="left" />
-        <Key android:keyLabel="s" />
         <Key android:keyLabel="d" />
-        <Key android:keyLabel="f" />
-        <Key android:keyLabel="g" />
+        <Key android:keyLabel="r" />
+        <Key android:keyLabel="n" />
         <Key android:keyLabel="h" />
-        <Key android:keyLabel="j" />
-        <Key android:keyLabel="k" />
-        <Key android:keyLabel="l" />
-        <Key android:keyLabel="ş" />
-        <Key android:keyLabel="İ" android:keyEdgeFlags="right" />
+        <Key android:keyLabel="p" />
+        <Key android:keyLabel="q" android:keyEdgeFlags="right" />
     </Row>
     <Row>
-        <Key android:keyLabel="z" android:keyEdgeFlags="left" />
-        <Key android:keyLabel="x" />
-        <Key android:keyLabel="c" />
-        <Key android:keyLabel="v" />
-        <Key android:keyLabel="b" />
-        <Key android:keyLabel="n" />
-        <Key android:keyLabel="m" />
-        <Key android:keyLabel="ö" />
-        <Key android:keyLabel="ç" />
+        <Key android:keyLabel="u" android:keyEdgeFlags="left" />
+        <Key android:keyLabel="İ" />
+        <Key android:keyLabel="e" />
+        <Key android:keyLabel="a" />
         <Key android:keyLabel="ü" />
+        <Key android:keyLabel="t" />
+        <Key android:keyLabel="k" />
+        <Key android:keyLabel="m" />
+        <Key android:keyLabel="l" />
+        <Key android:keyLabel="y" />
+        <Key android:keyLabel="ş" android:keyEdgeFlags="right" />
+    </Row>
+    <Row>
+        <Key android:keyLabel="j" android:keyEdgeFlags="left" />
+        <Key android:keyLabel="ö" />
+        <Key android:keyLabel="v" />
+        <Key android:keyLabel="c" />
+        <Key android:keyLabel="ç" />
+        <Key android:keyLabel="z" />
+        <Key android:keyLabel="s" />
+        <Key android:keyLabel="b" />
+        <Key android:keyLabel="w" />
+        <Key android:keyLabel="x" />
         <Key android:keyLabel=";" android:keyEdgeFlags="right" />
     </Row>
     <Row android:rowEdgeFlags="bottom">
