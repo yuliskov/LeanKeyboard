@@ -393,13 +393,14 @@ public class LeanbackKeyboardContainer {
         }
 
         if ((info.inputType & InputType.TYPE_TEXT_FLAG_CAP_WORDS) != 0 ||
-             LeanbackUtils.getInputTypeVariation(info) == InputType.TYPE_TEXT_VARIATION_PERSON_NAME) {
+            LeanbackUtils.getInputTypeVariation(info) == InputType.TYPE_TEXT_VARIATION_PERSON_NAME) {
             mCapWords = true;
         }
 
-        if ((info.inputType & InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS) != 0) {
-            mCapCharacters = true;
-        }
+        // TODO: fix bug: password field: all next char is upper case
+        //if ((info.inputType & InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS) != 0) {
+        //    mCapCharacters = true;
+        //}
 
         if (info.privateImeOptions != null) {
             if (info.privateImeOptions.contains(IME_PRIVATE_OPTIONS_ESCAPE_NORTH)) {
