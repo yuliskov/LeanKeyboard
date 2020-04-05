@@ -17,7 +17,10 @@ import java.util.List;
 public class AboutFragment extends GuidedStepSupportFragment {
     private static final String MARKET_URL = "https://play.google.com/store/apps/details?id=org.liskovsoft.androidtv.rukeyboard";
     private static final String DONATE_URL = "https://www.donationalerts.com/r/firsthash";
-    private static final String WEBSITE_URL = "https://github.com/yuliskov/LeankeyKeyboard";
+    private static final String RELEASES_URL = "https://github.com/yuliskov/LeankeyKeyboard/releases";
+    private static final String ISSUE_URL = "https://github.com/yuliskov/LeankeyKeyboard/issues";
+    private static final String[] URL_MAPPING = {DONATE_URL, ISSUE_URL, RELEASES_URL, MARKET_URL};
+    private int mId;
 
     @NonNull
     @Override
@@ -37,30 +40,27 @@ public class AboutFragment extends GuidedStepSupportFragment {
     @Override
     public void onCreateActions(@NonNull List<GuidedAction> actions, Bundle savedInstanceState) {
         appendInfoAction(getString(R.string.about_donate), actions);
-        appendInfoAction(getString(R.string.about_web_site), actions);
+        appendInfoAction(getString(R.string.about_issue), actions);
+        appendInfoAction(getString(R.string.about_releases), actions);
 
         String appName = AppInfoHelpers.getApplicationName(getActivity());
         String appVersion = AppInfoHelpers.getAppVersionName(getActivity());
         String flavorName = getString(R.string.flavor_name);
-        appendInfoAction(appName + " (" + appVersion + " " + flavorName + ")", actions);
+        appendInfoAction(String.format("%s (%s %s)", appName, appVersion, flavorName), actions);
     }
 
     private void appendInfoAction(String textLine, List<GuidedAction> actions) {
         GuidedAction action = new GuidedAction.Builder(getActivity())
                 .title(textLine)
+                .id(mId++)
                 .build();
         actions.add(action);
     }
 
     @Override
     public void onGuidedActionClicked(GuidedAction action) {
-        String link = MARKET_URL;
-
-        if (action.getTitle().equals(getString(R.string.about_donate))) {
-            link = DONATE_URL;
-        } else if (action.getTitle().equals(getString(R.string.about_web_site))) {
-            link = WEBSITE_URL;
-        }
+        int idx = (int) action.getId();
+        String link = URL_MAPPING.length > idx ? URL_MAPPING[idx] : MARKET_URL;
 
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
         

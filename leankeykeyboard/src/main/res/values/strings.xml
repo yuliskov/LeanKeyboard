@@ -50,4 +50,6 @@
     <string name="about_donate">Donate</string>
     <string name="about_web_site">Web Site</string>
     <string name="kbd_activation_error">Can\'t open system kbd settings.\nRedirecting to site with manual instructions…</string>
+    <string name="about_issue">Submit an issue</string>
+    <string name="about_releases">Get new version</string>
 </resources>

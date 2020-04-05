@@ -37,7 +37,7 @@ public class AboutFragment extends GuidedStepSupportFragment {
         String appName = AppInfoHelpers.getApplicationName(getActivity());
         String appVersion = AppInfoHelpers.getAppVersionName(getActivity());
         String flavorName = getString(R.string.flavor_name);
-        appendInfoAction(appName + " (" + appVersion + " " + flavorName + ")", actions);
+        appendInfoAction(String.format("%s (%s %s)", appName, appVersion, flavorName), actions);
     }
 
     private void appendInfoAction(String textLine, List<GuidedAction> actions) {
