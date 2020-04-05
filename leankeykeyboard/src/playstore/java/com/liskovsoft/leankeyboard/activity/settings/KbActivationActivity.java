@@ -35,7 +35,7 @@ public class KbActivationActivity extends Activity {
         mErrorMsg = getString(R.string.kbd_activation_error2, kbdName, enableCommand, setCommand);
 
         String welcomeMsg = getString(R.string.enable_kb_in_system_prefs, kbdName);
-        MessageHelpers.showLongMessage(this, welcomeMsg);
+        MessageHelpers.showMessage(this, welcomeMsg);
 
         launchApp();
     }
