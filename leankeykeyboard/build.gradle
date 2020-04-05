@@ -37,7 +37,7 @@ android {
             def version = variant.versionName
             def flavor = variant.productFlavors[-1].name
 
-            def newApkName = sprintf("%s_%s_v%s_%s.apk", [project, flavor, version, buildType])
+            def newApkName = sprintf("%s_v%s_%s_%s.apk", [project, version, flavor, buildType])
 
             output.outputFileName = new File(newApkName)
         }
