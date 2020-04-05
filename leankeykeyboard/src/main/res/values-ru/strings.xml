@@ -35,7 +35,8 @@
     <string name="misc_desc">Разные настройки</string>
     <string name="increase_kbd_size">Увеличить</string>
     <string name="increase_kbd_size_desc">Увеличить клавиатуру</string>
-    <string name="manually_activate_commands">Произошла ошибка. Попробуйте активировать %s командами ниже.\n\n%s\n\n%s</string>
+    <string name="kbd_activation_error2">Произошла ошибка. Попробуйте активировать %s командами ниже.\n\n%s\n\n%s</string>
     <string name="about_donate">Помочь проекту</string>
     <string name="about_web_site">Веб-сайт</string>
+    <string name="kbd_activation_error">Не получается открыть системные настройки клавиатуры.\nПеренаправляю на сайт с инструкцией по ручной активации…</string>
 </resources>

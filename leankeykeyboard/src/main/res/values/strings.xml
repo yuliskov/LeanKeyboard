@@ -46,7 +46,8 @@
     <string name="keyboardview_keycode_clipboard">Clipboard</string>
     <string name="increase_kbd_size">Enlarge keyboard</string>
     <string name="increase_kbd_size_desc">Increase keyboard size</string>
-    <string name="manually_activate_commands">Error occurred. Try to activate %s with commands below.\n\n%s\n\n%s</string>
+    <string name="kbd_activation_error2">Error occurred. Try to activate %s with commands below.\n\n%s\n\n%s</string>
     <string name="about_donate">Donate</string>
     <string name="about_web_site">Web Site</string>
+    <string name="kbd_activation_error">Can\'t open system kdb settings.\nRedirecting to site with manual instructions…</string>
 </resources>

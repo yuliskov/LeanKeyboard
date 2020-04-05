@@ -1,15 +1,13 @@
 package com.liskovsoft.leankeyboard.activity.settings;
 
 import android.annotation.SuppressLint;
-import android.content.ActivityNotFoundException;
-import android.content.pm.PackageManager;
-import android.widget.Toast;
-import android.os.Bundle;
-import android.content.ComponentName;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.pm.ActivityInfo;
-import android.content.Intent;
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Bundle;
 import com.liskovsoft.leankeyboard.helpers.Helpers;
 import com.liskovsoft.leankeyboard.helpers.MessageHelpers;
 import com.liskovsoft.leankeyboard.ime.LeanbackImeService;
@@ -18,8 +16,7 @@ import com.liskovsoft.leankeykeyboard.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KbActivationActivity extends Activity
-{
+public class KbActivationActivity extends Activity {
     private static final String META_PACKAGE_NAME = "package";
     private static final String META_CLASS_NAME = "class";
     private static final String META_PACKAGE_NAME_ALT = "package_alt";
@@ -35,7 +32,7 @@ public class KbActivationActivity extends Activity
         String serviceName = getPackageName() + "/" + LeanbackImeService.class.getCanonicalName().replace(getPackageName(), "");
         String enableCommand = String.format("adb shell ime enable %s", serviceName);
         String setCommand = String.format("adb shell ime set %s", serviceName);
-        mErrorMsg = getString(R.string.manually_activate_commands, kbdName, enableCommand, setCommand);
+        mErrorMsg = getString(R.string.kbd_activation_error2, kbdName, enableCommand, setCommand);
 
         String welcomeMsg = getString(R.string.enable_kb_in_system_prefs, kbdName);
         MessageHelpers.showLongMessage(this, welcomeMsg);

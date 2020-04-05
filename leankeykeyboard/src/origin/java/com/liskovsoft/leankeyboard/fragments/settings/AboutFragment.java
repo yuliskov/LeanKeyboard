@@ -15,9 +15,9 @@ import com.liskovsoft.leankeykeyboard.R;
 import java.util.List;
 
 public class AboutFragment extends GuidedStepSupportFragment {
-    private static final String MARKET_LINK = "https://play.google.com/store/apps/details?id=org.liskovsoft.androidtv.rukeyboard";
-    private static final String DONATE_LINK = "https://www.donationalerts.com/r/firsthash";
-    private static final String WEBSITE_LINK = "https://github.com/yuliskov/LeankeyKeyboard";
+    private static final String MARKET_URL = "https://play.google.com/store/apps/details?id=org.liskovsoft.androidtv.rukeyboard";
+    private static final String DONATE_URL = "https://www.donationalerts.com/r/firsthash";
+    private static final String WEBSITE_URL = "https://github.com/yuliskov/LeankeyKeyboard";
 
     @NonNull
     @Override
@@ -53,12 +53,12 @@ public class AboutFragment extends GuidedStepSupportFragment {
 
     @Override
     public void onGuidedActionClicked(GuidedAction action) {
-        String link = MARKET_LINK;
+        String link = MARKET_URL;
 
         if (action.getTitle().equals(getString(R.string.about_donate))) {
-            link = DONATE_LINK;
+            link = DONATE_URL;
         } else if (action.getTitle().equals(getString(R.string.about_web_site))) {
-            link = WEBSITE_LINK;
+            link = WEBSITE_URL;
         }
 
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
