@@ -341,8 +341,7 @@ public class LeanbackKeyboardContainer {
         }
 
         mSuggestionsEnabled = true;
-        // fix auto space after period
-        mAutoEnterSpaceEnabled = true;
+        mAutoEnterSpaceEnabled = false;
         mVoiceEnabled = true;
         mEscapeNorthEnabled = false;
         mVoiceKeyDismissesEnabled = false;
@@ -355,7 +354,7 @@ public class LeanbackKeyboardContainer {
                     case InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT:
                     case InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
                         mSuggestionsEnabled = true;
-                        mAutoEnterSpaceEnabled = true;
+                        mAutoEnterSpaceEnabled = false;
                         mVoiceEnabled = true;
                         mInitialMainKeyboard = mAbcKeyboard;
                         break;
