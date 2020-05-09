@@ -254,7 +254,7 @@ public class LeanbackKeyboardContainer {
     }
 
     private void escapeNorth() {
-        this.mDismissListener.onDismiss(false);
+        mDismissListener.onDismiss(false);
     }
 
     private PointF getAlignmentPosition(final float posXCm, final float posYCm, final PointF result) {
@@ -381,22 +381,24 @@ public class LeanbackKeyboardContainer {
             }
         }
 
-        if (!mAutoEnterSpaceEnabled) {
-            if ((info.inputType & InputType.TYPE_TEXT_FLAG_CAP_SENTENCES) != 0) {
-                mCapSentences = true;
-            }
-        }
+        // NOTE: bug fix: any field: first char in upper case
+        //if (!mAutoEnterSpaceEnabled) {
+        //    if ((info.inputType & InputType.TYPE_TEXT_FLAG_CAP_SENTENCES) != 0) {
+        //        mCapSentences = true;
+        //    }
+        //}
 
         if (mAutoEnterSpaceEnabled && !mSuggestionsEnabled) {
             mAutoEnterSpaceEnabled = false;
         }
 
-        if ((info.inputType & InputType.TYPE_TEXT_FLAG_CAP_WORDS) != 0 ||
-            LeanbackUtils.getInputTypeVariation(info) == InputType.TYPE_TEXT_VARIATION_PERSON_NAME) {
-            mCapWords = true;
-        }
+        // NOTE: bug fix: any field: first char in upper case
+        //if ((info.inputType & InputType.TYPE_TEXT_FLAG_CAP_WORDS) != 0 ||
+        //    LeanbackUtils.getInputTypeVariation(info) == InputType.TYPE_TEXT_VARIATION_PERSON_NAME) {
+        //    mCapWords = true;
+        //}
 
-        // TODO: fix bug: password field: all next char is upper case
+        // NOTE: bug fix: password field: all chars in upper case
         //if ((info.inputType & InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS) != 0) {
         //    mCapCharacters = true;
         //}
