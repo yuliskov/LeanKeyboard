@@ -234,6 +234,13 @@ public class LeanbackImeService extends InputMethodService {
         super.onFinishInputView(finishingInput);
         sendBroadcast(new Intent(IME_CLOSE));
         mSuggestionsFactory.clearSuggestions();
+
+        // NOTE: Trying to fix kbd without UI bug (telegram)
+        initSettings();
+
+        if (mKeyboardController != null) {
+            mKeyboardController.initKeyboards();
+        }
     }
 
     @SuppressLint("NewApi")
