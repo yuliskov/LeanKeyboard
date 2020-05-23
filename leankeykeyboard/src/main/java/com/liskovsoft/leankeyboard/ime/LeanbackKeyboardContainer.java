@@ -113,6 +113,7 @@ public class LeanbackKeyboardContainer {
     private View mSuggestionsBg;
     private HorizontalScrollView mSuggestionsContainer;
     private boolean mSuggestionsEnabled;
+    private boolean mForceDisableSuggestions;
     private Keyboard mSymKeyboard;
     private KeyFocus mTempKeyInfo = new KeyFocus();
     private PointF mTempPoint = new PointF();
@@ -404,6 +405,10 @@ public class LeanbackKeyboardContainer {
         //    mCapCharacters = true;
         //}
 
+        if (mForceDisableSuggestions) {
+            mSuggestionsEnabled = false;
+        }
+
         if (info.privateImeOptions != null) {
             if (info.privateImeOptions.contains(IME_PRIVATE_OPTIONS_ESCAPE_NORTH)) {
                 mEscapeNorthEnabled = true;
@@ -557,6 +562,11 @@ public class LeanbackKeyboardContainer {
 
     public boolean areSuggestionsEnabled() {
         return mSuggestionsEnabled;
+    }
+
+    public void setSuggestionsEnabled(boolean enabled) {
+        mSuggestionsEnabled = enabled;
+        mForceDisableSuggestions = !enabled;
     }
 
     public void cancelVoiceRecording() {

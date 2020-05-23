@@ -13,6 +13,7 @@ public final class LeanKeySettings {
     private static final String KEYBOARD_THEME = "keyboardTheme";
     public static final String DEFAULT_THEME_ID = "Default";
     public static final String DARK_THEME_ID = "Dark";
+    private static final String SUGGESTIONS_ENABLED = "suggestionsEnabled";
     private static LeanKeySettings sInstance;
     private final Context mContext;
     private SharedPreferences mPrefs;
@@ -86,5 +87,15 @@ public final class LeanKeySettings {
 
     public String getCurrentTheme() {
         return mPrefs.getString(KEYBOARD_THEME, DEFAULT_THEME_ID);
+    }
+
+    public void setSuggestionsEnabled(boolean enabled) {
+        mPrefs.edit()
+                .putBoolean(SUGGESTIONS_ENABLED, enabled)
+                .apply();
+    }
+
+    public boolean getSuggestionsEnabled() {
+        return mPrefs.getBoolean(SUGGESTIONS_ENABLED, true);
     }
 }

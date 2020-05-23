@@ -621,6 +621,12 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
         return mContainer != null && mContainer.areSuggestionsEnabled();
     }
 
+    public void setSuggestionsEnabled(boolean enabled) {
+        if (mContainer != null) {
+            mContainer.setSuggestionsEnabled(enabled);
+        }
+    }
+
     public boolean enableAutoEnterSpace() {
         return mContainer != null && mContainer.enableAutoEnterSpace();
     }

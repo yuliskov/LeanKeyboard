@@ -81,7 +81,12 @@ public class LeanbackImeService extends InputMethodService {
     }
 
     private void initSettings() {
-        mForceShowKbd = LeanKeySettings.instance(this).getForceShowKeyboard();
+        LeanKeySettings prefs = LeanKeySettings.instance(this);
+        mForceShowKbd = prefs.getForceShowKeyboard();
+
+        if (mKeyboardController != null) {
+            mKeyboardController.setSuggestionsEnabled(prefs.getSuggestionsEnabled());
+        }
     }
 
     private void clearSuggestionsDelayed() {

@@ -1,5 +1,6 @@
 package com.liskovsoft.leankeyboard.helpers;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
@@ -11,6 +12,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import com.liskovsoft.leankeyboard.activity.settings.KbSettingsActivity;
 import com.liskovsoft.leankeyboard.utils.LocaleUtility;
 
 import java.io.ByteArrayInputStream;
@@ -223,5 +225,21 @@ public class Helpers {
         String deviceName = getDeviceName();
 
         return deviceName.contains("(vbox86p)");
+    }
+
+    public static void setLauncherIconShown(Context context, Class<?> activityClass, boolean shown) {
+        PackageManager pm = context.getPackageManager();
+        ComponentName component = new ComponentName(context, activityClass);
+        pm.setComponentEnabledSetting(
+                component,
+                shown ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                PackageManager.DONT_KILL_APP
+        );
+    }
+
+    public static boolean getLauncherIconShown(Context context, Class<?> activityClass) {
+        PackageManager pm = context.getPackageManager();
+        ComponentName component = new ComponentName(context, activityClass);
+        return pm.getComponentEnabledSetting(component) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
     }
 }

@@ -33,7 +33,7 @@
         android:theme="@style/Theme.Leanback">
 
         <activity
-            android:name="com.liskovsoft.leankeyboard.activity.settings.KbSettingsActivity"
+            android:name="com.liskovsoft.leankeyboard.activity.settings.KbSettingsActivity2"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -42,6 +42,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.liskovsoft.leankeyboard.activity.settings.KbSettingsActivity"
+            android:launchMode="singleTop">
         </activity>
         <activity
             android:name="com.liskovsoft.leankeyboard.activity.settings.KbLayoutActivity"

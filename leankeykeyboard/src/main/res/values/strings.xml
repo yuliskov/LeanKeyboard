@@ -55,4 +55,8 @@
     <string name="kb_theme">Theme</string>
     <string name="kb_theme_desc">Keyboard Theme</string>
     <string name="change_theme">Change Theme</string>
+    <string name="enable_suggestions">Enable suggestions</string>
+    <string name="enable_suggestions_desc">Enable suggestions row</string>
+    <string name="show_launcher_icon">Show icon</string>
+    <string name="show_launcher_icon_desc">Show launcher icon</string>
 </resources>

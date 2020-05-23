@@ -44,4 +44,8 @@
     <string name="kb_theme">Тема</string>
     <string name="kb_theme_desc">Тема клавиатуры</string>
     <string name="change_theme">Выбрать тему</string>
+    <string name="enable_suggestions">Отображать подсказки</string>
+    <string name="enable_suggestions_desc">Отображать ряд с подсказками при вводе</string>
+    <string name="show_launcher_icon">Отображать иконку</string>
+    <string name="show_launcher_icon_desc">Отображать иконку лаунчера</string>
 </resources>
