@@ -10,6 +10,9 @@ public final class LeanKeySettings {
     private static final String APP_KEYBOARD_INDEX = "appKeyboardIndex";
     private static final String FORCE_SHOW_KEYBOARD = "forceShowKeyboard";
     private static final String ENLARGE_KEYBOARD = "enlargeKeyboard";
+    private static final String KEYBOARD_THEME = "keyboardTheme";
+    public static final String DEFAULT_THEME_ID = "Default";
+    public static final String DARK_THEME_ID = "Dark";
     private static LeanKeySettings sInstance;
     private final Context mContext;
     private SharedPreferences mPrefs;
@@ -73,5 +76,15 @@ public final class LeanKeySettings {
         mPrefs.edit()
                 .putBoolean(ENLARGE_KEYBOARD, enlarge)
                 .apply();
+    }
+
+    public void setCurrentTheme(String theme) {
+        mPrefs.edit()
+                .putString(KEYBOARD_THEME, theme)
+                .apply();
+    }
+
+    public String getCurrentTheme() {
+        return mPrefs.getString(KEYBOARD_THEME, DEFAULT_THEME_ID);
     }
 }

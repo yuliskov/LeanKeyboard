@@ -35,6 +35,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
+import com.liskovsoft.leankeyboard.addons.theme.ThemeManager;
 import com.liskovsoft.leankeyboard.addons.voicesearch.RecognizerIntentWrapper;
 import com.liskovsoft.leankeyboard.helpers.PermissionHelpers;
 import com.liskovsoft.leankeyboard.activity.PermissionsActivity;
@@ -220,7 +221,7 @@ public class LeanbackKeyboardContainer {
         });
         initKeyboards();
     }
-    
+
     private void configureFocus(KeyFocus focus, Rect rect, int index, int type) {
         focus.type = type;
         focus.index = index;

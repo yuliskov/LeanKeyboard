@@ -13,6 +13,7 @@ public class BaseSettingsFragment extends GuidedStepSupportFragment {
     private Map<Long, CheckedAction> mCheckedActions = new LinkedHashMap<>();
     private Map<Long, NextAction> mNextActions = new LinkedHashMap<>();
     private long mId;
+    private int mItemTypeId = GuidedAction.CHECKBOX_CHECK_SET_ID;
 
     protected interface OnChecked {
         void onChecked(boolean checked);
@@ -32,6 +33,11 @@ public class BaseSettingsFragment extends GuidedStepSupportFragment {
 
     protected void addCheckedAction(int titleRedId, GetChecked getChecked, OnChecked onChecked) {
         addCheckedAction(getString(titleRedId), getChecked, onChecked);
+    }
+
+    protected void addRadioAction(String title, GetChecked getChecked, OnChecked onChecked) {
+        mCheckedActions.put(mId++, new CheckedAction(title, getChecked, onChecked));
+        mItemTypeId = GuidedAction.DEFAULT_CHECK_SET_ID;
     }
 
     protected void addCheckedAction(String title, GetChecked getChecked, OnChecked onChecked) {
@@ -83,7 +89,7 @@ public class BaseSettingsFragment extends GuidedStepSupportFragment {
     private void addCheckedItem(long id, CheckedAction checkedAction, List<GuidedAction> actions) {
         GuidedAction action = new GuidedAction.Builder(getActivity())
                 .checked(checkedAction.isChecked())
-                .checkSetId(GuidedAction.CHECKBOX_CHECK_SET_ID)
+                .checkSetId(mItemTypeId)
                 .id(id)
                 .title(checkedAction.getTitle())
                 .build();

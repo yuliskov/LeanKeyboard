@@ -52,4 +52,7 @@
     <string name="kbd_activation_error">Can\'t open system kbd settings.\nRedirecting to site with manual instructions…</string>
     <string name="about_issue">Submit an issue</string>
     <string name="about_releases">Get a new version</string>
+    <string name="kb_theme">Theme</string>
+    <string name="kb_theme_desc">Keyboard Theme</string>
+    <string name="change_theme">Change Theme</string>
 </resources>

@@ -41,4 +41,7 @@
     <string name="kbd_activation_error">Не получается открыть системные настройки клавиатуры.\nПеренаправление на сайт с инструкцией по ручной активации…</string>
     <string name="about_issue">Сообщить о проблеме</string>
     <string name="about_releases">Скачать новую версию</string>
+    <string name="kb_theme">Тема</string>
+    <string name="kb_theme_desc">Тема клавиатуры</string>
+    <string name="change_theme">Выбрать тему</string>
 </resources>

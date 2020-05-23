@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import com.liskovsoft.leankeyboard.addons.theme.ThemeManager;
 import com.liskovsoft.leankeyboard.ime.LeanbackKeyboardController.InputListener;
 import com.liskovsoft.leankeyboard.utils.LeanKeySettings;
 
@@ -192,6 +193,9 @@ public class LeanbackImeService extends InputMethodService {
     public View onCreateInputView() {
         mInputView = mKeyboardController.getView();
         mInputView.requestFocus();
+
+        updateTheme();
+
         return mInputView;
     }
 
@@ -236,11 +240,7 @@ public class LeanbackImeService extends InputMethodService {
         mSuggestionsFactory.clearSuggestions();
 
         // NOTE: Trying to fix kbd without UI bug (telegram)
-        initSettings();
-
-        if (mKeyboardController != null) {
-            mKeyboardController.initKeyboards();
-        }
+        reInitKeyboard();
     }
 
     @SuppressLint("NewApi")
@@ -304,11 +304,8 @@ public class LeanbackImeService extends InputMethodService {
             if (intent.getBooleanExtra(COMMAND_RESTART, false)) {
                 Log.d(TAG, "onStartCommand: trying to restart service");
 
-                initSettings();
-
-                if (mKeyboardController != null) {
-                    mKeyboardController.initKeyboards();
-                }
+                reInitKeyboard();
+                updateTheme();
 
                 return Service.START_REDELIVER_INTENT;
             }
@@ -353,5 +350,19 @@ public class LeanbackImeService extends InputMethodService {
             }
         }
 
+    }
+
+    private void reInitKeyboard() {
+        initSettings();
+
+        if (mKeyboardController != null) {
+            mKeyboardController.initKeyboards();
+        }
+    }
+
+    private void updateTheme() {
+        if (mInputView != null) {
+            new ThemeManager(this).applyTo(mInputView);
+        }
     }
 }
