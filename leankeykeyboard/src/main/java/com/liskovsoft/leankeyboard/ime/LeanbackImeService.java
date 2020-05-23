@@ -331,14 +331,16 @@ public class LeanbackImeService extends InputMethodService {
         if (mKeyboardController.areSuggestionsEnabled()) {
             mSuggestionsFactory.createSuggestions();
             mKeyboardController.updateSuggestions(mSuggestionsFactory.getSuggestions());
-            InputConnection connection = getCurrentInputConnection();
-            if (connection != null) {
-                String text = LeanbackUtils.getEditorText(connection);
-                connection.deleteSurroundingText(LeanbackUtils.getCharLengthBeforeCursor(connection), LeanbackUtils.getCharLengthAfterCursor(connection));
-                connection.commitText(text, 1);
-            }
-        }
 
+            // NOTE: FileManager+ rename item fix: https://t.me/LeanKeyKeyboard/931
+            // NOTE: Code below deletes text that has selection.
+            //InputConnection connection = getCurrentInputConnection();
+            //if (connection != null) {
+            //    String text = LeanbackUtils.getEditorText(connection);
+            //    connection.deleteSurroundingText(LeanbackUtils.getCharLengthBeforeCursor(connection), LeanbackUtils.getCharLengthAfterCursor(connection));
+            //    connection.commitText(text, 1);
+            //}
+        }
     }
 
     private void reInitKeyboard() {
