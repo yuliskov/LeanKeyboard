@@ -38,8 +38,8 @@
         <Key android:codes="106" android:popupKeyboard="@xml/shift_j" android:keyLabel="j" />
         <Key android:codes="107" android:popupKeyboard="@xml/accent_k" android:keyLabel="k" />
         <Key android:codes="108" android:popupKeyboard="@xml/accent_l" android:keyLabel="l" />
-        <Key android:codes="95" android:keyLabel="_" />
-        <Key android:codes="38" android:keyEdgeFlags="right" android:keyLabel="&amp;" />
+        <Key android:codes="95"  android:keyLabel="_" />
+        <Key android:codes="47"  android:keyEdgeFlags="right" android:keyLabel="/" />
     </Row>
     <Row>
         <Key android:codes="122" android:popupKeyboard="@xml/accent_z" android:keyEdgeFlags="left" android:keyLabel="z" />
