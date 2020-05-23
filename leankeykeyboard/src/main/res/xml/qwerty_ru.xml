@@ -51,7 +51,7 @@
         <Key android:keyLabel="ъ" />
         <Key android:keyLabel="б" />
         <Key android:keyLabel="ю" />
-        <Key android:codes="63" android:keyLabel="\?" android:keyEdgeFlags="right" />
+        <Key android:codes="-10" android:keyEdgeFlags="right" android:keyLabel="@string/keyboardview_keycode_clipboard" android:keyIcon="@drawable/ic_ime_clipboard" />
     </Row>
     <Row android:rowEdgeFlags="bottom">
         <Key android:codes="-2" android:keyLabel="@string/keyboardview_keycode_mode_change" android:keyIcon="@drawable/ic_ime_symbols" android:keyEdgeFlags="left" />
