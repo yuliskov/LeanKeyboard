@@ -326,17 +326,6 @@ public class LeanbackImeService extends InputMethodService {
     public void onStartInputView(EditorInfo info, boolean restarting) {
         super.onStartInputView(info, restarting);
 
-        //Log.d(TAG, "Restarting ime service...");
-        //setInputView(onCreateInputView());
-
-        // FireTV: fix accidental kbd pop-ups
-        // more info: https://forum.xda-developers.com/fire-tv/general/guide-change-screen-keyboard-to-leankey-t3527675/page2
-        //updateInputViewShown();
-        //if (!mKeyboardController.showInputView()) {
-        //    onHideIme();
-        //    return;
-        //}
-
         mKeyboardController.onStartInputView();
         sendBroadcast(new Intent(IME_OPEN));
         if (mKeyboardController.areSuggestionsEnabled()) {
