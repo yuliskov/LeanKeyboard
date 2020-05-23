@@ -21,6 +21,7 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
@@ -104,7 +105,7 @@ public class LeanbackKeyboardContainer {
     private Rect mRect = new Rect();
     private RelativeLayout mRootView;
     private View mSelector;
-    private LeanbackKeyboardContainer.ScaleAnimation mSelectorAnimation;
+    private ScaleAnimation mSelectorAnimation;
     private ValueAnimator mSelectorAnimator;
     private SpeechLevelSource mSpeechLevelSource;
     private SpeechRecognizer mSpeechRecognizer;
@@ -120,7 +121,7 @@ public class LeanbackKeyboardContainer {
     private boolean mTouchDown = false;
     private int mTouchState = TOUCH_STATE_NO_TOUCH;
     private final int mVoiceAnimDur;
-    private final LeanbackKeyboardContainer.VoiceIntroAnimator mVoiceAnimator;
+    private final VoiceIntroAnimator mVoiceAnimator;
     private RecognizerView mVoiceButtonView;
     private boolean mVoiceEnabled;
     private boolean mVoiceKeyDismissesEnabled;
@@ -1007,7 +1008,8 @@ public class LeanbackKeyboardContainer {
     }
 
     /**
-     * NOTE: Selection animation when moving from one button to another
+     * NOTE: Draw selection over the focused key.<br/>
+     * Show selection animation when moving from one button to another.
      */
     public void setSelectorToFocus(Rect rect, boolean overestimateWidth, boolean overestimateHeight, boolean animate) {
         if (mSelector.getWidth() != 0 && mSelector.getHeight() != 0 && rect.width() != 0 && rect.height() != 0) {
@@ -1273,7 +1275,7 @@ public class LeanbackKeyboardContainer {
         private float mEndWidth;
         private float mEndX;
         private float mEndY;
-        private final android.view.ViewGroup.LayoutParams mParams;
+        private final ViewGroup.LayoutParams mParams;
         private float mStartHeight;
         private float mStartWidth;
         private float mStartX;
