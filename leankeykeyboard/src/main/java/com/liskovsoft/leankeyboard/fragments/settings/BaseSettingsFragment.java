@@ -13,7 +13,6 @@ public class BaseSettingsFragment extends GuidedStepSupportFragment {
     private Map<Long, CheckedAction> mCheckedActions = new LinkedHashMap<>();
     private Map<Long, NextAction> mNextActions = new LinkedHashMap<>();
     private long mId;
-    private int mItemTypeId = GuidedAction.CHECKBOX_CHECK_SET_ID;
 
     protected interface OnChecked {
         void onChecked(boolean checked);
@@ -27,17 +26,32 @@ public class BaseSettingsFragment extends GuidedStepSupportFragment {
         void onClick();
     }
 
+    // Radio action
+
+    protected void addRadioAction(int titleResId, int descResId, GetChecked getChecked, OnChecked onChecked) {
+        addRadioAction(getString(titleResId), getString(descResId), getChecked, onChecked);
+    }
+
+    protected void addRadioAction(int titleRedId, GetChecked getChecked, OnChecked onChecked) {
+        addRadioAction(getString(titleRedId), getChecked, onChecked);
+    }
+
+    protected void addRadioAction(String title, GetChecked getChecked, OnChecked onChecked) {
+        mCheckedActions.put(mId++, new RadioAction(title, getChecked, onChecked));
+    }
+
+    protected void addRadioAction(String title, String desc, GetChecked getChecked, OnChecked onChecked) {
+        mCheckedActions.put(mId++, new RadioAction(title, desc, getChecked, onChecked));
+    }
+
+    // Checked action
+
     protected void addCheckedAction(int titleResId, int descResId, GetChecked getChecked, OnChecked onChecked) {
         addCheckedAction(getString(titleResId), getString(descResId), getChecked, onChecked);
     }
 
     protected void addCheckedAction(int titleRedId, GetChecked getChecked, OnChecked onChecked) {
         addCheckedAction(getString(titleRedId), getChecked, onChecked);
-    }
-
-    protected void addRadioAction(String title, GetChecked getChecked, OnChecked onChecked) {
-        mCheckedActions.put(mId++, new CheckedAction(title, getChecked, onChecked));
-        mItemTypeId = GuidedAction.DEFAULT_CHECK_SET_ID;
     }
 
     protected void addCheckedAction(String title, GetChecked getChecked, OnChecked onChecked) {
@@ -47,6 +61,8 @@ public class BaseSettingsFragment extends GuidedStepSupportFragment {
     protected void addCheckedAction(String title, String desc, GetChecked getChecked, OnChecked onChecked) {
         mCheckedActions.put(mId++, new CheckedAction(title, desc, getChecked, onChecked));
     }
+
+    // Nested action
 
     protected void addNextAction(int resId, OnClick onClick) {
         mNextActions.put(mId++, new NextAction(resId, onClick));
@@ -89,7 +105,7 @@ public class BaseSettingsFragment extends GuidedStepSupportFragment {
     private void addCheckedItem(long id, CheckedAction checkedAction, List<GuidedAction> actions) {
         GuidedAction action = new GuidedAction.Builder(getActivity())
                 .checked(checkedAction.isChecked())
-                .checkSetId(mItemTypeId)
+                .checkSetId(checkedAction.getItemTypeId())
                 .id(id)
                 .title(checkedAction.getTitle())
                 .build();
@@ -99,6 +115,21 @@ public class BaseSettingsFragment extends GuidedStepSupportFragment {
         }
 
         actions.add(action);
+    }
+
+    private static class RadioAction extends CheckedAction {
+        public RadioAction(String title, GetChecked getChecked, OnChecked onChecked) {
+            super(title, getChecked, onChecked);
+        }
+
+        public RadioAction(String title, String desc, GetChecked getChecked, OnChecked onChecked) {
+            super(title, desc, getChecked, onChecked);
+        }
+
+        @Override
+        public int getItemTypeId() {
+            return GuidedAction.DEFAULT_CHECK_SET_ID;
+        }
     }
 
     private static class CheckedAction {
@@ -132,6 +163,10 @@ public class BaseSettingsFragment extends GuidedStepSupportFragment {
 
         public void onChecked(boolean checked) {
             mOnChecked.onChecked(checked);
+        }
+
+        public int getItemTypeId() {
+            return GuidedAction.CHECKBOX_CHECK_SET_ID;
         }
     }
 
