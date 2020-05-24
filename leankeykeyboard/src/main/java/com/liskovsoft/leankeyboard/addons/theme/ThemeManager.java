@@ -1,12 +1,14 @@
 package com.liskovsoft.leankeyboard.addons.theme;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import androidx.core.content.ContextCompat;
+import com.liskovsoft.leankeyboard.ime.LeanbackKeyboardView;
 import com.liskovsoft.leankeyboard.utils.LeanKeySettings;
 import com.liskovsoft.leankeykeyboard.R;
 
@@ -31,12 +33,14 @@ public class ThemeManager {
                     R.color.candidate_background,
                     R.color.enter_key_font_color
             );
+            applyShiftDrawable(-1);
         } else if (LeanKeySettings.DARK_THEME_ID.equals(currentTheme)) {
             applyKeyboardColors(
                     R.color.keyboard_background_dark,
                     R.color.candidate_background_dark,
                     R.color.enter_key_font_color_dark
             );
+            applyShiftDrawable(R.drawable.ic_ime_shift_lock_on_dark);
         }
     }
 
@@ -94,6 +98,20 @@ public class ThemeManager {
                     candidateButton.setTextColor(ContextCompat.getColor(mContext, candidateFontColor));
                 }
             }
+        }
+    }
+
+    private void applyShiftDrawable(int resId) {
+        LeanbackKeyboardView keyboardView = mRootView.findViewById(R.id.main_keyboard);
+
+        if (keyboardView != null) {
+            Drawable drawable = null;
+
+            if (resId != -1) {
+                drawable = ContextCompat.getDrawable(mContext, resId);
+            }
+
+            keyboardView.setCustomCapsLockDrawable(drawable);
         }
     }
 }

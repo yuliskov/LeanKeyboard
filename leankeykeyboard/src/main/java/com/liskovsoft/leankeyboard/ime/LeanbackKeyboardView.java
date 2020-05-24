@@ -11,6 +11,7 @@ import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.Keyboard.Key;
 import android.util.AttributeSet;
@@ -74,6 +75,7 @@ public class LeanbackKeyboardView extends FrameLayout {
     protected Paint mPaint;
     protected int mKeyTextSize;
     protected int mModeChangeTextSize;
+    private Drawable mCustomCapsLockDrawable;
 
     private static class KeyConverter {
         private static final int LOWER_CASE = 0;
@@ -198,7 +200,11 @@ public class LeanbackKeyboardView extends FrameLayout {
                         key.icon = ContextCompat.getDrawable(getContext(), R.drawable.ic_ime_shift_on);
                         break;
                     case SHIFT_LOCKED:
-                        key.icon = ContextCompat.getDrawable(getContext(), R.drawable.ic_ime_shift_lock_on);
+                        if (mCustomCapsLockDrawable != null) {
+                            key.icon = mCustomCapsLockDrawable;
+                        } else {
+                            key.icon = ContextCompat.getDrawable(getContext(), R.drawable.ic_ime_shift_lock_on);
+                        }
                 }
             }
 
@@ -621,5 +627,9 @@ public class LeanbackKeyboardView extends FrameLayout {
         public KeyHolder(Key key) {
             this.key = key;
         }
+    }
+
+    public void setCustomCapsLockDrawable(Drawable drawable) {
+        mCustomCapsLockDrawable = drawable;
     }
 }

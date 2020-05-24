@@ -816,7 +816,7 @@ public class LeanbackKeyboardContainer {
     }
 
     public boolean isCapsLockOn() {
-        return mMainKeyboardView.getShiftState() == 2;
+        return mMainKeyboardView.getShiftState() == LeanbackKeyboardView.SHIFT_LOCKED;
     }
 
     public boolean isCurrKeyShifted() {
