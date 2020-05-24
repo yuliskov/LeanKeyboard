@@ -482,6 +482,11 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
                     handleCommitKeyboardKey(LeanbackKeyboardView.KEYCODE_CAPS_LOCK, null);
                     handled = true;
                     break;
+                case KeyEvent.KEYCODE_VOICE_ASSIST:
+                case KeyEvent.KEYCODE_SEARCH:
+                    mContainer.startVoiceRecording();
+                    handled = true;
+                    break;
                 default:
                     handled = false;
             }
