@@ -33,4 +33,14 @@
     <string name="misc_desc">Andere Einstellungen</string>
     <string name="increase_kbd_size">Vergrößern</string>
     <string name="increase_kbd_size_desc">Die Tastatur vergrößern</string>
+    <string name="about_donate">Spenden</string>
+    <string name="about_issue">Ein Problem melden</string>
+    <string name="about_releases">Neue Version herunterladen</string>
+    <string name="kb_theme">Theme</string>
+    <string name="kb_theme_desc">Keyboard Theme</string>
+    <string name="change_theme">Thema ändern</string>
+    <string name="enable_suggestions">Vorschläge aktivieren</string>
+    <string name="enable_suggestions_desc">Vorschlagszeile aktivieren</string>
+    <string name="show_launcher_icon">Icon anzeigen</string>
+    <string name="show_launcher_icon_desc">Icon im Launcher anzeigen</string>
 </resources>

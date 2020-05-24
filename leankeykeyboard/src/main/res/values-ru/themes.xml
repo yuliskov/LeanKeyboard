@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="keyboard_themes">
+        <item>Тема по-умолчанию|Default</item>
+        <item>Темная тема|Dark</item>
+    </string-array>
+</resources>
