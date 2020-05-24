@@ -685,16 +685,16 @@ public class LeanbackKeyboardContainer {
                 float centerDelta = (float) startFocus.rect.height() / 2.0F;
                 float centerX = (float) startFocus.rect.centerX();
                 float centerY = (float) startFocus.rect.centerY();
-                if (startFocus.code == 32) {
+                if (startFocus.code == LeanbackKeyboardView.ASCII_SPACE) {
                     centerX = mX;
                 }
 
                 if ((direction & DIRECTION_LEFT) != 0) {
-                    if ((key.edgeFlags & 1) == 0) {
+                    if ((key.edgeFlags & Keyboard.EDGE_LEFT) == 0) {
                         centerX = (float) startFocus.rect.left - centerDelta;
                     }
                 } else if ((direction & DIRECTION_RIGHT) != 0) {
-                    if ((key.edgeFlags & 2) != 0) {
+                    if ((key.edgeFlags & Keyboard.EDGE_RIGHT) != 0) {
                         offsetRect(mRect, mActionButtonView);
                         centerX = (float) mRect.centerX();
                     } else {

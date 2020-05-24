@@ -114,13 +114,13 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
                 mContainer.switchToNextKeyboard();
                 break;
             case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
-                fakeKeyIndex(0, 2);
+                fakeKeyIndex(0, KeyFocus.TYPE_ACTION);
                 break;
             case KeyEvent.KEYCODE_MEDIA_REWIND:
-                fakeKeyCode(-5);
+                fakeKeyCode(LeanbackKeyboardView.KEYCODE_DELETE);
                 break;
             case KeyEvent.KEYCODE_MEDIA_FAST_FORWARD:
-                fakeKeyCode(32);
+                fakeKeyCode(LeanbackKeyboardView.ASCII_SPACE);
                 break;
             default:
                 return false;
