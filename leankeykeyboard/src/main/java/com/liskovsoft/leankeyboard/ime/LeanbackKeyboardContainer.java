@@ -39,6 +39,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import androidx.core.content.ContextCompat;
+import com.liskovsoft.leankeyboard.addons.theme.ThemeManager;
 import com.liskovsoft.leankeyboard.addons.voice.RecognizerIntentWrapper;
 import com.liskovsoft.leankeyboard.helpers.PermissionHelpers;
 import com.liskovsoft.leankeyboard.activity.PermissionsActivity;
@@ -110,6 +111,7 @@ public class LeanbackKeyboardContainer {
     private ImageView mKeySelector;
     private Drawable mKeySelectorSquare;
     private Drawable mKeySelectorStretched;
+    private ThemeManager mThemeManager;
     private ScaleAnimation mSelectorAnimation;
     private ValueAnimator mSelectorAnimator;
     private SpeechLevelSource mSpeechLevelSource;
@@ -198,6 +200,7 @@ public class LeanbackKeyboardContainer {
         mKeySelector = mRootView.findViewById(R.id.key_selector);
         mKeySelectorSquare = ContextCompat.getDrawable(mContext, R.drawable.key_selector_square);
         mKeySelectorStretched = ContextCompat.getDrawable(mContext, R.drawable.key_selector);
+        mThemeManager = new ThemeManager(mContext, mRootView);
         mSelectorAnimation = new ScaleAnimation((FrameLayout) mSelector);
         mOverestimate = mContext.getResources().getFraction(R.fraction.focused_scale, 1, 1);
         final float scale = context.getResources().getFraction(R.fraction.clicked_scale, 1, 1);
@@ -1137,6 +1140,8 @@ public class LeanbackKeyboardContainer {
         mInitialMainKeyboard = keyboard;
         mAbcKeyboard = keyboard;
         mMainKeyboardView.setKeyboard(keyboard);
+
+        mThemeManager.updateKeyboardTheme();
     }
 
     public void updateSuggestions(ArrayList<String> suggestions) {
@@ -1163,6 +1168,8 @@ public class LeanbackKeyboardContainer {
         if (getCurrFocus().type == KeyFocus.TYPE_SUGGESTION) {
             resetFocusCursor();
         }
+
+        mThemeManager.updateSuggestionsTheme();
     }
 
     private void fillSuggestions(ArrayList<String> suggestions) {

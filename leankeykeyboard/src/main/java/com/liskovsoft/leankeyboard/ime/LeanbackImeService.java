@@ -199,8 +199,6 @@ public class LeanbackImeService extends InputMethodService {
         mInputView = mKeyboardController.getView();
         mInputView.requestFocus();
 
-        updateTheme();
-
         return mInputView;
     }
 
@@ -310,7 +308,6 @@ public class LeanbackImeService extends InputMethodService {
                 Log.d(TAG, "onStartCommand: trying to restart service");
 
                 reInitKeyboard();
-                updateTheme();
 
                 return Service.START_REDELIVER_INTENT;
             }
@@ -353,12 +350,6 @@ public class LeanbackImeService extends InputMethodService {
 
         if (mKeyboardController != null) {
             mKeyboardController.initKeyboards();
-        }
-    }
-
-    private void updateTheme() {
-        if (mInputView != null) {
-            new ThemeManager(this).applyTo(mInputView);
         }
     }
 }
