@@ -6,7 +6,6 @@ import android.inputmethodservice.Keyboard.Key;
 import android.util.AttributeSet;
 import com.liskovsoft.leankeyboard.ime.LeanbackKeyboardView;
 import com.liskovsoft.leankeyboard.utils.LeanKeySettings;
-import com.liskovsoft.leankeykeyboard.R;
 
 import java.util.List;
 
@@ -26,21 +25,16 @@ public class ResizeableLeanbackKeyboardView extends LeanbackKeyboardView {
 
     @Override
     public void setKeyboard(Keyboard keyboard) {
-        int keySelectorDrawableId;
-
         if (mPrefs.getEnlargeKeyboard()) {
-            keySelectorDrawableId = R.drawable.key_selector_large;
             mKeyTextSize = (int) (mKeyTextSizeOrigin * mSizeFactor);
             mModeChangeTextSize = (int) (mModeChangeTextSizeOrigin * mSizeFactor);
 
             keyboard = updateKeyboard(keyboard);
         } else {
-            keySelectorDrawableId = R.drawable.key_selector;
             mKeyTextSize = mKeyTextSizeOrigin;
             mModeChangeTextSize = mModeChangeTextSizeOrigin;
         }
 
-        getKeySelector().setBackgroundResource(keySelectorDrawableId);
         mPaint.setTextSize(mKeyTextSize);
 
         super.setKeyboard(keyboard);

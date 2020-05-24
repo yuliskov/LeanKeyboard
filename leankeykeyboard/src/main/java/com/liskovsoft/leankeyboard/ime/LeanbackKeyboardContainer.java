@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.PointF;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.Keyboard.Key;
 import android.os.Bundle;
@@ -33,9 +34,11 @@ import android.view.inputmethod.InputConnection;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
+import androidx.core.content.ContextCompat;
 import com.liskovsoft.leankeyboard.addons.voice.RecognizerIntentWrapper;
 import com.liskovsoft.leankeyboard.helpers.PermissionHelpers;
 import com.liskovsoft.leankeyboard.activity.PermissionsActivity;
@@ -104,6 +107,9 @@ public class LeanbackKeyboardContainer {
     private Rect mRect = new Rect();
     private RelativeLayout mRootView;
     private View mSelector;
+    private ImageView mKeySelector;
+    private Drawable mKeySelectorSquare;
+    private Drawable mKeySelectorStretched;
     private ScaleAnimation mSelectorAnimation;
     private ValueAnimator mSelectorAnimator;
     private SpeechLevelSource mSpeechLevelSource;
@@ -186,10 +192,12 @@ public class LeanbackKeyboardContainer {
         mSuggestionsContainer = (HorizontalScrollView) mRootView.findViewById(R.id.suggestions_container);
         mSuggestions = (LinearLayout) mSuggestionsContainer.findViewById(R.id.suggestions);
         mMainKeyboardView = (LeanbackKeyboardView) mRootView.findViewById(R.id.main_keyboard);
-        mMainKeyboardView.setKeySelector(mRootView.findViewById(R.id.key_selector));
         mVoiceButtonView = (RecognizerView) mRootView.findViewById(R.id.voice);
         mActionButtonView = (Button) mRootView.findViewById(R.id.enter);
         mSelector = mRootView.findViewById(R.id.selector);
+        mKeySelector = mRootView.findViewById(R.id.key_selector);
+        mKeySelectorSquare = ContextCompat.getDrawable(mContext, R.drawable.key_selector_square);
+        mKeySelectorStretched = ContextCompat.getDrawable(mContext, R.drawable.key_selector);
         mSelectorAnimation = new ScaleAnimation((FrameLayout) mSelector);
         mOverestimate = mContext.getResources().getFraction(R.fraction.focused_scale, 1, 1);
         final float scale = context.getResources().getFraction(R.fraction.clicked_scale, 1, 1);
@@ -1037,6 +1045,14 @@ public class LeanbackKeyboardContainer {
             final float x = rect.exactCenterX() - deltaX / 2.0F;
             final float y = rect.exactCenterY() - deltaY / 2.0F;
             mSelectorAnimation.cancel();
+
+            // Fix 9-patch stretching for square keys (especially on large keyboard).
+            if (Math.abs(deltaX - deltaY) < 1) { // is square
+                mKeySelector.setBackground(mKeySelectorSquare);
+            } else {
+                mKeySelector.setBackground(mKeySelectorStretched);
+            }
+
             if (animate) {
                 mSelectorAnimation.reset();
                 mSelectorAnimation.setAnimationBounds(x, y, deltaX, deltaY);
