@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.ime.resize;
+package com.liskovsoft.leankeyboard.addons.resize;
 
 import android.content.Context;
 import android.inputmethodservice.Keyboard;

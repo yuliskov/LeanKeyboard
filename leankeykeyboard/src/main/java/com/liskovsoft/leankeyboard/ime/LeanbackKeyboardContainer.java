@@ -36,8 +36,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
-import com.liskovsoft.leankeyboard.addons.theme.ThemeManager;
-import com.liskovsoft.leankeyboard.addons.voicesearch.RecognizerIntentWrapper;
+import com.liskovsoft.leankeyboard.addons.voice.RecognizerIntentWrapper;
 import com.liskovsoft.leankeyboard.helpers.PermissionHelpers;
 import com.liskovsoft.leankeyboard.activity.PermissionsActivity;
 import com.liskovsoft.leankeyboard.ime.LeanbackKeyboardController.InputListener;
@@ -187,6 +186,7 @@ public class LeanbackKeyboardContainer {
         mSuggestionsContainer = (HorizontalScrollView) mRootView.findViewById(R.id.suggestions_container);
         mSuggestions = (LinearLayout) mSuggestionsContainer.findViewById(R.id.suggestions);
         mMainKeyboardView = (LeanbackKeyboardView) mRootView.findViewById(R.id.main_keyboard);
+        mMainKeyboardView.setKeySelector(mRootView.findViewById(R.id.key_selector));
         mVoiceButtonView = (RecognizerView) mRootView.findViewById(R.id.voice);
         mActionButtonView = (Button) mRootView.findViewById(R.id.enter);
         mSelector = mRootView.findViewById(R.id.selector);

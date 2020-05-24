@@ -74,6 +74,7 @@ public class LeanbackKeyboardView extends FrameLayout {
     protected Paint mPaint;
     protected int mKeyTextSize;
     protected int mModeChangeTextSize;
+    private ImageView mKeySelector;
 
     private static class KeyConverter {
         private static final int LOWER_CASE = 0;
@@ -621,5 +622,13 @@ public class LeanbackKeyboardView extends FrameLayout {
         public KeyHolder(Key key) {
             this.key = key;
         }
+    }
+
+    public ImageView getKeySelector() {
+        return mKeySelector;
+    }
+
+    public void setKeySelector(ImageView keySelector) {
+        mKeySelector = keySelector;
     }
 }

@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.addons.voicesearch;
+package com.liskovsoft.leankeyboard.addons.voice;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.algolia.instantsearch.voice.VoiceSpeechRecognizer;

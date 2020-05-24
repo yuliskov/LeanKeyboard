@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.addons.voicesearch;
+package com.liskovsoft.leankeyboard.addons.voice;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;

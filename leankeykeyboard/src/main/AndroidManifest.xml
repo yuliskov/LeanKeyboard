@@ -56,7 +56,7 @@
             android:launchMode="singleTop">
         </activity>
         <activity
-            android:name="com.liskovsoft.leankeyboard.addons.voicesearch.RecognizerIntentActivity"
+            android:name="com.liskovsoft.leankeyboard.addons.voice.RecognizerIntentActivity"
             android:theme="@style/Theme.AppCompat"
             android:launchMode="singleTop"/>
 
