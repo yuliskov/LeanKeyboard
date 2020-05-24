@@ -638,9 +638,9 @@ public class LeanbackKeyboardContainer {
             offsetRect(mRect, mMainKeyboardView);
             final float left = (float) mRect.left;
             final float top = (float) mRect.top;
-            actionLeft = mMainKeyboardView.getNearestIndex(newX - left, newY - top);
-            Key key = mMainKeyboardView.getKey(actionLeft);
-            configureFocus(focus, mRect, actionLeft, key, 0);
+            int keyIdx = mMainKeyboardView.getNearestIndex(newX - left, newY - top);
+            Key key = mMainKeyboardView.getKey(keyIdx);
+            configureFocus(focus, mRect, keyIdx, key, 0);
             return true;
         }
     }
