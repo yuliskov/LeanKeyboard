@@ -1,10 +1,17 @@
 package com.liskovsoft.leankeyboard.addons.keyboards.intkeyboards;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.inputmethodservice.Keyboard;
+import android.inputmethodservice.Keyboard.Key;
+import android.text.Layout;
 import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardBuilder;
 import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardFactory;
 import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardInfo;
+import com.liskovsoft.leankeyboard.helpers.Helpers;
+import com.liskovsoft.leankeyboard.ime.LeanbackKeyboardView;
+import com.liskovsoft.leankeyboard.utils.TextDrawable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,12 +52,32 @@ public class ResKeyboardFactory implements KeyboardFactory {
         return () -> {
             String prefix = info.isAzerty() ? "azerty_" : "qwerty_";
             int kbResId = mContext.getResources().getIdentifier(prefix + info.getLangCode(), "xml", mContext.getPackageName());
-            return new Keyboard(mContext, kbResId);
+            Keyboard keyboard = new Keyboard(mContext, kbResId);
+            return keyboard;
         };
     }
 
     @Override
     public boolean needUpdate() {
         return ResKeyboardInfo.needUpdate();
+    }
+
+    private Keyboard localizeSpaceKey(Keyboard keyboard) {
+        List<Key> keys = keyboard.getKeys();
+
+        for (Key key : keys) {
+            if (key.codes[0] == LeanbackKeyboardView.ASCII_SPACE) {
+                //key.icon = Helpers.writeTextCentered(mContext, key.icon, "Hello World!", 18);
+                TextDrawable drawable = new TextDrawable(mContext, key.icon);
+                drawable.setText("TEXT DRAWN IN A CIRCLE");
+                drawable.setTextAlign(Layout.Alignment.ALIGN_CENTER);
+                //Customize text size and color
+                drawable.setTextColor(Color.WHITE);
+                drawable.setTextSize(12);
+                key.icon = drawable;
+            }
+        }
+
+        return keyboard;
     }
 }

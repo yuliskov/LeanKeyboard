@@ -12,6 +12,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -245,21 +247,5 @@ public class Helpers {
         PackageManager pm = context.getPackageManager();
         ComponentName component = new ComponentName(context, activityClass);
         return pm.getComponentEnabledSetting(component) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
-    }
-
-    public static Bitmap drawtextCentered(Bitmap src, String txt, float textSize) {
-        int w = src.getWidth();
-        int h = src.getHeight();
-        Bitmap result = Bitmap.createBitmap(w, h, src.getConfig());
-        Canvas canvas = new Canvas(result);
-        canvas.drawBitmap(src, 0, 0, null);
-        Paint paint = new Paint();
-        paint.setAlpha(0);
-        paint.setTextSize(textSize);
-        paint.setAntiAlias(true);
-        paint.setTextAlign(Align.CENTER);
-        canvas.drawText(txt, w/2f, h/2f, paint);
-
-        return result;
     }
 }
