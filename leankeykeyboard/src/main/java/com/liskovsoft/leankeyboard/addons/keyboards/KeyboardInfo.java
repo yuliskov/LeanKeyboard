@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.addons;
+package com.liskovsoft.leankeyboard.addons.keyboards;
 
 public interface KeyboardInfo {
     String getLangCode();

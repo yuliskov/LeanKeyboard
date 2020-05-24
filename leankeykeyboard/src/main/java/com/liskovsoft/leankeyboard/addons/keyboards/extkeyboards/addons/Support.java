@@ -1,11 +1,11 @@
-package com.liskovsoft.leankeyboard.addons.apkkbdfactory.addons;
+package com.liskovsoft.leankeyboard.addons.keyboards.extkeyboards.addons;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.SparseIntArray;
 
 import androidx.annotation.NonNull;
-import com.liskovsoft.leankeyboard.addons.apkkbdfactory.utils.log.Logger;
+import com.liskovsoft.leankeyboard.addons.keyboards.extkeyboards.utils.log.Logger;
 
 import java.util.ArrayList;
 import java.util.List;

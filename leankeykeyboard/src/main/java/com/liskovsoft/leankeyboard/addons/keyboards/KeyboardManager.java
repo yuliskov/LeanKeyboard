@@ -1,8 +1,8 @@
-package com.liskovsoft.leankeyboard.addons;
+package com.liskovsoft.leankeyboard.addons.keyboards;
 
 import android.content.Context;
 import android.inputmethodservice.Keyboard;
-import com.liskovsoft.leankeyboard.addons.reskbdfactory.ResKeyboardFactory;
+import com.liskovsoft.leankeyboard.addons.keyboards.intkeyboards.ResKeyboardFactory;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -6,9 +6,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.leanback.widget.GuidanceStylist.Guidance;
-import com.liskovsoft.leankeyboard.addons.reskbdfactory.KeyboardInfoAdapter;
-import com.liskovsoft.leankeyboard.addons.reskbdfactory.CheckedSource;
-import com.liskovsoft.leankeyboard.addons.reskbdfactory.CheckedSource.CheckedItem;
+import com.liskovsoft.leankeyboard.addons.keyboards.intkeyboards.KeyboardInfoAdapter;
+import com.liskovsoft.leankeyboard.addons.keyboards.intkeyboards.CheckedSource;
+import com.liskovsoft.leankeyboard.addons.keyboards.intkeyboards.CheckedSource.CheckedItem;
 import com.liskovsoft.leankeykeyboard.R;
 
 public class KbLayoutFragment extends BaseSettingsFragment {

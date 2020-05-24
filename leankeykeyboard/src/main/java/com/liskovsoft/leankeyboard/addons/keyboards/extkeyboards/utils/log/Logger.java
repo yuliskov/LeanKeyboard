@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.liskovsoft.leankeyboard.addons.apkkbdfactory.utils.log;
+package com.liskovsoft.leankeyboard.addons.keyboards.extkeyboards.utils.log;
 
 
 import androidx.annotation.NonNull;

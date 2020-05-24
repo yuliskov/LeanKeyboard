@@ -1,4 +1,4 @@
-package com.liskovsoft.leankeyboard.addons;
+package com.liskovsoft.leankeyboard.addons.keyboards;
 
 import android.inputmethodservice.Keyboard;
 import androidx.annotation.Nullable;

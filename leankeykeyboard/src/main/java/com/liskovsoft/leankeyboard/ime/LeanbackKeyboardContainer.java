@@ -48,7 +48,7 @@ import com.liskovsoft.leankeyboard.ime.voice.RecognizerView;
 import com.liskovsoft.leankeyboard.ime.voice.SpeechLevelSource;
 import com.liskovsoft.leankeyboard.activity.settings.KbLayoutActivity;
 import com.liskovsoft.leankeyboard.activity.settings.KbSettingsActivity;
-import com.liskovsoft.leankeyboard.addons.KeyboardManager;
+import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardManager;
 import com.liskovsoft.leankeyboard.helpers.Helpers;
 import com.liskovsoft.leankeyboard.helpers.MessageHelpers;
 import com.liskovsoft.leankeykeyboard.R;

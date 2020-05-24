@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.liskovsoft.leankeyboard.addons.apkkbdfactory.addons;
+package com.liskovsoft.leankeyboard.addons.keyboards.extkeyboards.addons;
 
 import android.content.Context;
 import android.content.Intent;
@@ -27,7 +27,7 @@ import android.util.AttributeSet;
 import android.util.Xml;
 
 //import com.liskovsoft.keyboardaddons.apklangfactory.AnySoftKeyboard;
-import com.liskovsoft.leankeyboard.addons.apkkbdfactory.utils.log.Logger;
+import com.liskovsoft.leankeyboard.addons.keyboards.extkeyboards.utils.log.Logger;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;

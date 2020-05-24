@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.liskovsoft.leankeyboard.addons.apkkbdfactory.keyboards;
+package com.liskovsoft.leankeyboard.addons.keyboards.extkeyboards.keyboards;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -23,11 +23,11 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
-import com.liskovsoft.leankeyboard.addons.KeyboardBuilder;
-import com.liskovsoft.leankeyboard.addons.KeyboardFactory;
-import com.liskovsoft.leankeyboard.addons.apkkbdfactory.addons.AddOn;
-import com.liskovsoft.leankeyboard.addons.apkkbdfactory.addons.AddOnsFactory;
-import com.liskovsoft.leankeyboard.addons.apkkbdfactory.utils.log.Logger;
+import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardBuilder;
+import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardFactory;
+import com.liskovsoft.leankeyboard.addons.keyboards.extkeyboards.addons.AddOn;
+import com.liskovsoft.leankeyboard.addons.keyboards.extkeyboards.addons.AddOnsFactory;
+import com.liskovsoft.leankeyboard.addons.keyboards.extkeyboards.utils.log.Logger;
 
 import java.util.ArrayList;
 import java.util.List;

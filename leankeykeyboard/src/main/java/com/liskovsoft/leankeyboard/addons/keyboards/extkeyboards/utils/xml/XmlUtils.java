@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.liskovsoft.leankeyboard.addons.apkkbdfactory.utils.xml;
+package com.liskovsoft.leankeyboard.addons.keyboards.extkeyboards.utils.xml;
 
 import android.util.Xml;
 

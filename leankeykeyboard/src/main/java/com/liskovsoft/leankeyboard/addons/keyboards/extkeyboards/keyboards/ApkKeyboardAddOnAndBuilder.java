@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.liskovsoft.leankeyboard.addons.apkkbdfactory.keyboards;
+package com.liskovsoft.leankeyboard.addons.keyboards.extkeyboards.keyboards;
 
 import android.content.Context;
 
 import androidx.annotation.Nullable;
-import com.liskovsoft.leankeyboard.addons.KeyboardBuilder;
-import com.liskovsoft.leankeyboard.addons.apkkbdfactory.addons.AddOn;
-import com.liskovsoft.leankeyboard.addons.apkkbdfactory.addons.AddOnImpl;
+import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardBuilder;
+import com.liskovsoft.leankeyboard.addons.keyboards.extkeyboards.addons.AddOn;
+import com.liskovsoft.leankeyboard.addons.keyboards.extkeyboards.addons.AddOnImpl;
 
 public class ApkKeyboardAddOnAndBuilder extends AddOnImpl implements KeyboardBuilder {
 
