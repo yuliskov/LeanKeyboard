@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="keyboard_background_white">#BFBFBF</color>
+    <color name="candidate_background_white">#BFBFBF</color>
+    <color name="candidate_font_color_white">#ff7DC7C0</color>
+    <color name="enter_key_font_color_white">#ff7DC7C0</color>
+    <color name="key_text_default_white">#171616</color>
+</resources>

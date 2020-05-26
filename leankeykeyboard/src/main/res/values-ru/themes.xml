@@ -3,5 +3,6 @@
     <string-array name="keyboard_themes">
         <item>Тема по-умолчанию|Default</item>
         <item>Темная тема|Dark</item>
+        <item>Темная тема 2|Dark2</item>
     </string-array>
 </resources>

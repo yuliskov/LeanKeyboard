@@ -4,4 +4,5 @@
     <color name="candidate_background_dark">#ff1b1c1e</color>
     <color name="candidate_font_color_dark">#ff3367d6</color>
     <color name="enter_key_font_color_dark">#ff3367d6</color>
+    <color name="key_text_default_dark">#ffeeeeee</color>
 </resources>

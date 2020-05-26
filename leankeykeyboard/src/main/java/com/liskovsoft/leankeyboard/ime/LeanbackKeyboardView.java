@@ -629,7 +629,11 @@ public class LeanbackKeyboardView extends FrameLayout {
         }
     }
 
-    public void setCustomCapsLockDrawable(Drawable drawable) {
+    public void setCapsLockDrawable(Drawable drawable) {
         mCustomCapsLockDrawable = drawable;
+    }
+
+    public void setKeyTextColor(int color) {
+        mKeyTextColor = color;
     }
 }
