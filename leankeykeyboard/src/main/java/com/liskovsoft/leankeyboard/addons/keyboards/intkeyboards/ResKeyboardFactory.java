@@ -53,7 +53,7 @@ public class ResKeyboardFactory implements KeyboardFactory {
             String prefix = info.isAzerty() ? "azerty_" : "qwerty_";
             int kbResId = mContext.getResources().getIdentifier(prefix + info.getLangCode(), "xml", mContext.getPackageName());
             Keyboard keyboard = new Keyboard(mContext, kbResId);
-            return keyboard;
+            return localizeKeys(keyboard);
         };
     }
 
@@ -62,7 +62,7 @@ public class ResKeyboardFactory implements KeyboardFactory {
         return ResKeyboardInfo.needUpdate();
     }
 
-    private Keyboard localizeSpaceKey(Keyboard keyboard) {
+    private Keyboard localizeKeys(Keyboard keyboard) {
         List<Key> keys = keyboard.getKeys();
 
         for (Key key : keys) {
@@ -73,8 +73,9 @@ public class ResKeyboardFactory implements KeyboardFactory {
                 drawable.setTextAlign(Layout.Alignment.ALIGN_CENTER);
                 //Customize text size and color
                 drawable.setTextColor(Color.WHITE);
-                drawable.setTextSize(12);
+                drawable.setTextSize(10);
                 key.icon = drawable;
+                break;
             }
         }
 

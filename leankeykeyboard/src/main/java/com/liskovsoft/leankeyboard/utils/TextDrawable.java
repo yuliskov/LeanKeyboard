@@ -111,6 +111,10 @@ public class TextDrawable extends Drawable {
         mTextPaint.density = mResources.getDisplayMetrics().density;
         mTextPaint.setDither(true);
 
+        if (mDrawable != null) {
+            setBounds(mDrawable.getBounds());
+        }
+
         int textSize = 15;
         ColorStateList textColor = null;
         int styleIndex = -1;
@@ -364,9 +368,15 @@ public class TextDrawable extends Drawable {
             mTextBounds.setEmpty();
         } else {
             //Measure text bounds
-            double desired = Math.ceil( Layout.getDesiredWidth(mText, mTextPaint) );
+            double desired = Math.ceil(Layout.getDesiredWidth(mText, mTextPaint));
+
+            if (mDrawable != null) {
+                desired = mDrawable.getIntrinsicWidth();
+            }
+
             mTextLayout = new StaticLayout(mText, mTextPaint, (int)desired,
                     mTextAlignment, 1.0f, 0.0f, false);
+
             mTextBounds.set(0, 0, mTextLayout.getWidth(), mTextLayout.getHeight());
         }
 
@@ -431,10 +441,6 @@ public class TextDrawable extends Drawable {
     @Override
     public void draw(@NonNull Canvas canvas) {
         final Rect bounds = getBounds();
-
-        //if (mDrawable != null) {
-        //    bounds = mDrawable.getBounds();
-        //}
 
         final int count = canvas.save();
         canvas.translate(bounds.left, bounds.top);
