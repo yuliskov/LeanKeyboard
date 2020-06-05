@@ -12,19 +12,18 @@ public class KeyboardManager {
     private final KeyboardStateManager mStateManager;
     private List<? extends KeyboardBuilder> mKeyboardBuilders;
     private List<Keyboard> mAllKeyboards;
-    private KeyboardFactory mKeyboardFactory;
+    private final KeyboardFactory mKeyboardFactory;
 
     private int mKeyboardIndex = 0;
 
     public KeyboardManager(Context ctx) {
         mContext = ctx;
         mStateManager = new KeyboardStateManager(mContext, this);
+        mKeyboardFactory = new ResKeyboardFactory(mContext);
         mStateManager.restore();
-        init();
     }
 
-    private void init() {
-        mKeyboardFactory = new ResKeyboardFactory(mContext);
+    public void init() {
         mKeyboardBuilders = mKeyboardFactory.getAllAvailableKeyboards(mContext);
         mAllKeyboards = buildAllKeyboards();
     }

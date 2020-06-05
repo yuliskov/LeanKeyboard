@@ -232,6 +232,7 @@ public class LeanbackKeyboardContainer {
                 cancelVoiceRecording();
             }
         });
+        mKeyboardManager = new KeyboardManager(mContext);
         initKeyboards();
     }
 
@@ -1134,7 +1135,7 @@ public class LeanbackKeyboardContainer {
     }
 
     public void updateAddonKeyboard() {
-        mKeyboardManager = new KeyboardManager(mContext);
+        mKeyboardManager.init();
 
         Keyboard keyboard = mKeyboardManager.getNextKeyboard();
         mInitialMainKeyboard = keyboard;

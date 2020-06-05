@@ -16,9 +16,8 @@ import android.view.View;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
-import com.liskovsoft.leankeyboard.addons.theme.ThemeManager;
 import com.liskovsoft.leankeyboard.ime.LeanbackKeyboardController.InputListener;
-import com.liskovsoft.leankeyboard.utils.LeanKeySettings;
+import com.liskovsoft.leankeyboard.utils.LeanKeyPreferences;
 
 public class LeanbackImeService extends InputMethodService {
     private static final String TAG = LeanbackImeService.class.getSimpleName();
@@ -71,7 +70,7 @@ public class LeanbackImeService extends InputMethodService {
     }
 
     private void setupDensity() {
-        if (LeanKeySettings.instance(this).getEnlargeKeyboard()) {
+        if (LeanKeyPreferences.instance(this).getEnlargeKeyboard()) {
             DisplayMetrics metrics = LeanbackUtils.createMetricsFrom(this, 1.3f);
 
             if (metrics != null) {
@@ -81,7 +80,7 @@ public class LeanbackImeService extends InputMethodService {
     }
 
     private void initSettings() {
-        LeanKeySettings prefs = LeanKeySettings.instance(this);
+        LeanKeyPreferences prefs = LeanKeyPreferences.instance(this);
         mForceShowKbd = prefs.getForceShowKeyboard();
 
         if (mKeyboardController != null) {

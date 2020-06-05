@@ -1,17 +1,17 @@
 package com.liskovsoft.leankeyboard.addons.keyboards;
 
 import android.content.Context;
-import com.liskovsoft.leankeyboard.utils.LeanKeySettings;
+import com.liskovsoft.leankeyboard.utils.LeanKeyPreferences;
 
 public class KeyboardStateManager {
     private final Context mContext;
     private final KeyboardManager mManager;
-    private final LeanKeySettings mPrefs;
+    private final LeanKeyPreferences mPrefs;
 
     public KeyboardStateManager(Context context, KeyboardManager manager) {
         mContext = context;
         mManager = manager;
-        mPrefs = LeanKeySettings.instance(mContext);
+        mPrefs = LeanKeyPreferences.instance(mContext);
     }
 
     public void restore() {

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.leanback.widget.GuidanceStylist.Guidance;
-import com.liskovsoft.leankeyboard.utils.LeanKeySettings;
+import com.liskovsoft.leankeyboard.utils.LeanKeyPreferences;
 import com.liskovsoft.leankeykeyboard.R;
 
 public class KbThemeFragment extends BaseSettingsFragment {
@@ -38,7 +38,7 @@ public class KbThemeFragment extends BaseSettingsFragment {
     private void initRadioItems() {
         String[] themes = mContext.getResources().getStringArray(R.array.keyboard_themes);
 
-        LeanKeySettings prefs = LeanKeySettings.instance(mContext);
+        LeanKeyPreferences prefs = LeanKeyPreferences.instance(mContext);
         String currentTheme = prefs.getCurrentTheme();
 
         for (String theme : themes) {

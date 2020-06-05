@@ -6,6 +6,8 @@ import android.graphics.Typeface;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.Keyboard.Key;
 import android.text.Layout;
+import android.util.Log;
+import android.util.TypedValue;
 import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardBuilder;
 import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardFactory;
 import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardInfo;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ResKeyboardFactory implements KeyboardFactory {
+    private static final String TAG = ResKeyboardFactory.class.getSimpleName();
     private final Context mContext;
 
     public ResKeyboardFactory(Context ctx) {
@@ -52,6 +55,7 @@ public class ResKeyboardFactory implements KeyboardFactory {
             String prefix = info.isAzerty() ? "azerty_" : "qwerty_";
             int kbResId = mContext.getResources().getIdentifier(prefix + info.getLangCode(), "xml", mContext.getPackageName());
             Keyboard keyboard = new Keyboard(mContext, kbResId);
+            Log.d(TAG, "Creating keyboard... " + info.getLangName());
             return localizeKeys(keyboard, info);
         };
     }
@@ -80,7 +84,7 @@ public class ResKeyboardFactory implements KeyboardFactory {
         drawable.setTextAlign(Layout.Alignment.ALIGN_CENTER);
         //Customize text size and color
         drawable.setTextColor(Color.WHITE);
-        drawable.setTextSize(10);
+        drawable.setTextSizeFactor(0.3f);
         drawable.setTypeface(Typeface.SANS_SERIF);
         key.icon = drawable;
     }

@@ -4,27 +4,27 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-public final class LeanKeySettings {
+public final class LeanKeyPreferences {
     private static final String APP_RUN_ONCE = "appRunOnce";
     private static final String BOOTSTRAP_SELECTED_LANGUAGE = "bootstrapSelectedLanguage";
     private static final String APP_KEYBOARD_INDEX = "appKeyboardIndex";
     private static final String FORCE_SHOW_KEYBOARD = "forceShowKeyboard";
     private static final String ENLARGE_KEYBOARD = "enlargeKeyboard";
     private static final String KEYBOARD_THEME = "keyboardTheme";
-    public static final String DEFAULT_THEME_ID = "Default";
-    public static final String DARK_THEME_ID = "Dark";
+    public static final String THEME_DEFAULT = "Default";
+    public static final String THEME_DARK = "Dark";
     private static final String SUGGESTIONS_ENABLED = "suggestionsEnabled";
-    private static LeanKeySettings sInstance;
+    private static LeanKeyPreferences sInstance;
     private final Context mContext;
     private SharedPreferences mPrefs;
 
-    public static LeanKeySettings instance(Context ctx) {
+    public static LeanKeyPreferences instance(Context ctx) {
         if (sInstance == null)
-            sInstance = new LeanKeySettings(ctx);
+            sInstance = new LeanKeyPreferences(ctx);
         return sInstance;
     }
 
-    public LeanKeySettings(Context context) {
+    public LeanKeyPreferences(Context context) {
         mContext = context.getApplicationContext();
         mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
     }
@@ -86,7 +86,7 @@ public final class LeanKeySettings {
     }
 
     public String getCurrentTheme() {
-        return mPrefs.getString(KEYBOARD_THEME, DEFAULT_THEME_ID);
+        return mPrefs.getString(KEYBOARD_THEME, THEME_DARK);
     }
 
     public void setSuggestionsEnabled(boolean enabled) {

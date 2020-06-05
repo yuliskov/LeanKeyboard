@@ -20,7 +20,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import androidx.core.content.ContextCompat;
-import com.liskovsoft.leankeyboard.utils.LeanKeySettings;
+import com.liskovsoft.leankeyboard.utils.LeanKeyPreferences;
 import com.liskovsoft.leankeykeyboard.R;
 
 import java.util.Iterator;
@@ -219,7 +219,7 @@ public class LeanbackKeyboardView extends FrameLayout {
                 iconHeight = newSize;
             }
 
-            if (key.codes[0] == ASCII_SPACE && LeanKeySettings.instance(getContext()).getEnlargeKeyboard()) {
+            if (key.codes[0] == ASCII_SPACE && LeanKeyPreferences.instance(getContext()).getEnlargeKeyboard()) {
                 // space fix for large interface
                 float gap = getResources().getDimension(R.dimen.keyboard_horizontal_gap);
                 float gapDelta = (gap * 1.3f) - gap;

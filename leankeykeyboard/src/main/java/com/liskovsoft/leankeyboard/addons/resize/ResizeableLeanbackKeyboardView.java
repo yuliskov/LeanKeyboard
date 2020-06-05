@@ -5,12 +5,12 @@ import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.Keyboard.Key;
 import android.util.AttributeSet;
 import com.liskovsoft.leankeyboard.ime.LeanbackKeyboardView;
-import com.liskovsoft.leankeyboard.utils.LeanKeySettings;
+import com.liskovsoft.leankeyboard.utils.LeanKeyPreferences;
 
 import java.util.List;
 
 public class ResizeableLeanbackKeyboardView extends LeanbackKeyboardView {
-    private final LeanKeySettings mPrefs;
+    private final LeanKeyPreferences mPrefs;
     private final int mKeyTextSizeOrigin;
     private final int mModeChangeTextSizeOrigin;
     private final float mSizeFactor = 1.3f;
@@ -18,7 +18,7 @@ public class ResizeableLeanbackKeyboardView extends LeanbackKeyboardView {
 
     public ResizeableLeanbackKeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mPrefs = LeanKeySettings.instance(getContext());
+        mPrefs = LeanKeyPreferences.instance(getContext());
         mKeyTextSizeOrigin = mKeyTextSize;
         mModeChangeTextSizeOrigin = mModeChangeTextSize;
     }

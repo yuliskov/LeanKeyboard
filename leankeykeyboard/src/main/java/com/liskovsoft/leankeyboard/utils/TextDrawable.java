@@ -37,11 +37,9 @@ import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
-import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.Layout;
 import android.text.StaticLayout;
@@ -97,7 +95,7 @@ public class TextDrawable extends Drawable {
             android.R.attr.textStyle,
             android.R.attr.textColor
     };
-
+    private float mTextSizeFactor;
 
     public TextDrawable(Context context) {
         this(context, null);
@@ -221,6 +219,13 @@ public class TextDrawable extends Drawable {
         float dimension = TypedValue.applyDimension(unit, size,
                 mResources.getDisplayMetrics());
         setRawTextSize(dimension);
+    }
+
+    /**
+     * Text size compare to canvas size
+     */
+    public void setTextSizeFactor(float factor) {
+        mTextSizeFactor = factor;
     }
 
     /*
@@ -467,6 +472,10 @@ public class TextDrawable extends Drawable {
 
             // Center text vertically!!
             canvas.translate((bounds.width() / 2f) - (mTextLayout.getWidth() / 2f), (bounds.height() / 2f) - ((mTextLayout.getHeight() / 2f)));
+
+            if (mTextSizeFactor > 0) {
+                setTextSize(TypedValue.COMPLEX_UNIT_PX, bounds.height() * mTextSizeFactor);
+            }
 
             mTextLayout.draw(canvas);
 

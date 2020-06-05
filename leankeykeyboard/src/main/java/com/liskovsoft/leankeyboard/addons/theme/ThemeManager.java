@@ -10,25 +10,25 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import androidx.core.content.ContextCompat;
 import com.liskovsoft.leankeyboard.ime.LeanbackKeyboardView;
-import com.liskovsoft.leankeyboard.utils.LeanKeySettings;
+import com.liskovsoft.leankeyboard.utils.LeanKeyPreferences;
 import com.liskovsoft.leankeykeyboard.R;
 
 public class ThemeManager {
     private static final String TAG = ThemeManager.class.getSimpleName();
     private final Context mContext;
     private final RelativeLayout mRootView;
-    private final LeanKeySettings mPrefs;
+    private final LeanKeyPreferences mPrefs;
 
     public ThemeManager(Context context, RelativeLayout rootView) {
         mContext = context;
         mRootView = rootView;
-        mPrefs = LeanKeySettings.instance(mContext);
+        mPrefs = LeanKeyPreferences.instance(mContext);
     }
 
     public void updateKeyboardTheme() {
         String currentThemeId = mPrefs.getCurrentTheme();
 
-        if (LeanKeySettings.DEFAULT_THEME_ID.equals(currentThemeId)) {
+        if (LeanKeyPreferences.THEME_DEFAULT.equals(currentThemeId)) {
             applyKeyboardColors(
                     R.color.keyboard_background,
                     R.color.candidate_background,
@@ -61,7 +61,7 @@ public class ThemeManager {
     public void updateSuggestionsTheme() {
         String currentTheme = mPrefs.getCurrentTheme();
 
-        if (LeanKeySettings.DEFAULT_THEME_ID.equals(currentTheme)) {
+        if (LeanKeyPreferences.THEME_DEFAULT.equals(currentTheme)) {
             applySuggestionsColors(
                     R.color.candidate_font_color
             );

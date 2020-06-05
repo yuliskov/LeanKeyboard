@@ -108,11 +108,11 @@ public class LangUpdater {
      * @return lang code
      */
     public String getPreferredLocale() {
-        return LeanKeySettings.instance(mContext).getPreferredLanguage();
+        return LeanKeyPreferences.instance(mContext).getPreferredLanguage();
     }
 
     public void setPreferredLocale(String langCode) {
-        LeanKeySettings.instance(mContext).setPreferredLanguage(langCode);
+        LeanKeyPreferences.instance(mContext).setPreferredLanguage(langCode);
     }
 
     private Locale parseLangCode(String langCode) {
