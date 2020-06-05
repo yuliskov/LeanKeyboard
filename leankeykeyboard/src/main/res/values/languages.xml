@@ -3,23 +3,23 @@
     <string-array name="additional_languages">
         <item>English|en_us</item>
         <item>English (AZERTY)|en_us|azerty</item>
-        <item>Russian|ru</item>
-        <item>Ukrainian|uk</item>
-        <item>German|de</item>
-        <item>Bulgarian|bg</item>
-        <item>Dutch|nl</item>
-        <item>French|fr</item>
-        <item>French (AZERTY)|fr|azerty</item>
+        <item>Русский|ru</item>
+        <item>Українська|uk</item>
+        <item>Deutsch|de</item>
+        <item>Български|bg</item>
+        <item>Nederlands|nl</item>
+        <item>Français|fr</item>
+        <item>Français (AZERTY)|fr|azerty</item>
         <item>Greek|el</item>
-        <item>Icelandic|is</item>
-        <item>Italian|it</item>
+        <item>Íslenska|is</item>
+        <item>Italiano|it</item>
         <item>Swedish|sv</item>
-        <item>Spanish|es_us</item>
+        <item>Español|es_us</item>
         <item>Arabic|ar</item>
         <item>Hebrew|he</item>
         <item>Persian|fa</item>
         <item>Thai|th</item>
-        <item>Turkish (Q board)|tr</item>
-        <item>Turkish|tr|azerty</item>
+        <item>Türkçe (Q board)|tr</item>
+        <item>Türkçe|tr|azerty</item>
     </string-array>
 </resources>

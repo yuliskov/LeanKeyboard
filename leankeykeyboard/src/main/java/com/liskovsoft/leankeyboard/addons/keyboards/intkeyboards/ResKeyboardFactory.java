@@ -1,15 +1,14 @@
 package com.liskovsoft.leankeyboard.addons.keyboards.intkeyboards;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.Keyboard.Key;
 import android.text.Layout;
 import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardBuilder;
 import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardFactory;
 import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardInfo;
-import com.liskovsoft.leankeyboard.helpers.Helpers;
 import com.liskovsoft.leankeyboard.ime.LeanbackKeyboardView;
 import com.liskovsoft.leankeyboard.utils.TextDrawable;
 
@@ -53,7 +52,7 @@ public class ResKeyboardFactory implements KeyboardFactory {
             String prefix = info.isAzerty() ? "azerty_" : "qwerty_";
             int kbResId = mContext.getResources().getIdentifier(prefix + info.getLangCode(), "xml", mContext.getPackageName());
             Keyboard keyboard = new Keyboard(mContext, kbResId);
-            return localizeKeys(keyboard);
+            return localizeKeys(keyboard, info);
         };
     }
 
@@ -62,23 +61,27 @@ public class ResKeyboardFactory implements KeyboardFactory {
         return ResKeyboardInfo.needUpdate();
     }
 
-    private Keyboard localizeKeys(Keyboard keyboard) {
+    private Keyboard localizeKeys(Keyboard keyboard, KeyboardInfo info) {
         List<Key> keys = keyboard.getKeys();
 
         for (Key key : keys) {
             if (key.codes[0] == LeanbackKeyboardView.ASCII_SPACE) {
-                //key.icon = Helpers.writeTextCentered(mContext, key.icon, "Hello World!", 18);
-                TextDrawable drawable = new TextDrawable(mContext, key.icon);
-                drawable.setText("TEXT DRAWN IN A CIRCLE");
-                drawable.setTextAlign(Layout.Alignment.ALIGN_CENTER);
-                //Customize text size and color
-                drawable.setTextColor(Color.WHITE);
-                drawable.setTextSize(10);
-                key.icon = drawable;
+                localizeSpace(key, info);
                 break;
             }
         }
 
         return keyboard;
+    }
+
+    private void localizeSpace(Key key, KeyboardInfo info) {
+        TextDrawable drawable = new TextDrawable(mContext, key.icon);
+        drawable.setText(info.getLangName());
+        drawable.setTextAlign(Layout.Alignment.ALIGN_CENTER);
+        //Customize text size and color
+        drawable.setTextColor(Color.WHITE);
+        drawable.setTextSize(10);
+        drawable.setTypeface(Typeface.SANS_SERIF);
+        key.icon = drawable;
     }
 }

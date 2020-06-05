@@ -36,8 +36,12 @@ import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuff.Mode;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.Layout;
 import android.text.StaticLayout;
@@ -374,7 +378,7 @@ public class TextDrawable extends Drawable {
                 desired = mDrawable.getIntrinsicWidth();
             }
 
-            mTextLayout = new StaticLayout(mText, mTextPaint, (int)desired,
+            mTextLayout = new StaticLayout(mText, mTextPaint, (int) desired,
                     mTextAlignment, 1.0f, 0.0f, false);
 
             mTextBounds.set(0, 0, mTextLayout.getWidth(), mTextLayout.getHeight());
@@ -391,6 +395,11 @@ public class TextDrawable extends Drawable {
         int newColor = mTextColors.getColorForState(stateSet, Color.WHITE);
         if (mTextPaint.getColor() != newColor) {
             mTextPaint.setColor(newColor);
+
+            // fully transparent text
+            mTextPaint.setAlpha(1);
+            mTextPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OUT));
+
             return  true;
         }
 
@@ -443,15 +452,26 @@ public class TextDrawable extends Drawable {
         final Rect bounds = getBounds();
 
         final int count = canvas.save();
-        canvas.translate(bounds.left, bounds.top);
+        //canvas.translate(bounds.left, bounds.top);
 
         if (mDrawable != null) {
+            // scale drawable to fit canvas
+            Rect clipBounds = canvas.getClipBounds();
+            mDrawable.setBounds(clipBounds);
+
             mDrawable.draw(canvas);
         }
 
         if (mTextPath == null) {
             //Allow the layout to draw the text
+
+            // Center text vertically!!
+            canvas.translate((bounds.width() / 2f) - (mTextLayout.getWidth() / 2f), (bounds.height() / 2f) - ((mTextLayout.getHeight() / 2f)));
+
             mTextLayout.draw(canvas);
+
+            // Set text transparent
+            //canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
         } else {
             //Draw directly on the canvas using the supplied path
             canvas.drawTextOnPath(mText.toString(), mTextPath, 0, 0, mTextPaint);
