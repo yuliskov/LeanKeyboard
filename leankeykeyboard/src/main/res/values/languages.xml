@@ -10,15 +10,22 @@
         <item>Nederlands|nl</item>
         <item>Français|fr</item>
         <item>Français (AZERTY)|fr|azerty</item>
-        <item>Greek|el</item>
+        <!-- Greek -->
+        <item>Ελληνικά|el</item>
+        <!-- Icelandic -->
         <item>Íslenska|is</item>
         <item>Italiano|it</item>
-        <item>Swedish|sv</item>
+        <!-- Swedish -->
+        <item>Svenska|sv</item>
         <item>Español|es_us</item>
+        <!-- Arabic -->
         <item>Arabic|ar</item>
+        <!-- Hebrew -->
         <item>Hebrew|he</item>
         <item>Persian|fa</item>
-        <item>Thai|th</item>
+        <!-- Thai -->
+        <item>ภาษาไทย|th</item>
+        <!-- Turkish -->
         <item>Türkçe (Q board)|tr</item>
         <item>Türkçe|tr|azerty</item>
     </string-array>
