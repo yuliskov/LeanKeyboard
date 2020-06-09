@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="keyboard_background_dark3">#ff202124</color>
+    <color name="candidate_background_dark3">#ff1b1c1e</color>
+    <color name="candidate_font_color_dark3">#ff51aaff</color>
+    <color name="enter_key_font_color_dark3">#ff51aaff</color>
+    <color name="key_text_default_dark3">#ffeeeeee</color>
+</resources>

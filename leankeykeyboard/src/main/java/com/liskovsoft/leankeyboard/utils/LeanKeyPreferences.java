@@ -70,7 +70,7 @@ public final class LeanKeyPreferences {
     }
 
     public boolean getEnlargeKeyboard() {
-        return mPrefs.getBoolean(ENLARGE_KEYBOARD, false);
+        return mPrefs.getBoolean(ENLARGE_KEYBOARD, true);
     }
 
     public void setEnlargeKeyboard(boolean enlarge) {

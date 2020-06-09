@@ -4,6 +4,7 @@ import android.inputmethodservice.Keyboard;
 import androidx.annotation.Nullable;
 
 public interface KeyboardBuilder {
-    @Nullable
-    Keyboard createKeyboard();
+    Keyboard createAbcKeyboard();
+    Keyboard createSymKeyboard();
+    Keyboard createNumKeyboard();
 }

@@ -39,6 +39,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import androidx.core.content.ContextCompat;
+import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardManager.KeyboardData;
 import com.liskovsoft.leankeyboard.addons.theme.ThemeManager;
 import com.liskovsoft.leankeyboard.addons.voice.RecognizerIntentWrapper;
 import com.liskovsoft.leankeyboard.helpers.PermissionHelpers;
@@ -298,10 +299,10 @@ public class LeanbackKeyboardContainer {
     }
 
     public void initKeyboards() {
-        mAbcKeyboard = new Keyboard(mContext, R.xml.qwerty_en_us);
-        mSymKeyboard = new Keyboard(mContext, R.xml.sym_en_us);
+        //mAbcKeyboard = new Keyboard(mContext, R.xml.qwerty_en_us);
+        //mSymKeyboard = new Keyboard(mContext, R.xml.sym_en_us);
+        //mNumKeyboard = new Keyboard(mContext, R.xml.number);
         updateAddonKeyboard();
-        mNumKeyboard = new Keyboard(mContext, R.xml.number);
     }
 
     private boolean isMatch(Locale var1, Locale[] var2) {
@@ -1119,28 +1120,34 @@ public class LeanbackKeyboardContainer {
      * {@link KeyboardManager KeyboardManager} is the source behind all keyboard implementations
      */
     public void switchToNextKeyboard() {
-        Keyboard nextKeyboard = mKeyboardManager.getNextKeyboard();
+        KeyboardData nextKeyboard = mKeyboardManager.getNextKeyboard();
         Keyboard currentKeyboard = mMainKeyboardView.getKeyboard();
 
         if (currentKeyboard != null &&
-                currentKeyboard.equals(nextKeyboard)) { // one keyboard in the list
+                currentKeyboard.equals(nextKeyboard.abcKeyboard)) { // one keyboard in the list
             // Prompt user to select layout.
             Helpers.startActivity(mContext, KbLayoutActivity.class);
             mContext.onHideIme();
         } else {
-            mInitialMainKeyboard = nextKeyboard;
-            mAbcKeyboard = nextKeyboard;
-            mMainKeyboardView.setKeyboard(nextKeyboard);
+            mInitialMainKeyboard = nextKeyboard.abcKeyboard;
+            mAbcKeyboard = nextKeyboard.abcKeyboard;
+            mMainKeyboardView.setKeyboard(nextKeyboard.abcKeyboard);
+
+            mSymKeyboard = nextKeyboard.symKeyboard;
+            mNumKeyboard = nextKeyboard.numKeyboard;
         }
     }
 
     public void updateAddonKeyboard() {
-        mKeyboardManager.init();
+        mKeyboardManager.loadKeyboards();
 
-        Keyboard keyboard = mKeyboardManager.getNextKeyboard();
-        mInitialMainKeyboard = keyboard;
-        mAbcKeyboard = keyboard;
-        mMainKeyboardView.setKeyboard(keyboard);
+        KeyboardData keyboard = mKeyboardManager.getNextKeyboard();
+        mInitialMainKeyboard = keyboard.abcKeyboard;
+        mAbcKeyboard = keyboard.abcKeyboard;
+        mMainKeyboardView.setKeyboard(keyboard.abcKeyboard);
+
+        mSymKeyboard = keyboard.symKeyboard;
+        mNumKeyboard = keyboard.numKeyboard;
 
         mThemeManager.updateKeyboardTheme();
     }

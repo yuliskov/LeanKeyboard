@@ -11,10 +11,16 @@ public class KeyboardManager {
     private final Context mContext;
     private final KeyboardStateManager mStateManager;
     private List<? extends KeyboardBuilder> mKeyboardBuilders;
-    private List<Keyboard> mAllKeyboards;
+    private List<KeyboardData> mAllKeyboards;
     private final KeyboardFactory mKeyboardFactory;
 
     private int mKeyboardIndex = 0;
+
+    public static class KeyboardData {
+        public Keyboard abcKeyboard;
+        public Keyboard symKeyboard;
+        public Keyboard numKeyboard;
+    }
 
     public KeyboardManager(Context ctx) {
         mContext = ctx;
@@ -23,16 +29,21 @@ public class KeyboardManager {
         mStateManager.restore();
     }
 
-    public void init() {
+    public void loadKeyboards() {
         mKeyboardBuilders = mKeyboardFactory.getAllAvailableKeyboards(mContext);
         mAllKeyboards = buildAllKeyboards();
     }
 
-    private List<Keyboard> buildAllKeyboards() {
-        List<Keyboard> keyboards = new ArrayList<>();
+    private List<KeyboardData> buildAllKeyboards() {
+        List<KeyboardData> keyboards = new ArrayList<>();
         if (!mKeyboardBuilders.isEmpty()) {
             for (KeyboardBuilder builder : mKeyboardBuilders) {
-                keyboards.add(builder.createKeyboard());
+                KeyboardData data = new KeyboardData();
+                data.abcKeyboard = builder.createAbcKeyboard();
+                data.symKeyboard = builder.createSymKeyboard();
+                data.numKeyboard = builder.createNumKeyboard();
+
+                keyboards.add(data);
             }
         }
         return keyboards;
@@ -49,14 +60,14 @@ public class KeyboardManager {
      * NOTE: Get next keyboard from internal source (looped)
      * @return keyboard
      */
-    public Keyboard getNextKeyboard() {
+    public KeyboardData getNextKeyboard() {
         if (mKeyboardFactory.needUpdate()) {
-            init();
+            loadKeyboards();
         }
 
         mKeyboardIndex = mKeyboardIndex < mAllKeyboards.size() ? mKeyboardIndex : 0;
 
-        Keyboard kbd = mAllKeyboards.get(mKeyboardIndex);
+        KeyboardData kbd = mAllKeyboards.get(mKeyboardIndex);
         if (kbd == null) {
             throw new IllegalStateException(String.format("Keyboard %s not initialized", mKeyboardIndex));
         }

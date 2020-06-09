@@ -13,6 +13,7 @@ import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardFactory;
 import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardInfo;
 import com.liskovsoft.leankeyboard.ime.LeanbackKeyboardView;
 import com.liskovsoft.leankeyboard.utils.TextDrawable;
+import com.liskovsoft.leankeykeyboard.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,12 +52,26 @@ public class ResKeyboardFactory implements KeyboardFactory {
      * NOTE: create keyboard from xml data
      */
     private KeyboardBuilder createKeyboard(final KeyboardInfo info) {
-        return () -> {
-            String prefix = info.isAzerty() ? "azerty_" : "qwerty_";
-            int kbResId = mContext.getResources().getIdentifier(prefix + info.getLangCode(), "xml", mContext.getPackageName());
-            Keyboard keyboard = new Keyboard(mContext, kbResId);
-            Log.d(TAG, "Creating keyboard... " + info.getLangName());
-            return localizeKeys(keyboard, info);
+        return new KeyboardBuilder() {
+            @Override
+            public Keyboard createAbcKeyboard() {
+                String prefix = info.isAzerty() ? "azerty_" : "qwerty_";
+                int kbResId = mContext.getResources().getIdentifier(prefix + info.getLangCode(), "xml", mContext.getPackageName());
+                Keyboard keyboard = new Keyboard(mContext, kbResId);
+                Log.d(TAG, "Creating keyboard... " + info.getLangName());
+                return localizeKeys(keyboard, info);
+            }
+
+            @Override
+            public Keyboard createSymKeyboard() {
+                Keyboard keyboard = new Keyboard(mContext, R.xml.sym_en_us);
+                return localizeKeys(keyboard, info);
+            }
+
+            @Override
+            public Keyboard createNumKeyboard() {
+                return new Keyboard(mContext, R.xml.number);
+            }
         };
     }
 
@@ -85,7 +100,7 @@ public class ResKeyboardFactory implements KeyboardFactory {
         //Customize text size and color
         drawable.setTextColor(Color.WHITE);
         drawable.setTextSizeFactor(0.3f);
-        drawable.setTypeface(Typeface.SANS_SERIF);
+        drawable.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD);
         key.icon = drawable;
     }
 }

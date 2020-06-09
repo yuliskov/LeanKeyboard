@@ -18,10 +18,12 @@ package com.liskovsoft.leankeyboard.addons.keyboards.extkeyboards.keyboards;
 
 import android.content.Context;
 
+import android.inputmethodservice.Keyboard;
 import androidx.annotation.Nullable;
 import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardBuilder;
 import com.liskovsoft.leankeyboard.addons.keyboards.extkeyboards.addons.AddOn;
 import com.liskovsoft.leankeyboard.addons.keyboards.extkeyboards.addons.AddOnImpl;
+import com.liskovsoft.leankeykeyboard.R;
 
 public class ApkKeyboardAddOnAndBuilder extends AddOnImpl implements KeyboardBuilder {
 
@@ -75,9 +77,19 @@ public class ApkKeyboardAddOnAndBuilder extends AddOnImpl implements KeyboardBui
 
     @Nullable
     @Override
-    public android.inputmethodservice.Keyboard createKeyboard() {
+    public android.inputmethodservice.Keyboard createAbcKeyboard() {
         Context remoteContext = getPackageContext();
         if (remoteContext == null) return null;
         return new android.inputmethodservice.Keyboard(remoteContext, mLandscapeResId);
+    }
+
+    @Override
+    public Keyboard createSymKeyboard() {
+        return new Keyboard(getPackageContext(), R.xml.sym_en_us);
+    }
+
+    @Override
+    public Keyboard createNumKeyboard() {
+        return new Keyboard(getPackageContext(), R.xml.number);
     }
 }

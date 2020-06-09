@@ -140,6 +140,6 @@ public class ApkLangKeyboardFactory extends AddOnsFactory<ApkKeyboardAddOnAndBui
         if (keyboardBuilders.size() == 0)
             return new Keyboard(context, 0x7f04000c); // ru keyboard resource id
         // remember, only one external keyboard supported
-        return keyboardBuilders.get(0).createKeyboard();
+        return keyboardBuilders.get(0).createAbcKeyboard();
     }
 }

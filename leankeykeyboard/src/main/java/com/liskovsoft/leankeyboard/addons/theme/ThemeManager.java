@@ -128,12 +128,8 @@ public class ThemeManager {
     private void applyShiftDrawable(int resId) {
         LeanbackKeyboardView keyboardView = mRootView.findViewById(R.id.main_keyboard);
 
-        if (keyboardView != null) {
-            Drawable drawable = null;
-
-            if (resId != -1) {
-                drawable = ContextCompat.getDrawable(mContext, resId);
-            }
+        if (keyboardView != null && resId > 0) {
+            Drawable drawable = ContextCompat.getDrawable(mContext, resId);
 
             keyboardView.setCapsLockDrawable(drawable);
         }
