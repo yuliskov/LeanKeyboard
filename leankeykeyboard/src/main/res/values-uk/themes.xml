@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="keyboard_themes">
+        <item>Тема за замовчуванням|Default</item>
+        <item>Темна тема|Dark</item>
+        <item>Темна тема 2|Dark2</item>
+        <item>Темна тема 3|Dark3</item>
+    </string-array>
+</resources>

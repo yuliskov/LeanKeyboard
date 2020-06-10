@@ -13,6 +13,8 @@ public final class LeanKeyPreferences {
     private static final String KEYBOARD_THEME = "keyboardTheme";
     public static final String THEME_DEFAULT = "Default";
     public static final String THEME_DARK = "Dark";
+    public static final String THEME_DARK2 = "Dark2";
+    public static final String THEME_DARK3 = "Dark3";
     private static final String SUGGESTIONS_ENABLED = "suggestionsEnabled";
     private static LeanKeyPreferences sInstance;
     private final Context mContext;
@@ -70,7 +72,7 @@ public final class LeanKeyPreferences {
     }
 
     public boolean getEnlargeKeyboard() {
-        return mPrefs.getBoolean(ENLARGE_KEYBOARD, true);
+        return mPrefs.getBoolean(ENLARGE_KEYBOARD, false);
     }
 
     public void setEnlargeKeyboard(boolean enlarge) {
@@ -86,7 +88,7 @@ public final class LeanKeyPreferences {
     }
 
     public String getCurrentTheme() {
-        return mPrefs.getString(KEYBOARD_THEME, THEME_DARK);
+        return mPrefs.getString(KEYBOARD_THEME, THEME_DARK3);
     }
 
     public void setSuggestionsEnabled(boolean enabled) {
