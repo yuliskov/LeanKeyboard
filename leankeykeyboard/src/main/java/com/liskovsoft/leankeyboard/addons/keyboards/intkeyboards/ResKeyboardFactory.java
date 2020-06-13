@@ -17,6 +17,7 @@ import com.liskovsoft.leankeykeyboard.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ResKeyboardFactory implements KeyboardFactory {
     private static final String TAG = ResKeyboardFactory.class.getSimpleName();
@@ -39,13 +40,28 @@ public class ResKeyboardFactory implements KeyboardFactory {
 
         // at least one kbd should be enabled
         if (result.isEmpty()) {
-            KeyboardInfo firstKbd = infos.get(0);
+            KeyboardInfo firstKbd = findByLocale(infos);
             result.add(createKeyboard(firstKbd));
             firstKbd.setEnabled(true);
             ResKeyboardInfo.updateAllKeyboardInfos(mContext, infos);
         }
 
         return result;
+    }
+
+    private KeyboardInfo findByLocale(List<KeyboardInfo> infos) {
+        KeyboardInfo defaultKeyboard = infos.get(0);
+        Locale defaultLocale = Locale.getDefault();
+        String lang = defaultLocale.getLanguage();
+
+        for (final KeyboardInfo info : infos) {
+            if (info.getLangCode().startsWith(lang)) {
+                defaultKeyboard = info;
+                break;
+            }
+        }
+
+        return defaultKeyboard;
     }
 
     /**
