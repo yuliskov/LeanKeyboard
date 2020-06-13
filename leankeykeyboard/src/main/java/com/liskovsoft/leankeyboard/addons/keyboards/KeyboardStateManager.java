@@ -16,10 +16,10 @@ public class KeyboardStateManager {
 
     public void restore() {
         int idx = mPrefs.getKeyboardIndex();
-        mManager.setKeyboardIndex(idx);
+        mManager.setIndex(idx);
     }
 
     public void onNextKeyboard() {
-        mPrefs.setKeyboardIndex(mManager.getKeyboardIndex());
+        mPrefs.setKeyboardIndex(mManager.getIndex());
     }
 }

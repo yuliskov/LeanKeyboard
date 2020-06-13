@@ -1120,7 +1120,7 @@ public class LeanbackKeyboardContainer {
      * {@link KeyboardManager KeyboardManager} is the source behind all keyboard implementations
      */
     public void switchToNextKeyboard() {
-        KeyboardData nextKeyboard = mKeyboardManager.getNextKeyboard();
+        KeyboardData nextKeyboard = mKeyboardManager.next();
         Keyboard currentKeyboard = mMainKeyboardView.getKeyboard();
 
         if (currentKeyboard != null &&
@@ -1139,9 +1139,8 @@ public class LeanbackKeyboardContainer {
     }
 
     public void updateAddonKeyboard() {
-        mKeyboardManager.loadKeyboards();
-
-        KeyboardData keyboard = mKeyboardManager.getNextKeyboard();
+        mKeyboardManager.load(); // force reload to fix such errors as invisible kbd
+        KeyboardData keyboard = mKeyboardManager.get();
         mInitialMainKeyboard = keyboard.abcKeyboard;
         mAbcKeyboard = keyboard.abcKeyboard;
         mMainKeyboardView.setKeyboard(keyboard.abcKeyboard);

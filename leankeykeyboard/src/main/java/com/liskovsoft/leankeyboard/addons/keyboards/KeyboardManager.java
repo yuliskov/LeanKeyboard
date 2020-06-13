@@ -13,7 +13,6 @@ public class KeyboardManager {
     private List<? extends KeyboardBuilder> mKeyboardBuilders;
     private List<KeyboardData> mAllKeyboards;
     private final KeyboardFactory mKeyboardFactory;
-
     private int mKeyboardIndex = 0;
 
     public static class KeyboardData {
@@ -29,7 +28,7 @@ public class KeyboardManager {
         mStateManager.restore();
     }
 
-    public void loadKeyboards() {
+    public void load() {
         mKeyboardBuilders = mKeyboardFactory.getAllAvailableKeyboards(mContext);
         mAllKeyboards = buildAllKeyboards();
     }
@@ -57,33 +56,44 @@ public class KeyboardManager {
     }
 
     /**
-     * NOTE: Get next keyboard from internal source (looped)
-     * @return keyboard
+     * Get next keyboard from internal source (looped)
      */
-    public KeyboardData getNextKeyboard() {
-        if (mKeyboardFactory.needUpdate()) {
-            loadKeyboards();
+    public KeyboardData next() {
+        if (mKeyboardFactory.needUpdate() || mAllKeyboards == null) {
+            load();
         }
+
+        ++mKeyboardIndex;
 
         mKeyboardIndex = mKeyboardIndex < mAllKeyboards.size() ? mKeyboardIndex : 0;
 
         KeyboardData kbd = mAllKeyboards.get(mKeyboardIndex);
+
         if (kbd == null) {
             throw new IllegalStateException(String.format("Keyboard %s not initialized", mKeyboardIndex));
         }
 
         onNextKeyboard();
 
-        ++mKeyboardIndex;
-
         return kbd;
     }
 
-    public int getKeyboardIndex() {
+    public int getIndex() {
         return mKeyboardIndex;
     }
 
-    public void setKeyboardIndex(int idx) {
+    public void setIndex(int idx) {
         mKeyboardIndex = idx;
+    }
+
+    /**
+     * Get current keyboard
+     */
+    public KeyboardData get() {
+        if (mAllKeyboards == null) {
+            load();
+        }
+
+        return mAllKeyboards.get(mKeyboardIndex);
     }
 }
