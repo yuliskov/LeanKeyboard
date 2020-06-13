@@ -43,7 +43,7 @@ public class ResKeyboardFactory implements KeyboardFactory {
             KeyboardInfo firstKbd = findByLocale(infos);
             result.add(createKeyboard(firstKbd));
             firstKbd.setEnabled(true);
-            ResKeyboardInfo.updateAllKeyboardInfos(mContext, infos);
+            //ResKeyboardInfo.updateAllKeyboardInfos(mContext, infos);
         }
 
         return result;
