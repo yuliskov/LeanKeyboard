@@ -94,6 +94,10 @@ public class KeyboardManager {
             load();
         }
 
+        if (mAllKeyboards.size() <= mKeyboardIndex) {
+            mKeyboardIndex = 0;
+        }
+
         return mAllKeyboards.get(mKeyboardIndex);
     }
 }
