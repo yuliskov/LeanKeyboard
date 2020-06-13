@@ -3,11 +3,11 @@ package com.liskovsoft.leankeyboard.addons.keyboards.intkeyboards;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.Keyboard.Key;
 import android.text.Layout;
 import android.util.Log;
-import android.util.TypedValue;
 import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardBuilder;
 import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardFactory;
 import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardInfo;
@@ -16,15 +16,19 @@ import com.liskovsoft.leankeyboard.utils.TextDrawable;
 import com.liskovsoft.leankeykeyboard.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class ResKeyboardFactory implements KeyboardFactory {
     private static final String TAG = ResKeyboardFactory.class.getSimpleName();
     private final Context mContext;
+    private Map<String, Drawable> mCachedSpace;
 
     public ResKeyboardFactory(Context ctx) {
         mContext = ctx;
+        mCachedSpace = new HashMap<>();
     }
 
     @Override
@@ -43,7 +47,7 @@ public class ResKeyboardFactory implements KeyboardFactory {
             KeyboardInfo firstKbd = findByLocale(infos);
             result.add(createKeyboard(firstKbd));
             firstKbd.setEnabled(true);
-            ResKeyboardInfo.updateAllKeyboardInfos(mContext, infos);
+            //ResKeyboardInfo.updateAllKeyboardInfos(mContext, infos);
         }
 
         return result;
@@ -110,6 +114,11 @@ public class ResKeyboardFactory implements KeyboardFactory {
     }
 
     private void localizeSpace(Key key, KeyboardInfo info) {
+        if (mCachedSpace.containsKey(info.getLangCode())) {
+            key.icon = mCachedSpace.get(info.getLangCode());
+            return;
+        }
+
         TextDrawable drawable = new TextDrawable(mContext, key.icon);
         drawable.setText(info.getLangName());
         drawable.setTextAlign(Layout.Alignment.ALIGN_CENTER);
@@ -118,5 +127,7 @@ public class ResKeyboardFactory implements KeyboardFactory {
         drawable.setTextSizeFactor(0.3f);
         drawable.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD);
         key.icon = drawable;
+
+        mCachedSpace.put(info.getLangCode(), drawable);
     }
 }
