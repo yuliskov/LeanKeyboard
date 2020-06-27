@@ -152,26 +152,24 @@ public class LeanbackImeService extends InputMethodService {
                 case InputListener.ENTRY_TYPE_LEFT:
                 case InputListener.ENTRY_TYPE_RIGHT:
                     CharSequence textBeforeCursor = connection.getTextBeforeCursor(1000, 0);
-                    int len;
-                    if (textBeforeCursor == null) {
-                        len = 0;
-                    } else {
+                    int len = 0;
+                    if (textBeforeCursor != null) {
                         len = textBeforeCursor.length();
                     }
 
-                    int index;
+                    int index = len;
                     if (type == InputListener.ENTRY_TYPE_LEFT) {
-                        index = len;
                         if (len > 0) {
                             index = len - 1;
                         }
                     } else {
-                        textBeforeCursor = connection.getTextAfterCursor(1000, 0);
-                        index = len;
-                        if (textBeforeCursor != null && textBeforeCursor.length() > 0) {
+                        CharSequence textAfterCursor = connection.getTextAfterCursor(1000, 0);
+                        if (textAfterCursor != null && textAfterCursor.length() > 0) {
                             index = len + 1;
                         }
                     }
+
+                    Log.d(TAG, "direction key: index: " + index);
 
                     connection.setSelection(index, index);
                     updateSuggestions = true;
