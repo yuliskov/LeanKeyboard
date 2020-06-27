@@ -16,6 +16,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
+import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardManager.KeyboardData;
 import com.liskovsoft.leankeyboard.ime.LeanbackKeyboardContainer.KeyFocus;
 import com.liskovsoft.leankeyboard.ime.pano.util.TouchNavSpaceTracker;
 import com.liskovsoft.leankeykeyboard.R;
@@ -950,5 +951,9 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
 
             return handleKeyUpEvent(keyCode, event.getEventTime());
         }
+    }
+
+    public boolean isRtl() {
+        return mContainer.isRtl();
     }
 }

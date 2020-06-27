@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardManager.KeyboardData;
 import com.liskovsoft.leankeyboard.ime.LeanbackKeyboardController.InputListener;
 import com.liskovsoft.leankeyboard.utils.LeanKeyPreferences;
 

@@ -299,9 +299,6 @@ public class LeanbackKeyboardContainer {
     }
 
     public void initKeyboards() {
-        //mAbcKeyboard = new Keyboard(mContext, R.xml.qwerty_en_us);
-        //mSymKeyboard = new Keyboard(mContext, R.xml.sym_en_us);
-        //mNumKeyboard = new Keyboard(mContext, R.xml.number);
         updateAddonKeyboard();
     }
 
@@ -1535,5 +1532,9 @@ public class LeanbackKeyboardContainer {
                 mVoiceButtonView.showNotListening();
             }
         }
+    }
+
+    public boolean isRtl() {
+        return mKeyboardManager.get().isRtl;
     }
 }

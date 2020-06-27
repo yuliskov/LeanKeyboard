@@ -92,4 +92,9 @@ public class ApkKeyboardAddOnAndBuilder extends AddOnImpl implements KeyboardBui
     public Keyboard createNumKeyboard() {
         return new Keyboard(getPackageContext(), R.xml.number);
     }
+
+    @Override
+    public boolean isRtl() {
+        return false;
+    }
 }

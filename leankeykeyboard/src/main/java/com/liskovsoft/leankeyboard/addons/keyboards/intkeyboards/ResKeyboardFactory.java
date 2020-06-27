@@ -73,10 +73,12 @@ public class ResKeyboardFactory implements KeyboardFactory {
      */
     private KeyboardBuilder createKeyboard(final KeyboardInfo info) {
         return new KeyboardBuilder() {
+            private final String langCode = info.getLangCode();
+
             @Override
             public Keyboard createAbcKeyboard() {
                 String prefix = info.isAzerty() ? "azerty_" : "qwerty_";
-                int kbResId = mContext.getResources().getIdentifier(prefix + info.getLangCode(), "xml", mContext.getPackageName());
+                int kbResId = mContext.getResources().getIdentifier(prefix + langCode, "xml", mContext.getPackageName());
                 Keyboard keyboard = new Keyboard(mContext, kbResId);
                 Log.d(TAG, "Creating keyboard... " + info.getLangName());
                 return localizeKeys(keyboard, info);
@@ -91,6 +93,11 @@ public class ResKeyboardFactory implements KeyboardFactory {
             @Override
             public Keyboard createNumKeyboard() {
                 return new Keyboard(mContext, R.xml.number);
+            }
+
+            @Override
+            public boolean isRtl() {
+                return langCode.contains("he") || langCode.contains("ar");
             }
         };
     }

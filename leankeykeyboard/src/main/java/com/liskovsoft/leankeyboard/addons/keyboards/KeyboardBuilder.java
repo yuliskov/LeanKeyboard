@@ -7,4 +7,5 @@ public interface KeyboardBuilder {
     Keyboard createAbcKeyboard();
     Keyboard createSymKeyboard();
     Keyboard createNumKeyboard();
+    boolean isRtl();
 }

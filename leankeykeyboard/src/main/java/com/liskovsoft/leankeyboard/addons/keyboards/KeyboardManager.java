@@ -19,6 +19,7 @@ public class KeyboardManager {
         public Keyboard abcKeyboard;
         public Keyboard symKeyboard;
         public Keyboard numKeyboard;
+        public boolean isRtl;
     }
 
     public KeyboardManager(Context ctx) {
@@ -41,6 +42,7 @@ public class KeyboardManager {
                 data.abcKeyboard = builder.createAbcKeyboard();
                 data.symKeyboard = builder.createSymKeyboard();
                 data.numKeyboard = builder.createNumKeyboard();
+                data.isRtl = builder.isRtl();
 
                 keyboards.add(data);
             }
