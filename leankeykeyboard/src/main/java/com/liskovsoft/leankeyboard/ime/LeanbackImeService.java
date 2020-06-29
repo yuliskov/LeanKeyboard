@@ -16,7 +16,7 @@ import android.view.View;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
-import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardManager.KeyboardData;
+import androidx.core.text.BidiFormatter;
 import com.liskovsoft.leankeyboard.ime.LeanbackKeyboardController.InputListener;
 import com.liskovsoft.leankeyboard.utils.LeanKeyPreferences;
 
@@ -152,21 +152,54 @@ public class LeanbackImeService extends InputMethodService {
                 case InputListener.ENTRY_TYPE_LEFT:
                 case InputListener.ENTRY_TYPE_RIGHT:
                     CharSequence textBeforeCursor = connection.getTextBeforeCursor(1000, 0);
-                    int len = 0;
+                    int lenBefore = 0;
+                    int rtlLenBefore = 0;
                     if (textBeforeCursor != null) {
-                        len = textBeforeCursor.length();
+                        lenBefore = textBeforeCursor.length();
+                        rtlLenBefore = LeanbackUtils.getRtlLenBeforeCursor(textBeforeCursor);
                     }
 
-                    int index = len;
+                    CharSequence textAfterCursor = connection.getTextAfterCursor(1000, 0);
+                    int lenAfter = 0;
+                    int rtlLenAfter = 0;
+                    if (textAfterCursor != null) {
+                        lenAfter = textAfterCursor.length();
+                        rtlLenAfter = LeanbackUtils.getRtlLenAfterCursor(textAfterCursor);
+                    }
+
+                    int index = lenBefore;
                     if (type == InputListener.ENTRY_TYPE_LEFT) {
-                        if (len > 0) {
-                            index = len - 1;
+                        if (lenBefore > 0) {
+                            if (rtlLenBefore == 0 && rtlLenAfter == 0) {
+                                index = lenBefore - 1;
+                            } else {
+                                if (lenAfter == 0) {
+                                    index = 1;
+                                } else if (lenAfter == 1) {
+                                    index = 0;
+                                } else {
+                                    index = lenBefore + 1;
+                                }
+                            }
                         }
+
+                        Log.d(TAG, String.format("direction key: before: lenBefore=%s, lenAfter=%s, rtlLenBefore=%s, rtlLenAfter=%s", lenBefore, lenAfter, rtlLenBefore, rtlLenAfter));
                     } else {
-                        CharSequence textAfterCursor = connection.getTextAfterCursor(1000, 0);
-                        if (textAfterCursor != null && textAfterCursor.length() > 0) {
-                            index = len + 1;
+                        if (lenAfter > 0) {
+                            if (rtlLenAfter == 0 && rtlLenBefore == 0) {
+                                index = lenBefore + 1;
+                            } else {
+                                if (lenBefore == 0) {
+                                    index = lenAfter - 1;
+                                } else if (lenBefore == 1) {
+                                    index = lenAfter + 1;
+                                } else {
+                                    index = lenBefore - 1;
+                                }
+                            }
                         }
+
+                        Log.d(TAG, String.format("direction key: after: lenBefore=%s, lenAfter=%s, rtlLenBefore=%s, rtlLenAfter=%s", lenBefore, lenAfter, rtlLenBefore, rtlLenAfter));
                     }
 
                     Log.d(TAG, "direction key: index: " + index);

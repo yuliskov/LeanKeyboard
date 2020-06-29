@@ -13,6 +13,7 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
+import androidx.core.text.BidiFormatter;
 
 public class LeanbackUtils {
     private static final int ACCESSIBILITY_DELAY_MS = 250;
@@ -142,5 +143,45 @@ public class LeanbackUtils {
                 imeManager.showInputMethodPicker();
             }
         }
+    }
+
+    public static int getRtlLenAfterCursor(CharSequence text) {
+        if (text == null || text.length() == 0) {
+            return 0;
+        }
+
+        BidiFormatter formatter = BidiFormatter.getInstance();
+        int len = 0;
+
+        for (int i = 1; i < text.length(); i++) {
+            CharSequence charSequence = text.subSequence(len, i);
+            if (formatter.isRtl(charSequence)) {
+                len++;
+            } else {
+                break;
+            }
+        }
+
+        return len;
+    }
+
+    public static int getRtlLenBeforeCursor(CharSequence text) {
+        if (text == null || text.length() == 0) {
+            return 0;
+        }
+
+        BidiFormatter formatter = BidiFormatter.getInstance();
+        int len = 0;
+
+        for (int i = text.length(); i > 0; i--) {
+            CharSequence charSequence = text.subSequence(i-1, i);
+            if (formatter.isRtl(charSequence)) {
+                len++;
+            } else {
+                break;
+            }
+        }
+
+        return len;
     }
 }

@@ -1533,8 +1533,4 @@ public class LeanbackKeyboardContainer {
             }
         }
     }
-
-    public boolean isRtl() {
-        return mKeyboardManager.get().isRtl;
-    }
 }

@@ -952,8 +952,4 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
             return handleKeyUpEvent(keyCode, event.getEventTime());
         }
     }
-
-    public boolean isRtl() {
-        return mContainer.isRtl();
-    }
 }

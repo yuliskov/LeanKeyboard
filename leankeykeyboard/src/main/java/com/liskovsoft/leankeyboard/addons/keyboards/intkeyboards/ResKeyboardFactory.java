@@ -94,11 +94,6 @@ public class ResKeyboardFactory implements KeyboardFactory {
             public Keyboard createNumKeyboard() {
                 return new Keyboard(mContext, R.xml.number);
             }
-
-            @Override
-            public boolean isRtl() {
-                return langCode.contains("he") || langCode.contains("ar");
-            }
         };
     }
 
