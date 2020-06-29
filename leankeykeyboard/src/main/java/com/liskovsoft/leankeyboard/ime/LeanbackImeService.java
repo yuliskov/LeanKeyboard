@@ -151,26 +151,32 @@ public class LeanbackImeService extends InputMethodService {
                     break;
                 case InputListener.ENTRY_TYPE_LEFT:
                 case InputListener.ENTRY_TYPE_RIGHT:
+                    BidiFormatter formatter = BidiFormatter.getInstance();
+
                     CharSequence textBeforeCursor = connection.getTextBeforeCursor(1000, 0);
                     int lenBefore = 0;
-                    int rtlLenBefore = 0;
+                    boolean isRtlBefore = false;
+                    //int rtlLenBefore = 0;
                     if (textBeforeCursor != null) {
                         lenBefore = textBeforeCursor.length();
-                        rtlLenBefore = LeanbackUtils.getRtlLenBeforeCursor(textBeforeCursor);
+                        isRtlBefore = formatter.isRtl(textBeforeCursor);
+                        //rtlLenBefore = LeanbackUtils.getRtlLenBeforeCursor(textBeforeCursor);
                     }
 
                     CharSequence textAfterCursor = connection.getTextAfterCursor(1000, 0);
                     int lenAfter = 0;
-                    int rtlLenAfter = 0;
+                    //int rtlLenAfter = 0;
+                    boolean isRtlAfter = false;
                     if (textAfterCursor != null) {
                         lenAfter = textAfterCursor.length();
-                        rtlLenAfter = LeanbackUtils.getRtlLenAfterCursor(textAfterCursor);
+                        isRtlAfter = formatter.isRtl(textAfterCursor);
+                        //rtlLenAfter = LeanbackUtils.getRtlLenAfterCursor(textAfterCursor);
                     }
 
                     int index = lenBefore;
                     if (type == InputListener.ENTRY_TYPE_LEFT) {
                         if (lenBefore > 0) {
-                            if (rtlLenBefore == 0 && rtlLenAfter == 0) {
+                            if (!isRtlBefore) {
                                 index = lenBefore - 1;
                             } else {
                                 if (lenAfter == 0) {
@@ -183,10 +189,11 @@ public class LeanbackImeService extends InputMethodService {
                             }
                         }
 
-                        Log.d(TAG, String.format("direction key: before: lenBefore=%s, lenAfter=%s, rtlLenBefore=%s, rtlLenAfter=%s", lenBefore, lenAfter, rtlLenBefore, rtlLenAfter));
+                        //Log.d(TAG, String.format("direction key: before: lenBefore=%s, lenAfter=%s, rtlLenBefore=%s, rtlLenAfter=%s", lenBefore, lenAfter, rtlLenBefore, rtlLenAfter));
+                        Log.d(TAG, String.format("direction key: before: lenBefore=%s, lenAfter=%s, isRtlBefore=%s", lenBefore, lenAfter, isRtlBefore));
                     } else {
                         if (lenAfter > 0) {
-                            if (rtlLenAfter == 0 && rtlLenBefore == 0) {
+                            if (!isRtlAfter) {
                                 index = lenBefore + 1;
                             } else {
                                 if (lenBefore == 0) {
@@ -199,7 +206,8 @@ public class LeanbackImeService extends InputMethodService {
                             }
                         }
 
-                        Log.d(TAG, String.format("direction key: after: lenBefore=%s, lenAfter=%s, rtlLenBefore=%s, rtlLenAfter=%s", lenBefore, lenAfter, rtlLenBefore, rtlLenAfter));
+                        //Log.d(TAG, String.format("direction key: after: lenBefore=%s, lenAfter=%s, rtlLenBefore=%s, rtlLenAfter=%s", lenBefore, lenAfter, rtlLenBefore, rtlLenAfter));
+                        Log.d(TAG, String.format("direction key: after: lenBefore=%s, lenAfter=%s, isRtlAfter=%s", lenBefore, lenAfter, isRtlAfter));
                     }
 
                     Log.d(TAG, "direction key: index: " + index);
