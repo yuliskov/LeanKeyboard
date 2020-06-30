@@ -679,13 +679,13 @@ public class LeanbackKeyboardContainer {
     }
 
     public void updateCyclicFocus(int dir, KeyFocus oldFocus, KeyFocus newFocus) {
-        if (oldFocus.equals(newFocus) || newFocus.index == 0) { // submit button has index 0
+        if (oldFocus.equals(newFocus) || LeanbackUtils.isSubmitButton(newFocus)) { // submit button has index 0
             if (LeanKeyPreferences.instance(mContext).getCyclicNavigationEnabled()) {
                 if (dir == DIRECTION_LEFT) {
                     offsetRect(mRect, mMainKeyboardView);
-                    boolean onSameRow =  oldFocus.rect.top < mRect.bottom/2f && mRect.bottom/2f < oldFocus.rect.bottom;
+                    boolean isCentered =  oldFocus.rect.top < mRect.bottom/2f && mRect.bottom/2f < oldFocus.rect.bottom;
 
-                    if (onSameRow) {
+                    if (isCentered) {
                         offsetRect(mRect, mActionButtonView);
                         configureFocus(newFocus, mRect, 0, KeyFocus.TYPE_ACTION);
                     } else {
@@ -695,15 +695,27 @@ public class LeanbackKeyboardContainer {
                         configureFocus(newFocus, mRect, keyIdx, key, 0);
                     }
                 } else if (dir == DIRECTION_RIGHT) {
-                    boolean onSameRow = Math.abs(oldFocus.rect.bottom - newFocus.rect.bottom) < 20;
+                    offsetRect(mRect, mMainKeyboardView);
+                    boolean isCentered =  oldFocus.rect.top < mRect.bottom/2f && mRect.bottom/2f < oldFocus.rect.bottom;
 
-                    if (oldFocus.index == 0 || !onSameRow) {
-                        offsetRect(mRect, mMainKeyboardView);
+                    if (LeanbackUtils.isSubmitButton(oldFocus) || !isCentered) {
                         // leftmost key (usually a button)
                         int keyIdx = mMainKeyboardView.getNearestIndex(0, mY - mRect.top);
                         Key key = mMainKeyboardView.getKey(keyIdx);
                         configureFocus(newFocus, mRect, keyIdx, key, 0);
                     }
+                } else if (dir == DIRECTION_DOWN) {
+                    offsetRect(mRect, mMainKeyboardView);
+                    // topmost key
+                    int keyIdx = mMainKeyboardView.getNearestIndex(mX - mRect.left, 0);
+                    Key key = mMainKeyboardView.getKey(keyIdx);
+                    configureFocus(newFocus, mRect, keyIdx, key, 0);
+                } else if (dir == DIRECTION_UP) {
+                    offsetRect(mRect, mMainKeyboardView);
+                    // downmost key
+                    int keyIdx = mMainKeyboardView.getNearestIndex(mX - mRect.left, mRect.bottom);
+                    Key key = mMainKeyboardView.getKey(keyIdx);
+                    configureFocus(newFocus, mRect, keyIdx, key, 0);
                 }
             }
 
@@ -1573,5 +1585,24 @@ public class LeanbackKeyboardContainer {
                 mVoiceButtonView.showNotListening();
             }
         }
+    }
+
+    private void focusNearestSuggestion(KeyFocus newFocus) {
+        int count = mSuggestions.getChildCount();
+        for (int idx = 0; idx < count; ++idx) {
+            View view = mSuggestions.getChildAt(idx);
+            offsetRect(mRect, view);
+            if (mX < (float) mRect.right || idx + 1 == count) {
+                view.requestFocus();
+                LeanbackUtils.sendAccessibilityEvent(view.findViewById(R.id.text), true);
+                configureFocus(newFocus, mRect, idx, KeyFocus.TYPE_SUGGESTION);
+                break;
+            }
+        }
+    }
+
+    private void focusOppositeSuggestion(KeyFocus currentFocus, KeyFocus newFocus) {
+        int count = mSuggestions.getChildCount();
+        // TODO: find opposite suggestion
     }
 }

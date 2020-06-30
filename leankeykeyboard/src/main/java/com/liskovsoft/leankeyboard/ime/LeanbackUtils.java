@@ -13,7 +13,10 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.LinearLayout;
 import androidx.core.text.BidiFormatter;
+import com.liskovsoft.leankeyboard.ime.LeanbackKeyboardContainer.KeyFocus;
+import com.liskovsoft.leankeykeyboard.R;
 
 public class LeanbackUtils {
     private static final int ACCESSIBILITY_DELAY_MS = 250;
@@ -183,5 +186,13 @@ public class LeanbackUtils {
         }
 
         return len;
+    }
+
+    public static boolean isSubmitButton(KeyFocus focus) {
+        return focus.index == 0 && focus.type == KeyFocus.TYPE_ACTION;
+    }
+
+    public static boolean isSuggestionsButton(KeyFocus focus) {
+        return focus.type == KeyFocus.TYPE_SUGGESTION;
     }
 }

@@ -109,6 +109,6 @@ public final class LeanKeyPreferences {
     }
 
     public boolean getCyclicNavigationEnabled() {
-        return mPrefs.getBoolean(CYCLIC_NAVIGATION_ENABLED, true);
+        return mPrefs.getBoolean(CYCLIC_NAVIGATION_ENABLED, false);
     }
 }
