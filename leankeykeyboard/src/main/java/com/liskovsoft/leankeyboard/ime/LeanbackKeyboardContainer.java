@@ -679,20 +679,31 @@ public class LeanbackKeyboardContainer {
     }
 
     public void updateCyclicFocus(int dir, KeyFocus oldFocus, KeyFocus newFocus) {
-        if (oldFocus.equals(newFocus)) {
+        if (oldFocus.equals(newFocus) || newFocus.index == 0) { // submit button has index 0
             if (LeanKeyPreferences.instance(mContext).getCyclicNavigationEnabled()) {
                 if (dir == DIRECTION_LEFT) {
                     offsetRect(mRect, mMainKeyboardView);
-                    // rightmost key (usually ok button)
-                    int keyIdx = mMainKeyboardView.getNearestIndex(mRect.right, mY - mRect.top);
-                    Key key = mMainKeyboardView.getKey(keyIdx);
-                    configureFocus(newFocus, mRect, keyIdx, key, 0);
+                    boolean onSameRow =  oldFocus.rect.top < mRect.bottom/2f && mRect.bottom/2f < oldFocus.rect.bottom;
+
+                    if (onSameRow) {
+                        offsetRect(mRect, mActionButtonView);
+                        configureFocus(newFocus, mRect, 0, KeyFocus.TYPE_ACTION);
+                    } else {
+                        // rightmost key (usually ok button)
+                        int keyIdx = mMainKeyboardView.getNearestIndex(mRect.right, mY - mRect.top);
+                        Key key = mMainKeyboardView.getKey(keyIdx);
+                        configureFocus(newFocus, mRect, keyIdx, key, 0);
+                    }
                 } else if (dir == DIRECTION_RIGHT) {
-                    offsetRect(mRect, mMainKeyboardView);
-                    // leftmost key (usually a button)
-                    int keyIdx = mMainKeyboardView.getNearestIndex(0, mY - mRect.top);
-                    Key key = mMainKeyboardView.getKey(keyIdx);
-                    configureFocus(newFocus, mRect, keyIdx, key, 0);
+                    boolean onSameRow = Math.abs(oldFocus.rect.bottom - newFocus.rect.bottom) < 20;
+
+                    if (oldFocus.index == 0 || !onSameRow) {
+                        offsetRect(mRect, mMainKeyboardView);
+                        // leftmost key (usually a button)
+                        int keyIdx = mMainKeyboardView.getNearestIndex(0, mY - mRect.top);
+                        Key key = mMainKeyboardView.getKey(keyIdx);
+                        configureFocus(newFocus, mRect, keyIdx, key, 0);
+                    }
                 }
             }
 
