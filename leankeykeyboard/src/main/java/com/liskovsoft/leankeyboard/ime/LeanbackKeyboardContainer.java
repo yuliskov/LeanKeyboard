@@ -682,37 +682,41 @@ public class LeanbackKeyboardContainer {
         if (oldFocus.equals(newFocus) || LeanbackUtils.isSubmitButton(newFocus)) { // submit button has index 0
             if (LeanKeyPreferences.instance(mContext).getCyclicNavigationEnabled()) {
                 if (dir == DIRECTION_LEFT) {
-                    offsetRect(mRect, mMainKeyboardView);
-                    boolean isCentered =  oldFocus.rect.top < mRect.bottom/2f && mRect.bottom/2f < oldFocus.rect.bottom;
+                    Rect actionRect = new Rect();
+                    offsetRect(actionRect, mActionButtonView);
+                    boolean onSameRow = Math.abs(oldFocus.rect.top - actionRect.top) < 20;
 
-                    if (isCentered) {
+                    if (onSameRow) {
                         offsetRect(mRect, mActionButtonView);
                         configureFocus(newFocus, mRect, 0, KeyFocus.TYPE_ACTION);
                     } else {
                         // rightmost key (usually ok button)
+                        offsetRect(mRect, mMainKeyboardView);
                         int keyIdx = mMainKeyboardView.getNearestIndex(mRect.right, mY - mRect.top);
                         Key key = mMainKeyboardView.getKey(keyIdx);
                         configureFocus(newFocus, mRect, keyIdx, key, 0);
                     }
                 } else if (dir == DIRECTION_RIGHT) {
-                    offsetRect(mRect, mMainKeyboardView);
-                    boolean isCentered =  oldFocus.rect.top < mRect.bottom/2f && mRect.bottom/2f < oldFocus.rect.bottom;
+                    Rect actionRect = new Rect();
+                    offsetRect(actionRect, mActionButtonView);
+                    boolean onSameRow = Math.abs(oldFocus.rect.top - actionRect.top) < 20;
 
-                    if (LeanbackUtils.isSubmitButton(oldFocus) || !isCentered) {
+                    if (LeanbackUtils.isSubmitButton(oldFocus) || !onSameRow) {
                         // leftmost key (usually a button)
+                        offsetRect(mRect, mMainKeyboardView);
                         int keyIdx = mMainKeyboardView.getNearestIndex(0, mY - mRect.top);
                         Key key = mMainKeyboardView.getKey(keyIdx);
                         configureFocus(newFocus, mRect, keyIdx, key, 0);
                     }
                 } else if (dir == DIRECTION_DOWN) {
-                    offsetRect(mRect, mMainKeyboardView);
                     // topmost key
+                    offsetRect(mRect, mMainKeyboardView);
                     int keyIdx = mMainKeyboardView.getNearestIndex(mX - mRect.left, 0);
                     Key key = mMainKeyboardView.getKey(keyIdx);
                     configureFocus(newFocus, mRect, keyIdx, key, 0);
                 } else if (dir == DIRECTION_UP) {
-                    offsetRect(mRect, mMainKeyboardView);
                     // downmost key
+                    offsetRect(mRect, mMainKeyboardView);
                     int keyIdx = mMainKeyboardView.getNearestIndex(mX - mRect.left, mRect.bottom);
                     Key key = mMainKeyboardView.getKey(keyIdx);
                     configureFocus(newFocus, mRect, keyIdx, key, 0);
