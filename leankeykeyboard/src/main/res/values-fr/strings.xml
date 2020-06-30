@@ -24,7 +24,7 @@
     <string name="keyboardview_keycode_lang">Langue</string>
     <string name="keyboardview_keycode_voice">Entrée vocale</string>
     <string name="language_dialog_title">Sélectionnez des dispositions supplémentaires</string>
-    <string name="language_dialog_subtitle">Pour ouvrir la boîte de dialogue la prochaine fois, appuyez longuement sur le bouton \\'monde \\'</string>
+    <string name="language_dialog_subtitle">Pour ouvrir la boîte de dialogue la prochaine fois, appuyez longuement sur le bouton \'monde \'</string>
     <string name="user_name">Nom d\'utilisateur</string>
     <string name="email_id">Email</string>
     <string name="kb_layout_desc">Clavier</string>

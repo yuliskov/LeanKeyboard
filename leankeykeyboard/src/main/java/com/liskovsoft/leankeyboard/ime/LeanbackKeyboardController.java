@@ -576,26 +576,7 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
 
     private boolean onDirectionalMove(int dir) {
         if (mContainer.getNextFocusInDirection(dir, mCurrentFocus, mTempFocus)) {
-            if (mCurrentFocus.equals(mTempFocus)) {
-                String direction = "UNKNOWN";
-
-                switch (dir) {
-                    case LeanbackKeyboardContainer.DIRECTION_DOWN:
-                        direction = "DOWN";
-                        break;
-                    case LeanbackKeyboardContainer.DIRECTION_LEFT:
-                        direction = "LEFT";
-                        break;
-                    case LeanbackKeyboardContainer.DIRECTION_RIGHT:
-                        direction = "RIGHT";
-                        break;
-                    case LeanbackKeyboardContainer.DIRECTION_UP:
-                        direction = "UP";
-                        break;
-                }
-
-                Log.d(TAG, "Same key focus found! Direction: " + direction + " Key Label: " + mCurrentFocus.label);
-            }
+            mContainer.updateCyclicFocus(dir, mCurrentFocus, mTempFocus);
             mContainer.setFocus(mTempFocus);
             mCurrentFocus.set(mTempFocus);
             clearKeyIfNecessary();

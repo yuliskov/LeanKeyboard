@@ -52,6 +52,7 @@ import com.liskovsoft.leankeyboard.activity.settings.KbSettingsActivity;
 import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardManager;
 import com.liskovsoft.leankeyboard.helpers.Helpers;
 import com.liskovsoft.leankeyboard.helpers.MessageHelpers;
+import com.liskovsoft.leankeyboard.utils.LeanKeyPreferences;
 import com.liskovsoft.leankeykeyboard.R;
 
 import java.util.ArrayList;
@@ -675,6 +676,45 @@ public class LeanbackKeyboardContainer {
 
     public Key getKey(int type, int index) {
         return type == KeyFocus.TYPE_MAIN ? this.mMainKeyboardView.getKey(index) : null;
+    }
+
+    public void updateCyclicFocus(int dir, KeyFocus oldFocus, KeyFocus newFocus) {
+        if (oldFocus.equals(newFocus)) {
+            if (LeanKeyPreferences.instance(mContext).getCyclicNavigationEnabled()) {
+                if (dir == DIRECTION_LEFT) {
+                    offsetRect(mRect, mMainKeyboardView);
+                    // rightmost key (usually ok button)
+                    int keyIdx = mMainKeyboardView.getNearestIndex(mRect.right, mY - mRect.top);
+                    Key key = mMainKeyboardView.getKey(keyIdx);
+                    configureFocus(newFocus, mRect, keyIdx, key, 0);
+                } else if (dir == DIRECTION_RIGHT) {
+                    offsetRect(mRect, mMainKeyboardView);
+                    // leftmost key (usually a button)
+                    int keyIdx = mMainKeyboardView.getNearestIndex(0, mY - mRect.top);
+                    Key key = mMainKeyboardView.getKey(keyIdx);
+                    configureFocus(newFocus, mRect, keyIdx, key, 0);
+                }
+            }
+
+            String direction = "UNKNOWN";
+
+            switch (dir) {
+                case LeanbackKeyboardContainer.DIRECTION_DOWN:
+                    direction = "DOWN";
+                    break;
+                case LeanbackKeyboardContainer.DIRECTION_LEFT:
+                    direction = "LEFT";
+                    break;
+                case LeanbackKeyboardContainer.DIRECTION_RIGHT:
+                    direction = "RIGHT";
+                    break;
+                case LeanbackKeyboardContainer.DIRECTION_UP:
+                    direction = "UP";
+                    break;
+            }
+
+            Log.d(TAG, "Same key focus found! Direction: " + direction + " Key Label: " + oldFocus.label);
+        }
     }
 
     public boolean getNextFocusInDirection(int direction, KeyFocus startFocus, KeyFocus nextFocus) {
