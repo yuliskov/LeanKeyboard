@@ -43,10 +43,10 @@
     <string name="keyboardview_keycode_clipboard">Presse-papiers</string>
     <string name="increase_kbd_size">Agrandir le clavier</string>
     <string name="increase_kbd_size_desc">Augmenter la taille du clavier</string>
-    <string name="kbd_activation_error2">Erreur est survenue. Essayez d\'activer %s avec les commandes ci-dessous. \N \n%s \n\n%s</string>
+    <string name="kbd_activation_error2">Erreur est survenue. Essayez d\'activer %s avec les commandes ci-dessous. \n \n%s \n\n%s</string>
     <string name="about_donate">Faire un don</string>
     <string name="about_web_site">Site Internet</string>
-    <string name="kbd_activation_error">Impossible d\'ouvrir les paramètres du système kbd. \NRedirection vers le site avec des instructions manuelles…</string>
+    <string name="kbd_activation_error">Impossible d\'ouvrir les paramètres du système kbd. \nRedirection vers le site avec des instructions manuelles…</string>
     <string name="about_issue">Soumettre un problème</string>
     <string name="about_releases">Obtenez une nouvelle version</string>
     <string name="kb_theme">Thème</string>

@@ -18,4 +18,45 @@
     <string name="keyboardview_keycode_right">Rechts</string>
     <string name="keyboard_headset_required_to_hear_password">Sluit een headset aan om wachtwoordtoetsen te laten voorlezen.</string>
     <string name="keyboard_password_character_no_headset">Stip.</string>
+
+    <!--  BEGIN: autotranslated strings  -->
+    <string name="subtype_generic">%s</string>
+    <string name="keyboardview_keycode_lang">Taal</string>
+    <string name="keyboardview_keycode_voice">Spraak invoer</string>
+    <string name="language_dialog_title">Selecteer extra indelingen</string>
+    <string name="language_dialog_subtitle">Om de volgende keer het dialoogvenster te openen, druk lang op de knop \'wereld\'</string>
+    <string name="user_name">Gebruikersnaam</string>
+    <string name="email_id">E-mail</string>
+    <string name="kb_layout_desc">Toetsenbordindeling</string>
+    <string name="kb_layout">Indeling</string>
+    <string name="kb_settings">Instellingen</string>
+    <string name="kb_settings_desc">Toetsenbordinstellingen</string>
+    <string name="activate_keyboard">Toetsenbord activeren</string>
+    <string name="change_layout">Opmaak veranderen</string>
+    <string name="enable_kb_in_system_prefs">Je moet %s inschakelen in Systeemvoorkeuren</string>
+    <string name="about">Over</string>
+    <string name="about_desc">Over toepassing</string>
+    <string name="keep_on_screen_desc">Houd het op het scherm terwijl het fysieke toetsenbord actief is</string>
+    <string name="misc">Diversen</string>
+    <string name="misc_desc">Diverse instellingen</string>
+    <string name="keep_on_screen">Blijf op het scherm</string>
+    <string name="keyboardview_keycode_clipboard">Klembord</string>
+    <string name="increase_kbd_size">Toetsenbord vergroten</string>
+    <string name="increase_kbd_size_desc">Verhoog de toetsenbordgrootte</string>
+    <string name="kbd_activation_error2">Fout opgetreden. Probeer %s te activeren met onderstaande commando\'s. \n \n%s \n\n%s</string>
+    <string name="about_donate">Doneer</string>
+    <string name="about_web_site">Website</string>
+    <string name="kbd_activation_error">Kan systeem-kbd-instellingen niet openen. \nOmleiding naar site met handmatige instructies …</string>
+    <string name="about_issue">Dien een probleem in</string>
+    <string name="about_releases">Krijg een nieuwe versie</string>
+    <string name="kb_theme">Thema</string>
+    <string name="kb_theme_desc">Toetsenbordthema</string>
+    <string name="change_theme">Thema veranderen</string>
+    <string name="enable_suggestions">Suggesties inschakelen</string>
+    <string name="enable_suggestions_desc">Rij met suggesties inschakelen</string>
+    <string name="show_launcher_icon">Toon icoon</string>
+    <string name="show_launcher_icon_desc">Launcher-pictogram weergeven</string>
+    <string name="enable_cyclic_navigation">Сyclic navigatie</string>
+    <string name="enable_cyclic_navigation_desc">Сyclic navigatie via het toetsenbord</string>
+    <!--  END: autotranslated strings  -->
 </resources>

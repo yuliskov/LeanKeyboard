@@ -43,10 +43,10 @@
     <string name="keyboardview_keycode_clipboard">клипборда</string>
     <string name="increase_kbd_size">Уголемяване на клавиатурата</string>
     <string name="increase_kbd_size_desc">Увеличете размера на клавиатурата</string>
-    <string name="kbd_activation_error2">Възникна грешка. Опитайте да активирате %s с команди по-долу. \N \n%s \n\n%s</string>
+    <string name="kbd_activation_error2">Възникна грешка. Опитайте да активирате %s с команди по-долу. \n \n%s \n\n%s</string>
     <string name="about_donate">Дарете</string>
     <string name="about_web_site">Уеб сайт</string>
-    <string name="kbd_activation_error">Не мога да отворя настройките на системния kbd. \NПренасочване към сайта с ръчни инструкции ...</string>
+    <string name="kbd_activation_error">Не мога да отворя настройките на системния kbd. \nПренасочване към сайта с ръчни инструкции …</string>
     <string name="about_issue">Изпратете проблем</string>
     <string name="about_releases">Вземете нова версия</string>
     <string name="kb_theme">тема</string>

@@ -43,10 +43,10 @@
     <string name="keyboardview_keycode_clipboard">Πρόχειρο</string>
     <string name="increase_kbd_size">Μεγέθυνση πληκτρολογίου</string>
     <string name="increase_kbd_size_desc">Αυξήστε το μέγεθος του πληκτρολογίου</string>
-    <string name="kbd_activation_error2">Προέκυψε σφάλμα. Προσπαθήστε να ενεργοποιήσετε το %s με τις παρακάτω εντολές. \N \n%s \n\n%s</string>
+    <string name="kbd_activation_error2">Προέκυψε σφάλμα. Προσπαθήστε να ενεργοποιήσετε το %s με τις παρακάτω εντολές. \n \n%s \n\n%s</string>
     <string name="about_donate">Προσφέρω</string>
     <string name="about_web_site">Ιστοσελίδα</string>
-    <string name="kbd_activation_error">Δεν είναι δυνατό το άνοιγμα των ρυθμίσεων kbd συστήματος. \NΑνακατεύθυνση στον ιστότοπο με μη αυτόματες οδηγίες…</string>
+    <string name="kbd_activation_error">Δεν είναι δυνατό το άνοιγμα των ρυθμίσεων kbd συστήματος. \nΑνακατεύθυνση στον ιστότοπο με μη αυτόματες οδηγίες…</string>
     <string name="about_issue">Υποβάλετε ένα ζήτημα</string>
     <string name="about_releases">Αποκτήστε μια νέα έκδοση</string>
     <string name="kb_theme">Θέμα</string>

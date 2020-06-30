@@ -46,7 +46,7 @@
     <string name="kbd_activation_error2">خطا رخ داده است. سعی کنید٪ s را با دستورات زیر فعال کنید. \n\n٪ s \n\n٪ s</string>
     <string name="about_donate">اهدا کنید</string>
     <string name="about_web_site">سایت اینترنتی</string>
-    <string name="kbd_activation_error">نمی توانید تنظیمات سیستم kbd را باز کنید. \nبا هدایت دستی به سایت هدایت شوید ...</string>
+    <string name="kbd_activation_error">نمی توانید تنظیمات سیستم kbd را باز کنید. \nبا هدایت دستی به سایت هدایت شوید …</string>
     <string name="about_issue">ارسال یک شماره</string>
     <string name="about_releases">یک نسخه جدید دریافت کنید</string>
     <string name="kb_theme">موضوع</string>

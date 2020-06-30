@@ -46,7 +46,7 @@
     <string name="kbd_activation_error2">حدث خطأ. حاول تنشيط٪ s باستخدام الأوامر أدناه. \n\n٪ s \n\n٪ s</string>
     <string name="about_donate">تبرع</string>
     <string name="about_web_site">موقع الكتروني</string>
-    <string name="kbd_activation_error">لا يمكن فتح إعدادات kbd للنظام. \nإعادة التوجيه إلى الموقع بتعليمات يدوية ...</string>
+    <string name="kbd_activation_error">لا يمكن فتح إعدادات kbd للنظام. \nإعادة التوجيه إلى الموقع بتعليمات يدوية …</string>
     <string name="about_issue">إرسال قضية</string>
     <string name="about_releases">احصل على نسخة جديدة</string>
     <string name="kb_theme">موضوع</string>

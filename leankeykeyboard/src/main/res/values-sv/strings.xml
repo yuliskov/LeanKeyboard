@@ -21,4 +21,42 @@
     <string name="keyboardview_keycode_lang">Språk</string>
     <string name="language_dialog_title">Välj layouter</string>
     <string name="language_dialog_subtitle">"För att öppna dialogen nästa gång, tryck länge på knappen med världsikonen</string>
+
+    <!--  BEGIN: autotranslated strings  -->
+    <string name="subtype_generic">%s</string>
+    <string name="keyboardview_keycode_voice">Röstinmatning</string>
+    <string name="user_name">Användarnamn</string>
+    <string name="email_id">E-post</string>
+    <string name="kb_layout_desc">Tangentbordslayout</string>
+    <string name="kb_layout">Layout</string>
+    <string name="kb_settings">inställningar</string>
+    <string name="kb_settings_desc">Tangentbordsinställningar</string>
+    <string name="activate_keyboard">Aktivera tangentbordet</string>
+    <string name="change_layout">Byt layout</string>
+    <string name="enable_kb_in_system_prefs">Du måste aktivera %s i Systeminställningar</string>
+    <string name="about">Handla om</string>
+    <string name="about_desc">Om ansökan</string>
+    <string name="keep_on_screen_desc">Förvara den på skärmen medan det fysiska tangentbordet är aktivt</string>
+    <string name="misc">Blandat</string>
+    <string name="misc_desc">Övriga inställningar</string>
+    <string name="keep_on_screen">Håll på skärmen</string>
+    <string name="keyboardview_keycode_clipboard">Urklipp</string>
+    <string name="increase_kbd_size">Förstora tangentbordet</string>
+    <string name="increase_kbd_size_desc">Öka tangentbordets storlek</string>
+    <string name="kbd_activation_error2">Fel inträffade. Försök att aktivera %s med kommandon nedan. \n \n%s \n\n%s</string>
+    <string name="about_donate">Donera</string>
+    <string name="about_web_site">Hemsida</string>
+    <string name="kbd_activation_error">Kan inte öppna system-kbd-inställningar. \n Vänta till webbplatsen med manuella instruktioner …</string>
+    <string name="about_issue">Skicka ett problem</string>
+    <string name="about_releases">Skaffa en ny version</string>
+    <string name="kb_theme">Tema</string>
+    <string name="kb_theme_desc">Tangentbordstema</string>
+    <string name="change_theme">Ändra tema</string>
+    <string name="enable_suggestions">Aktivera förslag</string>
+    <string name="enable_suggestions_desc">Aktivera förslag rad</string>
+    <string name="show_launcher_icon">Visa ikon</string>
+    <string name="show_launcher_icon_desc">Visa start-ikonen</string>
+    <string name="enable_cyclic_navigation">Сyklisk navigering</string>
+    <string name="enable_cyclic_navigation_desc">Сyklisk navigering genom tangentbordet</string>
+    <!--  END: autotranslated strings  -->
 </resources>
