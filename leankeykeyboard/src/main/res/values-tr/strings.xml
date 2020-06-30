@@ -18,4 +18,45 @@
     <string name="keyboardview_keycode_right">Sağ</string>
     <string name="keyboard_headset_required_to_hear_password">Şifre tuşlarının sesli okunmasını dinlemek için mikrofonlu kulaklık takın.</string>
     <string name="keyboard_password_character_no_headset">Nokta.</string>
+
+    <!--  BEGIN: autotranslated strings  -->
+    <string name="subtype_generic">%s</string>
+    <string name="keyboardview_keycode_lang">Dil</string>
+    <string name="keyboardview_keycode_voice">Ses girişi</string>
+    <string name="language_dialog_title">Ek düzenler seçin</string>
+    <string name="language_dialog_subtitle">Bir dahaki sefere iletişim kutusunu açmak için \'dünya \' düğmesine uzun basın</string>
+    <string name="user_name">Kullanıcı adı</string>
+    <string name="email_id">E-posta</string>
+    <string name="kb_layout_desc">Klavye düzeni</string>
+    <string name="kb_layout">Yerleşim</string>
+    <string name="kb_settings">Ayarlar</string>
+    <string name="kb_settings_desc">Klavye Ayarları</string>
+    <string name="activate_keyboard">Klavyeyi Etkinleştir</string>
+    <string name="change_layout">Düzeni değiştir</string>
+    <string name="enable_kb_in_system_prefs">Sistem Tercihlerinde %s özelliğini etkinleştirmeniz gerekiyor</string>
+    <string name="about">hakkında</string>
+    <string name="about_desc">Uygulama Hakkında</string>
+    <string name="keep_on_screen_desc">Fiziksel klavye etkinken ekranda tutun</string>
+    <string name="misc">Çeşitli</string>
+    <string name="misc_desc">Diğer ayarlar</string>
+    <string name="keep_on_screen">Ekranda Tut</string>
+    <string name="keyboardview_keycode_clipboard">Pano</string>
+    <string name="increase_kbd_size">Klavyeyi büyüt</string>
+    <string name="increase_kbd_size_desc">Klavye boyutunu büyüt</string>
+    <string name="kbd_activation_error2">Hata oluştu. %s komutunu aşağıdaki komutlarla etkinleştirmeyi deneyin. \n \n%s \n\n%s</string>
+    <string name="about_donate">bağışlamak</string>
+    <string name="about_web_site">İnternet sitesi</string>
+    <string name="kbd_activation_error">Sistem kbd ayarları açılamıyor. \nManuel talimatlarla siteye yönlendiriliyor…</string>
+    <string name="about_issue">Bir sorun gönderin</string>
+    <string name="about_releases">Yeni bir sürüm edinin</string>
+    <string name="kb_theme">Tema</string>
+    <string name="kb_theme_desc">Klavye Teması</string>
+    <string name="change_theme">Temayı değiştir</string>
+    <string name="enable_suggestions">Önerileri etkinleştir</string>
+    <string name="enable_suggestions_desc">Öneriler satırını etkinleştir</string>
+    <string name="show_launcher_icon">Simgeyi göster</string>
+    <string name="show_launcher_icon_desc">Başlatıcı simgesini göster</string>
+    <string name="enable_cyclic_navigation">Çevrimsel gezinme</string>
+    <string name="enable_cyclic_navigation_desc">Klavye ile döngüsel gezinme</string>
+    <!--  END: autotranslated strings  -->
 </resources>
