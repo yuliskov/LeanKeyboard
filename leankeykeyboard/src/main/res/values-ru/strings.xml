@@ -48,4 +48,6 @@
     <string name="enable_suggestions_desc">Отображать ряд с подсказками при вводе</string>
     <string name="show_launcher_icon">Отображать иконку</string>
     <string name="show_launcher_icon_desc">Отображать иконку лаунчера</string>
+    <string name="enable_cyclic_navigation">Циклическая навигация</string>
+    <string name="enable_cyclic_navigation_desc">Циклическая навигация по клавиатуре</string>
 </resources>

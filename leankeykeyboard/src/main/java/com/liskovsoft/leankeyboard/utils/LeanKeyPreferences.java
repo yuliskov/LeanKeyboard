@@ -16,6 +16,7 @@ public final class LeanKeyPreferences {
     public static final String THEME_DARK2 = "Dark2";
     public static final String THEME_DARK3 = "Dark3";
     private static final String SUGGESTIONS_ENABLED = "suggestionsEnabled";
+    private static final String CYCLIC_NAVIGATION_ENABLED = "cyclicNavigationEnabled";
     private static LeanKeyPreferences sInstance;
     private final Context mContext;
     private SharedPreferences mPrefs;
@@ -99,5 +100,15 @@ public final class LeanKeyPreferences {
 
     public boolean getSuggestionsEnabled() {
         return mPrefs.getBoolean(SUGGESTIONS_ENABLED, true);
+    }
+
+    public void setCyclicNavigationEnabled(boolean enabled) {
+        mPrefs.edit()
+                .putBoolean(CYCLIC_NAVIGATION_ENABLED, enabled)
+                .apply();
+    }
+
+    public boolean getCyclicNavigationEnabled() {
+        return mPrefs.getBoolean(CYCLIC_NAVIGATION_ENABLED, true);
     }
 }

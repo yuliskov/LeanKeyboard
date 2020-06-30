@@ -16,7 +16,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
-import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardManager.KeyboardData;
 import com.liskovsoft.leankeyboard.ime.LeanbackKeyboardContainer.KeyFocus;
 import com.liskovsoft.leankeyboard.ime.pano.util.TouchNavSpaceTracker;
 import com.liskovsoft.leankeykeyboard.R;
@@ -37,7 +36,7 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     private LeanbackKeyboardContainer mContainer;
     private InputMethodService mContext;
     private DoubleClickDetector mDoubleClickDetector;
-    private LeanbackKeyboardContainer.KeyFocus mDownFocus;
+    private LeanbackKeyboardContainer.KeyFocus mCurrentFocus;
     private Handler mHandler;
     private InputListener mInputListener;
     ArrayList<KeyChange> mKeyChangeHistory;
@@ -81,7 +80,7 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
 
         };
         mTouchEventListener = new TouchEventListener();
-        mDownFocus = new KeyFocus();
+        mCurrentFocus = new KeyFocus();
         mTempFocus = new KeyFocus();
         mKeyChangeHistory = new ArrayList<>(11);
         mTempPoint = new PointF();
@@ -576,9 +575,29 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
     }
 
     private boolean onDirectionalMove(int dir) {
-        if (mContainer.getNextFocusInDirection(dir, mDownFocus, mTempFocus)) {
+        if (mContainer.getNextFocusInDirection(dir, mCurrentFocus, mTempFocus)) {
+            if (mCurrentFocus.equals(mTempFocus)) {
+                String direction = "UNKNOWN";
+
+                switch (dir) {
+                    case LeanbackKeyboardContainer.DIRECTION_DOWN:
+                        direction = "DOWN";
+                        break;
+                    case LeanbackKeyboardContainer.DIRECTION_LEFT:
+                        direction = "LEFT";
+                        break;
+                    case LeanbackKeyboardContainer.DIRECTION_RIGHT:
+                        direction = "RIGHT";
+                        break;
+                    case LeanbackKeyboardContainer.DIRECTION_UP:
+                        direction = "UP";
+                        break;
+                }
+
+                Log.d(TAG, "Same key focus found! Direction: " + direction + " Key Label: " + mCurrentFocus.label);
+            }
             mContainer.setFocus(mTempFocus);
-            mDownFocus.set(mTempFocus);
+            mCurrentFocus.set(mTempFocus);
             clearKeyIfNecessary();
         }
 
@@ -695,7 +714,7 @@ public class LeanbackKeyboardController implements LeanbackKeyboardContainer.Voi
         //if (event.getDeviceId() > 0 && event.isPrintingKey()) onPhysicalKeyboardKeyPressed();
         if (event.isPrintingKey()) onPhysicalKeyboardKeyPressed();
 
-        mDownFocus.set(mContainer.getCurrFocus());
+        mCurrentFocus.set(mContainer.getCurrFocus());
         if (mSpaceTracker != null && mSpaceTracker.onKeyDown(keyCode, event)) {
             return true;
         } else {

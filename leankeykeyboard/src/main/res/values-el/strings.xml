@@ -18,4 +18,45 @@
     <string name="keyboardview_keycode_right">Δεξιά</string>
     <string name="keyboard_headset_required_to_hear_password">Συνδέστε ακουστικά για να ακούσετε τα πλήκτρα του κωδικού πρόσβασης να εκφωνούνται.</string>
     <string name="keyboard_password_character_no_headset">Τελεία.</string>
+
+    <!--  BEGIN: autotranslated strings  -->
+    <string name="subtype_generic">%μικρό</string>
+    <string name="keyboardview_keycode_lang">Γλώσσα</string>
+    <string name="keyboardview_keycode_voice">Φωνητική είσοδος</string>
+    <string name="language_dialog_title">Επιλέξτε πρόσθετες διατάξεις</string>
+    <string name="language_dialog_subtitle">Για να ανοίξετε το διάλογο την επόμενη φορά, πατήστε παρατεταμένα το κουμπί \"κόσμος \"</string>
+    <string name="user_name">Ονομα χρήστη</string>
+    <string name="email_id">ΗΛΕΚΤΡΟΝΙΚΗ ΔΙΕΥΘΥΝΣΗ</string>
+    <string name="kb_layout_desc">Διάταξη πληκτρολογίου</string>
+    <string name="kb_layout">Σχέδιο</string>
+    <string name="kb_settings">Ρυθμίσεις</string>
+    <string name="kb_settings_desc">Ρυθμίσεις πληκτρολογίου</string>
+    <string name="activate_keyboard">Ενεργοποίηση πληκτρολογίου</string>
+    <string name="change_layout">Αλλαγή διάταξης</string>
+    <string name="enable_kb_in_system_prefs">Πρέπει να ενεργοποιήσετε το %s στις Προτιμήσεις συστήματος</string>
+    <string name="about">Σχετικά με</string>
+    <string name="about_desc">Σχετικά με την εφαρμογή</string>
+    <string name="keep_on_screen_desc">Διατηρήστε το στην οθόνη ενώ το φυσικό πληκτρολόγιο είναι ενεργό</string>
+    <string name="misc">Διάφορα</string>
+    <string name="misc_desc">Διάφορες ρυθμίσεις</string>
+    <string name="keep_on_screen">Κρατήστε στην οθόνη</string>
+    <string name="keyboardview_keycode_clipboard">Πρόχειρο</string>
+    <string name="increase_kbd_size">Μεγέθυνση πληκτρολογίου</string>
+    <string name="increase_kbd_size_desc">Αυξήστε το μέγεθος του πληκτρολογίου</string>
+    <string name="kbd_activation_error2">Προέκυψε σφάλμα. Προσπαθήστε να ενεργοποιήσετε το %s με τις παρακάτω εντολές. \N \n%s \n\n%s</string>
+    <string name="about_donate">Προσφέρω</string>
+    <string name="about_web_site">Ιστοσελίδα</string>
+    <string name="kbd_activation_error">Δεν είναι δυνατό το άνοιγμα των ρυθμίσεων kbd συστήματος. \NΑνακατεύθυνση στον ιστότοπο με μη αυτόματες οδηγίες…</string>
+    <string name="about_issue">Υποβάλετε ένα ζήτημα</string>
+    <string name="about_releases">Αποκτήστε μια νέα έκδοση</string>
+    <string name="kb_theme">Θέμα</string>
+    <string name="kb_theme_desc">Θέμα πληκτρολογίου</string>
+    <string name="change_theme">Αλλαξε θέμα</string>
+    <string name="enable_suggestions">Ενεργοποίηση προτάσεων</string>
+    <string name="enable_suggestions_desc">Ενεργοποίηση σειράς προτάσεων</string>
+    <string name="show_launcher_icon">Εμφάνιση εικονιδίου</string>
+    <string name="show_launcher_icon_desc">Εμφάνιση εικονιδίου εκκίνησης</string>
+    <string name="enable_cyclic_navigation">Κυκλική πλοήγηση</string>
+    <string name="enable_cyclic_navigation_desc">Κυκλική πλοήγηση μέσω πληκτρολογίου</string>
+    <!--  END: autotranslated strings  -->
 </resources>

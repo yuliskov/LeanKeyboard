@@ -18,4 +18,45 @@
     <string name="keyboardview_keycode_right">راست</string>
     <string name="keyboard_headset_required_to_hear_password">هدست را برای شنیدن کلیدهای گذرواژه که خوانده می‌شوند، وصل کنید.</string>
     <string name="keyboard_password_character_no_headset">نقطه.</string>
+
+    <!--  BEGIN: autotranslated strings  -->
+    <string name="subtype_generic">٪ s</string>
+    <string name="keyboardview_keycode_lang">زبان</string>
+    <string name="keyboardview_keycode_voice">ورودی صدا</string>
+    <string name="language_dialog_title">طرح بندی های اضافی را انتخاب کنید</string>
+    <string name="language_dialog_subtitle">برای باز کردن گفتگو دفعه بعد ، دکمه "جهان" را فشار دهید</string>
+    <string name="user_name">نام کاربری</string>
+    <string name="email_id">پست الکترونیک</string>
+    <string name="kb_layout_desc">چیدمان صفحه کلید</string>
+    <string name="kb_layout">چیدمان</string>
+    <string name="kb_settings">تنظیمات</string>
+    <string name="kb_settings_desc">تنظیمات صفحه کلید</string>
+    <string name="activate_keyboard">صفحه کلید را فعال کنید</string>
+    <string name="change_layout">طرح بندی را تغییر دهید</string>
+    <string name="enable_kb_in_system_prefs">شما باید٪ s را در تنظیمات برگزیده سیستم فعال کنید</string>
+    <string name="about">در باره</string>
+    <string name="about_desc">درباره برنامه</string>
+    <string name="keep_on_screen_desc">در حالی که صفحه کلید فیزیکی فعال است ، آن را روی صفحه نگه دارید</string>
+    <string name="misc">متفرقه</string>
+    <string name="misc_desc">تنظیمات متفرقه</string>
+    <string name="keep_on_screen">روی صفحه نگه دارید</string>
+    <string name="keyboardview_keycode_clipboard">کلیپ بورد</string>
+    <string name="increase_kbd_size">صفحه کلید را بزرگ کنید</string>
+    <string name="increase_kbd_size_desc">اندازه صفحه کلید را افزایش دهید</string>
+    <string name="kbd_activation_error2">خطا رخ داده است. سعی کنید٪ s را با دستورات زیر فعال کنید. \n\n٪ s \n\n٪ s</string>
+    <string name="about_donate">اهدا کنید</string>
+    <string name="about_web_site">سایت اینترنتی</string>
+    <string name="kbd_activation_error">نمی توانید تنظیمات سیستم kbd را باز کنید. \nبا هدایت دستی به سایت هدایت شوید ...</string>
+    <string name="about_issue">ارسال یک شماره</string>
+    <string name="about_releases">یک نسخه جدید دریافت کنید</string>
+    <string name="kb_theme">موضوع</string>
+    <string name="kb_theme_desc">تم صفحه کلید</string>
+    <string name="change_theme">تغییر زمینه</string>
+    <string name="enable_suggestions">پیشنهادات را فعال کنید</string>
+    <string name="enable_suggestions_desc">ردیف پیشنهادات را فعال کنید</string>
+    <string name="show_launcher_icon">نماد نمایش</string>
+    <string name="show_launcher_icon_desc">نماد پرتاب را نشان دهید</string>
+    <string name="enable_cyclic_navigation">ناوبری حلقوی</string>
+    <string name="enable_cyclic_navigation_desc">ناوبری حلقوی از طریق صفحه کلید</string>
+    <!--  END: autotranslated strings  -->
 </resources>

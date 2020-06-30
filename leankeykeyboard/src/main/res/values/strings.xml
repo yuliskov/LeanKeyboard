@@ -2,7 +2,7 @@
 <resources>
     <string name="ime_name" translatable="false">LeanKey Keyboard Pro</string>
     <string name="ime_service_name" translatable="false">LeanKey Keyboard Pro</string>
-    <string name="word_separators">" .,;:!?
+    <string name="word_separators" translatable="false">" .,;:!?
         ()[]*&amp;@{}/&lt;>_+=|"
     </string>
     <string name="label_go_key">Go</string>
@@ -59,4 +59,6 @@
     <string name="enable_suggestions_desc">Enable suggestions row</string>
     <string name="show_launcher_icon">Show icon</string>
     <string name="show_launcher_icon_desc">Show launcher icon</string>
+    <string name="enable_cyclic_navigation">Сyclic navigation</string>
+    <string name="enable_cyclic_navigation_desc">Сyclic navigation through keyboard</string>
 </resources>

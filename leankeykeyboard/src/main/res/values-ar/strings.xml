@@ -18,4 +18,45 @@
     <string name="keyboardview_keycode_right">لليمين</string>
     <string name="keyboard_headset_required_to_hear_password">يمكنك توصيل سماعة رأس لسماع مفاتيح كلمة المرور عندما يتم نطقها.</string>
     <string name="keyboard_password_character_no_headset">نقطة</string>
+
+    <!--  BEGIN: autotranslated strings  -->
+    <string name="subtype_generic">٪س</string>
+    <string name="keyboardview_keycode_lang">لغة</string>
+    <string name="keyboardview_keycode_voice">مدخل الصوت</string>
+    <string name="language_dialog_title">حدد تخطيطات إضافية</string>
+    <string name="language_dialog_subtitle">لفتح مربع حوار في المرة القادمة ، اضغط مع الاستمرار على زر \"العالم \"</string>
+    <string name="user_name">اسم المستخدم</string>
+    <string name="email_id">البريد الإلكتروني</string>
+    <string name="kb_layout_desc">تخطيط لوحة المفاتيح</string>
+    <string name="kb_layout">نسق</string>
+    <string name="kb_settings">الإعدادات</string>
+    <string name="kb_settings_desc">إعدادات لوحة المفاتيح</string>
+    <string name="activate_keyboard">تنشيط لوحة المفاتيح</string>
+    <string name="change_layout">غير الواجهة او التصميم</string>
+    <string name="enable_kb_in_system_prefs">تحتاج إلى تمكين٪ s في تفضيلات النظام</string>
+    <string name="about">حول</string>
+    <string name="about_desc">عن التطبيق</string>
+    <string name="keep_on_screen_desc">احتفظ به على الشاشة أثناء تنشيط لوحة المفاتيح الفعلية</string>
+    <string name="misc">متفرقات</string>
+    <string name="misc_desc">إعدادات متنوعة</string>
+    <string name="keep_on_screen">ابق على الشاشة</string>
+    <string name="keyboardview_keycode_clipboard">الحافظة</string>
+    <string name="increase_kbd_size">تكبير لوحة المفاتيح</string>
+    <string name="increase_kbd_size_desc">زيادة حجم لوحة المفاتيح</string>
+    <string name="kbd_activation_error2">حدث خطأ. حاول تنشيط٪ s باستخدام الأوامر أدناه. \n\n٪ s \n\n٪ s</string>
+    <string name="about_donate">تبرع</string>
+    <string name="about_web_site">موقع الكتروني</string>
+    <string name="kbd_activation_error">لا يمكن فتح إعدادات kbd للنظام. \nإعادة التوجيه إلى الموقع بتعليمات يدوية ...</string>
+    <string name="about_issue">إرسال قضية</string>
+    <string name="about_releases">احصل على نسخة جديدة</string>
+    <string name="kb_theme">موضوع</string>
+    <string name="kb_theme_desc">موضوع لوحة المفاتيح</string>
+    <string name="change_theme">غير الخلفية</string>
+    <string name="enable_suggestions">تمكين الاقتراحات</string>
+    <string name="enable_suggestions_desc">تمكين صف الاقتراحات</string>
+    <string name="show_launcher_icon">إظهار الرمز</string>
+    <string name="show_launcher_icon_desc">إظهار أيقونة المشغل</string>
+    <string name="enable_cyclic_navigation">التنقل الدوري</string>
+    <string name="enable_cyclic_navigation_desc">التنقل الدوري من خلال لوحة المفاتيح</string>
+    <!--  END: autotranslated strings  -->
 </resources>

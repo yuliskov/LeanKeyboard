@@ -18,4 +18,45 @@
     <string name="keyboardview_keycode_right">Right</string>
     <string name="keyboard_headset_required_to_hear_password">Включете слушалки, за да чуете изговарянето на клавишите за паролата.</string>
     <string name="keyboard_password_character_no_headset">Точка.</string>
+
+    <!--  BEGIN: autotranslated strings  -->
+    <string name="subtype_generic">%с</string>
+    <string name="keyboardview_keycode_lang">език</string>
+    <string name="keyboardview_keycode_voice">Гласов вход</string>
+    <string name="language_dialog_title">Изберете допълнителни оформления</string>
+    <string name="language_dialog_subtitle">За да отворите диалоговия прозорец следващия път, дълго натиснете бутона \"свят \"</string>
+    <string name="user_name">Потребителско име</string>
+    <string name="email_id">електронна поща</string>
+    <string name="kb_layout_desc">Клавиатурна подредба</string>
+    <string name="kb_layout">оформление</string>
+    <string name="kb_settings">Настройки</string>
+    <string name="kb_settings_desc">Настройки на клавиатурата</string>
+    <string name="activate_keyboard">Активирайте клавиатурата</string>
+    <string name="change_layout">Промяна на оформлението</string>
+    <string name="enable_kb_in_system_prefs">Трябва да активирате %s в системни предпочитания</string>
+    <string name="about">относно</string>
+    <string name="about_desc">Относно приложението</string>
+    <string name="keep_on_screen_desc">Дръжте го на екрана, докато физическата клавиатура е активна</string>
+    <string name="misc">Разни</string>
+    <string name="misc_desc">Разни настройки</string>
+    <string name="keep_on_screen">Дръжте на екрана</string>
+    <string name="keyboardview_keycode_clipboard">клипборда</string>
+    <string name="increase_kbd_size">Уголемяване на клавиатурата</string>
+    <string name="increase_kbd_size_desc">Увеличете размера на клавиатурата</string>
+    <string name="kbd_activation_error2">Възникна грешка. Опитайте да активирате %s с команди по-долу. \N \n%s \n\n%s</string>
+    <string name="about_donate">Дарете</string>
+    <string name="about_web_site">Уеб сайт</string>
+    <string name="kbd_activation_error">Не мога да отворя настройките на системния kbd. \NПренасочване към сайта с ръчни инструкции ...</string>
+    <string name="about_issue">Изпратете проблем</string>
+    <string name="about_releases">Вземете нова версия</string>
+    <string name="kb_theme">тема</string>
+    <string name="kb_theme_desc">Тема на клавиатурата</string>
+    <string name="change_theme">Промяна на темата</string>
+    <string name="enable_suggestions">Активиране на предложенията</string>
+    <string name="enable_suggestions_desc">Активиране на реда с предложения</string>
+    <string name="show_launcher_icon">Показване на икона</string>
+    <string name="show_launcher_icon_desc">Показване на иконата на стартовия панел</string>
+    <string name="enable_cyclic_navigation">Циклична навигация</string>
+    <string name="enable_cyclic_navigation_desc">Циклична навигация през клавиатурата</string>
+    <!--  END: autotranslated strings  -->
 </resources>

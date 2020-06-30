@@ -738,19 +738,9 @@ public class LeanbackKeyboardContainer {
                         return true;
                     }
                 } else {
-                    boolean left;
-                    if ((direction & DIRECTION_LEFT) != 0) {
-                        left = true;
-                    } else {
-                        left = false;
-                    }
+                    boolean left = (direction & DIRECTION_LEFT) != 0;
 
-                    boolean right;
-                    if ((direction & DIRECTION_RIGHT) != 0) {
-                        right = true;
-                    } else {
-                        right = false;
-                    }
+                    boolean right = (direction & DIRECTION_RIGHT) != 0;
 
                     if (left || right) {
                         offsetRect(mRect, mRootView);
