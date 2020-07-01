@@ -679,47 +679,32 @@ public class LeanbackKeyboardContainer {
     }
 
     public void updateCyclicFocus(int dir, KeyFocus oldFocus, KeyFocus newFocus) {
-        if (oldFocus.equals(newFocus) || LeanbackUtils.isSubmitButton(newFocus)) { // submit button has index 0
+        if (oldFocus.equals(newFocus) || LeanbackUtils.isSubmitButton(newFocus)) {
             if (LeanKeyPreferences.instance(mContext).getCyclicNavigationEnabled()) {
-                if (dir == DIRECTION_LEFT) {
+                if (dir == DIRECTION_RIGHT || dir == DIRECTION_LEFT) {
                     Rect actionRect = new Rect();
                     offsetRect(actionRect, mActionButtonView);
                     boolean onSameRow = Math.abs(oldFocus.rect.top - actionRect.top) < 20;
 
-                    if (onSameRow) {
+                    if (onSameRow && !LeanbackUtils.isSubmitButton(oldFocus)) {
+                        // move focus to submit button
                         offsetRect(mRect, mActionButtonView);
                         configureFocus(newFocus, mRect, 0, KeyFocus.TYPE_ACTION);
                     } else {
-                        // rightmost key (usually ok button)
                         offsetRect(mRect, mMainKeyboardView);
-                        int keyIdx = mMainKeyboardView.getNearestIndex(mRect.right, mY - mRect.top);
+                        float x = dir == DIRECTION_RIGHT ? 0 : mRect.right; // 0 - rightmost position, right - leftmost
+                        int keyIdx = mMainKeyboardView.getNearestIndex(x, oldFocus.rect.top - mRect.top);
                         Key key = mMainKeyboardView.getKey(keyIdx);
                         configureFocus(newFocus, mRect, keyIdx, key, 0);
                     }
-                } else if (dir == DIRECTION_RIGHT) {
-                    Rect actionRect = new Rect();
-                    offsetRect(actionRect, mActionButtonView);
-                    boolean onSameRow = Math.abs(oldFocus.rect.top - actionRect.top) < 20;
-
-                    if (LeanbackUtils.isSubmitButton(oldFocus) || !onSameRow) {
-                        // leftmost key (usually a button)
+                } else if (dir == DIRECTION_DOWN || dir == DIRECTION_UP) {
+                    if (!LeanbackUtils.isSubmitButton(oldFocus)) {
                         offsetRect(mRect, mMainKeyboardView);
-                        int keyIdx = mMainKeyboardView.getNearestIndex(0, mY - mRect.top);
+                        float y = dir == DIRECTION_DOWN ? 0 : mRect.bottom; // 0 - topmost position, bottom - downmost
+                        int keyIdx = mMainKeyboardView.getNearestIndex(oldFocus.rect.left - mRect.left, y);
                         Key key = mMainKeyboardView.getKey(keyIdx);
                         configureFocus(newFocus, mRect, keyIdx, key, 0);
                     }
-                } else if (dir == DIRECTION_DOWN) {
-                    // topmost key
-                    offsetRect(mRect, mMainKeyboardView);
-                    int keyIdx = mMainKeyboardView.getNearestIndex(mX - mRect.left, 0);
-                    Key key = mMainKeyboardView.getKey(keyIdx);
-                    configureFocus(newFocus, mRect, keyIdx, key, 0);
-                } else if (dir == DIRECTION_UP) {
-                    // downmost key
-                    offsetRect(mRect, mMainKeyboardView);
-                    int keyIdx = mMainKeyboardView.getNearestIndex(mX - mRect.left, mRect.bottom);
-                    Key key = mMainKeyboardView.getKey(keyIdx);
-                    configureFocus(newFocus, mRect, keyIdx, key, 0);
                 }
             }
 
@@ -1589,24 +1574,5 @@ public class LeanbackKeyboardContainer {
                 mVoiceButtonView.showNotListening();
             }
         }
-    }
-
-    private void focusNearestSuggestion(KeyFocus newFocus) {
-        int count = mSuggestions.getChildCount();
-        for (int idx = 0; idx < count; ++idx) {
-            View view = mSuggestions.getChildAt(idx);
-            offsetRect(mRect, view);
-            if (mX < (float) mRect.right || idx + 1 == count) {
-                view.requestFocus();
-                LeanbackUtils.sendAccessibilityEvent(view.findViewById(R.id.text), true);
-                configureFocus(newFocus, mRect, idx, KeyFocus.TYPE_SUGGESTION);
-                break;
-            }
-        }
-    }
-
-    private void focusOppositeSuggestion(KeyFocus currentFocus, KeyFocus newFocus) {
-        int count = mSuggestions.getChildCount();
-        // TODO: find opposite suggestion
     }
 }
