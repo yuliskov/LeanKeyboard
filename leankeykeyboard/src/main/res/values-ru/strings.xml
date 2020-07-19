@@ -46,8 +46,8 @@
     <string name="change_theme">Выбрать тему</string>
     <string name="enable_suggestions">Отображать подсказки</string>
     <string name="enable_suggestions_desc">Отображать ряд с подсказками при вводе</string>
-    <string name="show_launcher_icon">Отображать иконку</string>
-    <string name="show_launcher_icon_desc">Отображать иконку лаунчера</string>
+    <string name="show_launcher_icon">Отображать приложение</string>
+    <string name="show_launcher_icon_desc">Отображать приложение на домашнем экране</string>
     <string name="enable_cyclic_navigation">Циклическая навигация</string>
     <string name="enable_cyclic_navigation_desc">Циклическая навигация по клавиатуре</string>
 </resources>

@@ -17,6 +17,7 @@ public final class LeanKeyPreferences {
     public static final String THEME_DARK3 = "Dark3";
     private static final String SUGGESTIONS_ENABLED = "suggestionsEnabled";
     private static final String CYCLIC_NAVIGATION_ENABLED = "cyclicNavigationEnabled";
+    private static final String AUTODETECT_LAYOUT = "autodetectLayout";
     private static LeanKeyPreferences sInstance;
     private final Context mContext;
     private SharedPreferences mPrefs;
@@ -110,5 +111,9 @@ public final class LeanKeyPreferences {
 
     public boolean getCyclicNavigationEnabled() {
         return mPrefs.getBoolean(CYCLIC_NAVIGATION_ENABLED, false);
+    }
+
+    public boolean getAutodetectLayout() {
+        return mPrefs.getBoolean(AUTODETECT_LAYOUT, false);
     }
 }

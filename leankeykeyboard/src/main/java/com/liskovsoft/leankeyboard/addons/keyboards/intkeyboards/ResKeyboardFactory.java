@@ -12,6 +12,7 @@ import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardBuilder;
 import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardFactory;
 import com.liskovsoft.leankeyboard.addons.keyboards.KeyboardInfo;
 import com.liskovsoft.leankeyboard.ime.LeanbackKeyboardView;
+import com.liskovsoft.leankeyboard.utils.LeanKeyPreferences;
 import com.liskovsoft.leankeyboard.utils.TextDrawable;
 import com.liskovsoft.leankeykeyboard.R;
 
@@ -44,24 +45,27 @@ public class ResKeyboardFactory implements KeyboardFactory {
 
         // at least one kbd should be enabled
         if (result.isEmpty()) {
-            KeyboardInfo firstKbd = findByLocale(infos);
-            result.add(createKeyboard(firstKbd));
-            firstKbd.setEnabled(true);
+            KeyboardInfo defaultKbd = findDefaultKeyboard(infos);
+            result.add(createKeyboard(defaultKbd));
+            defaultKbd.setEnabled(true);
             //ResKeyboardInfo.updateAllKeyboardInfos(mContext, infos);
         }
 
         return result;
     }
 
-    private KeyboardInfo findByLocale(List<KeyboardInfo> infos) {
+    private KeyboardInfo findDefaultKeyboard(List<KeyboardInfo> infos) {
         KeyboardInfo defaultKeyboard = infos.get(0);
-        Locale defaultLocale = Locale.getDefault();
-        String lang = defaultLocale.getLanguage();
 
-        for (final KeyboardInfo info : infos) {
-            if (info.getLangCode().startsWith(lang)) {
-                defaultKeyboard = info;
-                break;
+        if (LeanKeyPreferences.instance(mContext).getAutodetectLayout()) {
+            Locale defaultLocale = Locale.getDefault();
+            String lang = defaultLocale.getLanguage();
+
+            for (final KeyboardInfo info : infos) {
+                if (info.getLangCode().startsWith(lang)) {
+                    defaultKeyboard = info;
+                    break;
+                }
             }
         }
 
