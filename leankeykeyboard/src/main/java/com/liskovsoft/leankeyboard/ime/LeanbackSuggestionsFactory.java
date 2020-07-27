@@ -28,6 +28,7 @@ public class LeanbackSuggestionsFactory {
 
     public void clearSuggestions() {
         mSuggestions.clear();
+        mSuggestions.add(null); // make room for user input, see LeanbackKeyboardContainer.addUserInputToSuggestions
     }
 
     public void createSuggestions() {
@@ -71,7 +72,7 @@ public class LeanbackSuggestionsFactory {
 
     public void onStartInput(EditorInfo info) {
         mMode = MODE_DEFAULT;
-        if ((info.inputType & 65536) != 0) {
+        if ((info.inputType & InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE) != 0) {
             mMode = MODE_AUTO_COMPLETE;
         }
 

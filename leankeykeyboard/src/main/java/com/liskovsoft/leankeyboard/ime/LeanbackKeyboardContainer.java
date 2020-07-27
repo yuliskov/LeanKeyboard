@@ -1191,7 +1191,7 @@ public class LeanbackKeyboardContainer {
     }
 
     public void updateSuggestions(ArrayList<String> suggestions) {
-        fillSuggestions(suggestions);
+        addUserInputToSuggestions(suggestions);
 
         int oldCount = mSuggestions.getChildCount();
         int newCount = suggestions.size();
@@ -1218,7 +1218,10 @@ public class LeanbackKeyboardContainer {
         mThemeManager.updateSuggestionsTheme();
     }
 
-    private void fillSuggestions(ArrayList<String> suggestions) {
+    /**
+     * Useful for password fields
+     */
+    private void addUserInputToSuggestions(ArrayList<String> suggestions) {
         InputConnection connection = mContext.getCurrentInputConnection();
 
         if (connection != null) {

@@ -2,18 +2,18 @@
 <resources>
     <string-array name="common_domains">
         <item>\@gmail.com</item>
+        <item>\@outlook.com</item>
+        <item>\@hotmail.com</item>
+        <item>\@live.com</item>
+        <item>\@msn.com</item>
+        <item>\@aol.com</item>
+        <item>\@yahoo.com</item>
+        <item>\@icloud.com</item>
         <item>\@yandex.ru</item>
         <item>\@yandex.com</item>
         <item>\@ya.ru</item>
         <item>\@mail.ru</item>
         <item>\@live.ru</item>
-        <item>\@live.com</item>
-        <item>\@msn.com</item>
-        <item>\@outlook.com</item>
-        <item>\@hotmail.com</item>
-        <item>\@aol.com</item>
-        <item>\@yahoo.com</item>
-        <item>\@icloud.com</item>
         <item>\@hotbox.ru</item>
         <item>\@list.ru</item>
         <item>\@bk.ru</item>
