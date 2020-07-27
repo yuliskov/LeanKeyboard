@@ -22,7 +22,7 @@ buildscript {
         compileSdkVersion = 28
         buildToolsVersion = "28.0.3"
         minSdkVersion = 14
-        targetSdkVersion = 28
+        targetSdkVersion = 29
         espressoCoreVersion = 'com.android.support.test.espresso:espresso-core:2.2.2'
         junitVersion = 'junit:junit:4.12'
         robolectricVersion = 'org.robolectric:robolectric:3.5.1'
