@@ -26,20 +26,20 @@
         <Key android:codes="105" android:popupKeyboard="@xml/accent_i" android:keyLabel="i" />
         <Key android:codes="111" android:popupKeyboard="@xml/accent_o" android:keyLabel="o" />
         <Key android:codes="112" android:popupKeyboard="@xml/shift_p" android:keyLabel="p" />
-        <Key android:codes="64" android:keyEdgeFlags="right" android:keyLabel="\@" />
+        <Key android:codes="64"  android:keyEdgeFlags="right" android:keyLabel="\@" />
     </Row>
     <Row>
-        <Key android:codes="97" android:popupKeyboard="@xml/accent_a" android:keyEdgeFlags="left" android:keyLabel="a" />
+        <Key android:codes="97"  android:popupKeyboard="@xml/accent_a" android:keyEdgeFlags="left" android:keyLabel="a" />
         <Key android:codes="115" android:popupKeyboard="@xml/accent_s" android:keyLabel="s" />
         <Key android:codes="100" android:popupKeyboard="@xml/accent_d" android:keyLabel="d" />
-        <Key android:codes="102" android:popupKeyboard="@xml/shift_f" android:keyLabel="f" />
+        <Key android:codes="102" android:popupKeyboard="@xml/shift_f"  android:keyLabel="f" />
         <Key android:codes="103" android:popupKeyboard="@xml/accent_g" android:keyLabel="g" />
-        <Key android:codes="104" android:popupKeyboard="@xml/shift_h" android:keyLabel="h" />
-        <Key android:codes="106" android:popupKeyboard="@xml/shift_j" android:keyLabel="j" />
+        <Key android:codes="104" android:popupKeyboard="@xml/shift_h"  android:keyLabel="h" />
+        <Key android:codes="106" android:popupKeyboard="@xml/shift_j"  android:keyLabel="j" />
         <Key android:codes="107" android:popupKeyboard="@xml/accent_k" android:keyLabel="k" />
         <Key android:codes="108" android:popupKeyboard="@xml/accent_l" android:keyLabel="l" />
         <Key android:codes="95"  android:keyLabel="_" />
-        <Key android:codes="47"  android:keyEdgeFlags="right" android:keyLabel="/" />
+        <Key android:codes="47"  android:popupKeyboard="@xml/accent_slash" android:keyEdgeFlags="right" android:keyLabel="/" />
     </Row>
     <Row>
         <Key android:codes="122" android:popupKeyboard="@xml/accent_z" android:keyEdgeFlags="left" android:keyLabel="z" />
