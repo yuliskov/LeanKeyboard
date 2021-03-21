@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ime_name" translatable="false">LeanKey Keyboard Pro</string>
+    <string name="ime_service_name" translatable="false">LeanKey Keyboard Pro</string>
+    <string name="word_separators">".,;:!?
+        () [] *</string>
+    <string name="label_go_key">Merge</string>
+    <string name="label_next_key">Următorul</string>
+    <string name="label_send_key">Trimite</string>
+    <string name="label_search_key">Căutare</string>
+    <string name="label_done_key">Terminat</string>
+    <string name="settings_title">Opțiuni tastatură</string>
+    <string name="title_movement_sensitivity">Sensibilitate la mișcare</string>
+    <string name="btn_on">Pe</string>
+    <string name="btn_off">Dezactivat</string>
+    <string name="subtype_generic">%s</string>
+    <string name="keyboardview_keycode_space">Spaţiu</string>
+    <string name="keyboardview_keycode_delete">Șterge</string>
+    <string name="keyboardview_keycode_mode_change">Schimbarea modului</string>
+    <string name="keyboardview_keycode_shift">Schimb</string>
+    <string name="keyboardview_keycode_lang">Limba</string>
+    <string name="keyboardview_keycode_caps">Majuscule</string>
+    <string name="keyboardview_keycode_left">Stânga</string>
+    <string name="keyboardview_keycode_right">Dreapta</string>
+    <string name="keyboardview_keycode_voice">Intrare vocală</string>
+    <string name="keyboard_headset_required_to_hear_password">Conectați o cască pentru a auzi tastele de parolă rostite.</string>
+    <string name="keyboard_password_character_no_headset">Punct.</string>
+    <string name="language_dialog_title">Selectați aspecte suplimentare</string>
+    <string name="language_dialog_subtitle">Pentru a deschide dialogul data viitoare, apăsați lung pe butonul „lume”</string>
+    <string name="user_name">Nume de utilizator</string>
+    <string name="email_id">E-mail</string>
+    <string name="kb_layout_desc">Aspect tastatură</string>
+    <string name="kb_layout">Aspect</string>
+    <string name="kb_settings">Setări</string>
+    <string name="kb_settings_desc">Setări tastatură</string>
+    <string name="activate_keyboard">Activați tastatura</string>
+    <string name="change_layout">Schimbați aspectul</string>
+    <string name="enable_kb_in_system_prefs">+ Trebuie să activați %s în Sistem Preferințe</string>
+    <string name="about">Despre</string>
+    <string name="about_desc">Despre aplicație</string>
+    <string name="keep_on_screen_desc">Păstrați-l pe ecran în timp ce tastatura fizică este activă</string>
+    <string name="misc">Diverse</string>
+    <string name="misc_desc">Setări diverse</string>
+    <string name="keep_on_screen">Păstrați pe ecran</string>
+    <string name="keyboardview_keycode_clipboard">Clipboard</string>
+    <string name="increase_kbd_size">Mărește tastatura</string>
+    <string name="increase_kbd_size_desc">Măriți dimensiunea tastaturii</string>
+    <string name="kbd_activation_error2">A apărut o eroare. Încercați să activați %s cu comenzi mai jos.\n\n%s\n\n%s</string>
+    <string name="about_donate">Donează</string>
+    <string name="about_web_site">Site Web</string>
+    <string name="kbd_activation_error">Nu se pot deschide setările kbd ale sistemului.\nDirectarea la site cu instrucțiuni manuale...</string>
+    <string name="about_issue">Trimiteți o problemă</string>
+    <string name="about_releases">Obțineți o nouă versiune</string>
+    <string name="kb_theme">Temă</string>
+    <string name="kb_theme_desc">Tema tastaturii</string>
+    <string name="change_theme">Schimbă tema</string>
+    <string name="enable_suggestions">Activați sugestiile</string>
+    <string name="enable_suggestions_desc">Activați rândul de sugestii</string>
+    <string name="show_launcher_icon">Afișează pictograma</string>
+    <string name="show_launcher_icon_desc">Afișează pictograma lansatorului</string>
+    <string name="enable_cyclic_navigation">Navigare ciclică</string>
+    <string name="enable_cyclic_navigation_desc">Navigare ciclică prin tastatură</string>
+</resources>
