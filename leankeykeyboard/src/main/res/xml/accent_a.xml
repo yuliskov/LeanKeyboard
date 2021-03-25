@@ -9,9 +9,9 @@
         <Key android:codes="227" android:keyLabel="ã" />
         <Key android:codes="228" android:keyLabel="ä" />
         <Key android:codes="229" android:keyLabel="å" />
-        <Key android:codes="230" android:keyLabel="æ" />
         <Key android:codes="257" android:keyLabel="ā" />
         <Key android:codes="259" android:keyLabel="ă" />
         <Key android:codes="261" android:keyLabel="ą" />
+        <Key android:codes="230" android:keyLabel="æ" />
     </Row>
 </Keyboard>

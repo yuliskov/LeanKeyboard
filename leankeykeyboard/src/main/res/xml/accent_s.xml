@@ -3,9 +3,10 @@
   xmlns:android="http://schemas.android.com/apk/res/android">
     <Row>
         <Key android:codes="115" android:keyLabel="s" />
-        <Key android:codes="223" android:keyLabel="ß" />
         <Key android:codes="347" android:keyLabel="ś" />
-        <Key android:codes="351" android:keyLabel="ş" />
         <Key android:codes="353" android:keyLabel="š" />
+        <Key android:codes="351" android:keyLabel="ş" />
+        <Key android:codes="537" android:keyLabel="ș" />
+        <Key android:codes="223" android:keyLabel="ß" />
     </Row>
 </Keyboard>

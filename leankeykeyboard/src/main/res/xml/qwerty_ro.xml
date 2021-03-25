@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- NOTE: this is root english keyboard -->
+<!-- Romanian -->
 <Keyboard android:keyWidth="@dimen/key_width" android:keyHeight="@dimen/key_height" android:horizontalGap="@dimen/keyboard_horizontal_gap" android:verticalGap="@dimen/keyboard_vertical_gap"
   xmlns:android="http://schemas.android.com/apk/res/android">
     <Row android:rowEdgeFlags="top">
