@@ -20,7 +20,7 @@ buildscript {
     // Gradle constants example: https://github.com/google/ExoPlayer
     ext {
         compileSdkVersion = 29
-        buildToolsVersion = "29.0.2"
+        buildToolsVersion = "29.0.3"
         minSdkVersion = 14
         targetSdkVersion = 29
         espressoCoreVersion = 'com.android.support.test.espresso:espresso-core:2.2.2'
