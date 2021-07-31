@@ -37,7 +37,8 @@ __Standard installation via ADB__
 ### Donation:
 If you want to support my developments you are welcome to buy me a cup of coffee :)
  * [__Donation Alerts (RU)__](https://www.donationalerts.ru/r/firsthash)
- * [__PrivatBank (UA)__](https://privatbank.ua/ru/sendmoney?payment=73ab18516e24ad365808eec66192e756879dde16)
+ * [__QIWI (VISA)__](https://qiwi.com/n/GUESS025)
+ * [__PrivatBank (UA)__](https://privatbank.ua/ru/sendmoney?payment=9e46a6ef78)
  * __BTC__: 1JAT5VVWarVBkpVbNDn8UA8HXNdrukuBSx
  
 ### Reviews / Articles:
