@@ -30,5 +30,7 @@
         <!-- Turkish -->
         <item>Türkçe (Q board)|tr</item>
         <item>Türkçe|tr|azerty</item>
+        <!-- Korean -->
+        <item>한국어|ko_kr</item>
     </string-array>
 </resources>
