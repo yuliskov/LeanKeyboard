@@ -4,11 +4,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.inputmethodservice.InputMethodService;
 import android.view.KeyEvent;
 import android.view.inputmethod.InputConnection;
 import com.liskovsoft.leankeykeyboard.BuildConfig;
 
-public class KeyMapperImeService extends LeanbackImeService {
+public class KeyMapperImeService extends InputMethodService {
     private static final String KEY_MAPPER_INPUT_METHOD_ACTION_INPUT_DOWN_UP = BuildConfig.APPLICATION_ID + ".inputmethod.ACTION_INPUT_DOWN_UP";
     private static final String KEY_MAPPER_INPUT_METHOD_ACTION_INPUT_DOWN = BuildConfig.APPLICATION_ID + ".inputmethod.ACTION_INPUT_DOWN";
     private static final String KEY_MAPPER_INPUT_METHOD_ACTION_INPUT_UP = BuildConfig.APPLICATION_ID + ".inputmethod.ACTION_INPUT_UP";

@@ -20,7 +20,7 @@ import androidx.core.text.BidiFormatter;
 import com.liskovsoft.leankeyboard.ime.LeanbackKeyboardController.InputListener;
 import com.liskovsoft.leankeyboard.utils.LeanKeyPreferences;
 
-public class LeanbackImeService extends InputMethodService {
+public class LeanbackImeService extends KeyMapperImeService {
     private static final String TAG = LeanbackImeService.class.getSimpleName();
     private static final boolean DEBUG = false;
     public static final String IME_CLOSE = "com.google.android.athome.action.IME_CLOSE";
