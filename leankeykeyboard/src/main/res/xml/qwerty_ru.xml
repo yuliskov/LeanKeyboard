@@ -19,7 +19,7 @@
         <Key android:keyLabel="ц" />
         <Key android:keyLabel="у" />
         <Key android:keyLabel="к" />
-        <Key android:keyLabel="е" />
+        <Key android:keyLabel="е" android:popupKeyboard="@xml/accent_e" />
         <Key android:keyLabel="н" />
         <Key android:keyLabel="г" />
         <Key android:keyLabel="ш" />
