@@ -36,10 +36,14 @@ __Standard installation via ADB__
 
 ### Donation:
 If you want to support my developments you are welcome to buy me a cup of coffee :)
- * [__Donation Alerts (RU)__](https://www.donationalerts.ru/r/firsthash)
- * [__QIWI (VISA)__](https://qiwi.com/n/GUESS025)
- * [__PrivatBank (UA)__](https://privatbank.ua/ru/sendmoney?payment=9e46a6ef78)
- * __BTC__: 1JAT5VVWarVBkpVbNDn8UA8HXNdrukuBSx
+ <!-- * [Patreon (**PayPal**)](https://www.patreon.com/smarttube)   -->
+ * [QIWI (RU, Visa)](https://qiwi.com/n/GUESS025)  
+ * [DonatePay (RU, **PayPal**, Visa)](https://new.donatepay.ru/@459197)  
+ * **BTC**: 1JAT5VVWarVBkpVbNDn8UA8HXNdrukuBSx  
+ * **LTC**: ltc1qgc24eq9jl9cq78qnd5jpqhemkajg9vudwyd8pw  
+ * **ETH**: 0xe455E21a085ae195a097cd4F456051A9916A5064  
+ * **ETC**: 0x209eCd33Fa61fA92167595eB3Aea92EE1905c815  
+ * **XMR**: 48QsMjqfkeW54vkgKyRnjodtYxdmLk6HXfTWPSZoaFPEDpoHDwFUciGCe1QC9VAeGrgGw4PKNAksX9RW7myFqYJQDN5cHGT
  
 ### Reviews / Articles:
  * [__XDA Discussion__](https://forum.xda-developers.com/fire-tv/general/guide-change-screen-keyboard-to-leankey-t3527675)
