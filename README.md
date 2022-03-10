@@ -36,7 +36,7 @@ __Standard installation via ADB__
 
 ### Donation:
 If you want to support my developments you are welcome to buy me a cup of coffee :)
- <!-- * [Patreon (**PayPal**)](https://www.patreon.com/smarttube)   -->
+ * [Patreon (**PayPal**)](https://www.patreon.com/leankeykeyboard)  
  * [QIWI (RU, Visa)](https://qiwi.com/n/GUESS025)  
  * [DonatePay (RU, **PayPal**, Visa)](https://new.donatepay.ru/@459197)  
  * **BTC**: 1JAT5VVWarVBkpVbNDn8UA8HXNdrukuBSx  
