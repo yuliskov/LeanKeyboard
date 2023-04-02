@@ -19,10 +19,12 @@ buildscript {
     // https://stackoverflow.com/questions/20404476/how-to-define-common-android-properties-for-all-modules-using-gradle
     // Gradle constants example: https://github.com/google/ExoPlayer
     ext {
-        compileSdkVersion = 29
+        // Google Play SDK version requirements:
+        // https://support.google.com/googleplay/android-developer/answer/11926878
+        compileSdkVersion = 33
         buildToolsVersion = "29.0.3"
         minSdkVersion = 14
-        targetSdkVersion = 29
+        targetSdkVersion = 33
         espressoCoreVersion = 'com.android.support.test.espresso:espresso-core:2.2.2'
         junitVersion = 'junit:junit:4.12'
         robolectricVersion = 'org.robolectric:robolectric:3.5.1'
