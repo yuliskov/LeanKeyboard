@@ -33,7 +33,7 @@ public class KbSettingsFragment extends BaseSettingsFragment {
     @NonNull
     @Override
     public Guidance onCreateGuidance(Bundle savedInstanceState) {
-        String title = getActivity().getResources().getString(R.string.kb_settings);
+        String title = getActivity().getResources().getString(R.string.ime_name);
         String desc = getActivity().getResources().getString(R.string.kb_settings_desc);
         Drawable icon = ContextCompat.getDrawable(getActivity(), R.drawable.ic_launcher);
 

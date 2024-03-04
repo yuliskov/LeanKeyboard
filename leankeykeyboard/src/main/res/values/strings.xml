@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ime_name" translatable="false">LeanKey Keyboard Pro</string>
-    <string name="ime_service_name" translatable="false">LeanKey Keyboard Pro</string>
+    <string name="ime_name" translatable="false">LeanKey Keyboard</string>
+    <string name="ime_service_name" translatable="false">LeanKey Keyboard</string>
     <string name="word_separators">" .,;:!?
         ()[]*&amp;@{}/&lt;>_+=|"
     </string>

@@ -2,12 +2,14 @@
 
 buildscript {
     repositories {
-        jcenter()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
         google()
+        mavenCentral()
+        // jcenter()
+        // maven {
+        //     url 'https://maven.google.com/'
+        //     name 'Google'
+        // }
+        // google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.0'
@@ -37,15 +39,17 @@ buildscript {
         supportXVersion = 'androidx.legacy:legacy-support-v4:1.0.0'
         leanbackCompatXVersion = 'androidx.leanback:leanback:1.0.0'
         designXVersion = 'com.google.android.material:material:1.0.0'
-        voiceOverlayVersion = 'com.algolia.instantsearch:voice:1.0.0-beta02' // https://github.com/algolia/voice-overlay-android
+        voiceOverlayVersion = 'com.algolia.instantsearch:voice:1.1.0' // https://github.com/algolia/voice-overlay-android
     }
 }
 
 allprojects {
     repositories {
-        jcenter()
+        google()
+        mavenCentral()
+        //jcenter()
         // com.android.support libs
-        maven { url 'https://maven.google.com' }
+        //maven { url 'https://maven.google.com' }
     }
 
     gradle.projectsEvaluated {

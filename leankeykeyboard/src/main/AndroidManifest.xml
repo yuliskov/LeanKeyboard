@@ -29,6 +29,7 @@
     <application
         android:banner="@mipmap/ic_banner_main"
         android:icon="@mipmap/ic_launcher_main"
+        android:roundIcon="@mipmap/ic_launcher_main_round"
         android:label="@string/ime_name"
         android:theme="@style/Theme.Leanback">
 
@@ -100,7 +101,7 @@
         <receiver
             android:name="com.liskovsoft.leankeyboard.receiver.RestartServiceReceiver"
             android:enabled="true"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED"/>
                 <action android:name="android.intent.action.PACKAGE_REMOVED"/>
