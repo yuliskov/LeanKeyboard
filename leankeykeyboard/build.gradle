@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    // Latest gradle fix: https://stackoverflow.com/questions/76300671/android-getting-error-namespace-not-specified
+    namespace 'com.liskovsoft.leankeykeyboard'
+
+    // Latest gradle fix: https://stackoverflow.com/questions/22604627/gradle-buildconfigfield-buildconfig-cannot-resolve-symbol
+    buildFeatures {
+        buildConfig = true
+    }
+
     // FIX: Default interface methods are only supported starting with Android N (--min-api 24)
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -14,8 +22,8 @@ android {
         applicationId "org.liskovsoft.leankeykeyboard.pro"
         minSdkVersion project.properties.minSdkVersion
         targetSdkVersion project.properties.targetSdkVersion
-        versionCode 192
-        versionName "6.1.22"
+        versionCode 194
+        versionName "6.1.24"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -33,7 +41,8 @@ android {
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             def project = "LeanKeyKeyboardPro"
-            def buildType = variant.variantData.variantConfiguration.buildType.name.take(1)
+            // Latest gradle fix: https://stackoverflow.com/questions/62075122/no-such-property-variantconfiguration-for-class
+            def buildType = variant.buildType.name.take(1)
             def version = variant.versionName
             def flavor = variant.productFlavors[-1].name
 

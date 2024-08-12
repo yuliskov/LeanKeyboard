@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.inputmethodservice.InputMethodService;
+import android.os.Build;
+import android.os.Build.VERSION;
 import android.view.KeyEvent;
 import android.view.inputmethod.InputConnection;
 import com.liskovsoft.leankeykeyboard.BuildConfig;
@@ -78,6 +80,7 @@ public class KeyMapperImeService extends InputMethodService {
         }
     };
 
+    @SuppressWarnings("UnspecifiedRegisterReceiverFlag")
     @Override
     public void onCreate() {
         super.onCreate();
@@ -88,7 +91,11 @@ public class KeyMapperImeService extends InputMethodService {
         intentFilter.addAction(KEY_MAPPER_INPUT_METHOD_ACTION_INPUT_UP);
         intentFilter.addAction(KEY_MAPPER_INPUT_METHOD_ACTION_TEXT);
 
-        registerReceiver(mBroadcastReceiver, intentFilter);
+        if (VERSION.SDK_INT < 33) {
+            registerReceiver(mBroadcastReceiver, intentFilter);
+        } else {
+            registerReceiver(mBroadcastReceiver, intentFilter, RECEIVER_EXPORTED);
+        }
     }
 
     @Override
