@@ -707,7 +707,9 @@ public class LeanbackKeyboardContainer {
                         configureFocus(newFocus, mRect, keyIdx, key, 0);
                     }
                 }
-            } else if (dir == DIRECTION_UP) {
+            }
+
+            if (dir == DIRECTION_UP) {
                 // Hide the keyboard when moving focus out of the keyboard
                 mContext.hideIme();
             }
