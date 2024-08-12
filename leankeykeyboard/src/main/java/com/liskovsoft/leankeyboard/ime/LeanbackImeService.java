@@ -293,7 +293,7 @@ public class LeanbackImeService extends KeyMapperImeService {
                 mKeyboardController.onGenericMotionEvent(event) || super.onGenericMotionEvent(event);
     }
 
-    public void onHideIme() {
+    public void hideIme() {
         requestHideSelf(InputMethodService.BACK_DISPOSITION_DEFAULT);
     }
 

@@ -701,11 +701,15 @@ public class LeanbackKeyboardContainer {
                     if (!LeanbackUtils.isSubmitButton(oldFocus)) {
                         offsetRect(mRect, mMainKeyboardView);
                         float y = dir == DIRECTION_DOWN ? 0 : mRect.bottom; // 0 - topmost position, bottom - downmost
-                        int keyIdx = mMainKeyboardView.getNearestIndex(oldFocus.rect.left - mRect.left, y);
+                        int delta = (oldFocus.rect.right - oldFocus.rect.left) / 2; // fix space position
+                        int keyIdx = mMainKeyboardView.getNearestIndex(oldFocus.rect.left + delta - mRect.left, y);
                         Key key = mMainKeyboardView.getKey(keyIdx);
                         configureFocus(newFocus, mRect, keyIdx, key, 0);
                     }
                 }
+            } else if (dir == DIRECTION_UP) {
+                // Hide the keyboard when moving focus out of the keyboard
+                mContext.hideIme();
             }
 
             String direction = "UNKNOWN";
@@ -896,7 +900,7 @@ public class LeanbackKeyboardContainer {
             return true;
         } else if (keyCode == LeanbackKeyboardView.KEYCODE_LANG_TOGGLE) {
             Helpers.startActivity(mContext, KbSettingsActivity.class);
-            mContext.onHideIme();
+            mContext.hideIme();
             return true;
         } else {
             if (mCurrKeyInfo.type == KeyFocus.TYPE_MAIN) {
@@ -1166,7 +1170,7 @@ public class LeanbackKeyboardContainer {
                 currentKeyboard.equals(nextKeyboard.abcKeyboard)) { // one keyboard in the list
             // Prompt user to select layout.
             Helpers.startActivity(mContext, KbLayoutActivity.class);
-            mContext.onHideIme();
+            mContext.hideIme();
         } else {
             mInitialMainKeyboard = nextKeyboard.abcKeyboard;
             mAbcKeyboard = nextKeyboard.abcKeyboard;
