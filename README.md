@@ -1,14 +1,14 @@
-![Logo of LeanKeyKeyboard](img/leankeykeyboard_logo_small.png "Logo of LeanKeyKeyboard") LeanKeyKeyboard
+![Logo of LeanKeyboard](img/leankeykeyboard_logo_small.png "Logo of LeanKeyKeyboard") LeanKeyKeyboard
 =========
 
 [![MPLv2 License](http://img.shields.io/badge/license-MPLv2-blue.svg?style=flat-square)](https://www.mozilla.org/MPL/2.0/)
 
-__LeanKeyKeyboard: Keyboard for Android-based set-top boxes and TVs:__
+__LeanKeyboard: Keyboard for Android-based set-top boxes and TVs:__
 
  * <a href="https://play.google.com/store/apps/details?id=org.liskovsoft.androidtv.rukeyboard" target="_blank">Google Play page</a>
- * <a href="https://t.me/LeanKeyKeyboard">Telegram group</a>
+ * <a href="https://t.me/LeanKeyboard">Telegram group</a>
 
-__NOTE: Google Play release is outdated. So I recommend to obtain new releases [here](https://github.com/yuliskov/LeanKeyKeyboard/releases).__
+__NOTE: Google Play release is outdated. So I recommend to obtain new releases [here](https://github.com/yuliskov/LeanKeyboard/releases).__
 
 ### Features:
  * Designed for TV screens.
@@ -24,14 +24,14 @@ __Tip: Do long press on the language button to choose between available language
 ### Screenshots:
  * __[Open screenshots](#screens)__
 
-### Install LeanKeyKeyboard:
+### Install LeanKeyboard:
 __Easy installation in less than 10 minutes with only FireTV__
- * <a href="https://github.com/yuliskov/LeanKeyKeyboard/wiki/How-to-Install-LeanKeyKeyboard-on-FireTV">Install LeanKeyKeyboard (only FireTV needed)</a>
+ * <a href="https://github.com/yuliskov/LeanKeyboard/wiki/How-to-Install-LeanKeyKeyboard-on-FireTV">Install LeanKeyKeyboard (only FireTV needed)</a>
 
 __Standard installation via ADB__
  * If you don't know how to sideload/install apps via ADB, read a tutorial (e.g. <a href="http://kodi.wiki/view/HOW-TO:Install_Kodi_on_Fire_TV" target="_blank">this one</a>)
- * <a href="https://github.com/yuliskov/LeanKeyKeyboard/releases" target="_blank">Download latest LeanKeyKeyboard APK</a> and sideload/install with adb: 
- * *adb install -r LeanKeyKeyboard.apk*
+ * <a href="https://github.com/yuliskov/LeanKeyboard/releases" target="_blank">Download latest LeanKeyKeyboard APK</a> and sideload/install with adb: 
+ * *adb install -r LeanKeyboard.apk*
  * Enjoy :)
 
 ### Donation:
@@ -53,7 +53,7 @@ If you want to support my developments you are welcome to buy me a cup of coffee
  * [__XDA Discussion__](https://forum.xda-developers.com/fire-tv/general/guide-change-screen-keyboard-to-leankey-t3527675)
  
 ### Changelog:
- * [Check releases page for changelog ..](https://github.com/yuliskov/LeanKeyKeyboard/releases)
+ * [Check releases page for changelog ..](https://github.com/yuliskov/LeanKeyboard/releases)
 
 ### Contributors:
  * __[aglt](https://github.com/aglt)__ (Icelandic lang)
@@ -63,6 +63,6 @@ If you want to support my developments you are welcome to buy me a cup of coffee
  * __[yuliskov](https://github.com/yuliskov)__ (design & coding)
 
 ### Screens:
-![Screenshot of LeanKeyKeyboard](img/leankeykeyboard_screenshot_01.png "Screenshot of LeanKeyKeyboard")
-![Screenshot of LeanKeyKeyboard](img/leankeykeyboard_screenshot_02.png "Screenshot of LeanKeyKeyboard")
-![Screenshot of LeanKeyKeyboard](img/leankeykeyboard_screenshot_03.png "Screenshot of LeanKeyKeyboard")
+![Screenshot of LeanKeyboard](img/leankeykeyboard_screenshot_01.png "Screenshot of LeanKeyKeyboard")
+![Screenshot of LeanKeyboard](img/leankeykeyboard_screenshot_02.png "Screenshot of LeanKeyKeyboard")
+![Screenshot of LeanKeyboard](img/leankeykeyboard_screenshot_03.png "Screenshot of LeanKeyKeyboard")

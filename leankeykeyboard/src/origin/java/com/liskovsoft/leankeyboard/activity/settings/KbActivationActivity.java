@@ -23,7 +23,7 @@ public class KbActivationActivity extends Activity {
     private static final String META_PACKAGE_NAME_ALT = "package_alt";
     private static final String META_CLASS_NAME_ALT = "class_alt";
     private static final String META_INTENT_NAME = "intent";
-    private static final String MANUAL_URL = "https://github.com/yuliskov/LeanKeyKeyboard/wiki/How-to-Install-LeanKeyKeyboard-on-FireTV";
+    private static final String MANUAL_URL = "https://github.com/yuliskov/LeanKeyboard/wiki/How-to-Install-LeanKeyKeyboard-on-FireTV";
     private List<Intent> mIntents = new ArrayList<>();
     private String mErrorMsg;
 

@@ -373,7 +373,7 @@ public class LeanbackImeService extends KeyMapperImeService {
             mSuggestionsFactory.createSuggestions();
             mKeyboardController.updateSuggestions(mSuggestionsFactory.getSuggestions());
 
-            // NOTE: FileManager+ rename item fix: https://t.me/LeanKeyKeyboard/931
+            // NOTE: FileManager+ rename item fix: https://t.me/LeanKeyboard/931
             // NOTE: Code below deletes text that has selection.
             //InputConnection connection = getCurrentInputConnection();
             //if (connection != null) {
