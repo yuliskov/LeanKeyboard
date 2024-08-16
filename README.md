@@ -1,4 +1,4 @@
-![Logo of LeanKeyboard](img/leankeykeyboard_logo_small.png "Logo of LeanKeyKeyboard") LeanKeyKeyboard
+![Logo of LeanKeyboard](img/leankeykeyboard_logo_small.png "Logo of LeanKeyboard") LeanKeyboard
 =========
 
 [![MPLv2 License](http://img.shields.io/badge/license-MPLv2-blue.svg?style=flat-square)](https://www.mozilla.org/MPL/2.0/)
@@ -63,6 +63,6 @@ If you want to support my developments you are welcome to buy me a cup of coffee
  * __[yuliskov](https://github.com/yuliskov)__ (design & coding)
 
 ### Screens:
-![Screenshot of LeanKeyboard](img/leankeykeyboard_screenshot_01.png "Screenshot of LeanKeyKeyboard")
-![Screenshot of LeanKeyboard](img/leankeykeyboard_screenshot_02.png "Screenshot of LeanKeyKeyboard")
-![Screenshot of LeanKeyboard](img/leankeykeyboard_screenshot_03.png "Screenshot of LeanKeyKeyboard")
+![Screenshot of LeanKeyboard](img/leankeykeyboard_screenshot_01.png "Screenshot of LeanKeyboard")
+![Screenshot of LeanKeyboard](img/leankeykeyboard_screenshot_02.png "Screenshot of LeanKeyboard")
+![Screenshot of LeanKeyboard](img/leankeykeyboard_screenshot_03.png "Screenshot of LeanKeyboard")
