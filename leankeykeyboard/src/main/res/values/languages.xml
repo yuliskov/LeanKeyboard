@@ -6,7 +6,8 @@
         <item>Русский|ru</item>
         <item>Українська|uk</item>
         <item>Deutsch|de</item>
-        <item>Български|bg</item>
+        <item>Български (Фонетичен)|bg</item>
+        <item>Български (БДС)|bg|azerty</item>
         <item>Nederlands|nl</item>
         <item>Français|fr</item>
         <item>Français (AZERTY)|fr|azerty</item>
