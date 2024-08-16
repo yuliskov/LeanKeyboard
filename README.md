@@ -38,7 +38,7 @@ __Standard installation via ADB__
 If you want to support my developments you are welcome to buy me a cup of coffee :)
  <!-- * [QIWI (RU, Visa)](https://qiwi.com/n/GUESS025)   -->
  <!-- * [DonatePay (RU, **PayPal**, Visa)](https://new.donatepay.ru/@459197)   -->
- * [**Patreon**](https://www.patreon.com/leankeykeyboard)  
+ * [**Patreon**](https://www.patreon.com/yuliskov)  
  * **PayPal**: firsthash at gmail.com
  * **BTC**: 1JAT5VVWarVBkpVbNDn8UA8HXNdrukuBSx  
  * **LTC**: ltc1qgc24eq9jl9cq78qnd5jpqhemkajg9vudwyd8pw  
