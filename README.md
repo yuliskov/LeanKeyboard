@@ -8,8 +8,6 @@ __LeanKeyboard: Keyboard for Android-based set-top boxes and TVs:__
  * <a href="https://play.google.com/store/apps/details?id=org.liskovsoft.androidtv.rukeyboard" target="_blank">Google Play page</a>
  * <a href="https://t.me/LeanKeyboard">Telegram group</a>
 
-__NOTE: Google Play release is outdated. So I recommend to obtain new releases [here](https://github.com/yuliskov/LeanKeyboard/releases).__
-
 ### Features:
  * Designed for TV screens.
  * Any remote controller support.
