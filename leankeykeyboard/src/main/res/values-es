@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ime_name" translatable="false">LeanKey Keyboard Pro</string>
+    <string name="ime_service_name" translatable="false">LeanKey Keyboard Pro</string>
+    <string name="word_separators">" .,;:!?
+        ()[]*&amp;@{}/&lt;>_+=|"
+    </string>
+    <string name="label_go_key">Ir</string>
+    <string name="label_next_key">Siguiente</string>
+    <string name="label_send_key">Enviar</string>
+    <string name="label_search_key">Buscar</string>
+    <string name="label_done_key">Hecho</string>
+    <string name="settings_title">Opciones del Teclado</string>
+    <string name="title_movement_sensitivity">Sensibilidad al movimiento</string>
+    <string name="btn_on">On</string>
+    <string name="btn_off">Off</string>
+    <string name="subtype_generic">%s</string>
+    <string name="keyboardview_keycode_space">Espacio</string>
+    <string name="keyboardview_keycode_delete">Borrar</string>
+    <string name="keyboardview_keycode_mode_change">Cambio de modo</string>
+    <string name="keyboardview_keycode_shift">Mayús</string>
+    <string name="keyboardview_keycode_lang">Idioma</string>
+    <string name="keyboardview_keycode_caps">Bloq Mayús</string>
+    <string name="keyboardview_keycode_left">Izquierda</string>
+    <string name="keyboardview_keycode_right">Derecha</string>
+    <string name="keyboardview_keycode_voice">Entrada de Voz</string>
+    <string name="keyboard_headset_required_to_hear_password">Conecte unos auriculares para escuchar las teclas de la contraseña en voz alta.</string>
+    <string name="keyboard_password_character_no_headset">Punto.</string>
+    <string name="language_dialog_title">Seleccionar diseños adicionales</string>
+    <string name="language_dialog_subtitle">Para abrir el diálogo la próxima vez, haga una pulsación larga en el botón \'mundo\'.</string>
+    <string name="user_name">Nombre de Usuario</string>
+    <string name="email_id">Email</string>
+    <string name="kb_layout_desc">Diseño del Teclado</string>
+    <string name="kb_layout">Diseño</string>
+    <string name="kb_settings">Ajustes</string>
+    <string name="kb_settings_desc">Ajustes del Teclado</string>
+    <string name="activate_keyboard">Activar Teclado</string>
+    <string name="change_layout">Cambiar Diseño</string>
+    <string name="enable_kb_in_system_prefs">Debe activar %s en las Preferencias del Sistema</string>
+    <string name="about">Acerca de</string>
+    <string name="about_desc">Acerca de la Aplicación</string>
+    <string name="keep_on_screen_desc">Mantenerlo en pantalla mientras el teclado físico esté activo</string>
+    <string name="misc">Miscelánea</string>
+    <string name="misc_desc">Ajustes Misceláneos</string>
+    <string name="keep_on_screen">Mantener en Pantalla</string>
+    <string name="keyboardview_keycode_clipboard">Portapapeles</string>
+    <string name="increase_kbd_size">Ampliar teclado</string>
+    <string name="increase_kbd_size_desc">Aumentar tamaño del teclado</string>
+    <string name="kbd_activation_error2">Ocurrió un error. Intente activar %s con comandos abajo.\n\n%s\n\n%s</string>
+    <string name="about_donate">Donar</string>
+    <string name="about_web_site">Sitio Web</string>
+    <string name="kbd_activation_error">No se pudo abrir los ajustes kdb del sistema.\nRedirigiendo al sitio con instrucciones manuales…</string>
+    <string name="about_issue">Enviar un informe de error</string>
+    <string name="about_releases">Obtener una nueva versión</string>
+    <string name="kb_theme">Tema</string>
+    <string name="kb_theme_desc">Tema del Teclado</string>
+    <string name="change_theme">Cambiar Tema</string>
+    <string name="enable_suggestions">Activar sugerencias</string>
+    <string name="enable_suggestions_desc">Activar fila de sugerencias</string>
+    <string name="show_launcher_icon">Mostrar icono</string>
+    <string name="show_launcher_icon_desc">Mostrar icono en el lanzador</string>
+    <string name="enable_cyclic_navigation">Navegación Cíclica</string>
+    <string name="enable_cyclic_navigation_desc">Navegación Cíclica mediante el teclado</string>
+</resources>
