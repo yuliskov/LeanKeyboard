@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="label_go_key">Pojdi</string>
+    <string name="label_next_key">Naslednji</string>
+    <string name="label_send_key">Poslji</string>
+    <string name="label_search_key">Iskanje</string>
+    <string name="label_done_key">Narejeno</string>
+    <string name="settings_title">Nastavitve tipkovnice</string>
+    <string name="title_movement_sensitivity">Obcutljivost gibanja</string>
+    <string name="btn_on">On</string>
+    <string name="btn_off">Off</string>
+    <string name="keyboardview_keycode_space">Presledek</string>
+    <string name="keyboardview_keycode_delete">Brisi</string>
+    <string name="keyboardview_keycode_mode_change">Sprememba nacina</string>
+    <string name="keyboardview_keycode_shift">Shift</string>
+    <string name="keyboardview_keycode_caps">Caps Lock</string>
+    <string name="keyboardview_keycode_left">Levo</string>
+    <string name="keyboardview_keycode_right">Desno</string>
+    <string name="keyboard_headset_required_to_hear_password">Prikljuci slusalke, da slisis izgovorjene tipke gesla.</string>
+    <string name="keyboard_password_character_no_headset">Pika.</string>
+    <string name="keyboardview_keycode_lang">Jezik</string>
+    <string name="language_dialog_title">Izberi dodatne postavitve</string>
+    <string name="language_dialog_subtitle">"Ce zelis naslednjic odpreti pogovorno okno, dolgo pritisni gumb \'svet\'</string>
+
+    <!--  BEGIN: autotranslated strings  -->
+    <string name="subtype_generic">%s</string>
+    <string name="keyboardview_keycode_voice">Glasovni vnos</string>
+    <string name="user_name">Uporabnisko ime</string>
+    <string name="email_id">E-posta</string>
+    <string name="kb_layout_desc">Razporeditev tipkovnice</string>
+    <string name="kb_layout">Postavitev</string>
+    <string name="kb_settings">Nastavitve</string>
+    <string name="kb_settings_desc">Nastavitve tipkovnice</string>
+    <string name="activate_keyboard">Omogoci tipkovnico</string>
+    <string name="change_layout">Spremeni postavitev</string>
+    <string name="enable_kb_in_system_prefs">%s morate omogociti v sistemskih nastavitvah</string>
+    <string name="about">Dogovor o</string>
+    <string name="about_desc">O aplikaciji</string>
+    <string name="keep_on_screen_desc">Naj bo na zaslonu, medtem ko je fizicna tipkovnica aktivna</string>
+    <string name="misc">Mesano</string>
+    <string name="misc_desc">Druge nastavitve</string>
+    <string name="keep_on_screen">Obdrzi zaslon</string>
+    <string name="keyboardview_keycode_clipboard">Izrez</string>
+    <string name="increase_kbd_size">Povecaj tipkovnico</string>
+    <string name="increase_kbd_size_desc">Povecaj velikost tipkovnice</string>
+    <string name="kbd_activation_error2">Prislo je do napake. Poskusi omogociti %s s spodnjimi ukazi. \n \n%s \n\n%s</string>
+    <string name="about_donate">Doniraj</string>
+    <string name="about_web_site">Domaca stran</string>
+    <string name="kbd_activation_error">Sistemskih nastavitev kbd ni mogoce odpreti. \n Pocakaj na spletno mesto z rocnimi navodili ...</string>
+    <string name="about_issue">Predlozi tezavo</string>
+    <string name="about_releases">Pridobi novo razlicico</string>
+    <string name="kb_theme">Tema</string>
+    <string name="kb_theme_desc">Tema tipkovnice</string>
+    <string name="change_theme">Spremeni temo</string>
+    <string name="enable_suggestions">Omogoci predloge</string>
+    <string name="enable_suggestions_desc">Omogoci vrstico s predlogi</string>
+    <string name="show_launcher_icon">Pokazi ikono</string>
+    <string name="show_launcher_icon_desc">Prikazi zacetno ikono</string>
+    <string name="enable_cyclic_navigation">Ciklicna navigacija</string>
+    <string name="enable_cyclic_navigation_desc">Ciklicno krmarjenje po tipkovnici</string>
+    <!--  END: autotranslated strings  -->
+</resources>
