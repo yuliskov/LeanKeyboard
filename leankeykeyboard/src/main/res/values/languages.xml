@@ -4,6 +4,7 @@
         <item>English|en_us</item>
         <item>English (AZERTY)|en_us|azerty</item>
         <item>Русский|ru</item>
+        <item>Русский (яЖерт)|ru_phonetic</item>
         <item>Українська|uk</item>
         <item>Deutsch|de</item>
         <item>Български (Фонетичен)|bg</item>
@@ -36,5 +37,6 @@
         <!-- Korean -->
         <item>한국어|ko_kr</item>
         <item>ქართული|ka</item>
+        <item>Հայերեն (Phonetic)|hy</item>
     </string-array>
 </resources>
