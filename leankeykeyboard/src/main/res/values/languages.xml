@@ -35,5 +35,7 @@
         <item>Türkçe|tr|azerty</item>
         <!-- Korean -->
         <item>한국어|ko_kr</item>
+        <!-- Portuguese (Portugal) -->
+        <item>Português|pt_pt</item>
     </string-array>
 </resources>

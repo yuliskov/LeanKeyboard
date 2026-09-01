@@ -63,3 +63,5 @@
         <Key android:codes="-4" android:keyEdgeFlags="right" android:keyLabel="@string/keyboardview_keycode_right" android:keyIcon="@drawable/ic_ime_right_arrow" />
     </Row>
 </Keyboard>
+
+<!-- PORTUGAL PATCH BY @ANONYMOUSIK -->
